@@ -111,7 +111,7 @@ watch(
 )
 
 const handleChange = (value: FieldValueType, column: PlusColumn) => {
-  emit('change', state.values, column)
   emit('update:modelValue', state.values)
+  emit('change', state.values, column)
 }
 </script>

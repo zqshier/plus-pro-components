@@ -194,8 +194,8 @@ watch(
 )
 
 const handleChange = async (values: FieldValues, column: PlusColumn) => {
-  emit('change', values, column)
   emit('update:modelValue', values)
+  emit('change', values, column)
 }
 
 const handleSearch = async () => {
@@ -204,8 +204,8 @@ const handleSearch = async () => {
 
 const handleReset = (): void => {
   state.values = { ...props.defaultValues }
-  emit('reset', state.values)
   emit('update:modelValue', state.values)
+  emit('reset', state.values)
 }
 
 const handleUnfold = () => {

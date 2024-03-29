@@ -241,8 +241,8 @@ watch(
 )
 
 const handleChange = (_: FieldValues, column: PlusColumn) => {
-  emit('change', state.values, column)
   emit('update:modelValue', state.values)
+  emit('change', state.values, column)
 }
 
 // 清空校验
