@@ -187,7 +187,7 @@ const handleClickAction = (
 ) => {
   const data: ButtonsCallBackParams = { row, buttonRow, index, e }
   if (buttonRow.confirm) {
-    const message = t('plus.table.confirmToPerformThisOperation')
+    let message = t('plus.table.confirmToPerformThisOperation')
     let title = t('plus.table.prompt')
     let options: ElMessageBoxOptions | undefined = undefined
     let appContext: AppContext | undefined | null = null
@@ -206,7 +206,7 @@ const handleClickAction = (
         : buttonRow.confirm.message
 
       if (tempMessage) {
-        title = tempMessage
+        message = tempMessage
       }
 
       options = buttonRow.confirm?.options
