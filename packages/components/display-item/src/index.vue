@@ -120,7 +120,7 @@
 
   <!-- 标签 -->
   <el-tag
-    v-else-if="column.valueType === 'tag'"
+    v-else-if="column.valueType === 'tag' && displayValue"
     class="plus-display-item"
     v-bind="customFieldProps"
   >
