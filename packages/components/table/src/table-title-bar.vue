@@ -153,7 +153,7 @@ import type { TitleBar } from './type'
 
 export interface PlusTableToolbarProps {
   columns?: PlusColumn[]
-  titleBar?: boolean | TitleBar
+  titleBar?: boolean | Partial<TitleBar>
   filterTableHeaderOverflowLabelLength?: number
   defaultSize?: ComponentSize
   changeColumns?: PlusColumn[]
