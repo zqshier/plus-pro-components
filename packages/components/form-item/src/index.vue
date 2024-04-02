@@ -8,13 +8,15 @@
   >
     <template v-if="hasLabel" #label="{ label: currentLabel }">
       <span class="plus-form-item__label">
-        <PlusRender
-          v-if="renderLabel && isFunction(renderLabel)"
-          :render="renderLabel"
-          :params="props"
-          :callback-value="currentLabel"
-          :custom-field-props="customFieldProps"
-        />
+        <template v-if="renderLabel && isFunction(renderLabel)">
+          <PlusRender
+            v-if="valueIsReady"
+            :render="renderLabel"
+            :params="props"
+            :callback-value="currentLabel"
+            :custom-field-props="customFieldProps"
+          />
+        </template>
 
         <slot
           v-else
@@ -36,15 +38,17 @@
       </span>
     </template>
 
-    <PlusRender
-      v-if="renderField && isFunction(renderField)"
-      :render="renderField"
-      :params="props"
-      :callback-value="state"
-      :custom-field-props="customFieldProps"
-      render-type="form"
-      :handle-change="handleChange"
-    />
+    <template v-if="renderField && isFunction(renderField)">
+      <PlusRender
+        v-if="valueIsReady"
+        :render="renderField"
+        :params="props"
+        :callback-value="state"
+        :custom-field-props="customFieldProps"
+        render-type="form"
+        :handle-change="handleChange"
+      />
+    </template>
 
     <slot
       v-else-if="$slots[getFieldSlotName(prop)]"
@@ -548,6 +552,7 @@ const customFormItemProps = ref<any>({})
 const customFieldProps = ref<any>({})
 const state = ref<FieldValueType>()
 const customFieldPropsIsReady = ref(false)
+const valueIsReady = ref(false)
 
 /**
  * 默认值是数组的情况
@@ -616,6 +621,7 @@ const setValue = (val: any) => {
   } else {
     state.value = val
   }
+  valueIsReady.value = true
 }
 
 /**
