@@ -24,13 +24,15 @@
   </PlusForm>
 
   <!-- 自定义显示 -->
-  <PlusRender
-    v-else-if="column.render && isFunction(column.render)"
-    :render="column.render"
-    :params="params"
-    :callback-value="displayValue"
-    :custom-field-props="customFieldProps"
-  />
+  <template v-else-if="column.render && isFunction(column.render)">
+    <PlusRender
+      v-if="customFieldPropsIsReady"
+      :render="column.render"
+      :params="params"
+      :callback-value="displayValue"
+      :custom-field-props="customFieldProps"
+    />
+  </template>
 
   <!-- 插槽 -->
   <slot
@@ -224,6 +226,7 @@ const formInstance = ref()
 const { customOptions: options } = useGetOptions(props.column)
 const columns: Ref<PlusColumn[]> = ref([])
 const subRow = ref(props.row)
+const customFieldPropsIsReady = ref(false)
 
 /** 多层值支持 */
 const displayValue = computed({
@@ -298,6 +301,7 @@ watch(
     getCustomProps(val, displayValue.value, subRow.value, props.index, 'fieldProps')
       .then(data => {
         customFieldProps.value = data
+        customFieldPropsIsReady.value = true
       })
       .catch(err => {
         throw err
