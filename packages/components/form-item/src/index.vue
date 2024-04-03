@@ -558,6 +558,10 @@ const valueIsReady = ref(false)
  * 默认值是数组的情况
  */
 const isArrayValue = computed(() => {
+  if (props.valueType === 'cascader' && customFieldProps.value?.props?.emitPath === false) {
+    return false
+  }
+
   if (ValueIsArrayList.includes(props.valueType as string)) {
     return true
   }
@@ -621,6 +625,7 @@ const setValue = (val: any) => {
   } else {
     state.value = val
   }
+  console.log(state.value, ' state.value')
   valueIsReady.value = true
 }
 
