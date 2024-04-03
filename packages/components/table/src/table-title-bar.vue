@@ -98,20 +98,40 @@
                 <slot name="drag-sort-icon">☷</slot>
               </div>
 
-              <el-checkbox
-                :label="getTableKey(item)"
-                :disabled="item.disabledHeaderFilter"
-                class="plus-table-title-bar__toolbar__checkbox__item"
-              >
-                <el-tooltip
-                  v-if="item.label?.length > filterTableHeaderOverflowLabelLength"
-                  :content="item.label"
-                  placement="right-start"
+              <!-- element-plus 版本号小于2.6.0 -->
+              <template v-if="versionIsLessThan260">
+                <el-checkbox
+                  :label="getTableKey(item)"
+                  :disabled="item.disabledHeaderFilter"
+                  class="plus-table-title-bar__toolbar__checkbox__item"
                 >
-                  {{ getLabel(item.label) }}
-                </el-tooltip>
-                <span v-else> {{ getLabel(item.label) }}</span>
-              </el-checkbox>
+                  <el-tooltip
+                    v-if="item.label?.length > filterTableHeaderOverflowLabelLength"
+                    :content="item.label"
+                    placement="right-start"
+                  >
+                    {{ getLabel(item.label) }}
+                  </el-tooltip>
+                  <span v-else> {{ getLabel(item.label) }}</span>
+                </el-checkbox>
+              </template>
+              <!-- element-plus 版本号大于等于2.6.0 -->
+              <template v-else>
+                <el-checkbox
+                  :value="getTableKey(item)"
+                  :disabled="item.disabledHeaderFilter"
+                  class="plus-table-title-bar__toolbar__checkbox__item"
+                >
+                  <el-tooltip
+                    v-if="item.label?.length > filterTableHeaderOverflowLabelLength"
+                    :content="item.label"
+                    placement="right-start"
+                  >
+                    {{ getLabel(item.label) }}
+                  </el-tooltip>
+                  <span v-else> {{ getLabel(item.label) }}</span>
+                </el-checkbox>
+              </template>
             </div>
           </div>
         </el-checkbox-group>
@@ -144,11 +164,14 @@ import { PlusPopover } from '@plus-pro-components/components/popover'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { CheckboxValueType } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-import { getTableKey, isPlainObject } from '@plus-pro-components/components/utils'
+import {
+  getTableKey,
+  isPlainObject,
+  versionIsLessThan260
+} from '@plus-pro-components/components/utils'
 import { ElCheckbox, ElCheckboxGroup, ElTooltip, ElIcon, ElButton } from 'element-plus'
 import type { SortableEvent, Options as SortableOptions } from 'sortablejs'
 import Sortable from 'sortablejs'
-
 import type { TitleBar } from './type'
 
 export interface PlusTableToolbarProps {
