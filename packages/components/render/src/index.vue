@@ -30,10 +30,6 @@ export interface PlusRenderProps {
   // eslint-disable-next-line vue/require-default-prop
   handleChange?: (...arg: any[]) => void
 }
-export interface PlusRenderEmits {
-  (e: 'update:modelValue', data: FieldValueType): void
-  (e: 'change', data: FieldValueType): void
-}
 
 defineOptions({
   name: 'PlusRender'
@@ -64,8 +60,6 @@ watch(
  */
 const renderComponent = () => {
   if (!props.render) return
-  /** params 回调第一个参数值 */
-  const value = state.value
 
   /** params 回调第二个参数值 */
   const params = { ...props.params } as PlusColumn
@@ -74,12 +68,12 @@ const renderComponent = () => {
   const dynamicComponent =
     props.renderType === 'form'
       ? (props.render as Exclude<PlusColumn['renderField'], undefined>)(
-          value,
+          state.value,
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           props.handleChange!,
           params as PlusColumn
         )
-      : (props.render as any)(value, params)
+      : (props.render as any)(state.value, params)
 
   /** VNode / J(T)SX  虚拟dom或者jsx */
   if (isVNode(dynamicComponent)) {
