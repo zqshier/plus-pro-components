@@ -95,14 +95,14 @@ const handleChange = (values: FieldValues, column: PlusColumn) => {
 // 上一步
 const pre = () => {
   if (active.value-- > props.data.length + 1) active.value = 1
-  emit('pre', active.value)
   emit('update:modelValue', active.value)
+  emit('pre', active.value)
 }
 
 // 下一步
 const next = (values: FieldValues) => {
   if (active.value++ > props.data.length - 1) active.value = props.data.length
-  emit('next', active.value, values)
   emit('update:modelValue', active.value)
+  emit('next', active.value, values)
 }
 </script>
