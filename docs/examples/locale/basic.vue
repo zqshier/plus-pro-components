@@ -7,10 +7,10 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import en from 'element-plus/dist/locale/en.mjs'
-import plusZhCn from 'plus-pro-components/locale/zh-cn.mjs'
-import plusEn from 'plus-pro-components/locale/en.mjs'
+import en from 'element-plus/es/locale/lang/en'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import plusZhCn from 'plus-pro-components/es/locale/lang/zh-cn'
+import plusEn from 'plus-pro-components/es/locale/lang/en'
 import DatePicker from '../date-picker/basic.vue'
 
 const zhCnLocales = {

@@ -2,6 +2,37 @@
 
 本记录只记录影响较大变更，对于[新功能、性能提升和问题修复](/guide/changelog.html)不在此记录。
 
+## 从 v0.0.7 迁移到 v0.0.8
+
+### 国际化文件导入方式修改
+
+- 导入文件报错
+
+```sh
+ERROR  failed to resolve import "plus-pro-components/locale/zh-cn.mjs"
+ERROR  failed to resolve import "plus-pro-components/locale/en.mjs"
+```
+
+- 解决方案
+
+```js
+import plusZhCn from 'plus-pro-components/locale/zh-cn.mjs' // [!code --]
+import plusZhCn from 'plus-pro-components/locale/zh-cn' // [!code ++]
+
+import plusEn from 'plus-pro-components/locale/en.mjs' // [!code --]
+import plusEn from 'plus-pro-components/locale/en' // [!code ++]
+```
+
+或者
+
+```js
+import plusZhCn from 'plus-pro-components/locale/zh-cn.mjs' // [!code --]
+import plusZhCn from 'plus-pro-components/es/locale/lang/zh-cn' // [!code ++]
+
+import plusEn from 'plus-pro-components/locale/en.mjs' // [!code --]
+import plusEn from 'plus-pro-components/es/locale/lang/en' // [!code ++]
+```
+
 ## 从 v0.0.4 迁移到 v0.0.5
 
 ### PlusSearch 搜索组件

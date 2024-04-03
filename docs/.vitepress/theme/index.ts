@@ -2,8 +2,8 @@ import DefaultTheme from 'vitepress/theme'
 import type { App } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
-import zhCn from 'element-plus/dist/locale/zh-cn.mjs'
-import plusZhCn from 'plus-pro-components/locale/zh-cn.mjs'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import plusZhCn from 'plus-pro-components/es/locale/lang/zh-cn'
 
 import PlusProComponents from 'plus-pro-components'
 // 导入plus-pro-components样式，alias 处理过，正常导入是plus-pro-components/index.min.css
