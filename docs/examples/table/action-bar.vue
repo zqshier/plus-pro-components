@@ -23,6 +23,15 @@
       :action-bar="{ buttons: buttons2, type: 'icon', showNumber: 2 }"
       @clickAction="handleClickButton"
     />
+    <div style="height: 40px" />
+    <el-divider><el-tag>v0.0.8</el-tag> text支持函数类型 ↓↓↓</el-divider>
+    <PlusTable
+      key="4"
+      :columns="tableConfig"
+      :table-data="tableData"
+      :action-bar="{ buttons: buttons3, showNumber: 2 }"
+      @clickAction="handleClickButton"
+    />
   </div>
 </template>
 
@@ -60,6 +69,7 @@ const TestServe = {
 const { tableData, buttons } = useTable<TableRow[]>()
 const { buttons: buttons1 } = useTable<TableRow[]>()
 const { buttons: buttons2 } = useTable<TableRow[]>()
+const { buttons: buttons3 } = useTable<TableRow[]>()
 
 buttons.value = [
   {
@@ -170,6 +180,16 @@ buttons2.value = [
     icon: DocumentCopy,
     props: {
       type: 'success'
+    }
+  }
+]
+buttons3.value = [
+  {
+    // 查看 v0.0.8开始支持
+    text: row => (row.status === '1' ? '开启' : '关闭'),
+    icon: View,
+    props: {
+      type: 'primary'
     }
   }
 ]

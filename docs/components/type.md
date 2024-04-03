@@ -110,8 +110,17 @@ import type { RecordType, ButtonsCallBackParams } from 'plus-pro-components'
 export interface ActionBarButtonsRow {
   /**
    * 操作文本
+   * 函数类型 v0.0.8 新增
    */
-  text: string | Ref<string> | ComputedRef<string>
+  text:
+    | string
+    | Ref<string>
+    | ComputedRef<string>
+    | ((
+        row: any,
+        index: number,
+        button: ActionBarButtonsRow
+      ) => string | Ref<string> | ComputedRef<string>)
   /**
    * 操作唯一code
    *
