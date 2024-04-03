@@ -59,6 +59,10 @@
       ],
       "require": "./lib/*.js"
     },
+    "./locale/*": {
+      "types": "./locale/*.d.ts",
+      "import": "./locale/*.mjs"
+    },
     "./*": "./*"
   },
   "unpkg": "index.js",
