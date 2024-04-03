@@ -1,3 +1,37 @@
+## [v0.0.8](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.7...v0.0.8) (2024-04-03)
+
+
+### ✨ Features
+
+* **components:** :sparkles: remove no-use PlusRenderEmits([3b88767](https://github.com/plus-pro-components/plus-pro-components/commit/3b88767)) by@xiaofei
+* **all:** Merge pull request [#106](https://github.com/plus-pro-components/plus-pro-components/pull/106) from plus-pro-components/gs([5c618ae](https://github.com/plus-pro-components/plus-pro-components/commit/5c618ae)) by@xiaofei
+* **all:** Merge branch 'gs' of github.com:plus-pro-components/plus-pro-components into gs([a0aee37](https://github.com/plus-pro-components/plus-pro-components/commit/a0aee37)) by@guosong
+* **all:** Merge pull request [#102](https://github.com/plus-pro-components/plus-pro-components/pull/102) from plus-pro-components/gs([529531f](https://github.com/plus-pro-components/plus-pro-components/commit/529531f)) by@xiaofei
+* **components:** :sparkles: actionBarBartonsRow.text add function types([ca3e982](https://github.com/plus-pro-components/plus-pro-components/commit/ca3e982)) by@guosong
+* **all:** Merge pull request [#88](https://github.com/plus-pro-components/plus-pro-components/pull/88) from nineaiyu/dev([1cce395](https://github.com/plus-pro-components/plus-pro-components/commit/1cce395)) by@fn(callback)
+* **all:** Merge pull request [#97](https://github.com/plus-pro-components/plus-pro-components/pull/97) from plus-pro-components/simmi([3aad93d](https://github.com/plus-pro-components/plus-pro-components/commit/3aad93d)) by@xiaofei
+* **all:** Merge pull request [#96](https://github.com/plus-pro-components/plus-pro-components/pull/96) from plus-pro-components/simmi([7639d12](https://github.com/plus-pro-components/plus-pro-components/commit/7639d12)) by@xiaofei
+* **all:** Merge pull request [#92](https://github.com/plus-pro-components/plus-pro-components/pull/92) from RJQingHuan/fix-table-action-message([2d7223b](https://github.com/plus-pro-components/plus-pro-components/commit/2d7223b)) by@xiaofei
+
+
+### ⚡ Performance Improvements
+
+* **components:** :zap: optimize 'render' performance([8d2510f](https://github.com/plus-pro-components/plus-pro-components/commit/8d2510f)) by@xiaofei
+* **components:** :zap: optimize 'renderField'  performance([ef61d44](https://github.com/plus-pro-components/plus-pro-components/commit/ef61d44)) by@xiaofei
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix cascader.props.emitPath value is false error([2f3cb25](https://github.com/plus-pro-components/plus-pro-components/commit/2f3cb25)) by@xiaofei
+* **components:** :bug: fix [el-checkbox] [API] label act as value is about to be deprecated([2982017](https://github.com/plus-pro-components/plus-pro-components/commit/2982017)) by@xiaofei
+* **components:** :bug: titleBar typescript([ffc5366](https://github.com/plus-pro-components/plus-pro-components/commit/ffc5366)) by@ex-cuishengnan
+* **components:** :bug: processing empty data in table component - tag([24b63c2](https://github.com/plus-pro-components/plus-pro-components/commit/24b63c2)) by@ex-cuishengnan
+* **components:** 修复message错误的显示为title的问题([c28c27e](https://github.com/plus-pro-components/plus-pro-components/commit/c28c27e)) by@LiuSonglin
+* **components:** :bug: fix first emit modelValue([28d2a15](https://github.com/plus-pro-components/plus-pro-components/commit/28d2a15)) by@isummer
+
+
+
+
 ## [v0.0.7](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.6...v0.0.7) (2024-03-27)
 
 
