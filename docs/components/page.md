@@ -79,6 +79,7 @@ page/crud
 | `isCard`              | 表格和搜索是否需要 el-card 包裹 默认 true                                                                                                                                                                                                  | `boolean`                                                                                                                      | `true`                                          | 否       |
 | `searchCardProps`     | 搜索外层的 el-card 的 props ，当 isCard 为 true 时生效                                                                                                                                                                                     | `object`                                                                                                                       | `{}`                                            | 否       |
 | `tableCardProps`      | 表格外层的 el-card 的 props ，当 isCard 为 true 时生效                                                                                                                                                                                     | `object`                                                                                                                       | `{}`                                            |
+| `immediate` | 是否立即执行`request`获取表格数据,如为`false`,组件渲染完成后将不会主动调用`request` | `boolean` | `true` |
 
 ## Page Events
 

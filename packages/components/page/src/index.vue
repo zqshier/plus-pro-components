@@ -186,6 +186,10 @@ export interface PlusPageProps {
   defaultPageInfo?: PageInfo
   defaultPageSizeList?: number[]
   pagination?: RecordType
+  /**
+   * 组件渲染完成后是否立即调用getList
+   */
+  immediate?: boolean
 }
 export interface PlusPageEmits {
   /**
@@ -217,7 +221,8 @@ const props = withDefaults(defineProps<PlusPageProps>(), {
   /**
    * 分页组件的其他参数，不包含total，modelValue，pageSizeList
    */
-  pagination: () => ({})
+  pagination: () => ({}),
+  immediate: true
 })
 const emit = defineEmits<PlusPageEmits>()
 
@@ -284,7 +289,8 @@ const getList = async () => {
   }
   loadingStatus.value = false
 }
-getList()
+
+if (props.immediate) getList()
 
 const handlePaginationChange = (_pageInfo: PageInfo): void => {
   pageInfo.value = _pageInfo
