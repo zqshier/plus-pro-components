@@ -1,5 +1,6 @@
 @use 'mixins/mixins' as *;
 @use 'mixins/function' as *;
+@use 'mixins/config' as *;
 
 @include b(input-tag) {
   width: fit-content;
@@ -48,6 +49,25 @@
     &.is-disabled {
       @include elb(input__wrapper) {
         box-shadow: none;
+      }
+    }
+  }
+}
+
+@include elb(form-item) {
+  &.is-error {
+    .#{$plus-namespace + -input-tag} {
+      border-color: getCssVar('color-danger');
+
+      .#{$el-namespace + -input__wrapper } {
+        box-shadow: none;
+
+        &.is-focus {
+          box-shadow: none !important;
+        }
+        &:hover {
+          box-shadow: none;
+        }
       }
     }
   }
