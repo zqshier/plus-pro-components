@@ -4,8 +4,8 @@ import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import plusZhCn from 'plus-pro-components/es/locale/lang/zh-cn'
-
-import PlusProComponents from 'plus-pro-components'
+// @ts-ignore
+import PlusProComponents from 'plus-pro-components-main'
 // 导入plus-pro-components样式，alias 处理过，正常导入是plus-pro-components/index.min.css
 import 'plus-pro-components-css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
