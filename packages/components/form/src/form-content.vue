@@ -2,7 +2,7 @@
   <el-row v-bind="rowProps">
     <el-col v-for="item in columns" :key="item.prop" v-bind="item.colProps || colProps">
       <PlusFormItem
-        v-model="state.values[item.prop]"
+        v-model="values[item.prop]"
         v-bind="item"
         :has-label="getHasLabel(item.hasLabel)"
         :label-width="getHasLabel(item.hasLabel) ? item.labelWidth : '0px'"
@@ -50,7 +50,7 @@
 
 <script lang="ts" setup>
 import type { Ref, ComputedRef } from 'vue'
-import { reactive, watch, unref } from 'vue'
+import { ref, watch, unref } from 'vue'
 import type { FormProps, RowProps, ColProps } from 'element-plus'
 import { ElRow, ElCol } from 'element-plus'
 import { PlusFormItem } from '@plus-pro-components/components/form-item'
@@ -69,9 +69,7 @@ export interface PlusFormContentProps extends /* @vue-ignore */ Partial<Mutable<
   rowProps?: Partial<Mutable<RowProps>>
   colProps?: Partial<Mutable<ColProps>>
 }
-export interface PlusFormContentState {
-  values: FieldValues
-}
+
 export interface PlusFormContentEmits {
   (e: 'update:modelValue', values: FieldValues): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
@@ -90,7 +88,7 @@ const props = withDefaults(defineProps<PlusFormContentProps>(), {
 })
 const emit = defineEmits<PlusFormContentEmits>()
 
-const state = reactive<PlusFormContentState>({ values: {} })
+const values = ref<values>()
 
 const getHasLabel = (hasLabel?: boolean | Ref<boolean> | ComputedRef<boolean>) => {
   const has = unref(hasLabel) as boolean
@@ -103,7 +101,7 @@ const getHasLabel = (hasLabel?: boolean | Ref<boolean> | ComputedRef<boolean>) =
 watch(
   () => props.modelValue,
   val => {
-    state.values = val
+    values.value = val
   },
   {
     immediate: true
@@ -111,7 +109,7 @@ watch(
 )
 
 const handleChange = (value: FieldValueType, column: PlusColumn) => {
-  emit('update:modelValue', state.values)
-  emit('change', state.values, column)
+  emit('update:modelValue', values.value)
+  emit('change', values.value, column)
 }
 </script>

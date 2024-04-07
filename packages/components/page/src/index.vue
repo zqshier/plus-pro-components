@@ -4,7 +4,7 @@
       <PlusSearch
         ref="plusSearchInstance"
         v-bind="search"
-        v-model="state.params"
+        v-model="values"
         :columns="columns"
         :search-loading="loadingStatus"
         @search="handleSearch"
@@ -117,7 +117,7 @@ import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/componen
 import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
 import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
 import type { Ref, Component } from 'vue'
-import { h, reactive, ref, useSlots, computed } from 'vue'
+import { h, ref, useSlots, computed } from 'vue'
 import type { CardProps } from 'element-plus'
 import { ElCard } from 'element-plus'
 import { useTable } from '@plus-pro-components/hooks'
@@ -200,10 +200,6 @@ export interface PlusPageEmits {
   (e: 'reset', data: FieldValues): void
   (e: 'paginationChange', pageInfo: PageInfo): void
 }
-export interface PlusPageState {
-  params: FieldValues
-  values: FieldValues
-}
 
 const props = withDefaults(defineProps<PlusPageProps>(), {
   params: () => ({}),
@@ -242,11 +238,7 @@ const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
 const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPageInfo)
 const plusSearchInstance = ref<any>()
 const plusTableInstance = ref<any>()
-const state: PlusPageState = reactive({
-  params: { ...(props.search as any)?.defaultValues },
-  values: {}
-})
-
+const values = ref({ ...(props.search as any)?.defaultValues })
 const slots = useSlots()
 /**
  * 表格单元格的插槽
@@ -277,7 +269,7 @@ const getList = async () => {
   try {
     loadingStatus.value = true
     const { data, total: dataTotal } = await props.request({
-      ...state.params,
+      ...values.value,
       ...pageInfo.value,
       ...props.params
     })
@@ -303,16 +295,16 @@ const handlePaginationChange = (_pageInfo: PageInfo): void => {
 
 const handleSearch = (values: any) => {
   const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(values)) || values
-  state.params = data
+  values.value = data
   getList()
-  emit('search', state.params)
+  emit('search', values.value)
 }
 
 const handleRest = (values: any) => {
-  state.params = { ...values }
+  values.value = { ...values }
   pageInfo.value.page = 1
   getList()
-  emit('reset', state.params)
+  emit('reset', values.value)
 }
 
 const handleRefresh = () => {

@@ -32,7 +32,7 @@
           </template>
 
           <PlusFormContent
-            v-model="state.values"
+            v-model="values"
             :row-props="rowProps"
             :col-props="colProps"
             :columns="filterHide(groupItem.columns)"
@@ -64,10 +64,10 @@
       <!-- 普通表单 -->
       <template v-else>
         <PlusFormContent
-          v-model="state.values"
+          v-model="values"
           :row-props="rowProps"
           :col-props="colProps"
-          :columns="state.subColumns"
+          :columns="subColumns"
           :has-label="hasLabel"
           @change="handleChange"
         >
@@ -116,7 +116,7 @@
 
 <script lang="ts" setup>
 import type { Component } from 'vue'
-import { reactive, ref, watch, computed, useSlots, unref } from 'vue'
+import { ref, watch, computed, useSlots, unref } from 'vue'
 import type { FormInstance, FormRules, FormProps, RowProps, ColProps } from 'element-plus'
 import { ElMessage, ElForm, ElCard, ElButton, ElIcon } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
@@ -198,14 +198,12 @@ const emit = defineEmits<PlusFormEmits>()
 
 const { t } = useLocale()
 const formInstance = ref<FormInstance>()
-const state = reactive<PlusFormState>({
-  values: { ...props.modelValue },
-  subColumns: []
-})
+const values = ref<FieldValues>()
+
 const filterHide = (columns: PlusColumn[]) => {
   return columns.filter(item => unref(item.hideInForm) !== true)
 }
-const model = computed(() => state.values)
+const model = computed(() => values.value)
 const style = computed(() => ({
   justifyContent:
     props.footerAlign === 'left'
@@ -214,7 +212,7 @@ const style = computed(() => ({
       ? 'center'
       : 'flex-end'
 }))
-state.subColumns = computed<any>(() => filterHide(props.columns))
+const subColumns = computed<any>(() => filterHide(props.columns))
 const slots = useSlots()
 /**
  * 表单label的插槽
@@ -233,7 +231,7 @@ const extraSlots = filterSlots(slots, getExtraSlotName())
 watch(
   () => props.modelValue,
   val => {
-    state.values = val
+    values.value = val
   },
   {
     immediate: true
@@ -241,8 +239,8 @@ watch(
 )
 
 const handleChange = (_: FieldValues, column: PlusColumn) => {
-  emit('update:modelValue', state.values)
-  emit('change', state.values, column)
+  emit('update:modelValue', values.value)
+  emit('change', values.value, column)
 }
 
 // 清空校验
@@ -254,7 +252,7 @@ const handleSubmit = async () => {
   try {
     const valid = await formInstance.value?.validate()
     if (valid) {
-      emit('submit', state.values)
+      emit('submit', values.value)
       return true
     }
   } catch (errors: any) {
@@ -270,9 +268,9 @@ const handleSubmit = async () => {
 
 const handleReset = (): void => {
   clearValidate()
-  state.values = { ...props.defaultValues }
-  emit('update:modelValue', state.values)
-  emit('reset', state.values)
+  values.value = { ...props.defaultValues }
+  emit('update:modelValue', values.value)
+  emit('reset', values.value)
 }
 
 defineExpose({

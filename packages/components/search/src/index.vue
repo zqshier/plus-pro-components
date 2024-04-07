@@ -2,7 +2,7 @@
   <PlusForm
     ref="plusFormInstance"
     v-bind="$attrs"
-    v-model="state.values"
+    v-model="values"
     :inline="inline"
     :row-props="rowProps"
     :col-props="colProps"
@@ -48,7 +48,7 @@
           </el-button>
 
           <el-button
-            v-if="hasUnfold && state.originData.length > showNumber"
+            v-if="hasUnfold && originData.length > showNumber"
             type="primary"
             link
             @click="handleUnfold"
@@ -69,7 +69,7 @@
 import type { PlusFormInstance } from '@plus-pro-components/components/form'
 import { PlusForm } from '@plus-pro-components/components/form'
 import type { Ref } from 'vue'
-import { reactive, ref, toRefs, computed, watch, unref, useSlots } from 'vue'
+import { ref, computed, watch, unref, useSlots } from 'vue'
 import type { FormProps, RowProps, ColProps } from 'element-plus'
 import { ArrowDown, ArrowUp, Search, RefreshRight } from '@element-plus/icons-vue'
 import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
@@ -97,12 +97,7 @@ export interface PlusSearchProps extends /* @vue-ignore */ Partial<Mutable<FormP
   rowProps?: Partial<Mutable<RowProps>>
   colProps?: Partial<Mutable<ColProps>>
 }
-export interface PlusSearchState {
-  values: FieldValues
-  isShowUnfold: boolean
-  subColumns: any
-  originData: any
-}
+
 export interface PlusSearchEmits {
   (e: 'update:modelValue', values: FieldValues): void
   (e: 'search', values: FieldValues): void
@@ -142,13 +137,9 @@ const emit = defineEmits<PlusSearchEmits>()
 
 const { t } = useLocale()
 const plusFormInstance = ref<any>()
-const state = reactive<PlusSearchState>({
-  values: {},
-  subColumns: [],
-  originData: [],
-  isShowUnfold: false
-})
 
+const isShowUnfold = ref<boolean>(false)
+const values = ref<FieldValues>()
 const slots = useSlots()
 
 /**
@@ -165,7 +156,7 @@ const fieldSlots = filterSlots(slots, getFieldSlotName())
  */
 const extraSlots = filterSlots(slots, getExtraSlotName())
 
-state.originData = computed<any[]>(() => {
+const originData = computed<any[]>(() => {
   return (
     props.columns
       .filter(item => unref(item.hideInSearch) !== true)
@@ -174,19 +165,18 @@ state.originData = computed<any[]>(() => {
   )
 })
 
-state.subColumns = computed<any[]>(() => {
-  const data = state.originData
-  if (props.hasUnfold && !state.isShowUnfold) {
-    return data.slice(0, props.showNumber)
+const subColumns = computed<any[]>(() => {
+  if (props.hasUnfold && !isShowUnfold.value) {
+    return originData.value.slice(0, props.showNumber)
   } else {
-    return data
+    return originData.value
   }
 })
 
 watch(
   () => props.modelValue,
   val => {
-    state.values = val
+    values.value = val
   },
   {
     immediate: true
@@ -199,18 +189,18 @@ const handleChange = async (values: FieldValues, column: PlusColumn) => {
 }
 
 const handleSearch = async () => {
-  emit('search', state.values)
+  emit('search', values.value)
 }
 
 const handleReset = (): void => {
-  state.values = { ...props.defaultValues }
-  emit('update:modelValue', state.values)
-  emit('reset', state.values)
+  values.value = { ...props.defaultValues }
+  emit('update:modelValue', values.value)
+  emit('reset', values.value)
 }
 
 const handleUnfold = () => {
-  state.isShowUnfold = !state.isShowUnfold
-  emit('collapse', state.isShowUnfold)
+  isShowUnfold.value = !isShowUnfold.value
+  emit('collapse', isShowUnfold.value)
 }
 
 defineExpose({
@@ -219,6 +209,4 @@ defineExpose({
   handleSearch,
   handleUnfold
 })
-
-const { isShowUnfold, subColumns } = toRefs(state)
 </script>
