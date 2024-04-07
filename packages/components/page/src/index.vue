@@ -290,7 +290,9 @@ const getList = async () => {
   loadingStatus.value = false
 }
 
-if (props.immediate) getList()
+if (props.immediate) {
+  getList()
+}
 
 const handlePaginationChange = (_pageInfo: PageInfo): void => {
   pageInfo.value = _pageInfo
