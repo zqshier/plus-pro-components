@@ -1,6 +1,6 @@
 name: 🧪 Unit Test
 
-on:
+on:  
   push:
     branches: [main, dev]
 
@@ -44,12 +44,6 @@ jobs:
       - name: Install dependencies
         run: pnpm i  --no-frozen-lockfile
 
-      - name: Build utils
-        run: pnpm build:utils
-
-      - name: Build eslint-config
-        run: pnpm build:eslint-config
-
       - name: Lint
         run: pnpm lint
 
@@ -91,12 +85,6 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm i  --no-frozen-lockfile
-
-      - name: Build utils
-        run: pnpm build:utils
 
       - name: Test
         run: pnpm test
