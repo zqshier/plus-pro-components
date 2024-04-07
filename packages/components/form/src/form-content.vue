@@ -88,7 +88,7 @@ const props = withDefaults(defineProps<PlusFormContentProps>(), {
 })
 const emit = defineEmits<PlusFormContentEmits>()
 
-const values = ref<values>()
+const values = ref<FieldValues>()
 
 const getHasLabel = (hasLabel?: boolean | Ref<boolean> | ComputedRef<boolean>) => {
   const has = unref(hasLabel) as boolean
