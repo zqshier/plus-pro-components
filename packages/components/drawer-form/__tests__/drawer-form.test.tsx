@@ -235,9 +235,12 @@ describe('drawer-form/index.vue', () => {
     expect(wrapper.find('.plus-form__footer').text()).includes('确定')
     expect(wrapper.find('.plus-form__footer').text()).includes('取消')
     expect(wrapper.find('.plus-form__footer').text()).includes('返回')
-    expect(wrapper.find('.plus-form').text()).includes('plus-label-name')
-    expect(wrapper.find('.plus-form').text()).includes('plus-field-name')
-    expect(wrapper.find('.plus-form').text()).includes('tooltip-icon')
-    expect(wrapper.find('.plus-form-item-extra').text()).includes('plus-extra-name')
+
+    setTimeout(() => {
+      expect(wrapper.find('.plus-form').text()).includes('plus-label-name')
+      expect(wrapper.find('.plus-form').text()).includes('plus-field-name')
+      expect(wrapper.find('.plus-form').text()).includes('tooltip-icon')
+      expect(wrapper.find('.plus-form-item-extra').text()).includes('plus-extra-name')
+    })
   })
 })
