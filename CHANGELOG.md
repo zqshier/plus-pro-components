@@ -1,3 +1,25 @@
+## [v0.0.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.8...v0.0.9) (2024-04-07)
+
+
+### ✨ Features
+
+* **all:** Merge pull request [#114](https://github.com/plus-pro-components/plus-pro-components/pull/114) from RJQingHuan/feat-page-immediate([b01c23c](https://github.com/plus-pro-components/plus-pro-components/commit/b01c23c)) by@xiaofei
+* **components:** add immediate prop to PlusPage([175dbd5](https://github.com/plus-pro-components/plus-pro-components/commit/175dbd5)) by@LiuSonglin
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: validate two times before reset([19231ee](https://github.com/plus-pro-components/plus-pro-components/commit/19231ee)) by@xiaofei
+* **theme-chalk:** :bug: fix date-picker input-tag '.is-error' style issue([db2cb83](https://github.com/plus-pro-components/plus-pro-components/commit/db2cb83)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: replace reactive with ref([8ec267d](https://github.com/plus-pro-components/plus-pro-components/commit/8ec267d)) by@xiaofei
+
+
 ## [v0.0.8](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.7...v0.0.8) (2024-04-03)
 
 
