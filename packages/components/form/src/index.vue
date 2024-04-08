@@ -198,7 +198,7 @@ const emit = defineEmits<PlusFormEmits>()
 
 const { t } = useLocale()
 const formInstance = ref<FormInstance>()
-const values = ref<FieldValues>()
+const values = ref<FieldValues>({})
 
 const filterHide = (columns: PlusColumn[]) => {
   return columns.filter(item => unref(item.hideInForm) !== true)

@@ -139,7 +139,7 @@ const { t } = useLocale()
 const plusFormInstance = ref<any>()
 
 const isShowUnfold = ref<boolean>(false)
-const values = ref<FieldValues>()
+const values = ref<FieldValues>({})
 const slots = useSlots()
 
 /**
@@ -188,7 +188,7 @@ const handleChange = async (values: FieldValues, column: PlusColumn) => {
   emit('change', values, column)
 }
 
-const handleSearch = async () => {
+const handleSearch = () => {
   emit('search', values.value)
 }
 
