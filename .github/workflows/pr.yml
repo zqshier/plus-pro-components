@@ -1,4 +1,4 @@
-name: PR 
+name: 🥛 PR 
 
 on: pull_request
 
@@ -8,35 +8,22 @@ concurrency:
 
 jobs:
   build:
-    name: Build ${{ matrix.os }} ${{ matrix.node-name }}
-    runs-on: ${{ matrix.os }}
-
-    strategy:
-      matrix:
-        node-version: [16]
-        os: [ubuntu-latest, windows-latest]
-        include:
-          - node-version:  16.18.0
-            node-name: LTS
-          # - node-version: 18
-          #   node-name: Current
-
-      fail-fast: false
-
-    env:
-      PULL_REQUEST_NUMBER: ${{ github.event.number }}
-
+    name: PR  
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8.5.0
 
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16.18.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -60,8 +47,4 @@ jobs:
 
       - name: Build
         run: pnpm build
-        env:
-          FORCE_COLOR: 2
-          NODE_OPTIONS: --max-old-space-size=4096
-
- 
+    

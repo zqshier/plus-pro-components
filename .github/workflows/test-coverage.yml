@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  lint:
     name: Coverage
     runs-on: ubuntu-latest
 
@@ -18,11 +18,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Add dev branch
-        run: git branch dev origin/dev
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 8.5.0
 
       - name: Setup node
         uses: actions/setup-node@v3
@@ -47,8 +46,4 @@ jobs:
 
       - name: Coverage
         run: pnpm run test:coverage
-
-      - uses: davelosert/vitest-coverage-report-action@v2.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          file-coverage-mode: changes
+ 
