@@ -60,7 +60,8 @@
     "element-plus": "^2.5.3",
     "lodash-es": "^4.17.21",
     "sortablejs": "^1.15.0",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-tsc": "1.8.27"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
