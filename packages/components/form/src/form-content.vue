@@ -1,5 +1,5 @@
 <template>
-  <el-row v-bind="rowProps">
+  <el-row v-bind="rowProps" class="plus-form__row">
     <el-col v-for="item in columns" :key="item.prop" v-bind="item.colProps || colProps">
       <PlusFormItem
         v-model="values[item.prop]"
@@ -88,7 +88,7 @@ const props = withDefaults(defineProps<PlusFormContentProps>(), {
 })
 const emit = defineEmits<PlusFormContentEmits>()
 
-const values = ref<FieldValues>()
+const values = ref<FieldValues>({})
 
 const getHasLabel = (hasLabel?: boolean | Ref<boolean> | ComputedRef<boolean>) => {
   const has = unref(hasLabel) as boolean

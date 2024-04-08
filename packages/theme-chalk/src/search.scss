@@ -2,6 +2,12 @@
 @use 'mixins/config' as *;
 
 @include b(search) {
+  &.#{$el-namespace + -form--inline} {
+    .#{$el-namespace + -form-item} {
+      margin-right: 0;
+    }
+  }
+
   @include e(button__wrapper) {
     flex: auto;
     max-width: 100%;
