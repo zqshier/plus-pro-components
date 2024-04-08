@@ -7,7 +7,7 @@ on:
 
 jobs:
   lint:
-    name: Coverage
+    name: Typecheck
     runs-on: ubuntu-latest
 
     steps:
