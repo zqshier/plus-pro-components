@@ -533,6 +533,7 @@ const ElInput: Component = InputComponent
 const ElText: Component = TextComponent
 
 const props = withDefaults(defineProps<PlusFormItemProps>(), {
+  label: '',
   modelValue: '',
   hasLabel: true,
   tooltip: '',
