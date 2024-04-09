@@ -43,6 +43,9 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Lint
+        run: pnpm lint
+        
+      - name: Unit Test
         run: pnpm test
 
       - name: Typecheck

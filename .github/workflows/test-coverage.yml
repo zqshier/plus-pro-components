@@ -45,5 +45,5 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       - name: Coverage
-        run: pnpm run test:coverage
+        run: pnpm run coverage
  
