@@ -74,6 +74,14 @@ plus-pro-components is a Vue and element plus based component library that provi
 
 [Local Development Guidelines](https://plus-pro-components.github.io/guide/dev.html)
 
+## Donate
+
+If you find this project useful, you can buy author a glass of juice 🍹
+
+| Wechat                                                                                               | Alipay                                                                                                |
+| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx.jpg" height="188" width="188"> | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/ali.jpg" height="188" width="188"> |
+
 ## LICENSE
 
 MIT

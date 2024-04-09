@@ -74,6 +74,14 @@ plus-pro-components 是一个基于 Vue 和 element-plus 的组件库，它提�
 
 [本地开发指南](https://plus-pro-components.com/guide/dev.html)
 
+## 捐赠
+
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹
+
+| 微信                                                                                              | 支付宝                                                                                                |
+| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx.jpg" height="188" width="188"> | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/ali.jpg" height="188" width="188"> |
+
 ## LICENSE
 
 MIT
