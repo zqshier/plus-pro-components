@@ -485,7 +485,7 @@ import {
 export interface PlusFormItemProps {
   modelValue?: FieldValueType
   hasLabel?: PlusColumn['hasLabel']
-  label: PlusColumn['label']
+  label?: PlusColumn['label']
   prop: PlusColumn['prop']
   fieldProps?: PlusColumn['fieldProps']
   valueType?: PlusColumn['valueType']

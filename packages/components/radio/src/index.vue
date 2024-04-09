@@ -22,7 +22,7 @@
             v-else-if="isFunction(fieldChildrenSlot)"
             v-bind="item"
           />
-          <template v-else> {{ item.label }} </template>
+          <template v-else> {{ item?.label }} </template>
         </template>
       </el-radio>
     </template>
@@ -44,7 +44,7 @@
             v-else-if="isFunction(fieldChildrenSlot)"
             v-bind="item"
           />
-          <template v-else> {{ item.label }} </template>
+          <template v-else> {{ item?.label }} </template>
         </template>
       </el-radio>
     </template>

@@ -1,9 +1,9 @@
 <template>
   <el-descriptions :title="title" :column="column" class="plus-description" border v-bind="$attrs">
     <slot>
-      <template v-for="item in subColumns" :key="item.label">
+      <template v-for="item in subColumns" :key="item.prop">
         <el-descriptions-item
-          :label="item.label"
+          :label="item?.label"
           :class-name="(item.descriptionsItemProps?.className || '') + ' plus-description__name'"
           :label-class-name="
             (item.descriptionsItemProps?.labelClassName || '') + ' plus-description__label'
@@ -14,7 +14,7 @@
             <component
               :is="item.renderDescriptionsLabel"
               v-if="item.renderDescriptionsLabel && isFunction(item.renderDescriptionsLabel)"
-              :label="item.label"
+              :label="item.label || ''"
               :column="item"
               :row="data"
             />
@@ -25,12 +25,12 @@
                 :name="getDescLabelSlotName(item.prop)"
                 :column="item"
                 :row="data"
-                :label="item.label"
+                :label="item?.label"
               />
             </template>
 
             <!-- normal -->
-            <template v-else>{{ item.label }}</template>
+            <template v-else>{{ item?.label }}</template>
           </template>
 
           <!-- renderDescriptionsItem -->
