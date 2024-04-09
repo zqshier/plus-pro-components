@@ -4,7 +4,7 @@
 
 **Frontend components at the page level**
 
-**English** | [中文](https://github.com/plus-pro-components/plus-pro-components/blob/main/README.zh-CN.md)
+**English** | [中文](https://github.com/plus-pro-components/plus-pro-components/blob/dev/README.zh-CN.md)
 
 ## Documentation
 
@@ -39,7 +39,7 @@ plus-pro-components is a page level component library based on Vue and element p
 - [x] DialogForm -- Finished
 - [x] DrawerForm -- Finished
 - [x] Descriptions -- Finished
-- [] Layout -- developing
+- [x] Layout -- Finished
 
 # Built-in Components List
 
@@ -50,16 +50,15 @@ plus-pro-components is a page level component library based on Vue and element p
 - [x] InputTag -- Finished
 - [x] DisplayItem -- Finished
 - [x] FormItem -- Finished
-- [] Sidebar -- developing
-- [] Breadcrumb -- developing
-- [] Header -- developing
-- [] Footer -- developing
+- [x] Sidebar -- Finished
+- [x] Breadcrumb -- Finished
+- [x] Header -- Finished
 
 ## shortcoming
 
 plus-pro-components is a Vue and element plus based component library that provides many commonly used UI and business components, making it easy for developers to quickly build front-end pages. Although plus-pro components have many advantages, they also have the following drawbacks:
 
-- High learning costs:plus-pro-components is relatively complex, and learning all components may take a long time. Therefore, for novice developers, the learning cost may be relatively high.
+- Higher learning costs:plus-pro-components is relatively complex, and learning all components may take a long time. Therefore, for novice developers, the learning cost may be relatively high.
 
 - Highly customizable limited: plus-pro-components support high customizability, but it is still impossible to guarantee 100% complete customization of the components. Projects with very high customization requirements should be used with caution.
 
@@ -74,6 +73,14 @@ plus-pro-components is a Vue and element plus based component library that provi
 ## Local Development Guidelines
 
 [Local Development Guidelines](https://plus-pro-components.github.io/guide/dev.html)
+
+## Donate
+
+If you find this project useful, you can buy author a glass of juice 🍹
+
+| Wechat                                                                                                         | Alipay                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx.jpg" height="188" width="188"> | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/ali.jpg" height="188" width="188"> |
 
 ## LICENSE
 

@@ -1,6 +1,15 @@
 <template>
   <div>
-    <PlusTable ref="plusTableInstance" :columns="tableConfig" :table-data="tableData" />
+    <PlusTable
+      ref="plusTableInstance"
+      :columns="tableConfig"
+      :table-data="tableData"
+      :title-bar="{
+        columnSetting: {
+          dragSort: false
+        }
+      }"
+    />
 
     <el-row style="margin-top: 10px">
       <el-button @click="handleStart(0)"> 开启第一行编辑 </el-button>
@@ -28,6 +37,7 @@ interface TableRow {
   rate: number
   switch: boolean
   time: string
+  tag: string
 }
 
 const TestServe = {
@@ -39,9 +49,11 @@ const TestServe = {
         status: String(index % 3),
         rate: index > 3 ? 2 : 3.5,
         switch: index % 2 === 0 ? true : false,
-        time: index < 2 ? '' : new Date()
+        time: index < 2 ? '' : new Date(),
+        tag: index === 1 ? 'success' : index === 2 ? 'warning' : index === 3 ? 'info' : ''
       }
     })
+
     return { data: data as TableRow[] }
   }
 }
@@ -110,6 +122,12 @@ const tableConfig = ref<PlusColumn[]>([
     width: 200,
     prop: 'rate',
     valueType: 'rate'
+  },
+  {
+    label: '标签',
+    width: 200,
+    prop: 'tag',
+    valueType: 'tag'
   },
   {
     label: '开关',

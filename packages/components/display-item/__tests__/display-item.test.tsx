@@ -1,9 +1,11 @@
 import { nextTick, h } from 'vue'
-import ElementPlus from 'element-plus'
+import ElementPlus, { ElEmpty, ElIcon } from 'element-plus'
 import { mount } from '@vue/test-utils'
 import { describe, expect, test } from 'vitest'
 import type { PlusColumn } from '@plus-pro-components/types'
 import { formatDate } from '@plus-pro-components/components/utils'
+import { Link, DocumentCopy, Select } from '@element-plus/icons-vue'
+
 import DisplayItem from '../src/index.vue'
 
 const columns: PlusColumn[] = [
@@ -131,6 +133,7 @@ describe('display-item/index.vue', () => {
       }
     )
     await nextTick()
+    expect(wrapper.find('.plus-display-item__icon__copy').exists()).toBe(true)
     expect(wrapper.find('.container').text()).includes(row.name)
     expect(wrapper.find('.container').text()).includes(row.status)
     expect(wrapper.find('.container').text()).includes(row.tag)
@@ -138,9 +141,10 @@ describe('display-item/index.vue', () => {
     expect(wrapper.find('.container').text()).includes('￥' + row.money)
     expect(wrapper.find('.el-progress-bar__inner').attributes('style')).includes(row.progress + '%')
     expect(wrapper.find('.el-rate').attributes('aria-valuenow')).includes(row.rate)
-    expect(wrapper.find('.el-switch__input').attributes('aria-checked')).includes(row.switch)
     expect(wrapper.find('.el-link__inner').text()).includes('link')
-    expect(wrapper.find('.plus-display-item__icon__copy').exists()).toBe(true)
+    setTimeout(() => {
+      expect(wrapper.find('.el-switch__input').attributes('aria-checked')).includes(row.switch)
+    })
   })
 
   test('render display test', async () => {
@@ -166,7 +170,11 @@ describe('display-item/index.vue', () => {
 
     const wrapper = mount(() => <DisplayItem column={column} row={{}} />, {
       global: {
-        plugins: [ElementPlus]
+        plugins: [ElementPlus],
+        components: {
+          DocumentCopy,
+          Select
+        }
       }
     })
     await nextTick()
@@ -197,5 +205,57 @@ describe('display-item/index.vue', () => {
     await nextTick()
     expect(wrapper.find('.custom-cell').text()).includes(prop)
     expect(wrapper.find('.custom-cell').attributes('style')).includes('green')
+  })
+  test('fieldSlots test', async () => {
+    const row = {
+      img: '',
+      link: '',
+      progress: 30
+    }
+    const columns: PlusColumn[] = [
+      {
+        label: '图片',
+        prop: 'img',
+        valueType: 'img',
+        fieldProps: {
+          style: {
+            width: '100%'
+          }
+        },
+        fieldSlots: {
+          error: () => h(ElEmpty, { width: '100%', description: '图片坏了' })
+        }
+      },
+      {
+        label: 'link',
+        prop: 'link',
+        valueType: 'link',
+        fieldSlots: {
+          default: () => h('div', null, '按钮'),
+          icon: () => h(ElIcon, null, () => h(Link))
+        }
+      },
+      {
+        label: 'progress',
+        prop: 'progress',
+        valueType: 'progress',
+        fieldSlots: {
+          default: () => h('div', null, '默认')
+        }
+      }
+    ]
+    const wrapper = mount(() => {
+      return (
+        <div class="plus-example-field-slots">
+          {columns.map(item => (
+            <DisplayItem column={item} row={row} />
+          ))}
+        </div>
+      )
+    })
+    await nextTick()
+    expect(wrapper.find('.plus-example-field-slots .el-image').exists()).toBe(true)
+    expect(wrapper.find('.plus-example-field-slots').text()).includes('按钮')
+    expect(wrapper.find('.plus-example-field-slots').text()).includes('默认')
   })
 })

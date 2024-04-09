@@ -1,4 +1,5 @@
-import PlusPopover from './src/index.vue'
+import Popover from './src/index.vue'
 
-export { PlusPopover }
-export default PlusPopover
+export type { PlusPopoverProps } from './src/index.vue'
+
+export const PlusPopover = Popover

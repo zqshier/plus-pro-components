@@ -1,6 +1,8 @@
+import { version } from 'element-plus'
 import type { FieldValueType, RecordType, PlusColumn } from '@plus-pro-components/types'
-import { cloneDeep, get, set } from 'lodash-es'
-import type { useSlots } from 'vue'
+import { get, set } from 'lodash-es'
+import type { SetupContext } from 'vue'
+import { isRef } from 'vue'
 import { isPromise, isFunction, isPlainObject, isEmptyObject, toRawType, isString } from './is'
 
 export * from './format'
@@ -42,22 +44,23 @@ const throwError = (data: any, type: string) => {
  * @returns
  */
 export const getCustomProps = async (
-  props:
-    | Record<string, any>
-    | ((...arg: any) => Record<string, any> | Promise<Record<string, any>>)
-    | undefined,
+  props: RecordType | ((...arg: any) => RecordType | Promise<RecordType>) | undefined,
   value: FieldValueType | undefined,
-  row: Record<string, any>,
+  row: RecordType,
   index: number,
   type: 'formItemProps' | 'fieldProps'
 ): Promise<any> => {
   try {
-    let data: any = {}
-    const params = cloneDeep({ row, index })
+    let data: RecordType = {}
+    const params = { row, index }
 
     if (!props) {
       data = {}
+    } else if (isRef(props)) {
+      // computed 支持
+      data = props.value as RecordType
     } else if (isPlainObject(props)) {
+      // object 支持
       data = { ...props }
     } else if (isFunction(props)) {
       // 函数 和  函数返回一个Promise
@@ -125,6 +128,12 @@ export const getFieldSlotName = (prop?: string | number) => {
 export const getLabelSlotName = (prop?: string | number) => {
   return `${getSlotName('label', prop)}`
 }
+/**
+ *   处理form-item中的 extra slot名称
+ */
+export const getExtraSlotName = (prop?: string | number) => {
+  return `${getSlotName('extra', prop)}`
+}
 
 /**
  * 处理table中的 header slot名称
@@ -139,6 +148,18 @@ export const getTableHeaderSlotName = (prop?: string | number) => {
 export const getTableCellSlotName = (prop?: string | number) => {
   return `${getSlotName('cell', prop)}`
 }
+/**
+ * 处理el-descriptions-item 的  slot名称
+ */
+export const getDescSlotName = (prop?: string | number) => {
+  return `${getSlotName('desc', prop)}`
+}
+/**
+ * 处理el-descriptions-item  label的  slot名称
+ */
+export const getDescLabelSlotName = (prop?: string | number) => {
+  return `${getSlotName('desc-label', prop)}`
+}
 
 /**
  * 过滤slots
@@ -146,8 +167,8 @@ export const getTableCellSlotName = (prop?: string | number) => {
  * @param name
  * @returns
  */
-export const filterSlots = (slots: RecordType, name: string): ReturnType<typeof useSlots> => {
-  const data: any = {}
+export const filterSlots = (slots: RecordType, name: string): SetupContext['slots'] => {
+  const data: RecordType = {}
   Object.keys(slots || {}).forEach(key => {
     if (key.startsWith(name)) {
       data[key] = slots[key]
@@ -176,3 +197,25 @@ export const getValue = (target: RecordType, key: string) => {
 export const setValue = (target: RecordType, key: string, value: any) => {
   return set(target, key, value)
 }
+
+/**
+ * 版本比较
+ * @param version1
+ * @param version2
+ * @returns
+ */
+export const compareVersion = (version1: string, version2: string) => {
+  const arr1 = version1.split('.').map(item => Number(item))
+  const arr2 = version2.split('.').map(item => Number(item))
+  const length = Math.max(arr1.length, arr2.length)
+  for (let i = 0; i < length; i++) {
+    if ((arr1[i] || 0) > (arr2[i] || 0)) return 1
+    if ((arr1[i] || 0) < (arr2[i] || 0)) return -1
+  }
+  return 0
+}
+
+/**
+ * element-plus版本号是否小于'2.6.0'
+ */
+export const versionIsLessThan260 = compareVersion(version, '2.6.0') < 0

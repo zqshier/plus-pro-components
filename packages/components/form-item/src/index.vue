@@ -1,290 +1,435 @@
 <template>
-  <el-form-item
-    ref="formItemInstance"
-    :label="label"
-    :prop="prop"
-    class="plus-form-item"
-    v-bind="customFormItemProps"
-  >
-    <template #label="{ label: currentLabel }">
-      <span class="plus-form-item__label">
-        <PlusRender
-          v-if="renderLabel && isFunction(renderLabel)"
-          :render="renderLabel"
-          :params="props"
-          :callback-value="currentLabel"
-          :custom-field-props="customFieldProps"
-        />
-
-        <slot
-          v-else
-          :name="getLabelSlotName(prop)"
-          :prop="prop"
-          :label="label"
-          :field-props="customFieldProps"
-          :value-type="valueType"
-          :column="props"
-        >
-          {{ currentLabel }}
-        </slot>
-
-        <el-tooltip v-if="tooltip" placement="top" v-bind="getTooltip(tooltip)">
-          <el-icon class="plus-table-column__label__icon" :size="16"><QuestionFilled /></el-icon>
-        </el-tooltip>
-      </span>
-    </template>
-
-    <PlusRender
-      v-if="renderField && isFunction(renderField)"
-      :render="renderField"
-      :params="props"
-      :callback-value="state"
-      :custom-field-props="customFieldProps"
-      render-type="form"
-      :handle-change="handleChange"
-    />
-
-    <slot
-      v-else-if="$slots[getFieldSlotName(prop)]"
-      :name="getFieldSlotName(prop)"
+  <template v-if="valueIsReady">
+    <el-form-item
+      ref="formItemInstance"
+      :label="hasLabel ? label : ''"
       :prop="prop"
-      :label="label"
-      :field-props="customFieldProps"
-      :value-type="valueType"
-      :column="props"
-    />
-
-    <el-autocomplete
-      v-else-if="valueType === 'autocomplete'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseEnter') + label"
-      class="plus-form-item-field"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-      @select="handleSelect"
-    />
-
-    <el-cascader
-      v-else-if="valueType === 'cascader'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      :options="options"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-
-    <el-checkbox-group
-      v-else-if="valueType === 'checkbox'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
+      class="plus-form-item"
+      v-bind="customFormItemProps"
     >
-      <el-checkbox
-        v-for="item in options"
-        :key="item.label"
-        :label="item.value"
-        v-bind="item.fieldItemProps"
-      >
-        {{ item.label }}
-      </el-checkbox>
-    </el-checkbox-group>
+      <template v-if="hasLabel" #label="{ label: currentLabel }">
+        <span class="plus-form-item__label">
+          <template v-if="renderLabel && isFunction(renderLabel)">
+            <PlusRender
+              v-if="valueIsReady"
+              :render="renderLabel"
+              :params="props"
+              :callback-value="currentLabel"
+              :custom-field-props="customFieldProps"
+            />
+          </template>
 
-    <el-color-picker
-      v-else-if="valueType === 'color-picker'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+          <slot
+            v-else
+            :name="getLabelSlotName(prop)"
+            :prop="prop"
+            :label="label"
+            :field-props="customFieldProps"
+            :value-type="valueType"
+            :column="props"
+          >
+            {{ currentLabel }}
+          </slot>
 
-    <el-date-picker
-      v-else-if="valueType === 'date-picker'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      :start-placeholder="t('plus.datepicker.startPlaceholder')"
-      :end-placeholder="t('plus.datepicker.endPlaceholder')"
-      class="plus-form-item-field"
-      format="YYYY-MM-DD HH:mm:ss"
-      type="datetime"
-      value-format="YYYY-MM-DD HH:mm:ss"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+          <el-tooltip v-if="tooltip" placement="top" v-bind="getTooltip(tooltip)">
+            <slot name="tooltip-icon">
+              <el-icon class="plus-table-column__label__icon" :size="16">
+                <QuestionFilled />
+              </el-icon>
+            </slot>
+          </el-tooltip>
+        </span>
+      </template>
 
-    <PlusDatePicker
-      v-else-if="valueType === 'plus-date-picker'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+      <template v-if="renderField && isFunction(renderField)">
+        <PlusRender
+          v-if="valueIsReady"
+          :render="renderField"
+          :params="props"
+          :callback-value="state"
+          :custom-field-props="customFieldProps"
+          render-type="form"
+          :handle-change="handleChange"
+        />
+      </template>
 
-    <el-input-number
-      v-else-if="valueType === 'input-number'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      :placeholder="t('plus.field.pleaseEnter') + label"
-      autocomplete="off"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-
-    <PlusInputTag
-      v-else-if="valueType === 'plus-input-tag'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-
-    <el-radio-group
-      v-else-if="valueType === 'radio'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    >
-      <el-radio
-        v-for="item in options"
-        :key="item.label"
-        :label="item.value"
-        v-bind="item.fieldItemProps"
-      >
-        {{ item.label }}
-      </el-radio>
-    </el-radio-group>
-
-    <PlusRadio
-      v-else-if="valueType === 'plus-radio'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      :options="options"
-      is-cancel
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-
-    <el-rate
-      v-else-if="valueType === 'rate'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-
-    <el-select
-      v-else-if="valueType === 'select' && customFieldPropsIsReady"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    >
-      <el-option
-        v-for="item in options"
-        :key="item.label"
-        :label="item.label"
-        :value="item.value"
-        v-bind="item.fieldItemProps"
+      <slot
+        v-else-if="$slots[getFieldSlotName(prop)]"
+        :name="getFieldSlotName(prop)"
+        :prop="prop"
+        :label="label"
+        :field-props="customFieldProps"
+        :value-type="valueType"
+        :column="props"
       />
-    </el-select>
 
-    <el-slider
-      v-else-if="valueType === 'slider'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+      <el-autocomplete
+        v-else-if="valueType === 'autocomplete'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseEnter') + label"
+        class="plus-form-item-field"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+        @select="handleSelect"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+      </el-autocomplete>
 
-    <el-switch
-      v-else-if="valueType === 'switch'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+      <el-cascader
+        v-else-if="valueType === 'cascader'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        :options="customOptions"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+      </el-cascader>
 
-    <el-time-picker
-      v-else-if="valueType === 'time-picker'"
-      ref="fieldInstance"
-      v-model="state"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      class="plus-form-item-field"
-      clearable
-      value-format="YYYY-MM-DD HH:mm:ss"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+      <el-checkbox-group
+        v-else-if="valueType === 'checkbox'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
 
-    <el-time-select
-      v-else-if="valueType === 'time-select'"
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      :placeholder="t('plus.field.pleaseSelect') + label"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+        <!-- element-plus 版本号小于2.6.0 -->
+        <template v-if="versionIsLessThan260">
+          <el-checkbox
+            v-for="item in customOptions"
+            :key="item.label"
+            :label="item.value"
+            v-bind="item.fieldItemProps"
+          >
+            <template #default>
+              <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+              <component
+                :is="fieldChildrenSlot"
+                v-else-if="isFunction(fieldChildrenSlot)"
+                v-bind="item"
+              />
+              <template v-else> {{ item.label }} </template>
+            </template>
+          </el-checkbox>
+        </template>
 
-    <el-input
-      v-else-if="valueType === 'textarea'"
-      ref="fieldInstance"
-      v-model="state"
-      type="textarea"
-      class="plus-form-item-field"
-      :placeholder="t('plus.field.pleaseEnter') + label"
-      autocomplete="off"
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
+        <!-- element-plus 版本号大于等于2.6.0 -->
+        <template v-else>
+          <el-checkbox
+            v-for="item in customOptions"
+            :key="item.label"
+            :value="item.value"
+            v-bind="item.fieldItemProps"
+          >
+            <template #default>
+              <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+              <component
+                :is="fieldChildrenSlot"
+                v-else-if="isFunction(fieldChildrenSlot)"
+                v-bind="item"
+              />
+              <template v-else> {{ item.label }} </template>
+            </template>
+          </el-checkbox>
+        </template>
+      </el-checkbox-group>
 
-    <span
-      v-else-if="valueType === 'text'"
-      ref="fieldInstance"
-      class="plus-form-item-field"
-      v-bind="customFieldProps"
-    >
-      {{ state }}
-    </span>
+      <el-color-picker
+        v-else-if="valueType === 'color-picker'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
 
-    <el-input
-      v-else
-      ref="fieldInstance"
-      v-model="state"
-      class="plus-form-item-field"
-      :placeholder="t('plus.field.pleaseEnter') + label"
-      autocomplete="off"
-      clearable
-      v-bind="customFieldProps"
-      @change="handleChange"
-    />
-  </el-form-item>
+      <el-date-picker
+        v-else-if="valueType === 'date-picker'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        :start-placeholder="t('plus.datepicker.startPlaceholder')"
+        :end-placeholder="t('plus.datepicker.endPlaceholder')"
+        class="plus-form-item-field"
+        type="datetime"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+      </el-date-picker>
+
+      <PlusDatePicker
+        v-else-if="valueType === 'plus-date-picker'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-input-number
+        v-else-if="valueType === 'input-number'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        :placeholder="t('plus.field.pleaseEnter') + label"
+        autocomplete="off"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <PlusInputTag
+        v-else-if="valueType === 'plus-input-tag'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-radio-group
+        v-else-if="valueType === 'radio'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+
+        <!-- element-plus 版本号小于2.6.0 -->
+        <template v-if="versionIsLessThan260">
+          <el-radio
+            v-for="item in customOptions"
+            :key="item.label"
+            :label="item.value"
+            v-bind="item.fieldItemProps"
+          >
+            <template #default>
+              <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+              <component
+                :is="fieldChildrenSlot"
+                v-else-if="isFunction(fieldChildrenSlot)"
+                v-bind="item"
+              />
+              <template v-else> {{ item.label }} </template>
+            </template>
+          </el-radio>
+        </template>
+        <!-- element-plus 版本号大于等于2.6.0 -->
+        <template v-else>
+          <el-radio
+            v-for="item in customOptions"
+            :key="item.label"
+            :value="item.value"
+            v-bind="item.fieldItemProps"
+          >
+            <template #default>
+              <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+              <component
+                :is="fieldChildrenSlot"
+                v-else-if="isFunction(fieldChildrenSlot)"
+                v-bind="item"
+              />
+              <template v-else> {{ item.label }} </template>
+            </template>
+          </el-radio>
+        </template>
+      </el-radio-group>
+
+      <PlusRadio
+        v-else-if="valueType === 'plus-radio'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        :options="customOptions"
+        :field-children-slot="fieldChildrenSlot"
+        is-cancel
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-rate
+        v-else-if="valueType === 'rate'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-select
+        v-else-if="valueType === 'select' && customFieldProps.multiple === true"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+
+        <el-option
+          v-for="item in customOptions"
+          :key="item.label"
+          :label="item.label"
+          :value="item.value"
+          v-bind="item.fieldItemProps"
+        >
+          <template #default>
+            <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+            <component
+              :is="fieldChildrenSlot"
+              v-else-if="isFunction(fieldChildrenSlot)"
+              v-bind="item"
+            />
+            <template v-else> {{ item.label }} </template>
+          </template>
+        </el-option>
+      </el-select>
+
+      <el-select
+        v-else-if="valueType === 'select'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+
+        <el-option
+          v-for="item in customOptions"
+          :key="item.label"
+          :label="item.label"
+          :value="item.value"
+          v-bind="item.fieldItemProps"
+        >
+          <template #default>
+            <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+            <component
+              :is="fieldChildrenSlot"
+              v-else-if="isFunction(fieldChildrenSlot)"
+              v-bind="item"
+            />
+            <template v-else> {{ item.label }} </template>
+          </template>
+        </el-option>
+      </el-select>
+
+      <el-slider
+        v-else-if="valueType === 'slider'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-switch
+        v-else-if="valueType === 'switch'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+      </el-switch>
+
+      <el-time-picker
+        v-else-if="valueType === 'time-picker'"
+        ref="fieldInstance"
+        v-model="state"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        class="plus-form-item-field"
+        clearable
+        value-format="YYYY-MM-DD HH:mm:ss"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-time-select
+        v-else-if="valueType === 'time-select'"
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        :placeholder="t('plus.field.pleaseSelect') + label"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-input
+        v-else-if="valueType === 'textarea'"
+        ref="fieldInstance"
+        v-model="state"
+        type="textarea"
+        class="plus-form-item-field"
+        :placeholder="t('plus.field.pleaseEnter') + label"
+        autocomplete="off"
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      />
+
+      <el-text
+        v-else-if="valueType === 'text'"
+        ref="fieldInstance"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+      >
+        {{ state }}
+      </el-text>
+
+      <el-input
+        v-else
+        ref="fieldInstance"
+        v-model="state"
+        class="plus-form-item-field"
+        :placeholder="t('plus.field.pleaseEnter') + label"
+        autocomplete="off"
+        clearable
+        v-bind="customFieldProps"
+        @update:modelValue="handleChange"
+      >
+        <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
+          <component :is="fieldSlot" v-bind="data" />
+        </template>
+      </el-input>
+    </el-form-item>
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -298,9 +443,9 @@ import {
   getTooltip,
   getCustomProps,
   getLabelSlotName,
-  getFieldSlotName
+  getFieldSlotName,
+  versionIsLessThan260
 } from '@plus-pro-components/components/utils'
-
 import { QuestionFilled } from '@element-plus/icons-vue'
 import { useGetOptions, useLocale } from '@plus-pro-components/hooks'
 import { PlusRadio } from '@plus-pro-components/components/radio'
@@ -327,23 +472,30 @@ import {
   ElSwitch as SwitchComponent,
   ElTimePicker as TimePickerComponent,
   ElTimeSelect as TimeSelectComponent,
-  ElInput as InputComponent
+  ElInput as InputComponent,
+  ElText as TextComponent
 } from 'element-plus'
+import {
+  DatePickerValueIsArrayList,
+  ValueIsArrayList,
+  ValueIsNumberList,
+  ValueIsBooleanList
+} from '@plus-pro-components/constants'
 
 export interface PlusFormItemProps {
   modelValue?: FieldValueType
-  label: PlusColumn['label']
+  hasLabel?: PlusColumn['hasLabel']
+  label?: PlusColumn['label']
   prop: PlusColumn['prop']
   fieldProps?: PlusColumn['fieldProps']
-  // eslint-disable-next-line vue/require-default-prop
   valueType?: PlusColumn['valueType']
   options?: PlusColumn['options']
   formItemProps?: PlusColumn['formItemProps']
-  // eslint-disable-next-line vue/require-default-prop
   renderField?: PlusColumn['renderField']
-  // eslint-disable-next-line vue/require-default-prop
   renderLabel?: PlusColumn['renderLabel']
   tooltip?: PlusColumn['tooltip']
+  fieldSlots?: PlusColumn['fieldSlots']
+  fieldChildrenSlot?: PlusColumn['fieldChildrenSlot']
   index?: number
 }
 export interface PlusFormItemEmits {
@@ -378,46 +530,56 @@ const ElSwitch: Component = SwitchComponent
 const ElTimePicker: Component = TimePickerComponent
 const ElTimeSelect: Component = TimeSelectComponent
 const ElInput: Component = InputComponent
+const ElText: Component = TextComponent
 
 const props = withDefaults(defineProps<PlusFormItemProps>(), {
+  label: '',
   modelValue: '',
+  hasLabel: true,
   tooltip: '',
   formItemProps: () => ({}),
   fieldProps: () => ({}),
   options: () => [],
+  fieldSlots: () => ({}),
+  valueType: undefined,
+  renderField: undefined,
+  renderLabel: undefined,
+  fieldChildrenSlot: undefined,
   index: 0
 })
 const emit = defineEmits<PlusFormItemEmits>()
 
 const { t } = useLocale()
-const options = useGetOptions(props)
+const { customOptions, customOptionsIsReady } = useGetOptions(props)
 const formItemInstance = ref<InstanceType<typeof FormItemComponent> | null>()
 const fieldInstance = ref()
 const customFormItemProps = ref<any>({})
 const customFieldProps = ref<any>({})
 const state = ref<FieldValueType>()
-const range = ['datetimerange', 'daterange', 'monthrange']
-const numberList = ['rate', 'input-number', 'slider']
-const arrayList = ['checkbox', 'plus-date-picker', 'plus-input-tag']
 const customFieldPropsIsReady = ref(false)
+const valueIsReady = ref(false)
 
 /**
  * 默认值是数组的情况
  */
 const isArrayValue = computed(() => {
-  if (arrayList.includes(props.valueType as string)) {
+  if (props.valueType === 'cascader' && customFieldProps.value?.props?.emitPath === false) {
+    return false
+  }
+
+  if (ValueIsArrayList.includes(props.valueType as string)) {
     return true
   }
   if (props.valueType === 'select' && customFieldProps.value?.multiple === true) {
     return true
   }
-  if (props.valueType === 'date-picker' && range.includes(customFieldProps.value?.type)) {
+  if (
+    props.valueType === 'date-picker' &&
+    DatePickerValueIsArrayList.includes(customFieldProps.value?.type)
+  ) {
     return true
   }
   if (props.valueType === 'time-picker' && customFieldProps.value?.isRange === true) {
-    return true
-  }
-  if (props.valueType === 'cascader' && customFieldProps.value?.multiple) {
     return true
   }
   return false
@@ -427,7 +589,17 @@ const isArrayValue = computed(() => {
  * 默认值是数字的情况
  */
 const isNumberValue = computed(() => {
-  if (numberList.includes(props.valueType as string)) {
+  if (ValueIsNumberList.includes(props.valueType as string)) {
+    return true
+  }
+  return false
+})
+
+/**
+ * 默认值是布尔的情况
+ */
+const isBooleanValue = computed(() => {
+  if (ValueIsBooleanList.includes(props.valueType as string)) {
     return true
   }
   return false
@@ -451,13 +623,14 @@ const setValue = (val: any) => {
     }
   } else if (isNumberValue.value) {
     state.value = Number(val)
-  } else if (props.valueType === 'switch') {
+  } else if (isBooleanValue.value) {
     state.value = Boolean(val)
   } else if (isDate(val)) {
     state.value = String(val)
   } else {
     state.value = val
   }
+  valueIsReady.value = true
 }
 
 /**
@@ -502,13 +675,15 @@ watch(
 )
 
 watch(
-  () => props.modelValue,
-  val => {
-    setValue(val)
+  computed(() => [props.modelValue, customFieldPropsIsReady.value, customOptionsIsReady.value]),
+  ([val, fieldPropsIsReady, optionsIsReady]) => {
+    if (fieldPropsIsReady && optionsIsReady) {
+      setValue(val)
+    }
   },
   {
-    flush: 'post',
-    immediate: true
+    immediate: true,
+    flush: 'post'
   }
 )
 

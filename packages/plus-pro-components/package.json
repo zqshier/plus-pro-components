@@ -59,6 +59,10 @@
       ],
       "require": "./lib/*.js"
     },
+    "./locale/*": {
+      "types": "./locale/*.d.ts",
+      "import": "./locale/*.mjs"
+    },
     "./*": "./*"
   },
   "unpkg": "index.js",
@@ -81,12 +85,12 @@
     "lib/components/*/style/*"
   ],
   "peerDependencies": {
-    "vue": "^3.2.0"
+    "vue": "^3.2.0",
+    "element-plus": "^2.3.4"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "element-plus": "^2.3.4",
-    "dayjs": "^1.11.3",
+    "element-plus": "^2.4.4",
     "lodash-es": "^4.17.21",
     "sortablejs": "^1.15.0"
   },
@@ -94,7 +98,7 @@
     "@types/lodash-es": "^4.17.6",
     "@types/node": "*",
     "@types/sortablejs": "^1.15.1",
-    "vue": "^3.2.37"
+    "vue": "^3.3.4"
   },
   "browserslist": [
     "> 1%",

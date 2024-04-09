@@ -8,7 +8,7 @@
       :columns="tableConfig"
       :table-data="tableData"
       has-index-column
-      :is-show-drag-sort="true"
+      :drag-sort="true"
       table-title="表格"
       :pagination="{ total, modelValue: pageInfo }"
       :action-bar="{
@@ -63,7 +63,7 @@ interface TableRow {
 
 const TestServe = {
   getList: async () => {
-    const data = [...new Array(3)].map((item, index) => {
+    const data = Array.from({ length: 3 }).map((item, index) => {
       return {
         index,
         id: index,
@@ -156,7 +156,7 @@ const tableConfig: PlusColumn[] = [
     width: 120,
     prop: 'name',
     tableColumnProps: {
-      'show-overflow-tooltip': true
+      showOverflowTooltip: true
     }
   },
   {

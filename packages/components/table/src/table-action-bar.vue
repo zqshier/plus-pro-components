@@ -21,10 +21,10 @@
         class="plus-table-action-bar__dropdown"
       >
         <span class="plus-table-action-bar__dropdown__link">
-          {{ t('plus.table.more') }}
-          <el-icon>
-            <ArrowDownBold />
-          </el-icon>
+          <span class="plus-table-action-bar__more-text"> {{ t('plus.table.more') }}</span>
+          <slot name="action-bar-more-icon">
+            <el-icon> <ArrowDownBold /> </el-icon>
+          </slot>
         </span>
 
         <!-- 下拉按钮 -->
@@ -44,10 +44,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { VNode } from 'vue'
+import type { VNode, AppContext, Ref, ComputedRef } from 'vue'
 import { h, unref } from 'vue'
 import { ArrowDownBold } from '@element-plus/icons-vue'
-import type { TableColumnCtx } from 'element-plus'
+import type { TableColumnCtx, ElMessageBoxOptions } from 'element-plus'
 import {
   ElButton,
   ElIcon,
@@ -61,9 +61,7 @@ import {
 } from 'element-plus'
 import type { RecordType } from '@plus-pro-components/types'
 import { isFunction, isPlainObject } from '@plus-pro-components/components/utils'
-import { cloneDeep } from 'lodash-es'
 import { useLocale } from '@plus-pro-components/hooks'
-
 import type { ButtonsCallBackParams, ActionBarButtonsRow } from './type'
 
 export interface ActionBarProps {
@@ -120,13 +118,13 @@ const emit = defineEmits<PlusTableActionBarEmits>()
 const { t } = useLocale()
 
 const getSubButtons = (row: any, index: number) => {
-  const data = cloneDeep(props.buttons).filter(item => {
+  const data = props.buttons.filter(item => {
     if (isFunction(item.show)) {
       const tempFunction = item.show as (
         row: any,
         index: number,
         button: ActionBarButtonsRow
-      ) => boolean
+      ) => boolean | Ref<boolean> | ComputedRef<boolean>
       const isShow = tempFunction(row, index, item)
       return unref(isShow) !== false
     }
@@ -164,16 +162,30 @@ const render = (row: any, buttonRow: ActionBarButtonsRow, index: number): VNode 
     )
   } else {
     const Tag = props.type === 'button' ? ElButton : ElLink
+
+    // FIXME: fix SSR click it auto scrollTo page top
+    const defaultProps = props.type === 'link' ? { href: 'javaScript:;' } : {}
     return h(
       Tag as any,
       {
         size: 'small',
-        // icon: buttonRow.icon,
+        ...defaultProps,
         ...buttonRow.props,
-
         onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event)
       },
-      () => unref(buttonRow.text)
+      () => {
+        if (isFunction(buttonRow.text)) {
+          const tempFunction = buttonRow.text as (
+            row: any,
+            index: number,
+            button: ActionBarButtonsRow
+          ) => string | Ref<string> | ComputedRef<string>
+          const text = tempFunction(row, index, buttonRow)
+          return unref(text)
+        } else {
+          return unref(buttonRow.text)
+        }
+      }
     )
   }
 }
@@ -187,9 +199,10 @@ const handleClickAction = (
 ) => {
   const data: ButtonsCallBackParams = { row, buttonRow, index, e }
   if (buttonRow.confirm) {
-    const message = t('plus.table.confirmToPerformThisOperation')
+    let message = t('plus.table.confirmToPerformThisOperation')
     let title = t('plus.table.prompt')
-    let options: any = undefined
+    let options: ElMessageBoxOptions | undefined = undefined
+    let appContext: AppContext | undefined | null = null
 
     if (isPlainObject(buttonRow.confirm) && typeof buttonRow.confirm !== 'boolean') {
       const tempTitle = isFunction(buttonRow.confirm.title)
@@ -205,13 +218,14 @@ const handleClickAction = (
         : buttonRow.confirm.message
 
       if (tempMessage) {
-        title = tempMessage
+        message = tempMessage
       }
 
       options = buttonRow.confirm?.options
+      appContext = buttonRow.confirm?.appContext
     }
 
-    ElMessageBox.confirm(message, title, options)
+    ElMessageBox.confirm(message, title, options, appContext)
       .then(() => {
         emit('clickAction', data)
       })

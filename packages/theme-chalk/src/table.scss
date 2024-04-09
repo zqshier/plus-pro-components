@@ -6,25 +6,32 @@
   /* 自定义列栏 */
   @include b(table-column) {
     @include e(header) {
-      display: flex;
-      align-items: center;
-
       @include e(header__icon) {
+        margin-top: -2px;
         margin-left: 2px;
+        vertical-align: middle;
       }
     }
   }
 
   /* 操作栏 */
   @include b(table-action-bar) {
+    &.#{$el-namespace + -table-fixed-column--right} {
+      background-color: getCssVar('bg-color');
+    }
+
     .cell {
       display: flex;
       align-items: center;
     }
 
     @include e(dropdown__link) {
-      display: inline-block;
+      display: inline-flex;
       cursor: pointer;
+      user-select: none;
+    }
+    @include e(more-text) {
+      margin-right: 2px;
     }
     @include e(column__link) {
       margin-right: 10px;
@@ -117,5 +124,22 @@
 }
 /* 列设置 */
 @include b(table-title-bar__toolbar__checkbox__item) {
+  margin-left: 6px;
+}
+/* 列设置 拖拽 item */
+@include b(table-checkbox-item) {
+  display: flex;
+  align-items: center;
   margin-left: 20px;
+}
+/* 列设置 拖拽handle  */
+@include b(table-checkbox-handle) {
+  font-size: 18px;
+  cursor: move;
+}
+
+@include b(table-ghost-class) {
+  padding: 0 5px;
+  border: 1px dashed getCssVar('color-primary');
+  background-color: #fff;
 }

@@ -18,7 +18,7 @@ interface TableRow {
 
 const TestServe = {
   getList: async () => {
-    const data = [...new Array(3)].map((item, index) => {
+    const data = Array.from({ length: 3 }).map((item, index) => {
       return {
         id: index,
         name: index + 'name',
@@ -39,7 +39,12 @@ const tableConfig: PlusColumn[] = [
   {
     label: '名称',
     prop: 'name',
-    headerFilter: true
+    disabledHeaderFilter: true,
+    tooltip: '名称',
+    tableColumnProps: {
+      align: 'center',
+      showOverflowTooltip: true
+    }
   },
   {
     label: '状态',

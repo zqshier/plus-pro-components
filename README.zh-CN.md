@@ -4,7 +4,7 @@
 
 **页面级别的前端组件**
 
-**中文** | [English](https://github.com/plus-pro-components/plus-pro-components/blob/main/README.md)
+**中文** | [English](https://github.com/plus-pro-components/plus-pro-components/blob/dev/README.md)
 
 ## 文档
 
@@ -39,7 +39,7 @@ plus-pro-components 是一个基于 Vue 和 element-plus 的页面级别的组�
 - [x] DialogForm 弹窗表单 -- 完成
 - [x] DrawerForm 抽屉表单 -- 完成
 - [x] Descriptions 详情 -- 完成
-- [] Layout 布局 -- 开发中
+- [x] Layout 布局 -- 完成
 
 # 内置组件列表
 
@@ -47,19 +47,18 @@ plus-pro-components 是一个基于 Vue 和 element-plus 的页面级别的组�
 - [x] Pagination 分页 -- 完成
 - [x] Radio 单选 -- 完成
 - [x] DatePicker 日期 -- 完成
-- [x] InputTag 日期 -- 完成
+- [x] InputTag 输入标签 -- 完成
 - [x] DisplayItem 单项显示 -- 完成
 - [x] FormItem 表单单项 -- 完成
-- [] Sidebar 侧边菜单 -- 开发中
-- [] Breadcrumb 面包屑 -- 开发中
-- [] Header 页头 -- 开发中
-- [] Footer 页脚 -- 开发中
+- [x] Sidebar 侧边菜单 -- 完成
+- [x] Breadcrumb 面包屑 -- 完成
+- [x] Header 页头 -- 完成
 
 ## 缺点
 
 plus-pro-components 是一个基于 Vue 和 element-plus 的组件库，它提供了很多常用的 UI 组件和业务组件，可以方便地帮助开发者快速搭建前端页面。虽然 plus-pro-components 具有很多优点，但是也有以下一些缺点：
 
-- 学习成本高：plus-pro-components 的组件库比较复杂，学习所有组件可能需要花费较长时间。因此，对于新手开发者来说，学习成本可能会比较高。
+- 学习成本较高：plus-pro-components 的组件库比较复杂，学习所有组件可能需要花费较长时间。因此，对于新手开发者来说，学习成本可能会比较高。
 
 - 高度可定制有限：plus-pro-components 的组件支持高度可定制，但是任然不可能保证组件 100%完全自定义，定制需求非常高的项目谨慎使用。
 
@@ -74,6 +73,14 @@ plus-pro-components 是一个基于 Vue 和 element-plus 的组件库，它提�
 ## 本地开发指南
 
 [本地开发指南](https://plus-pro-components.com/guide/dev.html)
+
+## 捐赠
+
+如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹
+
+| 微信                                                                                                           | 支付宝                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx.jpg" height="188" width="188"> | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/ali.jpg" height="188" width="188"> |
 
 ## LICENSE
 

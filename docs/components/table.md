@@ -6,7 +6,7 @@
 
 ## 基础用法
 
-配置`columns`表头和`table-data`表格数据。
+配置[columns](/components/config.html)表头和`table-data`表格数据。
 :::demo
 
 table/basic
@@ -15,9 +15,9 @@ table/basic
 
 ## 数据多级显示
 
-`columns`中的 `prop`支持 `x.y.z`形式的 多（无限）级数据形式。
+[columns](/components/config.html)中的 `prop`支持 `x.y.z`形式的 多（无限）级数据形式。
 
-:::warning 提示
+:::warning 注意
 **数据级不宜过多，可能会影响性能**。
 :::
 
@@ -27,24 +27,34 @@ table/multiple-level-display
 
 :::
 
-## 自定义状态小圆点的背景色
+## 自定义状态
 
 配置项中`valueType`为`select`、`radio`或`checkbox `时，
-`columns`中的`options`中可配置`type`或`color属性`。
-`color` 优先级 高于 `type`。`type`支持`'success' | 'warning' | 'info' | 'primary' | 'danger'`。
+配置[columns](/components/config.html)中的[options](/components/type.html#optionstype)，表格会自动显示 `value` 对应的`状态`和 `label`。
+
+默认的逻辑是 表格的`tableData`中的`实际值`和 `options` 中 `value` 对比 严格相等的话，会取当前项的 `label` 显示在表格中，想自定义显示逻辑的话，只需配置[columns](/components/config.html) 中 `customGetStatus`即可。
+
 :::demo
 
 table/status
 
 :::
 
+## 表格列样式简单修改
+
+配置[columns](/components/config.html)中的 `fieldProps`，不仅会作用于表单单项，也会作用于表格单项。使用 `fieldProps`可以做简单的样式修改，更强大的自定义样式，请使用[自定义表格项](/components/table.html#自定义表格项和表单项-插槽)。
+
+:::demo
+
+table/cell-style
+
+:::
+
 ## 自定义操作栏
 
-actionBar 的`type` 支持 `button`，`icon`和 `link`，对应 element plus 的 ElButton，ElIcon 和 ElLink 组件。
+默认不显示。配置`actionBar`即可。 `actionBar` 中的`type` 支持 `button`，`icon`和 `link`，对应`element plus` 的 [ElButton](https://element-plus.org/zh-CN/component/button.html)，[ElIcon](https://element-plus.org/zh-CN/component/icon.html) 和 [ElLink ](https://element-plus.org/zh-CN/component/link.html)组件。
 
-配置 `confirm` 即可实现二次确认。
-
-配置 `show` 即可实现权限和动态显示。
+配置 `confirm` 即可实现二次确认。配置 `show` 即可实现权限和动态显示。
 
 :::demo
 
@@ -52,28 +62,42 @@ table/action-bar
 
 :::
 
-## 拖动排序
-
-配置`drag-sortable`，同时配合`dragSortEnd`使用。
-
-:::demo
-
-table/drag-sort
-
-:::
-
 ## 标题栏
 
-使用`title`，`toolbar`插槽。
+标题栏默认显示右侧工具栏， 可以使用`title`，`toolbar`插槽定制。不需要的的话配置
+`<PlusTable :title-bar="false" />`即可。
+
 :::demo
 
 table/title-bar
 
 :::
 
+## 拖动排序行
+
+配置`drag-sortable`，同时配合`dragSortEnd`使用。
+
+:::demo
+table/drag-sort
+:::
+
+## 列设置拖拽排序列
+
+配置 [TitleBar](/components/type.html#titlebar)中的`columnSetting`中的`dragSort`属性，默认为 `true` 可拖拽。
+
+不需要可以给 `false`: `<PlusTable :title-bar="{ columnSetting: { dragSort: false } }" />`。
+
+如下示例， 点击 表格右上角列设置 <el-icon color="#606266" ><Setting /></el-icon> 图标，即可通过列设置拖拽排序列。
+
+:::demo
+
+table/drag-sort-column
+
+:::
+
 ## 分页栏
 
-配置`pagination`属性。
+默认不显示，配置`pagination`属性即可。
 
 :::demo
 
@@ -83,7 +107,7 @@ table/pagination
 
 ## 序号栏
 
-配置`indexContentStyle` 可定制序号栏样式。使用`indexTableColumnProps` 为序号栏配置属性。
+默认不显示。配置`hasIndexColumn` 为 `true`即可。 配置`indexContentStyle` 可定制序号栏样式。使用`indexTableColumnProps` 为序号栏配置[el-table-column](https://element-plus.org/zh-CN/component/table.html#table-column-%E5%B1%9E%E6%80%A7)属性。
 
 :::demo
 
@@ -155,9 +179,31 @@ table/hand-edit
 
 :::
 
+## 表格显示单项插槽配置
+
+组件提供 `fieldSlots` 对象可以简易配置表格显示单项插槽， `fieldSlots` 的插槽配置是根据表格的 [valueType](/components/config.html#valuetype-可选的显示值) 自动进行匹配的，
+如：
+
+- `valueType` 是 `img` ，`fieldSlots`的插槽就是给 [ElImage](https://element-plus.org/zh-CN/component/image.html#image-slots)的。
+- `valueType` 是 `link`时，`fieldSlots`的插槽就是给 [ElLink](https://element-plus.org/zh-CN/component/link.html#slots)的。
+- 其他以此类推
+
+要实现更强大的自定义，请使用[自定义表格项](/components/table.html#自定义表格项和表单项-插槽)。
+
+::: warning 注意
+
+valueType 的值对应的组件不是 element-plus 组件时，`fieldSlots`不生效，或者组件本身没有插槽时也不生效。
+:::
+
+:::demo
+
+table/field-slots
+
+:::
+
 ## 自定义表格项和表单项 ( 插槽 )
 
-:::warning 提示
+:::warning 注意
 **插槽 的优先级低于 render，高于数据**。
 :::
 
@@ -197,16 +243,16 @@ table/custom-cell-slot
 
 ## 自定义表格项和表单项 (render)
 
-:::tip 提示
+:::warning 提示
 **render 的优先级高于插槽**。
 :::
 
 - 自定义表格项
 
   使用 render 函数自定义表格项。
-  `render` 方法需要调用 vue 的[渲染函数 h](https://cn.vuejs.org/guide/extras/render-function.html) 返回一个 `VNode`。
+  `render` 方法需要返回一个 [VNode](https://cn.vuejs.org/guide/extras/render-function.html) 或 `String`。
 
-  自定义表格项还支持 `renderHTML`方法，需要返回一个 HTML 字符串。
+  自定义表格项还支持 `renderHTML`方法，需要返回一个 HTML 字符串。**谨慎使用，确保 HTML 字符串可信。**
 
 - 自定义表单项
 
@@ -221,7 +267,7 @@ table/custom-cell
 
 ## 自定义表格项和表单项 (jsx/tsx)
 
-:::warning 提示
+:::warning 注意
 
 jsx/tsx 的使用需要将 vue 单文件组件的`script`的属性 `lang`设置为`jsx`或者`tsx`，`jsx` 中值使用单花括号`{}`绑定。
 
@@ -248,7 +294,7 @@ table/custom-cell-tsx
 
 ## 自定义表格表头 (插槽)
 
-:::warning 提示
+:::warning 注意
 **插槽 的优先级低于 renderHeader，高于 label**。
 :::
 
@@ -281,12 +327,12 @@ table/custom-header-slot
 
 ## 自定义表格表头 (renderHeader)
 
-:::warning 提示
+:::warning 注意
 **renderHeader 的优先级高于插槽**。
 :::
 
 - 使用 renderHeader 函数自定义表格项。
-  `renderHeader` 方法需要调用 vue 的[渲染函数 h](https://cn.vuejs.org/guide/extras/render-function.html) 返回一个 `VNode`。
+  `renderHeader` 方法需要返回一个 [VNode](https://cn.vuejs.org/guide/extras/render-function.html) 或 `String`。
 
 :::demo
 
@@ -296,7 +342,7 @@ table/custom-header
 
 ## 自定义表格表头 (jsx/tsx)
 
-:::warning 提示
+:::warning 注意
 
 jsx/tsx 的使用需要将 vue 单文件组件的`script`的属性 `lang`设置为`jsx`或者`tsx`，`jsx` 中值使用单花括号`{}`绑定。
 
@@ -311,6 +357,26 @@ jsx/tsx 的使用需要将 vue 单文件组件的`script`的属性 `lang`设置�
 :::demo
 
 table/custom-header-tsx
+
+:::
+
+## 自定义 icon
+
+<el-tag>v0.0.3</el-tag>
+
+组件提供了以下插槽可以自定义 icon
+
+| 插槽名                 | 说明                            |
+| ---------------------- | ------------------------------- |
+| `action-bar-more-icon` | 操作栏更多旁边的 icon           |
+| `tooltip-icon`         | 表格表头 tooltip icon           |
+| `drag-sort-icon`       | 表格拖拽行 和 列设置里拖拽 icon |
+| `column-settings-icon` | 表格表头 列设置 icon            |
+| `density-icon`         | 表格表头 密度 icon              |
+
+:::demo
+
+table/icon-slot
 
 :::
 
@@ -344,6 +410,7 @@ table/advanced
 | `dragSortableTableColumnProps` | 拖拽栏 el-table-column 的 props            | `object`                                                                                                                                                                      | `{}`          | 否       |
 | `indexTableColumnProps`        | 序号栏 el-table-column 的 props            | `object`                                                                                                                                                                      | `{}`          | 否       |
 | `selectionTableColumnProps`    | 选择栏 el-table-column 的 props            | `object`                                                                                                                                                                      | `{width: 40}` | 否       |
+| `expandTableColumnProps`       | 展开栏 el-table-column 的 props            | `object`                                                                                                                                                                      | `{}`          | 否       |
 | ...                            | ...                                        | ...                                                                                                                                                                           | ...           | ...      |
 
 **`...`表示同时支持所有[ElTable Attributes](https://element-plus.org/zh-CN/component/table.html#table-%E5%B1%9E%E6%80%A7)**
@@ -367,7 +434,7 @@ el-table 的其他属性写法示例 如 `stripe`,`border`,`fit`等
 | `paginationChange`         | 分页改变触发                                     | `function` <docs-tip content='(pageInfo: PageInfo) => void'></docs-tip>                                                 |
 | `clickAction`              | 点击操作栏触发（需要二次确认的，点击确认时触发） | `function` [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)                                         |
 | `clickActionConfirmCancel` | 点击操作栏需要二次确认的取消时触发               | `function` [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)                                         |
-| `dragSortEnd`              | 拖拽排序列图标触发                               | `function` <docs-tip content='({newIndex: number, oldIndex: number}) => void'></docs-tip>                               |
+| `dragSortEnd`              | 拖拽排序行触发                                   | `function` <docs-tip content='({newIndex: number, oldIndex: number}) => void'></docs-tip>                               |
 | `formChange`               | 表格中有可以编辑的表单项目改变时触发             | `function` <docs-tip content='({ value: any; prop: string; row: any; index: number; column: any }) => void'></docs-tip> |
 | ...                        | ...                                              | ...                                                                                                                     |
 
@@ -378,20 +445,44 @@ el-table 的其他事件写法示例 如 `select`,`select-all`,`row-click`等
 
 示例：
 
+> 模板中
+
 ```html
 <PlusTable @select="handleSelect" @select-all="handleSelectAll" />
+```
+
+> setup 中
+
+```ts
+const handleSelect = (selection: any[], row: any) => {
+  console.log(selection, row)
+}
+const handleSelectAll = (selection: any[]) => {
+  console.log(selection)
+}
 ```
 
 :::
 
 ## Table Slots
 
-| 插槽名    | 说明       |
-| --------- | ---------- |
-| `title`   | 表格标题   |
-| `toolbar` | 工具栏左侧 |
-| `expand`  | 展开行     |
-| ...       | ...        |
+| 插槽名                                        | 说明                                                                                                                                                                                               | 作用域插槽参数                                       |
+| --------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| `title`                                       | 表格标题                                                                                                                                                                                           |                                                      |
+| `toolbar`                                     | 工具栏左侧                                                                                                                                                                                         |                                                      |
+| `expand`                                      | 展开行                                                                                                                                                                                             |                                                      |
+| `pagination-left`<el-tag>v0.0.2</el-tag>      | 分页器左侧内容 （默认生效，`align` 属性默认是 `right`）                                                                                                                                            |                                                      |
+| `pagination-right`<el-tag>v0.0.2</el-tag>     | 分页器右侧内容 （`align` 属性是 `left`时生效）                                                                                                                                                     |                                                      |
+| `action-bar-more-icon`<el-tag>v0.0.3</el-tag> | 操作栏更多旁边的 icon                                                                                                                                                                              |                                                      |
+| `tooltip-icon`<el-tag>v0.0.3</el-tag>         | 表格表头 tooltip icon                                                                                                                                                                              |                                                      |
+| `drag-sort-icon`<el-tag>v0.0.3</el-tag>       | 表格拖拽行 和 列设置里拖拽 icon                                                                                                                                                                    |                                                      |
+| `column-settings-icon`<el-tag>v0.0.3</el-tag> | 表格表头 列设置 icon                                                                                                                                                                               |                                                      |
+| `density-icon`<el-tag>v0.0.3</el-tag>         | 表格表头 密度 icon                                                                                                                                                                                 |                                                      |
+| `plus-cell-*`                                 | 自定义表格项，组件会自动根据配置项的 prop 生成对应的插槽                                                                                                                                           | `{row,prop,label,fieldProps,valueType,value,column}` |
+| `plus-header-*`                               | 自定义表格项 header，组件会自动根据配置项的 prop 生成对应的插槽                                                                                                                                    | `{prop,label,fieldProps,valueType,column}`           |
+| `plus-field-*`                                | [PlusForm](/components/form.html#form-slots) 的自定义表单项，组件会自动根据配置项的 prop 生成对应的插槽 ，需要开启属性 [PlusColumn['editable']](/components/config.html)                           | `{prop,label,fieldProps,valueType,column,row}`       |
+| `plus-extra-*`                                | [PlusForm](/components/form.html#form-slots)的自定义渲染 el-form-item 下一行额外的内容，组件会自动根据配置项的 prop 生成对应的插槽，需要开启属性 [PlusColumn['editable']](/components/config.html) | `{column,row}`                                       |
+| ...                                           | ...                                                                                                                                                                                                | ...                                                  |
 
 **`...`表示同时支持所有[ElTable 插槽](https://element-plus.org/zh-CN/component/table.html#table-%E6%8F%92%E6%A7%BD)**
 
@@ -411,3 +502,7 @@ el-table 的其他插槽 如 `append`,`empty`等
 ::: tip 提示
 如 `clearSelection`,`getSelectionRows`等
 :::
+
+<script setup>
+import { Setting } from '@element-plus/icons-vue'
+</script>

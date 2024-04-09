@@ -18,7 +18,7 @@ interface TableRow {
 
 const TestServe = {
   getList: async () => {
-    const data = [...new Array(5)].map((item, index) => {
+    const data = Array.from({ length: 5 }).map((item, index) => {
       return {
         id: index,
         name: index + 'name',
@@ -72,7 +72,11 @@ const tableConfig: PlusColumn[] = [
         value: '4',
         type: 'warning'
       }
-    ]
+    ],
+    customGetStatus: ({ options, value, row }) => {
+      const data = options?.find(item => item.value === value && row.id === 0)
+      return data
+    }
   },
   {
     label: '状态1',

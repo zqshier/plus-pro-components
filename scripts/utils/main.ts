@@ -10,5 +10,6 @@ export const externalModules = [
   '@vue/shared',
   'sortablejs',
   'dayjs',
-  'lodash-es'
+  'lodash-es',
+  'vue-router'
 ]

@@ -41,6 +41,7 @@ export default defineConfig({
     ['meta', { name: 'keywords', content }],
     ['script', { src: '/hmt.js' }],
     ['script', { src: '/style.js' }],
+    ['script', { src: '/iconfont-symbol.js' }],
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
 
@@ -64,6 +65,10 @@ export default defineConfig({
       {
         text: '组件',
         link: '/components/type'
+      },
+      {
+        text: '捐赠',
+        link: '/donate'
       },
       {
         text: '生态系统',
@@ -90,6 +95,10 @@ export default defineConfig({
         text: `v${pkg.version}`,
         items: [
           {
+            text: '版本升级',
+            link: '/guide/upgrade'
+          },
+          {
             text: '历史版本',
             link: 'https://github.com/plus-pro-components/plus-pro-components/releases'
           },
@@ -102,10 +111,6 @@ export default defineConfig({
       {
         text: '演练场',
         link: 'https://playground.plus-pro-components.com/'
-      },
-      {
-        text: '国内镜像',
-        link: 'https://plus-pro-components.com/'
       }
     ],
     sidebar: {
@@ -140,6 +145,10 @@ export default defineConfig({
               link: '/guide/i18n'
             },
             {
+              text: '版本升级',
+              link: '/guide/upgrade'
+            },
+            {
               text: '命名空间',
               link: '/guide/namespace'
             },
@@ -150,6 +159,10 @@ export default defineConfig({
             {
               text: '更新日志',
               link: '/guide/changelog'
+            },
+            {
+              text: '组件架构设计',
+              link: '/guide/design'
             }
           ]
         },
@@ -189,6 +202,10 @@ export default defineConfig({
               link: '/components/layout'
             },
             {
+              text: '多选卡片组',
+              link: '/components/check-card-group'
+            },
+            {
               text: '表格',
               link: '/components/table'
             },
@@ -219,7 +236,7 @@ export default defineConfig({
             },
             {
               text: '描述列表',
-              link: '/components/description'
+              link: '/components/descriptions'
             },
             {
               text: '页面',
@@ -261,6 +278,22 @@ export default defineConfig({
             {
               text: '表单单项组件',
               link: '/components/form-item'
+            },
+            {
+              text: '面包屑',
+              link: '/components/breadcrumb'
+            },
+            {
+              text: '页头',
+              link: '/components/header'
+            },
+            {
+              text: '侧边栏',
+              link: '/components/sidebar'
+            },
+            {
+              text: '可选择卡片',
+              link: '/components/check-card'
             }
           ]
         }

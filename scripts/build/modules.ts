@@ -13,7 +13,11 @@ import type { OutputOptions, ModuleFormat } from 'rollup'
 import { pcOutput, pcRoot, pkgRoot } from '../utils/paths'
 import { target, writeBundlesFunction } from '../utils'
 import { externalModules, excludeFiles } from '../utils/main'
-import { PlusProComponentsAlias, PlusProComponentsExternal } from '../utils/plugin'
+import {
+  PlusProComponentsAlias,
+  PlusProComponentsExternal,
+  PlusProComponentsClearConsole
+} from '../utils/plugin'
 
 const buildConfig = {
   esm: {
@@ -51,9 +55,10 @@ const buildModules = async () => {
       input,
       external: externalModules,
       plugins: [
+        PlusProComponentsClearConsole(),
         PlusProComponentsExternal(options),
         PlusProComponentsAlias(),
-        vuePlugin() as Plugin,
+        vuePlugin({ isProduction: true }) as Plugin,
         nodeResolve({
           extensions: ['.mjs', '.js', '.json', '.ts']
         }),

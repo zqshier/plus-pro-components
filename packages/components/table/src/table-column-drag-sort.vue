@@ -6,7 +6,9 @@
     class-name="plus-table-column-drag-sort"
     v-bind="dragSortableTableColumnProps"
   >
-    <span class="plus-table-column-drag-icon">☷</span>
+    <span class="plus-table-column-drag-icon">
+      <slot name="drag-sort-icon">☷</slot>
+    </span>
   </el-table-column>
 </template>
 
@@ -47,8 +49,7 @@ watch(
     if (val && props.sortable) {
       rowDrop()
     }
-  },
-  { deep: true }
+  }
 )
 
 // 行拖拽

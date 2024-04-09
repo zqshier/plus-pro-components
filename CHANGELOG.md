@@ -1,3 +1,578 @@
+## [v0.0.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.8...v0.0.9) (2024-04-07)
+
+
+### ✨ Features
+
+* **all:** Merge pull request [#114](https://github.com/plus-pro-components/plus-pro-components/pull/114) from RJQingHuan/feat-page-immediate([b01c23c](https://github.com/plus-pro-components/plus-pro-components/commit/b01c23c)) by@xiaofei
+* **components:** add immediate prop to PlusPage([175dbd5](https://github.com/plus-pro-components/plus-pro-components/commit/175dbd5)) by@LiuSonglin
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: validate two times before reset([19231ee](https://github.com/plus-pro-components/plus-pro-components/commit/19231ee)) by@xiaofei
+* **theme-chalk:** :bug: fix date-picker input-tag '.is-error' style issue([db2cb83](https://github.com/plus-pro-components/plus-pro-components/commit/db2cb83)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: replace reactive with ref([8ec267d](https://github.com/plus-pro-components/plus-pro-components/commit/8ec267d)) by@xiaofei
+
+
+## [v0.0.8](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.7...v0.0.8) (2024-04-03)
+
+
+### ✨ Features
+
+* **components:** :sparkles: remove no-use PlusRenderEmits([3b88767](https://github.com/plus-pro-components/plus-pro-components/commit/3b88767)) by@xiaofei
+* **all:** Merge pull request [#106](https://github.com/plus-pro-components/plus-pro-components/pull/106) from plus-pro-components/gs([5c618ae](https://github.com/plus-pro-components/plus-pro-components/commit/5c618ae)) by@xiaofei
+* **all:** Merge branch 'gs' of github.com:plus-pro-components/plus-pro-components into gs([a0aee37](https://github.com/plus-pro-components/plus-pro-components/commit/a0aee37)) by@guosong
+* **all:** Merge pull request [#102](https://github.com/plus-pro-components/plus-pro-components/pull/102) from plus-pro-components/gs([529531f](https://github.com/plus-pro-components/plus-pro-components/commit/529531f)) by@xiaofei
+* **components:** :sparkles: actionBarBartonsRow.text add function types([ca3e982](https://github.com/plus-pro-components/plus-pro-components/commit/ca3e982)) by@guosong
+* **all:** Merge pull request [#88](https://github.com/plus-pro-components/plus-pro-components/pull/88) from nineaiyu/dev([1cce395](https://github.com/plus-pro-components/plus-pro-components/commit/1cce395)) by@fn(callback)
+* **all:** Merge pull request [#97](https://github.com/plus-pro-components/plus-pro-components/pull/97) from plus-pro-components/simmi([3aad93d](https://github.com/plus-pro-components/plus-pro-components/commit/3aad93d)) by@xiaofei
+* **all:** Merge pull request [#96](https://github.com/plus-pro-components/plus-pro-components/pull/96) from plus-pro-components/simmi([7639d12](https://github.com/plus-pro-components/plus-pro-components/commit/7639d12)) by@xiaofei
+* **all:** Merge pull request [#92](https://github.com/plus-pro-components/plus-pro-components/pull/92) from RJQingHuan/fix-table-action-message([2d7223b](https://github.com/plus-pro-components/plus-pro-components/commit/2d7223b)) by@xiaofei
+
+
+### ⚡ Performance Improvements
+
+* **components:** :zap: optimize 'render' performance([8d2510f](https://github.com/plus-pro-components/plus-pro-components/commit/8d2510f)) by@xiaofei
+* **components:** :zap: optimize 'renderField'  performance([ef61d44](https://github.com/plus-pro-components/plus-pro-components/commit/ef61d44)) by@xiaofei
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix cascader.props.emitPath value is false error([2f3cb25](https://github.com/plus-pro-components/plus-pro-components/commit/2f3cb25)) by@xiaofei
+* **components:** :bug: fix [el-checkbox] [API] label act as value is about to be deprecated([2982017](https://github.com/plus-pro-components/plus-pro-components/commit/2982017)) by@xiaofei
+* **components:** :bug: titleBar typescript([ffc5366](https://github.com/plus-pro-components/plus-pro-components/commit/ffc5366)) by@ex-cuishengnan
+* **components:** :bug: processing empty data in table component - tag([24b63c2](https://github.com/plus-pro-components/plus-pro-components/commit/24b63c2)) by@ex-cuishengnan
+* **components:** 修复message错误的显示为title的问题([c28c27e](https://github.com/plus-pro-components/plus-pro-components/commit/c28c27e)) by@LiuSonglin
+* **components:** :bug: fix first emit modelValue([28d2a15](https://github.com/plus-pro-components/plus-pro-components/commit/28d2a15)) by@isummer
+
+
+
+
+## [v0.0.7](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.6...v0.0.7) (2024-03-27)
+
+
+### ✨ Features
+
+* **hooks:** :sparkles: useGetOptions add optionsIsReady([2694455](https://github.com/plus-pro-components/plus-pro-components/commit/2694455)) by@xiaofei
+* **types:** :sparkles: update type comment([d026e80](https://github.com/plus-pro-components/plus-pro-components/commit/d026e80)) by@xiaofei
+* **components:** :sparkles: el-select add fieldChildrenSlot fieldSlot.([5552eb6](https://github.com/plus-pro-components/plus-pro-components/commit/5552eb6)) by@xiaofei
+* **components:** :sparkles: radio component add fieldSlots,fieldChildrenSlot and fieldSlot([0783dda](https://github.com/plus-pro-components/plus-pro-components/commit/0783dda)) by@xiaofei
+* **components:** :sparkles: form-itm component add fieldChildrenSlot and options[*].fieldSlot([901aeb5](https://github.com/plus-pro-components/plus-pro-components/commit/901aeb5)) by@xiaofei
+* **types:** :sparkles: plusColumn add fieldChildrenSlot type([3464cef](https://github.com/plus-pro-components/plus-pro-components/commit/3464cef)) by@xiaofei
+* **types:** :sparkles: optionsRow add fieldSlot type([65b9770](https://github.com/plus-pro-components/plus-pro-components/commit/65b9770)) by@xiaofei
+* **all:** Merge pull request [#82](https://github.com/plus-pro-components/plus-pro-components/pull/82) from nineaiyu/dev([4d318e1](https://github.com/plus-pro-components/plus-pro-components/commit/4d318e1)) by@xiaofei
+
+
+### ⚡ Performance Improvements
+
+* **components:** :zap: form-item component options=>customOptions([2f57f5e](https://github.com/plus-pro-components/plus-pro-components/commit/2f57f5e)) by@xiaofei
+* **components:** :zap: steps-form remove cloneDeep.([191cecf](https://github.com/plus-pro-components/plus-pro-components/commit/191cecf)) by@xiaofei
+* **components:** :zap: display-item component optimization 'options'([b4b4f30](https://github.com/plus-pro-components/plus-pro-components/commit/b4b4f30)) by@xiaofei
+* **components:** :zap: form-item component optimization 'options'([d1e59bb](https://github.com/plus-pro-components/plus-pro-components/commit/d1e59bb)) by@xiaofei
+
+
+### 🐛 Bug Fixes
+
+* **componeents:** :bug: fix search component computed reference invalidation.([023363b](https://github.com/plus-pro-components/plus-pro-components/commit/023363b)) by@xiaofei
+* **components:** :bug: fix reset function not emit modelValue([913fb29](https://github.com/plus-pro-components/plus-pro-components/commit/913fb29)) by@isummer
+
+
+
+
+## [v0.0.6](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.5...v0.0.6) (2024-03-25)
+
+
+### ✨ Features
+
+* **components:** :sparkles: form-item component valueType === 'text':'span'=>'el-text'([c8058f4](https://github.com/plus-pro-components/plus-pro-components/commit/c8058f4)) by@xiaofei
+* **types:** :sparkles: redefine FieldProps['autocomplete'] type.([0c262e9](https://github.com/plus-pro-components/plus-pro-components/commit/0c262e9)) by@xiaofei
+* **all:** Merge pull request [#81](https://github.com/plus-pro-components/plus-pro-components/pull/81) from plus-pro-components/simmi([38d722a](https://github.com/plus-pro-components/plus-pro-components/commit/38d722a)) by@xiaofei
+* **components:** :sparkles: expand and collapse events of search components([4da05bf](https://github.com/plus-pro-components/plus-pro-components/commit/4da05bf)) by@ex-cuishengnan
+
+
+
+
+### 🐛 Bug Fixes
+
+* **types:** :bug: fix FieldProps['height'] type.([37d4cae](https://github.com/plus-pro-components/plus-pro-components/commit/37d4cae)) by@xiaofei
+
+
+
+
+## [v0.0.5](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.4...v0.0.5) (2024-03-21)
+
+
+### ✨ Features
+
+* **components:** :sparkles: form-item and radio compatible with element-plus@2.6.0([acf366c](https://github.com/plus-pro-components/plus-pro-components/commit/acf366c)) by@xiaofei
+* **components:** :sparkles: search component add 'tooltip-icon' slot.([78beb99](https://github.com/plus-pro-components/plus-pro-components/commit/78beb99)) by@xiaofei
+* **components:** :sparkles: update form search-footer slot.([9486d72](https://github.com/plus-pro-components/plus-pro-components/commit/9486d72)) by@xiaofei
+* **theme-chalk:** :sparkles: add style support  search-footer defaults to right alignment.([cbbba19](https://github.com/plus-pro-components/plus-pro-components/commit/cbbba19)) by@xiaofei
+* **components:** :sparkles: search-footer defaults to right alignment.([04ce82f](https://github.com/plus-pro-components/plus-pro-components/commit/04ce82f)) by@xiaofei
+* **plus-pro-components:** :sparkles: export version([19e5978](https://github.com/plus-pro-components/plus-pro-components/commit/19e5978)) by@xiaofei
+* **components:** :sparkles: export missing props types.([aabd041](https://github.com/plus-pro-components/plus-pro-components/commit/aabd041)) by@xiaofei
+* **components:** :sparkles: form-item component compatible with element-plus@2.6.0([bb90ad7](https://github.com/plus-pro-components/plus-pro-components/commit/bb90ad7)) by@xiaofei
+* **components:** :sparkles: utils add compareVersion method.([e59e694](https://github.com/plus-pro-components/plus-pro-components/commit/e59e694)) by@xiaofei
+* **types:** :sparkles: add FieldProps type.([5a0aa80](https://github.com/plus-pro-components/plus-pro-components/commit/5a0aa80)) by@xiaofei
+* **all:** Merge pull request [#76](https://github.com/plus-pro-components/plus-pro-components/pull/76) from plus-pro-components/simmi([1041cfa](https://github.com/plus-pro-components/plus-pro-components/commit/1041cfa)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **theme-chalk:** :bug: date-picker not used up width.([c061f27](https://github.com/plus-pro-components/plus-pro-components/commit/c061f27)) by@xiaofei
+
+
+
+
+## [v0.0.4](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.3...v0.0.4) (2024-03-18)
+
+
+### ✨ Features
+
+* **theme-chalk:** :sparkles: input-tag.scss remove input 'width','max-width'([5efe94e](https://github.com/plus-pro-components/plus-pro-components/commit/5efe94e)) by@xiaofei
+* **types:** :sparkles: fieldValueType type add 'string[][]','number[][]'([544f3a5](https://github.com/plus-pro-components/plus-pro-components/commit/544f3a5)) by@xiaofei
+* **constants:** :sparkles: datePickerValueIsArrayList add 'years','dates'([27171b8](https://github.com/plus-pro-components/plus-pro-components/commit/27171b8)) by@xiaofei
+* **components:** :sparkles: form-item component form value is Array  add 'years','dates'([5ccc1e9](https://github.com/plus-pro-components/plus-pro-components/commit/5ccc1e9)) by@xiaofei
+* **components:** :sparkles: form-item component remove el-date-picker 'format' and 'value-format'([87b4cde](https://github.com/plus-pro-components/plus-pro-components/commit/87b4cde)) by@xiaofei
+* **all:** Merge pull request [#75](https://github.com/plus-pro-components/plus-pro-components/pull/75) from plus-pro-components/gs([93cdca7](https://github.com/plus-pro-components/plus-pro-components/commit/93cdca7)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix fieldProps has a higher priority than modelValue([5e75b53](https://github.com/plus-pro-components/plus-pro-components/commit/5e75b53)) by@guosong
+
+
+
+
+## [v0.0.3](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.2...v0.0.3) (2024-03-14)
+
+
+### ✨ Features
+
+* **types:** :sparkles: types headerFilter deprecated, headerFilter=>disabledHeaderFilter([5f0f0f6](https://github.com/plus-pro-components/plus-pro-components/commit/5f0f0f6)) by@xiaofei
+* **components:** :sparkles: columns 'headerFilter'=>'disabledHeaderFilter'([a35da2b](https://github.com/plus-pro-components/plus-pro-components/commit/a35da2b)) by@xiaofei
+* **components:** :sparkles: page component add icon slot.([eaa92d0](https://github.com/plus-pro-components/plus-pro-components/commit/eaa92d0)) by@xiaofei
+* **theme-chalk:** :sparkles: table.scss add 'plus-table-ghost-class'([a768fef](https://github.com/plus-pro-components/plus-pro-components/commit/a768fef)) by@xiaofei
+* **theme-chalk:** :sparkles: update table.scss([9c5eda6](https://github.com/plus-pro-components/plus-pro-components/commit/9c5eda6)) by@xiaofei
+* **components:** :sparkles: table component add icon slot.([efc0b38](https://github.com/plus-pro-components/plus-pro-components/commit/efc0b38)) by@xiaofei
+* **components:** :sparkles: form add 'tooltip-icon' slot.([6a39af0](https://github.com/plus-pro-components/plus-pro-components/commit/6a39af0)) by@xiaofei
+* **components:** :sparkles: input-tag component add 'formatTag' and 'retainInputValue' props.([9731f7c](https://github.com/plus-pro-components/plus-pro-components/commit/9731f7c)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix table column setting checkAll issues.([abda49a](https://github.com/plus-pro-components/plus-pro-components/commit/abda49a)) by@xiaofei
+* **components:** :bug: render form  priority 'fieldProps<modelValue' => 'fieldProps>modelValue'([81de288](https://github.com/plus-pro-components/plus-pro-components/commit/81de288)) by@xiaofei
+* **theme-chalk:** :bug: fix input-tag wrap error.([95ad002](https://github.com/plus-pro-components/plus-pro-components/commit/95ad002)) by@xiaofei
+
+
+
+
+## [v0.0.2](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1...v0.0.2) (2024-03-04)
+
+
+### ✨ Features
+
+* **components:** :sparkles: add descriptions slot name method.([ca01303](https://github.com/plus-pro-components/plus-pro-components/commit/ca01303)) by@xiaofei
+* **types:** :sparkles: add renderDescriptionsItem and renderDescriptionsLabel type([06829a4](https://github.com/plus-pro-components/plus-pro-components/commit/06829a4)) by@xiaofei
+* **components:** :sparkles: descriptions component add renderDescriptions* and plus-desc-*.([75de7a4](https://github.com/plus-pro-components/plus-pro-components/commit/75de7a4)) by@xiaofei
+* **components:** :sparkles: table component add pagination-right/left slots.([88cec22](https://github.com/plus-pro-components/plus-pro-components/commit/88cec22)) by@xiaofei
+* **packages:** :sparkles: pagination component add pagination-right/left slots,remove type.ts.([4aa7555](https://github.com/plus-pro-components/plus-pro-components/commit/4aa7555)) by@xiaofei
+* **theme-chalk:** :sparkles: update pagination.scss support slot.([0fe6f01](https://github.com/plus-pro-components/plus-pro-components/commit/0fe6f01)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.38...v0.0.1) (2024-02-18)
+
+
+### ✨ Features
+
+* **utils:** :sparkles: update utils build method.([7f6f211](https://github.com/plus-pro-components/plus-pro-components/commit/7f6f211)) by@xiaofei
+* **plus-pro-components:** :sparkles: update install type.([a5098f9](https://github.com/plus-pro-components/plus-pro-components/commit/a5098f9)) by@xiaofei
+* **components:** :sparkles: remove components default export.([0d84a5c](https://github.com/plus-pro-components/plus-pro-components/commit/0d84a5c)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.38](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.37...v0.0.1-beta.38) (2024-01-30)
+
+
+### ✨ Features
+
+* **plus-pro-components:** :sparkles: update element-plus version([7c7a0b6](https://github.com/plus-pro-components/plus-pro-components/commit/7c7a0b6)) by@xiaofei
+* **types:** :sparkles: plusColumn add fieldSlots type([03d4d81](https://github.com/plus-pro-components/plus-pro-components/commit/03d4d81)) by@xiaofei
+* **components:** :sparkles: display-item and form-item component add fieldSlots([70c1c72](https://github.com/plus-pro-components/plus-pro-components/commit/70c1c72)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.37](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.36...v0.0.1-beta.37) (2024-01-18)
+
+
+### ✨ Features
+
+* **types:** :sparkles: optionsType and  PropsItemType add ComputedRef support.([c5a2c35](https://github.com/plus-pro-components/plus-pro-components/commit/c5a2c35)) by@xiaofei
+* **plus-pro-components:** :sparkles: update components type([d0f68ae](https://github.com/plus-pro-components/plus-pro-components/commit/d0f68ae)) by@xiaofei
+* **hooks:** :sparkles: options add computed support.([7ae742b](https://github.com/plus-pro-components/plus-pro-components/commit/7ae742b)) by@xiaofei
+* **components:** :sparkles: remove watch deep([943ba78](https://github.com/plus-pro-components/plus-pro-components/commit/943ba78)) by@xiaofei
+* **components:** :sparkles: formItemProps and fieldProps add computed support.([a10ad21](https://github.com/plus-pro-components/plus-pro-components/commit/a10ad21)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix table-action-bar SSR click el-link auto scrollTo page top.([858bf82](https://github.com/plus-pro-components/plus-pro-components/commit/858bf82)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.36](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.35...v0.0.1-beta.36) (2024-01-15)
+
+
+### ✨ Features
+
+* **components:** :sparkles: form component add  column['hasLabel'] support([34dbee5](https://github.com/plus-pro-components/plus-pro-components/commit/34dbee5)) by@xiaofei
+* **packages:** :sparkles: display-item add customGetStatus support([07433ab](https://github.com/plus-pro-components/plus-pro-components/commit/07433ab)) by@xiaofei
+* **all:** Merge pull request [#69](https://github.com/plus-pro-components/plus-pro-components/pull/69) from xusaihu/feat-update-table-attrubute([fc48431](https://github.com/plus-pro-components/plus-pro-components/commit/fc48431)) by@xiaofei
+* **components/table:** :sparkles: add table attribute expandTableColumnProps([6954c7e](https://github.com/plus-pro-components/plus-pro-components/commit/6954c7e)) by@xubanxian
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix display-item component formInstance type([0d34139](https://github.com/plus-pro-components/plus-pro-components/commit/0d34139)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: refactor form  getHasLabel method([9a0d7d6](https://github.com/plus-pro-components/plus-pro-components/commit/9a0d7d6)) by@xiaofei
+* **components:** :recycle: refactor display-item component type([e68bfe3](https://github.com/plus-pro-components/plus-pro-components/commit/e68bfe3)) by@xiaofei
+
+
+## [v0.0.1-beta.35](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.34...v0.0.1-beta.35) (2024-01-10)
+
+
+
+
+
+
+### 🐛 Bug Fixes
+
+* **theme-chalk:** :bug: fix display-item form margin style([9d9d241](https://github.com/plus-pro-components/plus-pro-components/commit/9d9d241)) by@xiaofei
+* **components:** :bug: fix table and display-item multiple level display problem([0830947](https://github.com/plus-pro-components/plus-pro-components/commit/0830947)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: table form  remove formItemInstance.([ef088b5](https://github.com/plus-pro-components/plus-pro-components/commit/ef088b5)) by@xiaofei
+
+
+## [v0.0.1-beta.34](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.33...v0.0.1-beta.34) (2024-01-09)
+
+
+### ✨ Features
+
+* **types:** :sparkles: add renderExtra type([b7fd28d](https://github.com/plus-pro-components/plus-pro-components/commit/b7fd28d)) by@xiaofei
+* **theme-chalk:** :sparkles: form.scss add extra style([29c96ab](https://github.com/plus-pro-components/plus-pro-components/commit/29c96ab)) by@xiaofei
+* **components:** :sparkles: utils add getExtraSlotName([6bba0cb](https://github.com/plus-pro-components/plus-pro-components/commit/6bba0cb)) by@xiaofei
+* **components:** :sparkles: table add plus-extra-* slot([1c759a6](https://github.com/plus-pro-components/plus-pro-components/commit/1c759a6)) by@xiaofei
+* **components:** :sparkles: search add plus-*-* slot([253e162](https://github.com/plus-pro-components/plus-pro-components/commit/253e162)) by@xiaofei
+* **components:** :sparkles: dialog-form  drawer-form add plus-extra-* slot([47f020b](https://github.com/plus-pro-components/plus-pro-components/commit/47f020b)) by@xiaofei
+* **components:** :sparkles: form component add plus-extra-* slot and renderExtra.([6ed6542](https://github.com/plus-pro-components/plus-pro-components/commit/6ed6542)) by@xiaofei
+* **components:** :sparkles: dialog-form component add 'dialog-footer' slot([fcf894d](https://github.com/plus-pro-components/plus-pro-components/commit/fcf894d)) by@xiaofei
+* **components:** :sparkles: form handleSubmit method add return value([8e29bc0](https://github.com/plus-pro-components/plus-pro-components/commit/8e29bc0)) by@xiaofei
+* **theme-chalk:** :sparkles: dialog.scss add style([c34430b](https://github.com/plus-pro-components/plus-pro-components/commit/c34430b)) by@xiaofei
+* **components:** :sparkles: dialog component add 'footerAlign' props([78852d5](https://github.com/plus-pro-components/plus-pro-components/commit/78852d5)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **theme-chalk:** :bug: fix darkmode actionBar background issue([14208fc](https://github.com/plus-pro-components/plus-pro-components/commit/14208fc)) by@xiaofei
+* **components:** :bug: fix invalid 'form-footer' slot([31e5612](https://github.com/plus-pro-components/plus-pro-components/commit/31e5612)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: refactor display-item PlusForm and add plus-extra-* slot([81ad40a](https://github.com/plus-pro-components/plus-pro-components/commit/81ad40a)) by@xiaofei
+
+
+## [v0.0.1-beta.33](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.32...v0.0.1-beta.33) (2024-01-08)
+
+
+### ✨ Features
+
+* **components:** :sparkles: fix table ActionBar confirm['appContext'] performance issues([5ebf269](https://github.com/plus-pro-components/plus-pro-components/commit/5ebf269)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.32](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.31...v0.0.1-beta.32) (2024-01-06)
+
+
+### ✨ Features
+
+* **components:** :sparkles: drawer-form add 'plus-field-*' slot and 'plus-label-*' slot.([b80a96a](https://github.com/plus-pro-components/plus-pro-components/commit/b80a96a)) by@xiaofei
+* **components:** :sparkles: dialog-form add 'plus-field-*' slot and 'plus-label-*' slot.([14605f3](https://github.com/plus-pro-components/plus-pro-components/commit/14605f3)) by@xiaofei
+* **hooks:** :sparkles: remove useAppendTag useIsEnterKeyboard useIsOperation hooks.([3be0dfb](https://github.com/plus-pro-components/plus-pro-components/commit/3be0dfb)) by@xiaofei
+* **components:** :sparkles: merge pr #64([39e8bd3](https://github.com/plus-pro-components/plus-pro-components/commit/39e8bd3)) by@xiaofei
+* **all:** Merge pull request [#64](https://github.com/plus-pro-components/plus-pro-components/pull/64) from plus-pro-components/zpp([7909215](https://github.com/plus-pro-components/plus-pro-components/commit/7909215)) by@xiaofei
+* **components:** :sparkles: add drag and drop recolumn Settings([6281590](https://github.com/plus-pro-components/plus-pro-components/commit/6281590)) by@zhangpp
+* **components:** :sparkles: table ActionBarButtonsRow['confirm.options'] add type([ef25fd9](https://github.com/plus-pro-components/plus-pro-components/commit/ef25fd9)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: table ActionBarButtonsRow['confirm'] add 'appContext' Add support([a2df1ee](https://github.com/plus-pro-components/plus-pro-components/commit/a2df1ee)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: update filterSlots type([6126755](https://github.com/plus-pro-components/plus-pro-components/commit/6126755)) by@xiaofei
+
+
+## [v0.0.1-beta.31](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.30...v0.0.1-beta.31) (2023-12-28)
+
+
+### ✨ Features
+
+* **components:** :sparkles: update form component footer slot params and expose.([1294100](https://github.com/plus-pro-components/plus-pro-components/commit/1294100)) by@xiaofei
+* **types:** :sparkles: update tableColumnProps type([457ac9d](https://github.com/plus-pro-components/plus-pro-components/commit/457ac9d)) by@xiaofei
+* **all:** Merge pull request [#61](https://github.com/plus-pro-components/plus-pro-components/pull/61) from KeJunMao/KeJunMao/issue59([50d6d5e](https://github.com/plus-pro-components/plus-pro-components/commit/50d6d5e)) by@xiaofei
+* **components:** support scope to footer slot of PlusForm([84d571d](https://github.com/plus-pro-components/plus-pro-components/commit/84d571d)) by@kejun
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix el-table-column attribute order.([60ceb9b](https://github.com/plus-pro-components/plus-pro-components/commit/60ceb9b)) by@xiaofei
+* **theme-chalk:** :bug: fix invalid table tableColumnProps['align'] attribute.([19d8820](https://github.com/plus-pro-components/plus-pro-components/commit/19d8820)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.30](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.29...v0.0.1-beta.30) (2023-12-19)
+
+
+
+
+
+
+### 🐛 Bug Fixes
+
+* **theme-chalk:** :bug: fix sidebar collapse active background-color.([cf194d0](https://github.com/plus-pro-components/plus-pro-components/commit/cf194d0)) by@xiaofei
+* **theme-chalk:** :bug: fix display issues with sidebar components in dark mode.([29435ae](https://github.com/plus-pro-components/plus-pro-components/commit/29435ae)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.29](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.28...v0.0.1-beta.29) (2023-12-05)
+
+
+### ✨ Features
+
+* **all:** Merge pull request [#57](https://github.com/plus-pro-components/plus-pro-components/pull/57) from plus-pro-components/zpp([7312e4d](https://github.com/plus-pro-components/plus-pro-components/commit/7312e4d)) by@xiaofei
+* **all:** Merge pull request [#56](https://github.com/plus-pro-components/plus-pro-components/pull/56) from plus-pro-components/zpp([a4d339d](https://github.com/plus-pro-components/plus-pro-components/commit/a4d339d)) by@xiaofei
+
+
+
+
+
+
+### ♻️ Code Refactoring
+
+* **packages:** :recycle: update packages types([61e7523](https://github.com/plus-pro-components/plus-pro-components/commit/61e7523)) by@zhangpp
+
+
+## [v0.0.1-beta.28](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.27...v0.0.1-beta.28) (2023-12-04)
+
+
+### ✨ Features
+
+* **components:** :sparkles: page add 'defaultPageInfo','defaultPageSizeList','pagination' props.([e237cd2](https://github.com/plus-pro-components/plus-pro-components/commit/e237cd2)) by@xiaofei
+* **components:** :sparkles: search component add 'footer' slot.([522933c](https://github.com/plus-pro-components/plus-pro-components/commit/522933c)) by@xiaofei
+* **hooks:** :sparkles: useTable add 'pageInfo' params.([3fd40c9](https://github.com/plus-pro-components/plus-pro-components/commit/3fd40c9)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix  pagination component 'PlusPaginationProps' typescript type.([b35a298](https://github.com/plus-pro-components/plus-pro-components/commit/b35a298)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.27](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.26...v0.0.1-beta.27) (2023-11-28)
+
+
+### ✨ Features
+
+* **components:** :sparkles: form and search component 'reset' add params([0a49ecc](https://github.com/plus-pro-components/plus-pro-components/commit/0a49ecc)) by@xiaofei
+* **components:** :sparkles: page component add defaultValues support([adc5036](https://github.com/plus-pro-components/plus-pro-components/commit/adc5036)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix table 'paginationChange' immediate([b676570](https://github.com/plus-pro-components/plus-pro-components/commit/b676570)) by@xiaofei
+* **components:** :bug: fix sidebar/style/index import csss filename error.([dd6599b](https://github.com/plus-pro-components/plus-pro-components/commit/dd6599b)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: display-item component use  'has-label=false'([e188935](https://github.com/plus-pro-components/plus-pro-components/commit/e188935)) by@xiaofei
+
+
+## [v0.0.1-beta.26](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.25...v0.0.1-beta.26) (2023-11-24)
+
+
+### ✨ Features
+
+* **components:** :sparkles: check-card  and check-card-group add slot support.([26ef18d](https://github.com/plus-pro-components/plus-pro-components/commit/26ef18d)) by@xiaofei
+* **components:** :sparkles: add plus-check-card-group component([8fe1da1](https://github.com/plus-pro-components/plus-pro-components/commit/8fe1da1)) by@xiaofei
+* **all:** Merge pull request [#51](https://github.com/plus-pro-components/plus-pro-components/pull/51) from plus-pro-components/gs([5a8fcae](https://github.com/plus-pro-components/plus-pro-components/commit/5a8fcae)) by@xiaofei
+* **components:** :sparkles: add check-card component([76df804](https://github.com/plus-pro-components/plus-pro-components/commit/76df804)) by@guosong
+
+
+
+
+### 🐛 Bug Fixes
+
+* **theme-chalk:** :bug: fix descriptions.scss filename error([46fb1d3](https://github.com/plus-pro-components/plus-pro-components/commit/46fb1d3)) by@xiaofei
+* **components:** :bug: fix steps-form and descriptions component scss file path inconsistency.([cf06144](https://github.com/plus-pro-components/plus-pro-components/commit/cf06144)) by@xiaofei
+* **theme-chalk:** :bug: sidebar.scss add 'min-height'([9cc6a79](https://github.com/plus-pro-components/plus-pro-components/commit/9cc6a79)) by@xiaofei
+* **components:** :bug: add layout related component ts type([e7aa18a](https://github.com/plus-pro-components/plus-pro-components/commit/e7aa18a)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.25](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.24...v0.0.1-beta.25) (2023-11-13)
+
+
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: breadcrumb and sidebar component route not reactive([f83436a](https://github.com/plus-pro-components/plus-pro-components/commit/f83436a)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.24](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.23...v0.0.1-beta.24) (2023-11-10)
+
+
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: breadcrumb hiddenInMenu->hideInMenu([f3fc0b0](https://github.com/plus-pro-components/plus-pro-components/commit/f3fc0b0)) by@xiaofei
+
+
+
+
+## [v0.0.1-beta.23](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.22...v0.0.1-beta.23) (2023-11-10)
+
+
+### ✨ Features
+
+* **all:** Merge pull request [#49](https://github.com/plus-pro-components/plus-pro-components/pull/49) from plus-pro-components/zpp([06885fb](https://github.com/plus-pro-components/plus-pro-components/commit/06885fb)) by@xiaofei
+* **components:** :sparkles: form component add hasLabel prop([c76db60](https://github.com/plus-pro-components/plus-pro-components/commit/c76db60)) by@zhangpp
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.22](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.21...v0.0.1-beta.22) (2023-11-10)
+
+
+### ✨ Features
+
+* **components:** :sparkles: layout component hide*->hideIn*,render add string support.([44cbd8a](https://github.com/plus-pro-components/plus-pro-components/commit/44cbd8a)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.21](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.20...v0.0.1-beta.21) (2023-11-08)
+
+
+### ✨ Features
+
+* **components:** :sparkles: perfect header and sidebar component,form component add defaultValues([6a1f15a](https://github.com/plus-pro-components/plus-pro-components/commit/6a1f15a)) by@xiaofei
+
+
+
+
+
+
+
+
+## [v0.0.1-beta.20](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.19...v0.0.1-beta.20) (2023-11-07)
+
+
+### ✨ Features
+
+* **components:** :sparkles: perfect breadcrumb,header,sidebara and layout component([0b9e818](https://github.com/plus-pro-components/plus-pro-components/commit/0b9e818)) by@xiaofei
+* **components:** :sparkles: add layout component and perfect breadcrumb,sidebar,header component([41c5fdb](https://github.com/plus-pro-components/plus-pro-components/commit/41c5fdb)) by@xiaofei
+* **components:** :sparkles: add header component([639fd28](https://github.com/plus-pro-components/plus-pro-components/commit/639fd28)) by@xiaofei
+* **components:** :sparkles: sidebar add horizontal mode support,sidebar and breadcrumb add style([59b2880](https://github.com/plus-pro-components/plus-pro-components/commit/59b2880)) by@xiaofei
+* **components:** :sparkles: add sidebar component([8536499](https://github.com/plus-pro-components/plus-pro-components/commit/8536499)) by@xiaofei
+* **components:** :sparkles: add breadcrumb component([bec120c](https://github.com/plus-pro-components/plus-pro-components/commit/bec120c)) by@xiaofei
+
+
+
+
+
+
+
+
 ## [v0.0.1-beta.19](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.18...v0.0.1-beta.19) (2023-11-01)
 
 
@@ -6,6 +581,8 @@
 * **component[table]:** :sparkles: expose 'formRefs'([59da178](https://github.com/plus-pro-components/plus-pro-components/commit/59da178)) by@xiaofei
 * **all:** Merge pull request [#48](https://github.com/plus-pro-components/plus-pro-components/pull/48) from xusaihu/fix/form-item([9e048a7](https://github.com/plus-pro-components/plus-pro-components/commit/9e048a7)) by@xiaofei
 * **all:** Merge branch 'dev' of https://github.com/xusaihu/plus-pro-components into dev([fce58eb](https://github.com/plus-pro-components/plus-pro-components/commit/fce58eb)) by@xubanxian
+
+
 
 
 ### 🐛 Bug Fixes
@@ -22,6 +599,8 @@
 ### ✨ Features
 
 * **theme-chalk:** :sparkles: support dark-mode and namespace.([1dc2995](https://github.com/plus-pro-components/plus-pro-components/commit/1dc2995)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -47,12 +626,16 @@
 
 
 
+
+
 ## [v0.0.1-beta.16](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.15...v0.0.1-beta.16) (2023-10-18)
 
 
 ### ✨ Features
 
 * **packages:** :sparkles: update plus-pro-components/package.json 'sideEffects'([ebb6ba8](https://github.com/plus-pro-components/plus-pro-components/commit/ebb6ba8)) by@xiaofei
+
+
 
 
 
@@ -71,7 +654,11 @@
 
 
 
+
+
 ## [v0.0.1-beta.14](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.13...v0.0.1-beta.14) (2023-10-17)
+
+
 
 
 
@@ -93,6 +680,8 @@
 
 
 
+
+
 ### ♻️ Code Refactoring
 
 * **packages:** :recycle: remove '@plus-pro-components/utils',reduce file size by half.([d16c36e](https://github.com/plus-pro-components/plus-pro-components/commit/d16c36e)) by@xiaofei
@@ -106,6 +695,8 @@
 * **components[table]:** :sparkles: props of table-title-bar component titleBar add icon properties([3b3fcee](https://github.com/plus-pro-components/plus-pro-components/commit/3b3fcee)) by@xiaofei
 
 
+
+
 ### 🐛 Bug Fixes
 
 * **components[table]:** :bug: fix table-title-bar component columnSetting not filter 'hideInTable'([4cfeeae](https://github.com/plus-pro-components/plus-pro-components/commit/4cfeeae)) by@xiaofei
@@ -114,6 +705,8 @@
 
 
 ## [v0.0.1-beta.11](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.10...v0.0.1-beta.11) (2023-09-26)
+
+
 
 
 
@@ -139,7 +732,11 @@
 
 
 
+
+
 ## [v0.0.1-beta.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.8...v0.0.1-beta.9) (2023-09-21)
+
+
 
 
 
@@ -159,6 +756,8 @@
 * **components:** :sparkles: export  packages/constants([6262117](https://github.com/plus-pro-components/plus-pro-components/commit/6262117)) by@xiaofei
 
 
+
+
 ### 🐛 Bug Fixes
 
 * **eslint-config:** :bug: fix package.json  files([695a78a](https://github.com/plus-pro-components/plus-pro-components/commit/695a78a)) by@xiaofei
@@ -172,6 +771,8 @@
 
 
 ## [v0.0.1-beta.7](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.6...v0.0.1-beta.7) (2023-09-20)
+
+
 
 
 
@@ -190,12 +791,16 @@
 
 
 
+
+
 ### ♻️ Code Refactoring
 
 * **components:** :recycle: refactor  table-title-bar table-action-bar.([6aaa2b5](https://github.com/plus-pro-components/plus-pro-components/commit/6aaa2b5)) by@xiaofei
 
 
 ## [v0.0.1-beta.5](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.4...v0.0.1-beta.5) (2023-09-19)
+
+
 
 
 
@@ -221,7 +826,11 @@
 
 
 
+
+
 ## [v0.0.1-beta.3](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.2...v0.0.1-beta.3) (2023-09-14)
+
+
 
 
 
@@ -234,6 +843,8 @@
 
 
 ## [v0.0.1-beta.2](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-beta.1...v0.0.1-beta.2) (2023-09-14)
+
+
 
 
 
@@ -257,12 +868,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.35](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.34...v0.0.1-alpha.35) (2023-09-04)
 
 
 ### ✨ Features
 
 * **components:** :sparkles: unified  render methods.([a7814c7](https://github.com/plus-pro-components/plus-pro-components/commit/a7814c7)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -278,6 +893,8 @@
 ### ✨ Features
 
 * **components[radio]:** :sparkles: rewrite radio component.([9046664](https://github.com/plus-pro-components/plus-pro-components/commit/9046664)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -300,6 +917,8 @@
 
 
 
+
+
 ## [v0.0.1-alpha.32](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.31...v0.0.1-alpha.32) (2023-08-28)
 
 
@@ -308,6 +927,8 @@
 * **components:** :sparkles: table,form component add slot function.([11fddef](https://github.com/plus-pro-components/plus-pro-components/commit/11fddef)) by@xiaofei
 * **all:** Merge pull request [#43](https://github.com/plus-pro-components/plus-pro-components/pull/43) from plus-pro-components/zpp([3ad52ea](https://github.com/plus-pro-components/plus-pro-components/commit/3ad52ea)) by@xiaofei
 * **components:** :sparkles: add components form slots([46458f5](https://github.com/plus-pro-components/plus-pro-components/commit/46458f5)) by@zhangpp
+
+
 
 
 
@@ -326,6 +947,8 @@
 * **components:** :sparkles: refactor components display-item([143b047](https://github.com/plus-pro-components/plus-pro-components/commit/143b047)) by@zhangpp
 * **all:** Merge pull request [#40](https://github.com/plus-pro-components/plus-pro-components/pull/40) from plus-pro-components/zpp([55efba6](https://github.com/plus-pro-components/plus-pro-components/commit/55efba6)) by@xiaofei
 * **components:** :sparkles: refactor components from footer([52e00c9](https://github.com/plus-pro-components/plus-pro-components/commit/52e00c9)) by@zhangpp
+
+
 
 
 ### 🐛 Bug Fixes
@@ -355,6 +978,8 @@
 
 
 
+
+
 ## [v0.0.1-alpha.29](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.28...v0.0.1-alpha.29) (2023-08-16)
 
 
@@ -373,12 +998,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.28](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.27...v0.0.1-alpha.28) (2023-08-07)
 
 
 ### ✨ Features
 
 * **components:** :sparkles: remove @plus-pro-components/echarts([377c1e2](https://github.com/plus-pro-components/plus-pro-components/commit/377c1e2)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -396,6 +1025,8 @@
 
 
 
+
+
 ### 🐛 Bug Fixes
 
 * **components:** :bug: fix getCustomProps and useGetOptions promise trigger twice.([f52ea70](https://github.com/plus-pro-components/plus-pro-components/commit/f52ea70)) by@xiaofei
@@ -409,6 +1040,8 @@
 ### ✨ Features
 
 * **components:** :sparkles: improve custom render and async options.([1ac47d2](https://github.com/plus-pro-components/plus-pro-components/commit/1ac47d2)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -431,12 +1064,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.24](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.23...v0.0.1-alpha.24) (2023-07-31)
 
 
 ### ✨ Features
 
 * **components:** :sparkles: add internationalization support.([d2013d5](https://github.com/plus-pro-components/plus-pro-components/commit/d2013d5)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -457,12 +1094,16 @@
 
 
 
+
+
 ### ♻️ Code Refactoring
 
 * **utils:** :recycle: refactor utils and hooks.([03ac264](https://github.com/plus-pro-components/plus-pro-components/commit/03ac264)) by@xiaofei
 
 
 ## [v0.0.1-alpha.22](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.21...v0.0.1-alpha.22) (2023-07-26)
+
+
 
 
 
@@ -487,12 +1128,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.20](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.19...v0.0.1-alpha.20) (2023-07-24)
 
 
 ### ✨ Features
 
 * **components:** :sparkles: table-action-bar add show and confirm function.([13a6ca0](https://github.com/plus-pro-components/plus-pro-components/commit/13a6ca0)) by@xiaofei
+
+
 
 
 
@@ -511,12 +1156,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.18](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.17...v0.0.1-alpha.18) (2023-07-20)
 
 
 ### ✨ Features
 
 * **components:** :sparkles: add dialog-form and drawer-form component.([b1b70de](https://github.com/plus-pro-components/plus-pro-components/commit/b1b70de)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -542,6 +1191,8 @@
 
 
 
+
+
 ## [v0.0.1-alpha.16](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.15...v0.0.1-alpha.16) (2023-07-19)
 
 
@@ -549,6 +1200,8 @@
 
 * **all:** Merge pull request [#28](https://github.com/plus-pro-components/plus-pro-components/pull/28) from plus-pro-components/zpp([77cfd16](https://github.com/plus-pro-components/plus-pro-components/commit/77cfd16)) by@xiaofei
 * **components:** :sparkles: update descriptions,form-item,form component hide method.([36ed542](https://github.com/plus-pro-components/plus-pro-components/commit/36ed542)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -571,12 +1224,16 @@
 
 
 
+
+
 ## [v0.0.1-alpha.14](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.13...v0.0.1-alpha.14) (2023-07-17)
 
 
 ### ✨ Features
 
 * **docs:** :sparkles: edit table,config,form,search docs.([a877b2e](https://github.com/plus-pro-components/plus-pro-components/commit/a877b2e)) by@xiaofei
+
+
 
 
 
@@ -599,6 +1256,8 @@
 
 
 
+
+
 ## [v0.0.1-alpha.12](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.1-alpha.11...v0.0.1-alpha.12) (2023-07-13)
 
 
@@ -607,6 +1266,8 @@
 * **all:** Merge branch 'dev' of https://github.com/plus-pro-components/plus-pro-components into dev([64e7d1c](https://github.com/plus-pro-components/plus-pro-components/commit/64e7d1c)) by@xiaofei
 * **components:** :sparkles: add tooltip.([c183f50](https://github.com/plus-pro-components/plus-pro-components/commit/c183f50)) by@xiaofei
 * **all:** Merge pull request [#22](https://github.com/plus-pro-components/plus-pro-components/pull/22) from plus-pro-components/simmi([2aa66aa](https://github.com/plus-pro-components/plus-pro-components/commit/2aa66aa)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -632,6 +1293,8 @@
 
 
 
+
+
 ### ♻️ Code Refactoring
 
 * **all:** :recycle: code architecture adjustment.([b833934](https://github.com/plus-pro-components/plus-pro-components/commit/b833934)) by@xiaofei
@@ -644,6 +1307,8 @@
 
 * **all:** Merge pull request [#19](https://github.com/plus-pro-components/plus-pro-components/pull/19) from plus-pro-components/zpp([4a96fc9](https://github.com/plus-pro-components/plus-pro-components/commit/4a96fc9)) by@xiaofei
 * **packages:** :sparkles: update drag sort icon([3096dc8](https://github.com/plus-pro-components/plus-pro-components/commit/3096dc8)) by@zhangpp
+
+
 
 
 
@@ -667,6 +1332,8 @@
 
 
 
+
+
 ## [0.0.1-alpha.8](https://github.com/plus-pro-components/plus-pro-components/compare/0.0.1-alpha.7...0.0.1-alpha.8) (2023-06-25)
 
 
@@ -678,6 +1345,8 @@
 * **all:** Merge branch 'dev' into zpp([8de5de9](https://github.com/plus-pro-components/plus-pro-components/commit/8de5de9)) by@zpx
 * **packages:** :sparkles: table setting([2a89cfa](https://github.com/plus-pro-components/plus-pro-components/commit/2a89cfa)) by@zhangpp
 * **all:** :sparkles: release v0.0.1-alpha.7([abfbe10](https://github.com/plus-pro-components/plus-pro-components/commit/abfbe10)) by@xiaofei
+
+
 
 
 
@@ -706,6 +1375,8 @@
 
 
 
+
+
 ## [0.0.1-alpha.6](https://github.com/plus-pro-components/plus-pro-components/compare/0.0.1-alpha.5...0.0.1-alpha.6) (2023-06-14)
 
 
@@ -720,6 +1391,8 @@
 * **all:** Merge branch 'zpp' into dev([32658b7](https://github.com/plus-pro-components/plus-pro-components/commit/32658b7)) by@xiaofei
 * **packages:** :sparkles: edit table component([68eb4c2](https://github.com/plus-pro-components/plus-pro-components/commit/68eb4c2)) by@zhangpp
 * **all:** Merge pull request [#5](https://github.com/plus-pro-components/plus-pro-components/pull/5) from plus-pro-components/dev([8842c6b](https://github.com/plus-pro-components/plus-pro-components/commit/8842c6b)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -737,6 +1410,8 @@
 
 * **all:** Merge branch 'main' of https://github.com/plus-pro-components/plus-pro-components([1218545](https://github.com/plus-pro-components/plus-pro-components/commit/1218545)) by@xiaofei
 * **all:** :sparkles: release v0.0.1-alpha.4([6ea1e34](https://github.com/plus-pro-components/plus-pro-components/commit/6ea1e34)) by@xiaofei
+
+
 
 
 ### 🐛 Bug Fixes
@@ -765,6 +1440,8 @@
 * **all:** :sparkles: release 0.0.1-alpha.3.([8248feb](https://github.com/plus-pro-components/plus-pro-components/commit/8248feb)) by@xiaofei
 
 
+
+
 ### 🐛 Bug Fixes
 
 * **scripts:** :bug: edit create-component process.([13a2f44](https://github.com/plus-pro-components/plus-pro-components/commit/13a2f44)) by@xiaofei
@@ -786,6 +1463,8 @@
 * **all:** :sparkles: add release scripts.([d9890e5](https://github.com/plus-pro-components/plus-pro-components/commit/d9890e5)) by@xiaofei
 
 
+
+
 ### 🐛 Bug Fixes
 
 * **scripts:** :bug: fix includes error.([c7a6e00](https://github.com/plus-pro-components/plus-pro-components/commit/c7a6e00)) by@xiaofei
@@ -805,12 +1484,16 @@
 
 
 
+
+
 ## [0.0.1-alpha.1](https://github.com/plus-pro-components/plus-pro-components/commit/511a2be) (2023-05-24)
 
 
 ### ✨ Features
 
 * **all:** :sparkles: init([511a2be](https://github.com/plus-pro-components/plus-pro-components/commit/511a2be)) by@xiaofei
+
+
 
 
 

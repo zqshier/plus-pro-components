@@ -1,8 +1,7 @@
 {
   "private": true,
-  "version": "0.0.1-beta.19",
+  "version": "0.0.9",
   "description": "Page level components developed based on Element Plus.",
-  "packageManager": "pnpm@8.5.0",
   "license": "MIT",
   "author": "xiaofei",
   "workspaces": {
@@ -47,7 +46,7 @@
     "new": "tsx scripts/create-component/index.ts"
   },
   "dependencies": {
-    "@element-plus/icons-vue": "^2.1.0",
+    "@element-plus/icons-vue": "^2.3.1",
     "@plus-pro-components/components": "workspace:*",
     "@plus-pro-components/constants": "workspace:*",
     "@plus-pro-components/eslint-config": "workspace:*",
@@ -58,10 +57,11 @@
     "@plus-pro-components/types": "workspace:*",
     "@plus-pro-components/utils": "workspace:*",
     "dayjs": "^1.11.7",
-    "element-plus": "^2.3.4",
+    "element-plus": "^2.5.3",
     "lodash-es": "^4.17.21",
     "sortablejs": "^1.15.0",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "vue-tsc": "1.8.27"
   },
   "devDependencies": {
     "@commitlint/cli": "^17.6.3",
@@ -113,9 +113,9 @@
     "semver": "^7.5.1",
     "ts-morph": "^18.0.0",
     "ts-node": "^10.9.1",
-    "tsx": "^3.12.7",
+    "tsx": "^3.14.0",
     "typescript": "^5.1.6",
-    "unbuild": "^1.2.1",
+    "unbuild": "^2.0.0",
     "vitest": "^0.31.1"
   },
   "peerDependencies": {

@@ -2,10 +2,10 @@
   <template v-for="item in columns" :key="getKey(item)">
     <el-table-column
       class-name="plus-table-column"
+      v-bind="item.tableColumnProps"
       :prop="item.prop"
       :width="item.width"
       :min-width="item.minWidth"
-      v-bind="item.tableColumnProps"
     >
       <template #header>
         <span class="plus-table-column__header">
@@ -30,7 +30,11 @@
           </slot>
 
           <el-tooltip v-if="item.tooltip" placement="top" v-bind="getTooltip(item.tooltip)">
-            <el-icon class="plus-table-column__header__icon" :size="16"><QuestionFilled /></el-icon>
+            <slot name="tooltip-icon">
+              <el-icon class="plus-table-column__header__icon" :size="16">
+                <QuestionFilled />
+              </el-icon>
+            </slot>
           </el-tooltip>
         </span>
       </template>
@@ -49,6 +53,14 @@
             #[getFieldSlotName(item.prop)]="data"
           >
             <slot :name="getFieldSlotName(item.prop)" v-bind="data" />
+          </template>
+
+          <!-- 表单el-form-item 下一行额外的内容 的插槽 -->
+          <template
+            v-if="$slots[getExtraSlotName(item.prop)]"
+            #[getExtraSlotName(item.prop)]="data"
+          >
+            <slot :name="getExtraSlotName(item.prop)" v-bind="data" />
           </template>
 
           <!--表格单元格的插槽 -->
@@ -74,10 +86,10 @@ import {
   getTableCellSlotName,
   getTableHeaderSlotName,
   getFieldSlotName,
+  getExtraSlotName,
   isFunction
 } from '@plus-pro-components/components/utils'
 import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
-
 import { QuestionFilled } from '@element-plus/icons-vue'
 import type { Ref } from 'vue'
 import { shallowRef, inject, watch } from 'vue'

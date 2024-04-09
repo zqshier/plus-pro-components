@@ -44,3 +44,18 @@ export function PlusProComponentsExternal(options: OutputOptions): Plugin {
     }
   }
 }
+
+/**
+ * 清除console.log
+ * @returns
+ */
+export function PlusProComponentsClearConsole(): Plugin {
+  const reg = /(console.log()(.*)())/g
+  return {
+    name: 'plus-pro-components-clear-console-plugin',
+    transform(source) {
+      source = source.replace(reg, '')
+      return source
+    }
+  }
+}

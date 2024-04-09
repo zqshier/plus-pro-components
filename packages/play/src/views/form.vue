@@ -1,6 +1,7 @@
 <template>
   <el-card>
-    <PlusForm v-model="state" :columns="columns" :rules="rules" @change="handleChange" />
+    <PlusForm v-model="state" label-width="140px" :columns="columns" :rules="rules" />
+    {{ state }}
   </el-card>
 </template>
 
@@ -8,66 +9,102 @@
 import { ref } from 'vue'
 import type { PlusColumn, FieldValues } from '@plus-pro-components/types'
 
-const state = ref<FieldValues>({
-  status: '0',
-  name: '提示'
-})
+const originData = {
+  checkbox: [],
+  input: '',
+  textarea: '',
+  rate: '',
+  radio: '',
+  slider: ''
+}
 
-const rules = {
-  name: [
+const state = ref<FieldValues>({ ...originData })
+
+const rules: any = {}
+
+Object.keys(originData).forEach(key => {
+  rules[key] = [
     {
       required: true,
-      message: '请输入名称'
-    }
-  ],
-  status: [
-    {
-      required: true,
-      message: '请输入标签'
+      message: '不能为空',
+      trigger: ['checkbox', 'radio', 'slider', 'rate'].includes(key) ? 'change' : 'change'
     }
   ]
-}
+})
 
 const columns: PlusColumn[] = [
   {
-    label: '名称',
-    width: 120,
-    prop: 'name',
-    valueType: 'copy',
-    tooltip: '名称最多显示6个字符',
-    hideInForm: ref(true)
-  },
-  {
-    label: '状态',
-    width: 120,
-    prop: 'status',
-    valueType: 'select',
+    label: 'checkbox',
+    prop: 'checkbox',
+    valueType: 'checkbox',
     options: [
       {
-        label: '未解决',
-        value: '0',
-        color: 'red'
+        label: '四六级',
+        value: '0'
       },
       {
-        label: '已解决',
-        value: '1',
-        color: 'blue'
+        label: '计算机二级证书',
+        value: '1'
       },
       {
-        label: '解决中',
-        value: '2',
-        color: 'yellow'
-      },
-      {
-        label: '失败',
-        value: '3',
-        color: 'red'
+        label: '普通话证书',
+        value: '2'
       }
-    ]
+    ],
+    fieldProps: {}
+  },
+
+  {
+    label: 'input',
+    width: 120,
+    prop: 'input',
+    fieldProps: {}
+  },
+  {
+    label: 'textarea',
+    prop: 'textarea',
+    valueType: 'textarea',
+    fieldProps: {
+      rows: 100,
+      maxlength: 10,
+      showWordLimit: true,
+      autosize: { minRows: 2, maxRows: 4 }
+    }
+  },
+  {
+    label: 'rate',
+    width: 200,
+    prop: 'rate',
+    valueType: 'rate',
+    fieldProps: {}
+  },
+  {
+    label: 'radio',
+    prop: 'radio',
+    valueType: 'radio',
+    options: [
+      {
+        label: '诗',
+        value: '0'
+      },
+      {
+        label: '远方',
+        value: '1'
+      },
+      {
+        label: '美食',
+        value: '2'
+      }
+    ],
+    fieldProps: {
+      textColor: ''
+    }
+  },
+  {
+    label: 'slider',
+    prop: 'slider',
+    valueType: 'slider',
+    fieldProps: {}
   }
 ]
-
-const handleChange = (values: FieldValues, prop: PlusColumn) => {
-  console.log(values, prop, 'change')
-}
 </script>

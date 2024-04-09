@@ -10,7 +10,8 @@ import type {
   ElTooltipProps,
   TableColumnCtx
 } from 'element-plus'
-import type { DefineComponent, Ref, ComputedRef } from 'vue'
+import type { Component, Ref, ComputedRef, AppContext } from 'vue'
+import type { Options as SortableOptions } from 'sortablejs'
 
 /**
  * 表格操作栏按钮配置项的值的类型
@@ -19,7 +20,15 @@ export interface ActionBarButtonsRow {
   /**
    * 操作文本
    */
-  text: string | Ref<string> | ComputedRef<string>
+  text:
+    | string
+    | Ref<string>
+    | ComputedRef<string>
+    | ((
+        row: any,
+        index: number,
+        button: ActionBarButtonsRow
+      ) => string | Ref<string> | ComputedRef<string>)
   /**
    * 操作唯一code
    *
@@ -29,7 +38,7 @@ export interface ActionBarButtonsRow {
   /**
    * `@element-plus/icons-vue` 的图标名称，对ElButton,ElLink 和ElIcon 组件同时生效
    */
-  icon?: DefineComponent
+  icon?: Component
   /**
    * ElButton,ElLink和ElIcon 组件对应的props
    */
@@ -73,6 +82,10 @@ export interface ActionBarButtonsRow {
          *  ElMessageBox.confirm 的options
          */
         options?: ElMessageBoxOptions
+        /**
+         *  ElMessageBox.confirm 的appContext
+         */
+        appContext?: AppContext | null
       }
 }
 
@@ -86,6 +99,7 @@ export interface TableFormRefRow {
   formInstance: Ref<InstanceType<typeof ElForm>>
   /**
    * 单元格的表单单项实例
+   * @deprecated v0.0.1-beta.34
    */
   formItemInstance: Ref<InstanceType<typeof ElFormItem>>
   /**
@@ -95,6 +109,10 @@ export interface TableFormRefRow {
     index: number
     prop: string
     formInstance: Ref<InstanceType<typeof ElForm>>
+    /**
+     * 单元格的表单单项实例
+     * @deprecated v0.0.1-beta.34
+     */
     formItemInstance: Ref<InstanceType<typeof ElFormItem>>
   }
   /**
@@ -211,7 +229,7 @@ export type TitleBar = Partial<{
   /**
    * 是否需要列设置 默认true
    */
-  columnSetting?: boolean
+  columnSetting?: boolean | { dragSort?: boolean | Partial<SortableOptions> }
 
   /**
    * 工具栏 icon 的大小和颜色配置

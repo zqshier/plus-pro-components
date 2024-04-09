@@ -47,6 +47,9 @@
 }
 
 .vp-doc {
+  .el-descriptions__table {
+    margin: 0;
+  }
   h2 {
     border-top: 0;
   }
@@ -64,7 +67,15 @@
   .el-table tr {
     border-top: 0;
   }
+  .plus-sidebar {
+    padding-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
+  .el-menu-item {
+    margin-top: 0;
+  }
   th,
   td {
     border: 0;
@@ -81,6 +92,25 @@
     display: table;
     table-layout: auto;
     width: 100%;
+    .el-tag {
+      display: unset;
+      margin-left: 4px;
+    }
+  }
+
+  .plus-header .set-language-dropdown {
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+  }
+
+  .tip a {
+    text-decoration: underline;
+  }
+
+  .el-text a {
+    text-decoration: none;
   }
 }
 

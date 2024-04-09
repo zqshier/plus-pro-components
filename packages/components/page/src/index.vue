@@ -3,15 +3,15 @@
     <component :is="renderWrapper().search" v-if="search">
       <PlusSearch
         ref="plusSearchInstance"
-        v-model="state.params"
+        v-bind="search"
+        v-model="values"
         :columns="columns"
         :search-loading="loadingStatus"
-        v-bind="search"
         @search="handleSearch"
         @reset="handleRest"
       >
-        <template v-if="$slots['search-footer']" #footer>
-          <slot name="search-footer" />
+        <template v-if="$slots['search-footer']" #footer="data">
+          <slot name="search-footer" v-bind="data" />
         </template>
       </PlusSearch>
     </component>
@@ -19,12 +19,17 @@
     <component :is="renderWrapper().table" class="plus-page__table_wrapper">
       <PlusTable
         ref="plusTableInstance"
+        :title-bar="{ refresh: true }"
+        v-bind="table"
         :table-data="tableData"
         :loading-status="loadingStatus"
         :columns="columns"
-        :pagination="{ total, modelValue: pageInfo }"
-        :title-bar="{ refresh: true }"
-        v-bind="table"
+        :pagination="{
+          ...pagination,
+          total,
+          modelValue: pageInfo,
+          pageSizeList: computedDefaultPageSizeList
+        }"
         @paginationChange="handlePaginationChange"
         @refresh="handleRefresh"
       >
@@ -62,6 +67,38 @@
         <template v-if="$slots['table-empty']" #empty>
           <slot name="table-empty" />
         </template>
+
+        <template v-if="$slots['pagination-left']" #pagination-left>
+          <slot name="pagination-left" />
+        </template>
+
+        <template v-if="$slots['pagination-right']" #pagination-right>
+          <slot name="pagination-right" />
+        </template>
+
+        <!-- 表格拖拽行 和 列设置里拖拽 icon -->
+        <template v-if="$slots['drag-sort-icon']" #drag-sort-icon>
+          <slot name="drag-sort-icon" />
+        </template>
+
+        <!-- 表格表头 列设置 icon   -->
+        <template v-if="$slots['column-settings-icon']" #column-settings-icon>
+          <slot name="column-settings-icon" />
+        </template>
+
+        <!-- 表表格表头 密度 icon  -->
+        <template v-if="$slots['density-icon']" #density-icon>
+          <slot name="density-icon" />
+        </template>
+
+        <!--table tooltip-icon  插槽 -->
+        <template v-if="$slots['tooltip-icon']" #tooltip-icon>
+          <slot name="tooltip-icon" />
+        </template>
+        <!--table 操作栏更多icon插槽 -->
+        <template v-if="$slots['action-bar-more-icon']" #action-bar-more-icon>
+          <slot name="action-bar-more-icon" />
+        </template>
       </PlusTable>
     </component>
   </div>
@@ -80,7 +117,7 @@ import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/componen
 import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
 import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
 import type { Ref, Component } from 'vue'
-import { h, reactive, ref, useSlots } from 'vue'
+import { h, ref, useSlots, computed } from 'vue'
 import type { CardProps } from 'element-plus'
 import { ElCard } from 'element-plus'
 import { useTable } from '@plus-pro-components/hooks'
@@ -90,6 +127,7 @@ import {
   getFieldSlotName,
   filterSlots
 } from '@plus-pro-components/components/utils'
+import { DefaultPageInfo, DefaultPageSizeList } from '@plus-pro-components/constants'
 
 export interface PlusPageProps {
   /**
@@ -145,16 +183,22 @@ export interface PlusPageProps {
    *   表格外层的el-card的props ，当isCard为true时生效
    */
   tableCardProps?: Partial<Mutable<CardProps>>
+  defaultPageInfo?: PageInfo
+  defaultPageSizeList?: number[]
+  pagination?: RecordType
+  /**
+   * 组件渲染完成后是否立即调用getList
+   */
+  immediate?: boolean
 }
 export interface PlusPageEmits {
   /**
    * 数据加载失败时触发
    */
   (e: 'requestError', error: any): void
-}
-export interface PlusPageState {
-  params: FieldValues
-  values: FieldValues
+  (e: 'search', data: FieldValues): void
+  (e: 'reset', data: FieldValues): void
+  (e: 'paginationChange', pageInfo: PageInfo): void
 }
 
 const props = withDefaults(defineProps<PlusPageProps>(), {
@@ -166,8 +210,15 @@ const props = withDefaults(defineProps<PlusPageProps>(), {
   // eslint-disable-next-line vue/require-valid-default-prop
   search: () => ({}),
   table: () => ({}),
+  defaultPageInfo: () => ({ ...DefaultPageInfo }),
+  defaultPageSizeList: () => DefaultPageSizeList,
   searchCardProps: () => ({}),
-  tableCardProps: () => ({})
+  tableCardProps: () => ({}),
+  /**
+   * 分页组件的其他参数，不包含total，modelValue，pageSizeList
+   */
+  pagination: () => ({}),
+  immediate: true
 })
 const emit = defineEmits<PlusPageEmits>()
 
@@ -181,14 +232,13 @@ defineOptions({
 const PlusSearch: Component = PlusSearchComponent
 const PlusTable: Component = PlusTableComponent
 
-const { tableData, pageInfo, total, loadingStatus } = useTable()
+const computedDefaultPageInfo = computed(() => props.defaultPageInfo)
+const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
+
+const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPageInfo)
 const plusSearchInstance = ref<any>()
 const plusTableInstance = ref<any>()
-const state: PlusPageState = reactive({
-  params: {},
-  values: {}
-})
-
+const values = ref({ ...(props.search as any)?.defaultValues })
 const slots = useSlots()
 /**
  * 表格单元格的插槽
@@ -219,7 +269,7 @@ const getList = async () => {
   try {
     loadingStatus.value = true
     const { data, total: dataTotal } = await props.request({
-      ...state.params,
+      ...values.value,
       ...pageInfo.value,
       ...props.params
     })
@@ -231,23 +281,30 @@ const getList = async () => {
   }
   loadingStatus.value = false
 }
-getList()
+
+if (props.immediate) {
+  getList()
+}
 
 const handlePaginationChange = (_pageInfo: PageInfo): void => {
   pageInfo.value = _pageInfo
   getList()
+
+  emit('paginationChange', _pageInfo)
 }
 
 const handleSearch = (values: any) => {
   const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(values)) || values
-  state.params = data
+  values.value = data
   getList()
+  emit('search', values.value)
 }
 
-const handleRest = () => {
-  state.params = {}
+const handleRest = (values: any) => {
+  values.value = { ...values }
   pageInfo.value.page = 1
   getList()
+  emit('reset', values.value)
 }
 
 const handleRefresh = () => {

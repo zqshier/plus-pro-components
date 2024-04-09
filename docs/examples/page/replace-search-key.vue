@@ -10,11 +10,7 @@
 
 <script lang="ts" setup>
 import type { PlusColumn, PageInfo } from 'plus-pro-components'
-import { fileToDataURL } from '@plus-pro-components/utils'
-import type { UploadFile } from 'element-plus'
-import { ElUpload, ElButton, ElImage } from 'element-plus'
 import { cloneDeep } from 'lodash-es'
-import { h, Fragment } from 'vue'
 
 const getList = async (
   query: PageInfo & {
@@ -24,7 +20,7 @@ const getList = async (
 ) => {
   const { page = 1, pageSize = 20, status, name } = query || {}
   const total = 3
-  const List = [...new Array(total)].map((item, index) => {
+  const List = Array.from({ length: total }).map((item, index) => {
     return {
       id: index,
       name: index === 0 ? 'name'.repeat(3) : index + 'name',
@@ -82,7 +78,7 @@ const tableConfig: PlusColumn[] = [
     prop: 'name',
 
     tableColumnProps: {
-      'show-overflow-tooltip': true
+      showOverflowTooltip: true
     }
   },
   {
@@ -155,50 +151,6 @@ const tableConfig: PlusColumn[] = [
     hideInSearch: true,
     valueType: 'switch',
     editable: true
-  },
-  {
-    label: '图片',
-    prop: 'img',
-    width: 100,
-    hideInSearch: true,
-    valueType: 'img',
-    renderField(value, onChange) {
-      // 自定义上传
-      const handleHttpRequest = async ({ file, onError, onSuccess }: any) => {
-        try {
-          onSuccess(file)
-        } catch (error: any) {
-          onError(error)
-        }
-        return file
-      }
-
-      return h(Fragment, [
-        h(ElImage as any, {
-          src: value,
-          previewSrcList: [value],
-          style: value
-            ? {
-                width: '60px',
-                marginRight: '10px'
-              }
-            : {}
-        }),
-        h(
-          ElUpload,
-          {
-            action: '',
-            httpRequest: handleHttpRequest,
-            onChange: async (data: UploadFile) => {
-              const base64 = await fileToDataURL(data.raw as File)
-              // 调用 renderField 的onChange 回调把值传给表单
-              onChange(base64)
-            }
-          },
-          () => h(ElButton, () => '点击上传')
-        )
-      ])
-    }
   },
   {
     label: '时间',

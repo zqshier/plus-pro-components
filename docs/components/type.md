@@ -63,6 +63,19 @@ export type RecordType = {
 export type Nullable<T> = T | null
 ```
 
+## Mutable
+
+去除只读状态
+
+```ts
+/**
+ * 去除只读状态
+ */
+export type Mutable<T extends Record<string, any>> = {
+  -readonly [K in keyof T]: T[K]
+}
+```
+
 ## PageInfo
 
 分页参数
@@ -89,7 +102,7 @@ export interface PageInfo {
 
 ```ts
 import type { ElMessageBoxOptions } from 'element-plus'
-import type { DefineComponent, Ref, ComputedRef } from 'vue'
+import type { Component, Ref, ComputedRef, AppContext } from 'vue'
 import type { RecordType, ButtonsCallBackParams } from 'plus-pro-components'
 /**
  * 表格操作栏按钮配置项的值的类型
@@ -97,8 +110,17 @@ import type { RecordType, ButtonsCallBackParams } from 'plus-pro-components'
 export interface ActionBarButtonsRow {
   /**
    * 操作文本
+   * 函数类型 v0.0.8 新增
    */
-  text: string | Ref<string> | ComputedRef<string>
+  text:
+    | string
+    | Ref<string>
+    | ComputedRef<string>
+    | ((
+        row: any,
+        index: number,
+        button: ActionBarButtonsRow
+      ) => string | Ref<string> | ComputedRef<string>)
   /**
    * 操作唯一code
    *
@@ -113,7 +135,7 @@ export interface ActionBarButtonsRow {
   /**
    * `@element-plus/icons-vue` 的图标名称，对ElButton,ElLink 和ElIcon 组件同时生效
    */
-  icon?: DefineComponent
+  icon?: Component
   /**
    * ElButton,ElLink和ElIcon 组件对应的props
    */
@@ -153,9 +175,14 @@ export interface ActionBarButtonsRow {
          */
         message?: string | ((data: ButtonsCallBackParams) => string)
         /**
-         *  ElMessageBox.confirm 的options
+         *  ElMessageBox.confirm的 options
          */
         options?: ElMessageBoxOptions
+
+        /**
+         *  ElMessageBox.confirm的 appContext
+         */
+        appContext?: AppContext | null
       }
 }
 ```
@@ -219,19 +246,6 @@ export interface TableFormRefRow {
    * 单元格的表单实例
    */
   formInstance: Ref<InstanceType<typeof ElForm>>
-  /**
-   * 单元格的表单单项实例
-   */
-  formItemInstance: Ref<InstanceType<typeof ElFormItem>>
-  /**
-   * 获取显示组件实例
-   */
-  getDisplayItemInstance: () => {
-    index: number
-    prop: string
-    formInstance: Ref<InstanceType<typeof ElForm>>
-    formItemInstance: Ref<InstanceType<typeof ElFormItem>>
-  }
   /**
    * 表格的行索引
    */
@@ -381,10 +395,11 @@ export type FieldValues = Record<string, FieldValueType>
 ```ts
 import type { FieldValueType } from 'plus-pro-components'
 /**
- *  自定义props类型  支持对象object ，函数，Promise
+ *  自定义props类型  值支持对象 object，computed，函数和 Promise。
  */
 export type PropsItemType<T extends Record<string, any> = any> =
   | Partial<T>
+  | ComputedRef<Partial<T>>
   | ((
       value: FieldValueType,
       data: {
@@ -400,7 +415,7 @@ export type PropsItemType<T extends Record<string, any> = any> =
 选择框类型
 
 ```ts
-import type { PropsItemType } from 'plus-pro-components'
+import type { PropsItemType, RecordType } from 'plus-pro-components'
 /**
  * 选择框类型
  */
@@ -415,36 +430,51 @@ export interface OptionsRow {
   /**
    * 小圆点背景色，
    * type 优先级 低于 color，
-   * 支持 'success' | 'warning' | 'info' | 'primary' | 'danger'
+   * 只支持 'success' | 'warning' | 'info' | 'primary' | 'danger'
    */
-  type?: 'success' | 'warning' | 'info' | 'primary' | 'danger'
+  type?: Exclude<ButtonType, 'default' | 'text' | ''>
   /**
    * 表单子项的props  如 el-checkbox-group下的el-checkbox的props
    */
-  fieldItemProps?: PropsItemType
+  fieldItemProps?: RecordType
+  /**
+   * el-checkbox-group下的，每一项el-checkbox的各自插槽(即el-checkbox的default插槽)。
+   * el-radio-group下的，每一项el-checkbox的内容各自插槽(即el--radio的default插槽)。
+   *
+   * @see https://element-plus.org/zh-CN/component/checkbox.html#checkbox-slots
+   * @see https://element-plus.org/zh-CN/component/radio.html#radio-slots
+   */
+  fieldSlot?: (option?: OptionsRow) => VNode | string
+  /**
+   * 子选项
+   */
+  children?: OptionsRow[]
 }
 ```
 
 ## OptionsType
 
-选择类型 支持数组，函数和 Promise
+选择类型
 
 ```ts
 import type { OptionsRow } from 'plus-pro-components'
 /**
- * 选择类型
+ * 选择类型   支持数组，computed，函数和Promise
  */
  */
 export type OptionsType =
   | OptionsRow[]
+  | ComputedRef<OptionsRow[]>
   | ((props?: PlusColumn) => OptionsRow[] | Promise<OptionsRow[]>)
   | Promise<OptionsRow[]>
 ```
 
 ## PlusFormGroupRow
 
+分步表单配置项
+
 ```ts
-import type { DefineComponent } from 'vue'
+import type { Component } from 'vue'
 import type { PlusColumn } from 'plus-pro-components'
 
 /**
@@ -452,12 +482,14 @@ import type { PlusColumn } from 'plus-pro-components'
  */
 export interface PlusFormGroupRow {
   title: string
-  icon?: DefineComponent
+  icon?: Component
   columns: PlusColumn[]
 }
 ```
 
 ## PlusStepFrom
+
+分步表单配置项
 
 ```ts
 import type { Component } from 'vue'
@@ -480,6 +512,8 @@ export interface PlusStepFrom {
 表格标题栏
 
 ```ts
+import type { Options as SortableOptions } from 'sortablejs'
+
 /**
  * 标题栏
  */
@@ -501,7 +535,7 @@ export type TitleBar = {
   /**
    * 是否需要列设置 默认true
    */
-  columnSetting?: boolean
+  columnSetting?: boolean | { dragSort?: boolean | Partial<SortableOptions> }
 
   /**
    * 工具栏 icon 的大小和颜色配置
@@ -516,5 +550,55 @@ export type TitleBar = {
      */
     color?: string
   }
+}
+```
+
+## PlusRouteRecordRaw
+
+扩展的路由类型
+
+```ts
+import type { RouteRecordRaw } from 'vue-router'
+import type { VNode, Component } from 'vue'
+/**
+ * 路由配置类型
+ *
+ * @description 继承自 vue-router 的 RouteRecordRaw，无侵入，仅仅只扩展 meta，meta除了扩展的属性外，同时支持添加任意自定义属性，
+ * 外链的话  path给   '/'+链接   例： `/https://element-plus.org`
+ *
+ */
+export type PlusRouteRecordRaw = Partial<Omit<RouteRecordRaw, 'children'>> & {
+  /**
+   * meta除了扩展的属性外，同时支持添加任意自定义属性
+   *
+   */
+  meta?: {
+    /**
+     * 页面标题   标题存在面包屑和菜单名称显示标题  不存在显示路由的 name  name不存在显示路由的 path
+     */
+    title?: string
+    /**
+     * 图标
+     */
+    icon?: Component | VNode | ((route: PlusRouteRecordRaw) => VNode)
+    /**
+     * 排序，默认为0 只对第一级有效
+     */
+    sort?: number
+    /**
+     * 在侧边栏菜单中隐藏，默认false 不隐藏
+     */
+    hideInMenu?: boolean
+    /**
+     * 隐藏面包屑，默认false 不隐藏
+     */
+    hideInBreadcrumb?: boolean
+    /**
+     * 菜单是否禁用
+     * @see https://element-plus.org/zh-CN/component/menu.html#menu-item-attributes
+     */
+    disabled?: boolean
+  }
+  children?: PlusRouteRecordRaw[]
 }
 ```

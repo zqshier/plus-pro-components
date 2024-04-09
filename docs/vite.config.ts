@@ -15,17 +15,18 @@ const isDebug = process.env.PLUS_DEBUG === 'true'
 
 const alias: AliasOptions = isWrite
   ? {
-      'plus-pro-components': pathResolve('../dist/plus-pro-components'),
+      'plus-pro-components-main': pathResolve('../dist/plus-pro-components'),
       'plus-pro-components-css': pathResolve('../dist/plus-pro-components/theme-chalk/index.css')
     }
   : isDebug
   ? {
-      'plus-pro-components/locale/zh-cn.mjs': pathResolve('../packages/locale/lang/zh-cn.ts'),
-      'plus-pro-components/locale/en.mjs': pathResolve('../packages/locale/lang/en.ts'),
-      'plus-pro-components': pathResolve('../packages/plus-pro-components/index'),
+      'plus-pro-components-main': pathResolve('../packages/plus-pro-components/index'),
+      'plus-pro-components/es/locale/lang/zh-cn': pathResolve('../packages/locale/lang/zh-cn'),
+      'plus-pro-components/es/locale/lang/en': pathResolve('../packages/locale/lang/en'),
       'plus-pro-components-css': pathResolve('../packages/theme-chalk/src/index.scss')
     }
   : {
+      'plus-pro-components-main': pathResolve('./node_modules/plus-pro-components'),
       'plus-pro-components-css': pathResolve(
         './node_modules/plus-pro-components/theme-chalk/index.css'
       )

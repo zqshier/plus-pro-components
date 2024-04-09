@@ -24,7 +24,7 @@ import { external } from '../utils/main'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import banner2 from 'rollup-plugin-banner2'
-import { PlusProComponentsAlias } from '../utils/plugin'
+import { PlusProComponentsAlias, PlusProComponentsClearConsole } from '../utils/plugin'
 
 const pkg = JSON.parse(fs.readFileSync(projPackage, 'utf-8'))
 
@@ -32,8 +32,9 @@ const banner = `/*! ${PKG_NAME} v${pkg.version} */\n`
 
 const buildAll = async (minify?: boolean) => {
   const plugins = [
+    PlusProComponentsClearConsole(),
     PlusProComponentsAlias(),
-    vuePlugin() as Plugin,
+    vuePlugin({ isProduction: true }) as Plugin,
     nodeResolve({
       extensions: ['.mjs', '.js', '.json', '.ts']
     }),

@@ -3,38 +3,36 @@
   <PlusForm
     v-if="isForm"
     ref="formInstance"
-    v-bind="column.formProps"
-    :model="subRow"
+    v-model="modelValues"
+    :model="modelValues"
+    :columns="columns as  PlusColumn[]"
     :has-footer="false"
-    label-suffix=""
-    label-width="0"
+    :has-label="false"
+    v-bind="column.formProps"
     class="plus-display-item__form"
+    @change="handleChange"
   >
-    <PlusFormItem
-      ref="formItemInstance"
-      v-model="displayValue"
-      class="plus-display-item__form__item"
-      v-bind="column"
-      label=""
-      @change="handleChange"
-    >
-      <template
-        v-if="$slots[getFieldSlotName(column.prop)]"
-        #[getFieldSlotName(column.prop)]="data"
-      >
-        <slot :name="getFieldSlotName(column.prop)" v-bind="data" />
-      </template>
-    </PlusFormItem>
+    <!--表单单项的插槽 -->
+    <template v-if="$slots[getFieldSlotName(column.prop)]" #[getFieldSlotName(column.prop)]="data">
+      <slot :name="getFieldSlotName(column.prop)" v-bind="data" :row="subRow" />
+    </template>
+
+    <!-- 表单el-form-item 下一行额外的内容 的插槽 -->
+    <template v-if="$slots[getExtraSlotName(column.prop)]" #[getExtraSlotName(column.prop)]="data">
+      <slot :name="getExtraSlotName(column.prop)" v-bind="data" :row="subRow" />
+    </template>
   </PlusForm>
 
   <!-- 自定义显示 -->
-  <PlusRender
-    v-else-if="column.render && isFunction(column.render)"
-    :render="column.render"
-    :params="params"
-    :callback-value="displayValue"
-    :custom-field-props="customFieldProps"
-  />
+  <template v-else-if="column.render && isFunction(column.render)">
+    <PlusRender
+      v-if="customFieldPropsIsReady"
+      :render="column.render"
+      :params="params"
+      :callback-value="displayValue"
+      :custom-field-props="customFieldProps"
+    />
+  </template>
 
   <!-- 插槽 -->
   <slot
@@ -64,7 +62,11 @@
     :src="imageUrl.url"
     :preview-src-list="column.preview !== false ? imageUrl.options : []"
     v-bind="customFieldProps"
-  />
+  >
+    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
+      <component :is="fieldSlot" v-bind="data" />
+    </template>
+  </el-image>
 
   <!--显示链接 -->
   <el-link
@@ -73,6 +75,9 @@
     class="plus-display-item plus-display-item__link"
     v-bind="customFieldProps"
   >
+    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
+      <component :is="fieldSlot" v-bind="data" />
+    </template>
     {{ column.linkText || displayValue }}
   </el-link>
 
@@ -117,10 +122,14 @@
 
   <!-- 标签 -->
   <el-tag
-    v-else-if="column.valueType === 'tag'"
+    v-else-if="column.valueType === 'tag' && displayValue"
     class="plus-display-item"
     v-bind="customFieldProps"
   >
+    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
+      <component :is="fieldSlot" v-bind="data" />
+    </template>
+
     {{ displayValue }}
   </el-tag>
 
@@ -130,7 +139,11 @@
     class="plus-display-item"
     :percentage="displayValue"
     v-bind="customFieldProps"
-  />
+  >
+    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
+      <component :is="fieldSlot" v-bind="data" />
+    </template>
+  </el-progress>
 
   <!-- 复制 -->
   <span v-else-if="column.valueType === 'copy'" class="plus-display-item">
@@ -162,7 +175,6 @@
 <script lang="ts" setup>
 import { DocumentCopy, Select } from '@element-plus/icons-vue'
 import { PlusForm } from '@plus-pro-components/components/form'
-import { PlusFormItem } from '@plus-pro-components/components/form-item'
 import {
   formatDate,
   formatMoney,
@@ -171,12 +183,18 @@ import {
   getCustomProps,
   getTableCellSlotName,
   getFieldSlotName,
+  getExtraSlotName,
   getValue,
   setValue
 } from '@plus-pro-components/components/utils'
-
+import type { Ref } from 'vue'
 import { ref, watch, computed } from 'vue'
-import type { PlusColumn, RecordType, FieldValueType } from '@plus-pro-components/types'
+import type {
+  PlusColumn,
+  RecordType,
+  FieldValueType,
+  FieldValues
+} from '@plus-pro-components/types'
 import { useGetOptions } from '@plus-pro-components/hooks'
 import { PlusRender } from '@plus-pro-components/components/render'
 import { ElImage, ElLink, ElTag, ElProgress, ElIcon } from 'element-plus'
@@ -203,14 +221,12 @@ const emit = defineEmits<PlusTableTableColumnEmits>()
 
 const isCellEdit = ref(false)
 const isForm = computed(() => props.column.editable === true || isCellEdit.value === true)
-
-const currentStatus = ref({})
-const customFieldProps = ref<any>({})
-const formInstance = ref<any>()
-const formItemInstance = ref()
-const options = useGetOptions(props.column)
-
+const customFieldProps = ref<RecordType>({})
+const formInstance = ref()
+const { customOptions: options } = useGetOptions(props.column)
+const columns: Ref<PlusColumn[]> = ref([])
 const subRow = ref(props.row)
+const customFieldPropsIsReady = ref(false)
 
 /** 多层值支持 */
 const displayValue = computed({
@@ -219,6 +235,18 @@ const displayValue = computed({
   },
   set(value) {
     setValue(subRow.value, props.column.prop, value)
+  }
+})
+
+/**
+ * 表单绑定值处理
+ */
+const modelValues = computed({
+  get() {
+    return { [props.column.prop]: displayValue.value }
+  },
+  set(values) {
+    displayValue.value = values[props.column.prop]
   }
 })
 
@@ -240,7 +268,14 @@ const imageUrl = computed(() => {
 })
 
 const getStatus = computed(() => {
-  const option = options.value?.find(i => i.value === displayValue.value)
+  let option = options.value?.find(i => i.value === displayValue.value)
+  if (props.column?.customGetStatus && isFunction(props.column?.customGetStatus)) {
+    option = props.column?.customGetStatus({
+      options: options.value,
+      value: displayValue.value,
+      row: subRow.value
+    })
+  }
   if (!option) {
     return { label: '', value: '' }
   }
@@ -248,10 +283,11 @@ const getStatus = computed(() => {
 })
 
 watch(
-  options,
+  () => props.column,
   val => {
-    const option = val?.find(i => i.value === displayValue.value)
-    currentStatus.value = option || {}
+    if (val) {
+      columns.value = [val as PlusColumn]
+    }
   },
   {
     immediate: true,
@@ -265,6 +301,7 @@ watch(
     getCustomProps(val, displayValue.value, subRow.value, props.index, 'fieldProps')
       .then(data => {
         customFieldProps.value = data
+        customFieldPropsIsReady.value = true
       })
       .catch(err => {
         throw err
@@ -282,7 +319,6 @@ watch(
     subRow.value = { ...val }
   },
   {
-    immediate: true,
     deep: true
   }
 )
@@ -308,8 +344,8 @@ const handelClickCopy = (item: PlusColumn, row: RecordType) => {
   }, 3000)
 }
 
-const handleChange = (value: FieldValueType) => {
-  emit('change', { value, prop: props.column.prop, row: subRow })
+const handleChange = (values: FieldValues) => {
+  emit('change', { value: values[props.column.prop], prop: props.column.prop, row: subRow })
 }
 
 const startCellEdit = () => {
@@ -324,8 +360,7 @@ const getDisplayItemInstance = () => {
   return {
     index: props.index,
     prop: props.column.prop,
-    formInstance: computed(() => formInstance.value?.formInstance),
-    formItemInstance: computed(() => formItemInstance.value?.formItemInstance)
+    formInstance: computed(() => formInstance.value?.formInstance)
   }
 }
 

@@ -1,4 +1,5 @@
-import PlusStepsForm from './src/index.vue'
+import StepsForm from './src/index.vue'
 
-export { PlusStepsForm }
-export default PlusStepsForm
+export type { PlusStepsFormProps } from './src/index.vue'
+
+export const PlusStepsForm = StepsForm

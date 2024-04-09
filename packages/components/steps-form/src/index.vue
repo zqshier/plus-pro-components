@@ -43,8 +43,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
-import { cloneDeep } from 'lodash-es'
+import { ref, watchEffect } from 'vue'
 import type { StepProps } from 'element-plus'
 import { ElSteps, ElStep } from 'element-plus'
 import type { FieldValues, Mutable, PlusColumn } from '@plus-pro-components/types'
@@ -83,7 +82,11 @@ const props = withDefaults(defineProps<PlusStepsFormProps>(), {
 
 const emit = defineEmits<PlusStepsFormEmits>()
 const { t } = useLocale()
-const active = ref(cloneDeep(props.modelValue))
+const active = ref()
+
+watchEffect(() => {
+  active.value = props.modelValue
+})
 
 const handleChange = (values: FieldValues, column: PlusColumn) => {
   emit('change', values, column)
@@ -92,14 +95,14 @@ const handleChange = (values: FieldValues, column: PlusColumn) => {
 // 上一步
 const pre = () => {
   if (active.value-- > props.data.length + 1) active.value = 1
-  emit('pre', active.value)
   emit('update:modelValue', active.value)
+  emit('pre', active.value)
 }
 
 // 下一步
 const next = (values: FieldValues) => {
   if (active.value++ > props.data.length - 1) active.value = props.data.length
-  emit('next', active.value, values)
   emit('update:modelValue', active.value)
+  emit('next', active.value, values)
 }
 </script>
