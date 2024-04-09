@@ -67,6 +67,10 @@ export default defineConfig({
         link: '/components/type'
       },
       {
+        text: '捐赠',
+        link: '/donate'
+      },
+      {
         text: '生态系统',
         items: [
           {
@@ -107,10 +111,6 @@ export default defineConfig({
       {
         text: '演练场',
         link: 'https://playground.plus-pro-components.com/'
-      },
-      {
-        text: '国内镜像',
-        link: 'https://plus-pro-components.com/'
       }
     ],
     sidebar: {
