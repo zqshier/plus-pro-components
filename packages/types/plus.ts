@@ -86,7 +86,7 @@ export interface CommonType {
   /**
    * 表格表头显示的标题 ；在form 中是 el-form-item的label；在descriptions 是 el-descriptions-item的label；
    */
-  label: string
+  label?: string
   /**
    * 表格对应列内容的字段名 ；在form 中是 el-input等所有表单项的双向绑定的值；在descriptions 是 el-descriptions-item的值对应的字段；
    */

@@ -90,7 +90,7 @@
         </el-checkbox>
         <el-checkbox-group v-model="state.checkList" @change="handleCheckGroupChange">
           <div ref="checkboxGroupInstance" class="plus-table-checkbox-sortable-list">
-            <div v-for="item in subColumns" :key="item.label" class="plus-table-checkbox-item">
+            <div v-for="item in subColumns" :key="item.prop" class="plus-table-checkbox-item">
               <div
                 v-if="(titleBarConfig?.columnSetting as any)?.dragSort !== false"
                 class="plus-table-checkbox-handle"
@@ -106,13 +106,13 @@
                   class="plus-table-title-bar__toolbar__checkbox__item"
                 >
                   <el-tooltip
-                    v-if="item.label?.length > filterTableHeaderOverflowLabelLength"
+                    v-if="item.label && item.label?.length > filterTableHeaderOverflowLabelLength"
                     :content="item.label"
                     placement="right-start"
                   >
                     {{ getLabel(item.label) }}
                   </el-tooltip>
-                  <span v-else> {{ getLabel(item.label) }}</span>
+                  <span v-else> {{ item.label ? getLabel(item.label) : '' }}</span>
                 </el-checkbox>
               </template>
               <!-- element-plus 版本号大于等于2.6.0 -->
@@ -123,13 +123,13 @@
                   class="plus-table-title-bar__toolbar__checkbox__item"
                 >
                   <el-tooltip
-                    v-if="item.label?.length > filterTableHeaderOverflowLabelLength"
+                    v-if="item.label && item.label?.length > filterTableHeaderOverflowLabelLength"
                     :content="item.label"
                     placement="right-start"
                   >
                     {{ getLabel(item.label) }}
                   </el-tooltip>
-                  <span v-else> {{ getLabel(item.label) }}</span>
+                  <span v-else> {{ item.label ? getLabel(item.label) : '' }}</span>
                 </el-checkbox>
               </template>
             </div>
