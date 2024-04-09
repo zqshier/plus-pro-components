@@ -4,7 +4,7 @@
 
 **Frontend components at the page level**
 
-**English** | [中文](https://github.com/plus-pro-components/plus-pro-components/blob/main/README.zh-CN.md)
+**English** | [中文](https://github.com/plus-pro-components/plus-pro-components/blob/dev/README.zh-CN.md)
 
 ## Documentation
 
@@ -78,8 +78,8 @@ plus-pro-components is a Vue and element plus based component library that provi
 
 If you find this project useful, you can buy author a glass of juice 🍹
 
-| Wechat                                                                                               | Alipay                                                                                                |
-| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| Wechat                                                                                                         | Alipay                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx.jpg" height="188" width="188"> | <img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/ali.jpg" height="188" width="188"> |
 
 ## LICENSE
