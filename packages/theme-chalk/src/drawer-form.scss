@@ -1,0 +1,16 @@
+@use 'mixins/mixins' as *;
+@use 'mixins/config' as *;
+@use 'mixins/function' as *;
+
+@include b(drawer-form) {
+  .#{$el-namespace + -drawer__header } {
+    border-bottom: 1px solid getCssVar('border-color');
+    padding-top: calc(#{getCssVar('drawer-padding-primary')} / 2);
+    padding-bottom: calc(#{getCssVar('drawer-padding-primary')} / 2);
+    margin-bottom: 0;
+  }
+  .#{$el-namespace + -drawer__footer } {
+    border-top: 1px solid getCssVar('border-color');
+    padding-bottom: calc(#{getCssVar('drawer-padding-primary')} / 2);
+  }
+}
