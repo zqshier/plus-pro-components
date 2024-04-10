@@ -2,6 +2,14 @@
 
 本记录只记录影响较大变更，对于[新功能、性能提升和问题修复](/guide/changelog.html)不在此记录。
 
+## 从 v0.0.9 迁移到 v0.0.10
+
+### PlusDrawerForm 抽屉表单 事件修改
+
+- [PlusDrawerForm](/components/drawer-form.html#drawerform-events) 的事件`submit` 已废弃，请使用`confirm` 代替。[ 参考 DrawerForm-events](/components/drawer-form.html#drawerform-events)
+
+<el-divider />
+
 ## 从 v0.0.7 迁移到 v0.0.8
 
 ### 国际化文件导入方式修改
@@ -33,6 +41,8 @@ import plusEn from 'plus-pro-components/locale/en.mjs' // [!code --]
 import plusEn from 'plus-pro-components/es/locale/lang/en' // [!code ++]
 ```
 
+<el-divider />
+
 ## 从 v0.0.4 迁移到 v0.0.5
 
 ### PlusSearch 搜索组件
@@ -45,6 +55,8 @@ import plusEn from 'plus-pro-components/es/locale/lang/en' // [!code ++]
   }
   ```
 
+<el-divider />
+
 ## 从 v0.0.3 迁移到 v0.0.4
 
 ### PlusFormItem 表单单项组件
@@ -53,8 +65,12 @@ import plusEn from 'plus-pro-components/es/locale/lang/en' // [!code ++]
 
 - 受影响的组件 [PlusForm](/components/form.html)， [PlusDialogForm](/components/dialog-form.html)，[PlusDrawerForm ](/components/drawer-form.html)， [PlusStepsForm ](/components/steps-form.html)，[PlusSearch ](/components/search.html)，[PlusDisplayItem ](/components/display-item.html)，[PlusTable ](/components/table.html)，[PlusPage ](/components/page.html)
 
+<el-divider />
+
 ## 从 v0.0.2 迁移到 v0.0.3
 
 ### 高级组件通用配置 columns
 
-- `headerFilter`参数已经移除，请使用 `disabledHeaderFilter`代替。[ 参考 columns](/components/config.html)
+- `headerFilter`参数已废弃，请使用 `disabledHeaderFilter`代替。[ 参考 columns](/components/config.html)
+
+<el-divider />
