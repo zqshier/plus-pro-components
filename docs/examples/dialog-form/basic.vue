@@ -1,11 +1,26 @@
 <template>
   <el-button @click="handleOpen">打开弹窗表单</el-button>
-  <PlusDialogForm v-model:visible="visible" v-model="values" :form="{ columns }" />
+  <PlusDialogForm v-model:visible="visible" v-model="values" :form="{ columns, rules }" />
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue'
 import type { PlusColumn, FieldValues } from 'plus-pro-components'
+
+const rules = {
+  name: [
+    {
+      required: true,
+      message: '请输入名称'
+    }
+  ],
+  tag: [
+    {
+      required: true,
+      message: '请输入标签'
+    }
+  ]
+}
 
 const columns: PlusColumn[] = [
   {

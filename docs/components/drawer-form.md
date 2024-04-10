@@ -1,6 +1,6 @@
 # DrawerForm 表单
 
-DrawerForm 组件是 [ElDrawer](https://element-plus.org/zh-CN/component/drawer.html)和 [PlusForm](/components/form.html) 组件的组合。
+DrawerForm 组件是 [ElDrawer](https://element-plus.org/zh-CN/component/drawer.html)和 [PlusForm](/components/form.html) 组件的组合，是在 [PlusForm](/components/form.html) 组件上自定义 `footer` 的基础上构建而来，除下文提到 [PlusDrawerForm](/components/drawer-form.html) 特有的属性和方法外，同时支持 [PlusForm](/components/form.html) 组件的所有自定义函数和插槽。
 
 ::: warning 注意
 表单`v-model`绑定的值尽量使用 ref 定义绑定的值，以避免 reactive 带来的响应式丢失问题。 <el-text  type="primary" tag="ins">[参考 reactive 的局限性](https://cn.vuejs.org/guide/essentials/reactivity-fundamentals.html#limitations-of-reactive)</el-text>
@@ -38,21 +38,24 @@ drawer-form/slot-label
 
 ## DrawerForm Attributes
 
-| 名称                        | 说明                                                                                                                 | 类型                                                                                            | 默认值                                                                 | 是否必须 |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------- |
-| `model-value / v-model`     | 表单绑定 <el-text type="warning">（尽量使用 ref 定义绑定的值，以避免 reactive 带来的响应式丢失问题）</el-text> 值    | `object`[FieldValues](/components/type.html#fieldvalues)                                        |                                                                        | 否       |
-| `visible / v-model:visible` | 抽屉显示                                                                                                             | `boolean`                                                                                       | `false`                                                                | 否       |
-| `size`                      | Drawer 窗体的大小, 当使用 number 类型时, 以像素为单位, 当使用 string 类型时, 请传入 'x%', 否则便会以 number 类型解释 | `string`/`number`                                                                               | `540px`                                                                | 否       |
-| `form`                      | [PlusForm](/components/form.html) 的 props                                                                           | `object`[PlusFormProps](/components/form.html#form-attributes)                                  | `{footerAlign:"right"}`                                                | 否       |
-| `drawer`                    | [ElDrawer](https://element-plus.org/zh-CN/component/drawer.html) 的 props                                            | `object`[ElDrawerProps](https://element-plus.org/zh-CN/component/drawer.html#drawer-attributes) | `{closeOnClickModal:false,closeOnPressEscape:false, title:"抽屉表单"}` | 否       |
+| 名称                                  | 说明                                                                                                                 | 类型                                                                                            | 默认值                                                                 | 是否必须 |
+| ------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- | -------- |
+| `model-value / v-model`               | 表单绑定 <el-text type="warning">（尽量使用 ref 定义绑定的值，以避免 reactive 带来的响应式丢失问题）</el-text> 值    | `object`[FieldValues](/components/type.html#fieldvalues)                                        |                                                                        | 否       |
+| `visible / v-model:visible`           | 抽屉显示                                                                                                             | `boolean`                                                                                       | `false`                                                                | 否       |
+| `size`                                | Drawer 窗体的大小, 当使用 number 类型时, 以像素为单位, 当使用 string 类型时, 请传入 'x%', 否则便会以 number 类型解释 | `string`/`number`                                                                               | `540px`                                                                | 否       |
+| `form`                                | [PlusForm](/components/form.html) 的 props                                                                           | `object`[PlusFormProps](/components/form.html#form-attributes)                                  | `{hasFooter:false}`                                                    | 否       |
+| `drawer`                              | [ElDrawer](https://element-plus.org/zh-CN/component/drawer.html) 的 props                                            | `object`[ElDrawerProps](https://element-plus.org/zh-CN/component/drawer.html#drawer-attributes) | `{closeOnClickModal:false,closeOnPressEscape:false, title:"抽屉表单"}` | 否       |
+| `hasErrorTip`<el-tag>v0.0.10</el-tag> | 是否需要校验 message 提示                                                                                            | `boolean`                                                                                       | `true`                                                                 | 否       |
 
 ## DrawerForm Events
 
-| 名称     | 说明                           | 类型                                                                                        |
-| -------- | ------------------------------ | ------------------------------------------------------------------------------------------- |
-| `submit` | 点击确定按钮校验通过触发的事件 | `function` <docs-tip content='(values: FieldValues) => void'></docs-tip>                    |
-| `change` | 表单变化触发的事件             | `function` <docs-tip content='(values: FieldValues,column: PlusColumn) => void'></docs-tip> |
-| `cancel` | 点击取消按钮触发的事件         | `function`<docs-tip content='() => void'></docs-tip>                                        |
+| 名称                                                                                    | 说明                                                        | 类型                                                                                        |
+| --------------------------------------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------- |
+| <el-text tag="del">`submit`</el-text> <el-tag type="danger">deprecated v0.0.10</el-tag> | 点击确定按钮校验通过触发的事件，已废弃，请使用`confirm`代替 | `function` <docs-tip content='(values: FieldValues) => void'></docs-tip>                    |
+| `confirm`<el-tag>v0.0.10</el-tag>                                                       | 点击确定按钮校验通过触发的事件                              | `function` <docs-tip content='(values: FieldValues) => void'></docs-tip>                    |
+| `cancel`                                                                                | 点击取消按钮触发的事件                                      | `function`<docs-tip content='() => void'></docs-tip>                                        |
+| `change`                                                                                | 表单变化触发的事件                                          | `function` <docs-tip content='(values: FieldValues,column: PlusColumn) => void'></docs-tip> |
+| `submitError`<el-tag>v0.0.10</el-tag>                                                   | 点击提交按钮校验不通过触发的事件                            | `function` <docs-tip content='(error:any) => void'></docs-tip>                              |
 
 ## DrawerForm Slots
 

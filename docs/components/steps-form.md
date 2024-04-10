@@ -1,6 +1,7 @@
 # StepsForm 分步表单
 
-引导用户按照流程完成任务的分步导航条， 可根据实际应用场景设定步骤，步骤不得少于 2 步。
+StepsForm 组件是 [ElSteps,ElStep](https://element-plus.org/zh-CN/component/steps.html)和 [PlusForm](/components/form.html) 组件的组合，支持 [PlusForm](/components/form.html) 组件的所有自定义函数和插槽，
+它的主要用途是引导用户按照流程完成任务的分步导航条， 可根据实际应用场景设定步骤，步骤不得少于 2 步。
 
 ## 基础用法
 
