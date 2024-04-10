@@ -2,6 +2,7 @@
   <el-drawer
     ref="drawerInstance"
     v-model="subVisible"
+    class="plus-drawer-form"
     :size="size || '540px'"
     :title="t('plus.drawerForm.title')"
     :close-on-click-modal="false"
@@ -13,18 +14,12 @@
       <slot name="drawer-header" />
     </template>
 
-    <template v-if="$slots['drawer-footer']" #footer>
-      <slot name="drawer-footer" />
-    </template>
-
     <PlusForm
       ref="formInstance"
       v-model="state"
-      footer-align="right"
+      :has-footer="false"
       v-bind="(form as any)"
-      @submit="handleSubmitForm"
       @change="handleChange"
-      @reset="handleReset"
     >
       <template v-if="$slots['form-footer']" #footer>
         <slot name="form-footer" />
@@ -54,6 +49,19 @@
         <slot name="tooltip-icon" />
       </template>
     </PlusForm>
+
+    <template v-if="hasFooter" #footer>
+      <div class="plus-drawer-form__footer">
+        <slot name="drawer-footer" v-bind="{ handleConfirm, handleCancel }">
+          <el-button @click="handleCancel">
+            {{ cancelText || t('plus.drawerForm.cancelText') }}
+          </el-button>
+          <el-button type="primary" :loading="confirmLoading" @click="handleConfirm">
+            {{ confirmText || t('plus.drawerForm.confirmText') }}
+          </el-button>
+        </slot>
+      </div>
+    </template>
   </el-drawer>
 </template>
 
@@ -62,9 +70,10 @@ import { ref, watch, computed, useSlots } from 'vue'
 import { PlusForm } from '@plus-pro-components/components/form'
 import type { PlusFormProps } from '@plus-pro-components/components/form'
 import type { FieldValues, PlusColumn } from '@plus-pro-components/types'
-import { ElDrawer } from 'element-plus'
+import { ElDrawer, ElMessage } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
 import type { FormInstance } from 'element-plus'
+
 import {
   getFieldSlotName,
   getLabelSlotName,
@@ -78,14 +87,19 @@ export interface PlusDrawerFormProps {
   drawer?: any
   size?: string | number
   form?: PlusFormProps
+  hasFooter?: boolean
+  cancelText?: string
+  confirmText?: string
+  confirmLoading?: boolean
+  hasErrorTip?: boolean
 }
 export interface PlusDrawerFormEmits {
   (e: 'update:modelValue', values: FieldValues): void
   (e: 'update:visible', visible: boolean): void
-  (e: 'submit', values: FieldValues): void
+  (e: 'confirm', values: FieldValues): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
   (e: 'cancel'): void
-  (e: 'reset'): void
+  (e: 'confirmError', errors: any): void
 }
 
 defineOptions({
@@ -95,6 +109,11 @@ defineOptions({
 const props = withDefaults(defineProps<PlusDrawerFormProps>(), {
   modelValue: () => ({}),
   visible: false,
+  hasFooter: true,
+  cancelText: '',
+  confirmText: '',
+  confirmLoading: false,
+  hasErrorTip: true,
   size: '540px',
   drawer: () => ({}),
   form: () => ({})
@@ -148,17 +167,26 @@ const handleChange = (values: FieldValues, column: PlusColumn) => {
   emit('change', values, column)
 }
 
-const handleSubmitForm = () => {
-  emit('submit', state.value)
+const handleConfirm = async () => {
+  try {
+    const valid = await computedFormInstance.value?.validate()
+    if (valid) {
+      emit('confirm', state.value)
+    }
+  } catch (errors: any) {
+    if (props.hasErrorTip) {
+      ElMessage.closeAll()
+      const values: any[] = Object.values(errors)
+      ElMessage.warning(values[0]?.[0]?.message || t('plus.form.errorTip'))
+    }
+    emit('confirmError', errors)
+  }
 }
 
 const handleCancel = () => {
   subVisible.value = false
   emit('update:visible', subVisible.value)
   emit('cancel')
-}
-const handleReset = () => {
-  emit('reset')
 }
 
 defineExpose({
