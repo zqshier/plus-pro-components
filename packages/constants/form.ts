@@ -20,7 +20,7 @@ export const DatePickerValueIsArrayList = [
 export const ValueIsNumberList = ['rate', 'input-number', 'slider']
 
 /**
- * 表单组件值是数字类型的valueType列表
+ * 表单组件值是布尔类型的valueType列表
  */
 
 export const ValueIsBooleanList = ['switch']
