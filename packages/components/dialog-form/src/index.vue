@@ -64,6 +64,7 @@ import type { PlusDialogProps } from '@plus-pro-components/components/dialog'
 import { PlusDialog } from '@plus-pro-components/components/dialog'
 import type { FieldValues, PlusColumn } from '@plus-pro-components/types'
 import type { FormInstance } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import {
   getFieldSlotName,
   getLabelSlotName,
@@ -76,6 +77,7 @@ export interface PlusDialogFormProps {
   visible?: boolean
   dialog?: PlusDialogProps
   form?: PlusFormProps
+  hasErrorTip?: boolean
 }
 export interface PlusDialogFormEmits {
   (e: 'update:modelValue', values: FieldValues): void
@@ -83,6 +85,7 @@ export interface PlusDialogFormEmits {
   (e: 'confirm', values: FieldValues): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
   (e: 'cancel'): void
+  (e: 'confirmError', errors: any): void
 }
 
 defineOptions({
@@ -92,6 +95,7 @@ defineOptions({
 const props = withDefaults(defineProps<PlusDialogFormProps>(), {
   modelValue: () => ({}),
   visible: false,
+  hasErrorTip: true,
   dialog: () => ({}),
   form: () => ({})
 })
@@ -151,8 +155,13 @@ const handleConfirm = async () => {
     if (valid) {
       emit('confirm', state.value)
     }
-  } catch (error) {
-    console.warn(error)
+  } catch (errors: any) {
+    if (props.hasErrorTip) {
+      ElMessage.closeAll()
+      const values: any[] = Object.values(errors)
+      ElMessage.warning(values[0]?.[0]?.message || t('plus.form.errorTip'))
+    }
+    emit('confirmError', errors)
   }
 }
 
