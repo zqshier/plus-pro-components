@@ -75,7 +75,7 @@ pnpm install plus-pro-components
 ```
 
 ::: warning 建议
-默认使用最新版本，使用时建议加上版本号 如使用`0.0.1-beta.32`版本，防止因版本导致应用出现问题。
+默认使用最新版本，使用时建议加上版本号 如使用`0.0.1`版本，防止因版本导致应用出现问题。
 
-[https://cdn.jsdelivr.net/npm/plus-pro-components@0.0.1-beta.32/index.min.js](https://cdn.jsdelivr.net/npm/plus-pro-components@0.0.1-beta.32/index.min.js)
+[https://cdn.jsdelivr.net/npm/plus-pro-components@0.0.1/index.min.js](https://cdn.jsdelivr.net/npm/plus-pro-components@0.0.1/index.min.js)
 :::

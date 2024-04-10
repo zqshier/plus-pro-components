@@ -194,17 +194,21 @@ pnpm run test:coverage
 pnpm run build
 ```
 
-- 在 docs/components 文件下
+- 在 docs/components 文件下， 新建文件 table.md 内容写法参考之前的
 
-- 新建文件 table.md 内容写法参考之前的
+- 在 docs/文件夹下执行 `pnpm run start` 后的地址即可预览已打包的本地组件
 
-- 执行 `pnpm run start` 后的地址即可预览本地组件
+- 在 docs/文件夹下执行 `pnpm run debug` 后的地址即可实时预览正在开发的本地组件
 
 ## 代码提交
 
 ```sh
-pnpm run commit
+pnpm run commit  # 全部提交
 ```
+
+::: tip 提示
+**如果需要分次提交** 可以先执行 `git add  ./x/x `，再执行`pnpm run gitcz`，最后执行 `git push origin dev`(或者其他分支)。
+:::
 
 ## 打包组件
 
