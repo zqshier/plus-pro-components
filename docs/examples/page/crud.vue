@@ -26,8 +26,8 @@
   <PlusDialogForm
     v-model:visible="visible"
     v-model="form"
-    :form="{ columns, labelPosition: 'top', submitLoading, rules }"
-    :dialog="{ title: dialogTitle + '用户组', width: '540px', top: '12vh' }"
+    :form="{ columns, labelPosition: 'top', rules }"
+    :dialog="{ title: dialogTitle + '用户组', width: '540px', top: '12vh', confirmLoading }"
     @confirm="handleSubmit"
     @cancel="handleCancel"
   />
@@ -87,7 +87,7 @@ interface State {
   /**
    *  提交loading
    */
-  submitLoading: boolean
+  confirmLoading: boolean
   /**
    * 是否是创建
    */
@@ -140,7 +140,7 @@ const state = reactive<State>({
   currentRow: {},
   visible: false,
   detailsVisible: false,
-  submitLoading: false,
+  confirmLoading: false,
   isCreate: true,
   isBatch: false,
   selectedIds: [],
@@ -297,7 +297,7 @@ const handleCancel = () => {
 // 提交表单成功
 const handleSubmit = async () => {
   try {
-    state.submitLoading = true
+    state.confirmLoading = true
     const params = { ...state.form, remark: state.form.remark || '' }
     if (state.isCreate) {
       await GroupServe.create(params)
@@ -309,8 +309,8 @@ const handleSubmit = async () => {
     handleCancel()
     refresh()
   } catch (error) {}
-  state.submitLoading = false
+  state.confirmLoading = false
 }
 
-const { form, submitLoading, rules, currentRow, visible, detailsVisible } = toRefs(state)
+const { form, confirmLoading, rules, currentRow, visible, detailsVisible } = toRefs(state)
 </script>
