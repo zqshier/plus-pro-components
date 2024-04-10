@@ -11,9 +11,9 @@
   @include e(button__wrapper) {
     flex: auto;
     max-width: 100%;
-
+    margin-bottom: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-end;
 
     &.#{$el-namespace + -form-item} {
