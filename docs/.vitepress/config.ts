@@ -44,7 +44,7 @@ export default defineConfig({
     ['script', { src: '/iconfont-symbol.js' }],
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
-
+  lang: 'zh-CN',
   themeConfig: {
     search: {
       provider: 'local'
