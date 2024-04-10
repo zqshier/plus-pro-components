@@ -14,7 +14,9 @@ export default {
       title: 'Dialog form'
     },
     drawerForm: {
-      title: 'Drawer form'
+      title: 'Drawer form',
+      confirmText: 'Yes',
+      cancelText: 'No'
     },
     form: {
       submitText: 'Submit',

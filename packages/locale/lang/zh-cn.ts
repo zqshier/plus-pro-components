@@ -14,7 +14,9 @@ export default {
       title: '弹窗表单'
     },
     drawerForm: {
-      title: '抽屉表单'
+      title: '抽屉表单',
+      confirmText: '确定',
+      cancelText: '取消'
     },
     form: {
       submitText: '提交',
