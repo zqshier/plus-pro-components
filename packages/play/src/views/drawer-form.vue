@@ -1,6 +1,10 @@
 <template>
   <el-button @click="handleOpen">打开抽屉表单</el-button>
-  <PlusDrawerForm v-model:visible="visible" v-model="values" :form="{ columns }" />
+  <PlusDrawerForm
+    v-model:visible="visible"
+    v-model="values"
+    :form="{ columns: [...columns, ...columns] }"
+  />
 </template>
 
 <script lang="ts" setup>
