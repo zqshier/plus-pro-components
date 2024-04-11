@@ -17,6 +17,8 @@ const getList = async (
     name?: string
   }
 ) => {
+  console.log(query)
+
   const { page = 1, pageSize = 20, status, name } = query || {}
   const total = 1000
   const List = [...new Array(total)].map((item, index) => {
