@@ -1,3 +1,30 @@
+## [v0.0.10](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.9...v0.0.10) (2024-04-11)
+
+
+### ✨ Features
+
+* **theme-chalk:** :sparkles: update search.scss([f39197d](https://github.com/plus-pro-components/plus-pro-components/commit/f39197d)) by@xiaofei
+* **theme-chalk:** :sparkles: update drawer-form.scss([dc53974](https://github.com/plus-pro-components/plus-pro-components/commit/dc53974)) by@xiaofei
+* **locale:** :sparkles: drawerForm add confirmText and cancelText([9cb433e](https://github.com/plus-pro-components/plus-pro-components/commit/9cb433e)) by@xiaofei
+* **components[drawer-form]:** :sparkles: add hasErrorTip props and confirmError, submit=>confirm([18531e9](https://github.com/plus-pro-components/plus-pro-components/commit/18531e9)) by@xiaofei
+* **components[dialog-form]:** :sparkles: add hasErrorTip props and confirmError event([2c2e74c](https://github.com/plus-pro-components/plus-pro-components/commit/2c2e74c)) by@xiaofei
+* **components:** :sparkles: form-item component label add default value([2ff6c90](https://github.com/plus-pro-components/plus-pro-components/commit/2ff6c90)) by@xiaofei
+* **all:** Merge pull request [#120](https://github.com/plus-pro-components/plus-pro-components/pull/120) from plus-pro-components/simmi([77978f0](https://github.com/plus-pro-components/plus-pro-components/commit/77978f0)) by@xiaofei
+* **components:** :sparkles: the PlusColumn label attribute is not mandatory([b742c12](https://github.com/plus-pro-components/plus-pro-components/commit/b742c12)) by@ex-cuishengnan
+* **all:** Merge pull request [#118](https://github.com/plus-pro-components/plus-pro-components/pull/118) from plus-pro-components/gs([325a41a](https://github.com/plus-pro-components/plus-pro-components/commit/325a41a)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix values type([84d8d98](https://github.com/plus-pro-components/plus-pro-components/commit/84d8d98)) by@xiaofei
+* **theme-chalk:** :bug: fix search el-row width overflow([d47a38e](https://github.com/plus-pro-components/plus-pro-components/commit/d47a38e)) by@guosong
+* **components:** :bug: add el-row class plus-form__row([b9b3d51](https://github.com/plus-pro-components/plus-pro-components/commit/b9b3d51)) by@guosong
+
+
+
+
 ## [v0.0.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.8...v0.0.9) (2024-04-07)
 
 
