@@ -2,6 +2,7 @@
 import DefaultTheme from 'vitepress/theme'
 import { ref, onMounted } from 'vue'
 import cookie from 'js-cookie'
+import { jump } from '../../utils/jump'
 
 const hasNotice = false
 
@@ -17,6 +18,8 @@ const handleClose = () => {
 
 onMounted(() => {
   hasClose.value = !!cookie.get(isCloseNotice)
+
+  jump()
 })
 </script>
 

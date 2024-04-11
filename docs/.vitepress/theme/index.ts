@@ -14,7 +14,6 @@ import DocsCodeDemo from './components/docs-code-demo.vue'
 import DocsChangelog from './components/docs-changelog.vue'
 import DocsMarkdown from './components/docs-markdown.vue'
 import DocsTip from './components/docs-tip.vue'
-import DocsJump from './components/docs-jump.vue'
 import MyLayout from './components/layout.vue'
 
 import directive from './directives'
@@ -32,7 +31,6 @@ export default {
     app.component('DocsChangelog', DocsChangelog)
     app.component('DocsMarkdown', DocsMarkdown)
     app.component('DocsTip', DocsTip)
-    app.component('DocsJump', DocsJump)
     directive(app)
   }
 }
