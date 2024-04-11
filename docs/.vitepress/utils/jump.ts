@@ -14,7 +14,7 @@ export const jump = () => {
   const isJump = isZh && isGithub && !cookie.get(isJumpKey)
 
   if (isJump) {
-    ElMessageBox.alert('检测到你的访问地址是国内，是否跳转到国内镜像文档？', {
+    ElMessageBox.confirm('检测到你的访问地址是国内，是否跳转到国内镜像文档？', {
       confirmButtonText: '是',
       callback: (action: string) => {
         if (action === 'cancel') {
