@@ -238,7 +238,7 @@ const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
 const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPageInfo)
 const plusSearchInstance = ref<any>()
 const plusTableInstance = ref<any>()
-const values = ref({ ...(props.search as any)?.defaultValues })
+const values = ref<Record<string | number, any>>({ ...(props.search as any)?.defaultValues })
 const slots = useSlots()
 /**
  * 表格单元格的插槽
@@ -293,15 +293,15 @@ const handlePaginationChange = (_pageInfo: PageInfo): void => {
   emit('paginationChange', _pageInfo)
 }
 
-const handleSearch = (values: any) => {
-  const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(values)) || values
+const handleSearch = (val: any) => {
+  const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(val)) || val
   values.value = data
   getList()
   emit('search', values.value)
 }
 
-const handleRest = (values: any) => {
-  values.value = { ...values }
+const handleRest = (val: any) => {
+  values.value = { ...val }
   pageInfo.value.page = 1
   getList()
   emit('reset', values.value)
