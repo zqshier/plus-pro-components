@@ -112,11 +112,11 @@ import type {
   Mutable,
   FieldValues
 } from '@plus-pro-components/types'
-import type { PlusSearchProps, PlusSearchInstance } from '@plus-pro-components/components/search'
+import type { PlusSearchProps } from '@plus-pro-components/components/search'
 import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/components/search'
-import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
+import type { PlusTableProps } from '@plus-pro-components/components/table'
 import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
-import type { Ref, Component } from 'vue'
+import type { Component } from 'vue'
 import { h, ref, useSlots, computed } from 'vue'
 import type { CardProps } from 'element-plus'
 import { ElCard } from 'element-plus'
@@ -238,7 +238,7 @@ const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
 const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPageInfo)
 const plusSearchInstance = ref<any>()
 const plusTableInstance = ref<any>()
-const values = ref<Record<string | number, any>>({ ...(props.search as any)?.defaultValues })
+const values = ref<FieldValues>({ ...(props.search as Partial<PlusSearchProps>)?.defaultValues })
 const slots = useSlots()
 /**
  * 表格单元格的插槽
@@ -312,8 +312,8 @@ const handleRefresh = () => {
 }
 
 defineExpose({
-  plusSearchInstance: plusSearchInstance as Ref<PlusSearchInstance>,
-  plusTableInstance: plusTableInstance as Ref<PlusTableInstance>,
+  plusSearchInstance,
+  plusTableInstance,
   getList,
   handleRest
 })
