@@ -47,6 +47,9 @@
 }
 
 .vp-doc {
+  .el-sub-menu .el-menu {
+    margin-left: 0;
+  }
   .el-descriptions__table {
     margin: 0;
   }

@@ -199,7 +199,7 @@ app.mount('#app')
   <iframe src="https://codepen.io/l-x-f/embed/KKrbRxW?height=469&theme-id=light&default%20-tab=html,result"   style="height: 100%; width: 100%; border: 0;"></iframe>
 </div>
 
-::: tip 提示
+::: warning 注意
 使用 CDN 时，在 HTML 中所有的组件都是小写中划线隔开的形式，不支持单标签。
 
 例如：
