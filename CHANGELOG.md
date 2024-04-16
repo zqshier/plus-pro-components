@@ -1,3 +1,22 @@
+## [v0.0.11](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.10...v0.0.11) (2024-04-16)
+
+
+### ✨ Features
+
+* **components[page]:** :sparkles: values add FieldValues type([1a85a0a](https://github.com/plus-pro-components/plus-pro-components/commit/1a85a0a)) by@xiaofei
+* **all:** Merge pull request [#124](https://github.com/plus-pro-components/plus-pro-components/pull/124) from RJQingHuan/fix-page([700c513](https://github.com/plus-pro-components/plus-pro-components/commit/700c513)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **plus-pro-components:** :bug: fix element-plus version inconsistency issue([dab2ab8](https://github.com/plus-pro-components/plus-pro-components/commit/dab2ab8)) by@xiaofei
+* **components:** fix the problem of page component query parameter error([e6f936b](https://github.com/plus-pro-components/plus-pro-components/commit/e6f936b)) by@LiuSonglin
+
+
+
+
 ## [v0.0.10](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.9...v0.0.10) (2024-04-11)
 
 
