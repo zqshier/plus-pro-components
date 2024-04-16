@@ -245,6 +245,10 @@ export default defineConfig({
           ]
         },
         {
+          text: '常见问题',
+          link: '/components/QA'
+        },
+        {
           text: '内置组件',
           items: [
             {

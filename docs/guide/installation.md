@@ -14,20 +14,25 @@
 
 ## 使用包管理器 <el-tag  effect="dark">推荐</el-tag>
 
-**建议您使用包管理器 (NPM, [Yarn](https://classic.yarnpkg.com/lang/en/), [pnpm](https://pnpm.io/)) 安装 plus-pro-components**。
+::: warning 注意
+`plus-pro-components`大于等于 `0.0.11` 版本，`element-plus`不再作为`plus-pro-components`的依赖，需要单独安装。
+
+:::
+
+**建议您使用包管理器 ([pnpm](https://pnpm.io/)<el-tag  effect="dark">推荐</el-tag> ， [yarn](https://classic.yarnpkg.com/lang/en/)，[npm](https://www.npmjs.com/)) 安装 plus-pro-components**。
 
 ::: code-group
 
-```sh [npm]
-npm install plus-pro-components   --save
+```sh [pnpm]
+pnpm install plus-pro-components
 ```
 
 ```sh [yarn]
 yarn add plus-pro-components
 ```
 
-```sh [pnpm]
-pnpm install plus-pro-components
+```sh [npm]
+npm install plus-pro-components   --save
 ```
 
 :::
