@@ -90,7 +90,6 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^2.1.0",
-    "element-plus": "^2.4.4",
     "lodash-es": "^4.17.21",
     "sortablejs": "^1.15.0"
   },
