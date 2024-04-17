@@ -12,7 +12,7 @@
     "ui",
     "vue"
   ],
-  "homepage": "https://github.com/plus-pro-components/plus-pro-components",
+  "homepage": "https://plus-pro-components.com",
   "bugs": {
     "url": "https://github.com/plus-pro-components/plus-pro-components/issues"
   },
@@ -97,7 +97,8 @@
     "@types/lodash-es": "^4.17.6",
     "@types/node": "*",
     "@types/sortablejs": "^1.15.1",
-    "vue": "^3.3.4"
+    "vue": "^3.3.4",
+    "element-plus": "^2.3.4"
   },
   "browserslist": [
     "> 1%",
