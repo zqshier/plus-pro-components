@@ -28,7 +28,7 @@ describe('table/index.vue', () => {
         valueType: 'date-picker'
       }
     ]
-    const tableData = [...new Array(100)].map((item, index) => {
+    const tableData = Array.from({ length: 100 }).map((item, index) => {
       return {
         index,
         name: index === 0 ? 'name'.repeat(20) : index + 'name',
@@ -67,7 +67,7 @@ describe('table/index.vue', () => {
         valueType: 'date-picker'
       }
     ]
-    const tableData = [...new Array(100)].map((item, index) => {
+    const tableData = Array.from({ length: 100 }).map((item, index) => {
       return {
         index,
         name: index === 0 ? 'name'.repeat(20) : index + 'name',
@@ -132,7 +132,7 @@ describe('table/index.vue', () => {
       }
     ]
 
-    const tableData = [...new Array(5)].map((item, index) => {
+    const tableData = Array.from({ length: 5 }).map((item, index) => {
       return {
         index,
         name: index === 0 ? 'name'.repeat(20) : index + 'name',
@@ -168,7 +168,7 @@ describe('table/index.vue', () => {
       }
     ]
 
-    const tableData = [...new Array(5)].map((item, index) => {
+    const tableData = Array.from({ length: 5 }).map((item, index) => {
       return {
         index,
         name: index === 0 ? 'name'.repeat(20) : index + 'name',
@@ -223,7 +223,7 @@ describe('table/index.vue', () => {
       }
     ]
 
-    const tableData = [...new Array(5)].map((item, index) => {
+    const tableData = Array.from({ length: 5 }).map((item, index) => {
       return {
         index,
         name: index === 0 ? 'name'.repeat(20) : index + 'name',
@@ -349,7 +349,7 @@ describe('table/index.vue', () => {
       }
     ]
 
-    const tableData = [...new Array(3)].map((item, index) => {
+    const tableData = Array.from({ length: 3 }).map((item, index) => {
       return {
         index,
         id: index,
