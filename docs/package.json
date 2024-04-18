@@ -4,6 +4,7 @@
   "private": true,
   "description": "plus-pro-components docs",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "vitepress dev",
     "start": "cross-env PLUS_WRITE=true vitepress dev",
@@ -29,8 +30,8 @@
     "prismjs": "^1.29.0",
     "sass": "^1.62.1",
     "vite-plugin-compression": "^0.5.1",
-    "vite-plugin-inspect": "^0.7.28",
-    "vitepress": "1.0.0-beta.7"
+    "vite-plugin-inspect": "^0.8.3",
+    "vitepress": "1.1.0"
   },
   "dependencies": {
     "js-cookie": "^3.0.5",
