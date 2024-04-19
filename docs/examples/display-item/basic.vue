@@ -1,6 +1,8 @@
 <template>
-  <div class="plus-example-display-item">
-    <PlusDisplayItem v-for="item in columns" :key="item.label" :column="item" :row="row" />
+  <div v-for="item in columns" :key="item.label" class="plus-example-display-item">
+    {{ item.label }}：
+    <PlusDisplayItem :column="item" :row="row" />
+    <el-divider style="margin: 10px 0" />
   </div>
 </template>
 
@@ -11,7 +13,6 @@ const columns: PlusColumn[] = [
   {
     label: '名称',
     prop: 'name',
-    valueType: 'copy',
     tooltip: '名称最多显示6个字符'
   },
   {
@@ -43,7 +44,13 @@ const columns: PlusColumn[] = [
   },
   {
     label: '标签',
-    prop: 'tag'
+    prop: 'tag',
+    valueType: 'tag'
+  },
+  {
+    label: '标签1',
+    prop: 'tag1',
+    valueType: 'tag'
   },
   {
     label: 'money',
@@ -62,7 +69,6 @@ const columns: PlusColumn[] = [
   },
   {
     label: '评分',
-
     prop: 'rate',
     editable: true,
     valueType: 'rate'
@@ -79,15 +85,25 @@ const columns: PlusColumn[] = [
     valueType: 'date-picker'
   },
   {
+    label: '时间1',
+    prop: 'time1',
+    valueType: 'date-picker'
+  },
+  {
     label: 'img',
     prop: 'img',
     valueType: 'img'
   },
   {
     label: '链接',
-    prop: 'place',
+    prop: 'link',
     valueType: 'link',
     linkText: 'link'
+  },
+  {
+    label: '链接1',
+    prop: 'link1',
+    valueType: 'link'
   },
   {
     label: 'code',
@@ -104,25 +120,17 @@ const row = {
   name: 'name',
   status: '1',
   tag: 'success',
+  tag1: '',
   money: '100',
-  progress: 30,
+  progress: 0,
   rate: 4,
   switch: true,
   time: new Date(),
+  time1: '',
   code: `const data = 100`,
   copy: 'copy',
+  link: '',
+  link1: '',
   img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
 }
 </script>
-
-<style lang="scss">
-.plus-example-display-item {
-  .plus-display-item {
-    margin: 20px 0 20px 0;
-    padding-right: 20px;
-  }
-  .plus-display-item__image {
-    padding: 0;
-  }
-}
-</style>
