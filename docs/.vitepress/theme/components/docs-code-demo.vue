@@ -86,8 +86,6 @@ const handleToggle = () => {
 const decoded = computed(() => decodeURIComponent(props.source))
 const content = computed(() => decodeURIComponent(props.rawSource))
 
-console.log(decoded, 'decoded')
-
 // add line-number
 const tem = content.value.split('\r\n')
 total.value = tem.length
