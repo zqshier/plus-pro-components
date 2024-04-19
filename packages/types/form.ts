@@ -9,6 +9,7 @@ import type {
   ColorPickerProps,
   DatePickerProps,
   InputProps,
+  InputAutoSize,
   InputNumberProps,
   RadioGroupProps,
   RateProps,
@@ -82,6 +83,7 @@ export type OmitTypes =
   | 'id'
   | 'effect'
   | 'height'
+  | 'autosize'
 
 /**
  * 表单和现实组件所有字段类型
@@ -140,6 +142,10 @@ export type FieldProps = Partial<
      * @desc `valueType` 为 `slider` 时是`string`类型，其余是`number`类型
      */
     height: string | number
+    /**
+     * @desc `valueType` 为 `textarea` 时
+     */
+    autosize: InputAutoSize
   } & Mutable<
     // 表单
     Omit<AutocompleteProps, OmitTypes> &
