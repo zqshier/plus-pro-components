@@ -7,9 +7,11 @@ import { dayjs } from 'element-plus'
  * @returns YYYY-MM-DD HH:mm:ss
  */
 export function formatDate(date?: dayjs.ConfigType, format = 'YYYY-MM-DD HH:mm:ss'): string {
+  if (!date) return ''
   return dayjs(date || new Date()).format(format)
 }
 
 export function formatMoney(val: string | number, format = '￥', decimal = 2): string {
+  if (!val) return ''
   return `${format}${Number(val).toFixed(decimal)}`
 }

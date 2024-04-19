@@ -53,52 +53,6 @@
     v-html="column.renderHTML(displayValue, { row: subRow, column, index })"
   />
 
-  <!--显示图片 -->
-  <el-image
-    v-else-if="column.valueType === 'img'"
-    class="plus-display-item plus-display-item__image"
-    fit="cover"
-    preview-teleported
-    :src="imageUrl.url"
-    :preview-src-list="column.preview !== false ? imageUrl.options : []"
-    v-bind="customFieldProps"
-  >
-    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-      <component :is="fieldSlot" v-bind="data" />
-    </template>
-  </el-image>
-
-  <!--显示链接 -->
-  <el-link
-    v-else-if="column.valueType === 'link'"
-    type="primary"
-    class="plus-display-item plus-display-item__link"
-    v-bind="customFieldProps"
-  >
-    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-      <component :is="fieldSlot" v-bind="data" />
-    </template>
-    {{ column.linkText || displayValue }}
-  </el-link>
-
-  <!-- 格式化时间 -->
-  <span
-    v-else-if="column.valueType === 'date-picker' && displayValue"
-    class="plus-display-item"
-    v-bind="customFieldProps"
-  >
-    {{ formatDate(displayValue) }}
-  </span>
-
-  <!-- 格式化金钱 -->
-  <span
-    v-else-if="column.valueType === 'money'"
-    class="plus-display-item"
-    v-bind="customFieldProps"
-  >
-    {{ formatMoney(displayValue) }}
-  </span>
-
   <!-- 状态显示 -->
   <span
     v-else-if="
@@ -120,31 +74,6 @@
     {{ getStatus.label }}
   </span>
 
-  <!-- 标签 -->
-  <el-tag
-    v-else-if="column.valueType === 'tag' && displayValue"
-    class="plus-display-item"
-    v-bind="customFieldProps"
-  >
-    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-      <component :is="fieldSlot" v-bind="data" />
-    </template>
-
-    {{ displayValue }}
-  </el-tag>
-
-  <!-- 进度条 -->
-  <el-progress
-    v-else-if="column.valueType === 'progress'"
-    class="plus-display-item"
-    :percentage="displayValue"
-    v-bind="customFieldProps"
-  >
-    <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-      <component :is="fieldSlot" v-bind="data" />
-    </template>
-  </el-progress>
-
   <!-- 复制 -->
   <span v-else-if="column.valueType === 'copy'" class="plus-display-item">
     {{ displayValue }}
@@ -159,14 +88,31 @@
     </el-icon>
   </span>
 
-  <!-- 代码块 -->
-  <pre
-    v-else-if="column.valueType === 'code'"
-    class="plus-display-item plus-display-item__pre"
-    v-bind="customFieldProps"
-  >
-      {{ displayValue }}
-  </pre>
+  <!-- 统一处理 -->
+  <template v-else-if="hasDisplayComponent(column.valueType)">
+    <!--has slots  -->
+    <component
+      :is="isTagAndNoValue ? 'span' : displayComponent.component"
+      v-if="displayComponent.hasSlots"
+      class="plus-display-item"
+      :class="displayComponent.class"
+      v-bind="displayComponentProps"
+    >
+      <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
+        <component :is="fieldSlot" v-bind="data" />
+      </template>
+      {{ column.valueType === 'link' ? column.linkText || displayValue : displayValue }}
+    </component>
+    <!--no slots  -->
+    <component
+      :is="displayComponent.component"
+      v-else
+      :class="displayComponent.class"
+      v-bind="displayComponentProps"
+    >
+      {{ displayComponent.format ? displayComponent.format(displayValue) : displayValue }}
+    </component>
+  </template>
 
   <!-- 没有format -->
   <span v-else class="plus-display-item" v-bind="customFieldProps">{{ displayValue }} </span>
@@ -176,10 +122,9 @@
 import { DocumentCopy, Select } from '@element-plus/icons-vue'
 import { PlusForm } from '@plus-pro-components/components/form'
 import {
-  formatDate,
-  formatMoney,
   isFunction,
   isArray,
+  isString,
   getCustomProps,
   getTableCellSlotName,
   getFieldSlotName,
@@ -197,7 +142,8 @@ import type {
 } from '@plus-pro-components/types'
 import { useGetOptions } from '@plus-pro-components/hooks'
 import { PlusRender } from '@plus-pro-components/components/render'
-import { ElImage, ElLink, ElTag, ElProgress, ElIcon } from 'element-plus'
+import { ElIcon } from 'element-plus'
+import { hasDisplayComponent, getDisplayComponent } from './display-item'
 
 export interface PlusDisplayItemProps {
   column: PlusColumn
@@ -250,6 +196,11 @@ const modelValues = computed({
   }
 })
 
+/**
+ * tag 没有值的时候不渲染
+ */
+const isTagAndNoValue = computed(() => props.column.valueType === 'tag' && !displayValue.value)
+
 const params = computed(() => ({
   row: subRow.value,
   column: props.column,
@@ -258,7 +209,7 @@ const params = computed(() => ({
 
 const imageUrl = computed(() => {
   const option = displayValue.value
-  if (option && typeof option === 'string') {
+  if (option && isString(option)) {
     return { options: [option], url: option }
   }
   if (isArray(option)) {
@@ -280,6 +231,35 @@ const getStatus = computed(() => {
     return { label: '', value: '' }
   }
   return option
+})
+
+const displayComponent = computed(() => getDisplayComponent(props.column.valueType))
+
+const displayComponentProps = computed(() => {
+  return {
+    // img
+    ...(props.column.valueType === 'img'
+      ? {
+          fit: 'cover',
+          previewTeleported: true,
+          src: imageUrl.value.url,
+          previewSrcList: props.column.preview !== false ? imageUrl.value.options : []
+        }
+      : null),
+    // progress
+    ...(props.column.valueType === 'progress'
+      ? {
+          percentage: displayValue.value
+        }
+      : null),
+    // link
+    ...(props.column.valueType === 'link'
+      ? {
+          type: 'primary'
+        }
+      : null),
+    ...customFieldProps.value
+  }
 })
 
 watch(
