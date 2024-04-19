@@ -86,6 +86,8 @@ const handleToggle = () => {
 const decoded = computed(() => decodeURIComponent(props.source))
 const content = computed(() => decodeURIComponent(props.rawSource))
 
+console.log(decoded, 'decoded')
+
 // add line-number
 const tem = content.value.split('\r\n')
 total.value = tem.length
@@ -136,7 +138,7 @@ const handleEditPlayground = () => {
   padding-top: 11px;
   user-select: none;
   .line-number {
-    color: #dcdfe6;
+    color: #aaa;
     line-height: 1.4;
   }
 }

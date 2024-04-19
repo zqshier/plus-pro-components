@@ -17,23 +17,20 @@
   "author": "xiaofei",
   "license": "ISC",
   "devDependencies": {
-    "@types/escape-html": "^1.0.2",
     "@types/js-cookie": "^3.0.3",
     "@types/markdown-it": "^12.2.3",
     "@types/markdown-it-container": "^2.0.5",
-    "@types/prismjs": "^1.26.0",
     "cross-env": "^7.0.3",
-    "escape-html": "^1.0.3",
     "markdown-it": "^13.0.1",
     "markdown-it-container": "^3.0.0",
     "prism-theme-vars": "^0.2.4",
-    "prismjs": "^1.29.0",
     "sass": "^1.62.1",
     "vite-plugin-compression": "^0.5.1",
     "vite-plugin-inspect": "^0.8.3",
     "vitepress": "1.1.0"
   },
   "dependencies": {
+    "highlight.js": "^11.9.0",
     "js-cookie": "^3.0.5",
     "plus-pro-components": "npm:plus-pro-components@latest"
   }

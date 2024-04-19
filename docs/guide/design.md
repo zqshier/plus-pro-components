@@ -1,3 +1,16 @@
-## 组件架构设计
+# 组件自定义总则
 
-<iframe src="/design.pdf"  style="width:100%;height:80vh;border:0;"></iframe>
+- 组件都可以自定义。
+
+- 组件自定义方式都有三种方式，优先级由高到低。
+
+  - 渲染函数（`render`或其他名称）；`j(t)sx`;
+  - 插槽
+
+- 组件同时包含`整体插槽`和`单项插槽`的，`单项插槽`的优先级更高。
+
+- 组件同时包含`整体渲染函数`和`单项渲染函数`的，`单项渲染函数`的优先级更高。
+
+# 组件关系图
+
+<iframe src="/design.pdf"  class="design-iframe"   ></iframe>

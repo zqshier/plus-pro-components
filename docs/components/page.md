@@ -92,15 +92,14 @@ page/crud
 
 ::: tip 提示
 支持 [PlusSearch](/components/search.html) 和
-[PlusTable](/components/table.html) 的的所有事件，如 [PlusSearch](/components/search.html) 的`search`, PlusTable 的`row-click`等
+[PlusTable](/components/table.html) 的的所有事件，如 [PlusSearch](/components/search.html) 的`search`, PlusTable 的`row-click`等，如下示例
+:::
 
 示例：
 
 ```html
 <PlusPage :search="{ onSearch:() => {} }" :table="{ onRowClick: () => {} }" />
 ```
-
-:::
 
 ## Page Slots
 

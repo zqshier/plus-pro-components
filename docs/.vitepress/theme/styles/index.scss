@@ -1,7 +1,10 @@
-@use './code';
+@import './code';
 
+$primaryColor: var(--el-color-primary);
+
+// 选
 :root {
-  --vp-c-green: #0072ff;
+  --vp-c-green: #{$primaryColor};
   --vp-c-green-light: #2a87f8;
   --vp-c-green-lighter: #3e93fb;
 
@@ -11,6 +14,11 @@
   --vp-sidebar-bg-color: #fff;
   --vp-sidebar-width: 240px;
   --prism-block-padding-y: 1.2em;
+
+  --vp-c-indigo-1: #{$primaryColor};
+  --vp-c-indigo-3: #{$primaryColor};
+  --vp-c-bg-alt: var(--el-fill-color-light);
+  --vp-c-brand-2: #2a87f8;
 }
 
 .dark {
@@ -42,11 +50,13 @@
   }
 }
 
-.vp-doc [class*='language-'] pre {
-  padding: 0;
-}
-
 .vp-doc {
+  .plus-steps-form .el-steps {
+    line-height: initial;
+  }
+  .el-pager li {
+    margin: 0;
+  }
   .el-sub-menu .el-menu {
     margin-left: 0;
   }
@@ -115,6 +125,10 @@
   .el-text a {
     text-decoration: none;
   }
+
+  .custom-block.warning a {
+    color: var(--vp-c-brand-1);
+  }
 }
 
 .plus-image-preview-footer__icon {
@@ -131,4 +145,11 @@
 
 .miit-link {
   display: none;
+}
+
+.design-iframe {
+  width: 100%;
+  height: 80vh;
+  border: 0;
+  margin-top: 20px;
 }

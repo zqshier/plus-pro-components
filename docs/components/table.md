@@ -441,7 +441,8 @@ el-table 的其他属性写法示例 如 `stripe`,`border`,`fit`等
 **`...`表示同时支持所有[ElTable 事件](https://element-plus.org/zh-CN/component/table.html#table-%E4%BA%8B%E4%BB%B6)**
 
 ::: tip 提示
-el-table 的其他事件写法示例 如 `select`,`select-all`,`row-click`等
+el-table 的其他事件写法示例 如 `select`,`select-all`,`row-click`等，如下示例
+:::
 
 示例：
 
@@ -461,8 +462,6 @@ const handleSelectAll = (selection: any[]) => {
   console.log(selection)
 }
 ```
-
-:::
 
 ## Table Slots
 

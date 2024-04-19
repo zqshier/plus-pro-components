@@ -42,13 +42,13 @@ pagination/slot
 | `change` | 分页组件 page 或者 pageSize 改变触发 | `function` <docs-tip content='(pageInfo:PageInfo) => void'></docs-tip> |
 
 ::: tip 提示
-el-pagination 的其他事件的支持写法 如 prev-click
+el-pagination 的其他事件的支持写法 如 prev-click，如下示例
+:::
+示例：
 
 ```html
 <PlusPagination @prev-click="handlePrevClick" />
 ```
-
-:::
 
 ## Pagination Slots
 

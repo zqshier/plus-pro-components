@@ -57,13 +57,14 @@ const endDisabledDate = (endTime, startValue) => {
 | `change` | 用户选值时触发 | `function` <docs-tip content='(value:string[]) => void'></docs-tip> |
 
 ::: tip 提示
-el-date-picker 的其他事件的支持写法 如 blur
+el-date-picker 的其他事件的支持写法 如 `blur`，如下示例
+:::
+
+示例：
 
 ```html
 <PlusDatePicker :start-props="{onBlur: () => {} }" :end-props="{onBlur: () => {} }" />
 ```
-
-:::
 
 ## Exposes
 

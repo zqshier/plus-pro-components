@@ -353,7 +353,8 @@ form/all
 
 :::tip 提示
 
-如 el-form 的 validate。
+如 el-form 的 validate，如下示例
+:::
 
 示例：
 
@@ -370,8 +371,6 @@ const handleValidate = (prop: FormItemProp, isValid: boolean, message: string) =
   console.log(dropdownItem)
 }
 ```
-
-:::
 
 ## Form Slots
 
