@@ -196,6 +196,7 @@ import {
   ElFormItem as FormItemComponent,
   ElTooltip as TooltipComponent,
   ElIcon as IconComponent,
+  ElInput as InputComponent,
   ElText
 } from 'element-plus'
 import {
@@ -237,6 +238,7 @@ defineOptions({
 const ElFormItem: Component = FormItemComponent
 const ElTooltip: Component = TooltipComponent
 const ElIcon: Component = IconComponent
+const ElInput: Component = InputComponent
 
 const props = withDefaults(defineProps<PlusFormItemProps>(), {
   label: '',
