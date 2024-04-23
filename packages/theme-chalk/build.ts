@@ -8,7 +8,8 @@ import cssnano from 'cssnano'
 import glob from 'fast-glob'
 import { copy } from 'fs-extra'
 import consola from 'consola'
-import { pcOutput } from '../../scripts/utils/paths'
+
+const pcOutput = path.resolve('../../dist/plus-pro-components')
 
 const isDev = process.env.PLUS_THEME_CHALK_DEV === 'true'
 
