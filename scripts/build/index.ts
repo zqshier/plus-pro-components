@@ -5,7 +5,6 @@ import { buildOutput, pcOutput, projRoot, pcPackage } from '../utils/paths'
 import { copy } from 'fs-extra'
 import all from './all'
 import modules from './modules'
-import dts from './dts'
 
 const copyFiles = () =>
   Promise.all([
@@ -15,7 +14,7 @@ const copyFiles = () =>
   ])
 
 const copyDts = async () => {
-  const src = resolve(buildOutput, 'types', 'packages')
+  const src = resolve(buildOutput, 'types')
 
   /**
    * copy es dts
@@ -47,7 +46,7 @@ const updateVersion = async () => {
   await writeFile(pcOutputPkg, JSON.stringify(mainPkg, null, 2) + '\n')
 }
 
-const task = [...all, ...modules, ...dts]
+const task = [...all, ...modules]
 
 Promise.all(task)
   .then(async () => {
