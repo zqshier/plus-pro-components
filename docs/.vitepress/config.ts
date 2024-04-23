@@ -161,7 +161,7 @@ export default defineConfig({
               link: '/guide/changelog'
             },
             {
-              text: '组件架构设计',
+              text: '组件设计',
               link: '/guide/design'
             }
           ]

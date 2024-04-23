@@ -21,7 +21,7 @@ const getList = async (
 
   const { page = 1, pageSize = 20, status, name } = query || {}
   const total = 1000
-  const List = [...new Array(total)].map((item, index) => {
+  const List = Array.from({ length: total }).map((item, index) => {
     return {
       id: index,
       name: index === 0 ? 'name'.repeat(20) : index + 'name',

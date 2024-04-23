@@ -197,7 +197,7 @@ const props = withDefaults(defineProps<PlusFormProps>(), {
 const emit = defineEmits<PlusFormEmits>()
 
 const { t } = useLocale()
-const formInstance = ref<FormInstance>()
+const formInstance = ref<FormInstance | null>(null)
 const values = ref<FieldValues>({})
 
 const filterHide = (columns: PlusColumn[]) => {

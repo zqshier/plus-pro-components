@@ -1,18 +1,22 @@
-import type { PluginOption } from 'vite'
 import { defineConfig } from 'vitest/config'
 import Vue from '@vitejs/plugin-vue'
 import VueJsx from '@vitejs/plugin-vue-jsx'
 
 export default defineConfig({
-  plugins: [Vue() as PluginOption, VueJsx() as PluginOption],
+  plugins: [Vue(), VueJsx()],
   optimizeDeps: {
     disabled: true
   },
   test: {
     clearMocks: true,
     environment: 'jsdom',
-    transformMode: {
-      web: [/\.[jt]sx$/]
+    coverage: {
+      include: ['packages/components/**/*'],
+      exclude: [
+        'packages/components/*/style/*',
+        'packages/components/index.ts',
+        'packages/components/*/index.ts'
+      ]
     }
   }
 })

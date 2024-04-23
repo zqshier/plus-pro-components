@@ -8,10 +8,11 @@ import glob from 'fast-glob'
 import vuePlugin from '@vitejs/plugin-vue'
 import postcss from 'rollup-plugin-postcss'
 import autoprefixer from 'autoprefixer'
+import dts from 'vite-plugin-dts'
 import cssnano from 'cssnano'
 import type { OutputOptions, ModuleFormat } from 'rollup'
-import { pcOutput, pcRoot, pkgRoot } from '../utils/paths'
-import { target, writeBundlesFunction } from '../utils'
+import { pcOutput, pcRoot, pkgRoot, TSCONFIG_PATH, DTS_OUT_DIR } from '../utils/paths'
+import { target, writeBundlesFunction, pathRewriter, cssResolver } from '../utils'
 import { externalModules, excludeFiles } from '../utils/main'
 import {
   PlusProComponentsAlias,
@@ -74,6 +75,40 @@ const buildModules = async () => {
           namedExports: true,
           extract: true,
           plugins: [autoprefixer(), cssnano()]
+        }),
+        dts({
+          entryRoot: pkgRoot,
+          tsconfigPath: TSCONFIG_PATH,
+          outDir: DTS_OUT_DIR,
+          staticImport: true,
+          insertTypesEntry: false,
+          cleanVueFileName: false,
+          copyDtsFiles: false,
+          strictOutput: true,
+          exclude: [
+            resolve(pkgRoot, 'eslint-config'),
+            resolve(pkgRoot, 'utils'),
+            resolve(pkgRoot, 'resolver'),
+            resolve(pkgRoot, 'theme-chalk'),
+            resolve(pkgRoot, 'play')
+          ],
+          resolvers: [cssResolver],
+          beforeWriteFile: (filePath: string, content: string) => {
+            let tempPath = filePath
+            let code = pathRewriter(content)
+            // packages/plus-pro-components
+            if (filePath.includes('dist/types/plus-pro-components')) {
+              tempPath = filePath.replace('dist/types/plus-pro-components', 'dist/types')
+            }
+            // */style/index   */style/css
+            if (filePath.includes('style/index') || filePath.includes('style/css')) {
+              code = JSON.parse(content)
+            }
+            return {
+              filePath: tempPath,
+              content: code
+            }
+          }
         })
       ],
       treeshake: false

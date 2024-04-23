@@ -34,3 +34,7 @@ export const compPackage = resolve(compRoot, 'package.json')
 export const hookPackage = resolve(hookRoot, 'package.json')
 export const utilPackage = resolve(utilRoot, 'package.json')
 export const docPackage = resolve(docRoot, 'package.json')
+
+// dts
+export const TSCONFIG_PATH = resolve(projRoot, 'tsconfig.web.json')
+export const DTS_OUT_DIR = resolve(buildOutput, 'types')

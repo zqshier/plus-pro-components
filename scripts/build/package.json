@@ -2,6 +2,7 @@
   "name": "@plus-pro-components/build",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "description": "Build Toolchain for plus-pro-components",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

@@ -25,7 +25,8 @@ layout/basic
 ::: tip 提示
 子组件事件写法示例
 
-如 [PlusSidebar ](/components/sidebar.html) 的事件 `toggleCollapse`和 [PlusHeader ](/components/header.html)的事件`clickDropdownItem`。 参考 vue 官方文档 **[透传 Attributes](https://cn.vuejs.org/guide/components/attrs.html)**
+如 [PlusSidebar ](/components/sidebar.html) 的事件 `toggleCollapse`和 [PlusHeader ](/components/header.html)的事件`clickDropdownItem`。 参考 vue 官方文档 **[透传 Attributes](https://cn.vuejs.org/guide/components/attrs.html)**，如下示例
+:::
 
 示例：
 
@@ -49,8 +50,6 @@ const handleToggleCollapse = (collapse: boolean) => {
   console.log(collapse)
 }
 ```
-
-:::
 
 ## Exposes
 

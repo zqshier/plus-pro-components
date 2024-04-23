@@ -43,8 +43,8 @@ const columns: PlusColumn[] = [
   }
 ]
 const row = {
-  img: '',
-  link: '',
+  img: 'ee',
+  link: 'ee',
   progress: 30
 }
 </script>

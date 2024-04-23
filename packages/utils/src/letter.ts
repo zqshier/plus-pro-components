@@ -3,7 +3,7 @@
  * @returns
  */
 export const getBigLetter = () => {
-  return [...new Array(26)].map((_, index) => String.fromCharCode(65 + index))
+  return Array.from({ length: 26 }).map((_, index) => String.fromCharCode(65 + index))
 }
 
 /**
@@ -11,5 +11,5 @@ export const getBigLetter = () => {
  * @returns
  */
 export const getSmallLetter = () => {
-  return [...new Array(26)].map((_, index) => String.fromCharCode(97 + index))
+  return Array.from({ length: 26 }).map((_, index) => String.fromCharCode(97 + index))
 }
