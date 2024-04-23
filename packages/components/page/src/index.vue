@@ -112,9 +112,9 @@ import type {
   Mutable,
   FieldValues
 } from '@plus-pro-components/types'
-import type { PlusSearchProps } from '@plus-pro-components/components/search'
+import type { PlusSearchProps, PlusSearchInstance } from '@plus-pro-components/components/search'
 import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/components/search'
-import type { PlusTableProps } from '@plus-pro-components/components/table'
+import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
 import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
 import type { Component } from 'vue'
 import { h, ref, useSlots, computed } from 'vue'
@@ -236,8 +236,8 @@ const computedDefaultPageInfo = computed(() => props.defaultPageInfo)
 const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
 
 const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPageInfo)
-const plusSearchInstance = ref<any>()
-const plusTableInstance = ref<any>()
+const plusSearchInstance = ref<PlusSearchInstance | null>(null)
+const plusTableInstance = ref<PlusTableInstance | null>(null)
 const values = ref<FieldValues>({ ...(props.search as Partial<PlusSearchProps>)?.defaultValues })
 const slots = useSlots()
 /**

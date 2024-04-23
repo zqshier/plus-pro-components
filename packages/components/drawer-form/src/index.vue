@@ -68,11 +68,11 @@
 <script lang="ts" setup>
 import { ref, watch, computed, useSlots } from 'vue'
 import { PlusForm } from '@plus-pro-components/components/form'
-import type { PlusFormProps } from '@plus-pro-components/components/form'
+import type { PlusFormProps, PlusFormInstance } from '@plus-pro-components/components/form'
 import type { FieldValues, PlusColumn } from '@plus-pro-components/types'
+import type { FormInstance } from 'element-plus'
 import { ElDrawer, ElMessage } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { FormInstance } from 'element-plus'
 
 import {
   getFieldSlotName,
@@ -121,7 +121,7 @@ const props = withDefaults(defineProps<PlusDrawerFormProps>(), {
 const emit = defineEmits<PlusDrawerFormEmits>()
 
 const { t } = useLocale()
-const formInstance = ref<any>()
+const formInstance = ref<PlusFormInstance | null>(null)
 const computedFormInstance = computed(() => formInstance.value?.formInstance as FormInstance)
 const drawerInstance = ref<InstanceType<typeof ElDrawer>>()
 const state = ref<FieldValues>({})

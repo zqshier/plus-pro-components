@@ -58,7 +58,7 @@
 <script lang="ts" setup>
 import { ref, watch, computed, useSlots } from 'vue'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { PlusFormProps } from '@plus-pro-components/components/form'
+import type { PlusFormProps, PlusFormInstance } from '@plus-pro-components/components/form'
 import { PlusForm } from '@plus-pro-components/components/form'
 import type { PlusDialogProps } from '@plus-pro-components/components/dialog'
 import { PlusDialog } from '@plus-pro-components/components/dialog'
@@ -102,7 +102,7 @@ const props = withDefaults(defineProps<PlusDialogFormProps>(), {
 const emit = defineEmits<PlusDialogFormEmits>()
 
 const { t } = useLocale()
-const formInstance = ref<any>()
+const formInstance = ref<PlusFormInstance | null>()
 const computedFormInstance = computed(() => formInstance.value?.formInstance as FormInstance)
 
 const state = ref<FieldValues>({})
