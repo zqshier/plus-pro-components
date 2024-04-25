@@ -13,13 +13,13 @@
     </div>
 
     <template #reference>
-      <el-button>密度</el-button>
+      <el-button class="mgr-10">密度</el-button>
     </template>
   </PlusPopover>
 
   <PlusPopover placement="right" :width="400" trigger="click">
     <template #reference>
-      <el-button style="margin-left: 20px">Click to activate</el-button>
+      <el-button>Click to activate</el-button>
     </template>
     <el-table :data="gridData">
       <el-table-column width="150" property="date" label="date" />
@@ -79,3 +79,9 @@ const gridData = [
   }
 ]
 </script>
+
+<style lang="scss" scoped>
+.mgr-10 {
+  margin-right: 10px;
+}
+</style>

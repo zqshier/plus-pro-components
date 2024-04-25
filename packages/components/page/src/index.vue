@@ -16,6 +16,8 @@
       </PlusSearch>
     </component>
 
+    <el-divider v-if="dividerProp.isShow" :style="dividerProp.style" />
+
     <component :is="renderWrapper().table" class="plus-page__table_wrapper">
       <PlusTable
         ref="plusTableInstance"
@@ -190,6 +192,13 @@ export interface PlusPageProps {
    * 组件渲染完成后是否立即调用getList
    */
   immediate?: boolean
+  /**
+   * 搜索与表格分割线
+   */
+  dividerProp?: Partial<{
+    isShow: boolean
+    style: Record<string, string>
+  }>
 }
 export interface PlusPageEmits {
   /**
@@ -218,7 +227,10 @@ const props = withDefaults(defineProps<PlusPageProps>(), {
    * 分页组件的其他参数，不包含total，modelValue，pageSizeList
    */
   pagination: () => ({}),
-  immediate: true
+  immediate: true,
+  dividerProp: () => ({
+    isShow: false
+  })
 })
 const emit = defineEmits<PlusPageEmits>()
 

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <PlusPage :columns="tableConfig" :request="getList" />
+    <PlusPage
+      :columns="tableConfig"
+      :request="getList"
+      :is-card="false"
+      :divider-prop="{ isShow: true, style: { margin: '10px 0' } }"
+    />
   </div>
 </template>
 

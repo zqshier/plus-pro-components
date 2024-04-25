@@ -4,6 +4,7 @@
       :columns="tableConfig"
       :request="getList"
       :before-search-submit="handleBeforeSearch"
+      :is-card="false"
     />
   </div>
 </template>
