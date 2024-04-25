@@ -256,7 +256,9 @@ const props = withDefaults(defineProps<PlusTableProps>(), {
   loadingStatus: false,
   tableData: () => [],
   columns: () => [],
-  headerCellStyle: () => ({}),
+  headerCellStyle: () => ({
+    'background-color': 'var(--el-fill-color-light)'
+  }),
   rowKey: 'id',
   dragSortable: false,
   dragSortableTableColumnProps: () => ({}),
