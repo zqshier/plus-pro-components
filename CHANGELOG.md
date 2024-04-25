@@ -1,3 +1,29 @@
+## [v0.1.0-beta.1](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.11...v0.1.0-beta.1) (2024-04-25)
+
+
+### ✨ Features
+
+* **all:** Merge pull request [#130](https://github.com/plus-pro-components/plus-pro-components/pull/130) from plus-pro-components/simmi([1b6db48](https://github.com/plus-pro-components/plus-pro-components/commit/1b6db48)) by@xiaofei
+* **components:** :sparkles: page component layout optimization([90ea4cb](https://github.com/plus-pro-components/plus-pro-components/commit/90ea4cb)) by@ex-cuishengnan
+* **all:** Merge pull request [#128](https://github.com/plus-pro-components/plus-pro-components/pull/128) from plus-pro-components/v0.1.0([88c664e](https://github.com/plus-pro-components/plus-pro-components/commit/88c664e)) by@xiaofei
+* **components:** :sparkles: refine complex component types([c171799](https://github.com/plus-pro-components/plus-pro-components/commit/c171799)) by@xiaofei
+* **utils:** :sparkles: letter.ts new Array=> Array.from([86b75dc](https://github.com/plus-pro-components/plus-pro-components/commit/86b75dc)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix form-item component not  import ElInput([5842514](https://github.com/plus-pro-components/plus-pro-components/commit/5842514)) by@xiaofei
+* **types:** :bug: fix autosize type error([c1ca4fa](https://github.com/plus-pro-components/plus-pro-components/commit/c1ca4fa)) by@xiaofei
+
+
+### ♻️ Code Refactoring
+
+* **components:** :recycle: refactor display-item component.([2352cb7](https://github.com/plus-pro-components/plus-pro-components/commit/2352cb7)) by@xiaofei
+* **components[form-item]:** :recycle: refactor form-item component.([f9666f5](https://github.com/plus-pro-components/plus-pro-components/commit/f9666f5)) by@xiaofei
+
+
 ## [v0.0.11](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.10...v0.0.11) (2024-04-16)
 
 
