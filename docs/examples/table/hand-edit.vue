@@ -2,15 +2,15 @@
   <div>
     <PlusTable ref="plusTableInstance" :columns="tableConfig" :table-data="tableData" />
 
-    <el-row style="margin-top: 10px">
-      <el-button @click="handleStart(0)"> 开启第一行编辑 </el-button>
-      <el-button @click="handleStop(0)"> 关闭第一行编辑 </el-button>
+    <el-row class="mgt-10">
+      <el-button class="mgb-10" click="handleStart(0)"> 开启第一行编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStop(0)"> 关闭第一行编辑 </el-button>
 
-      <el-button @click="handleStart(2)"> 开启第三行编辑 </el-button>
-      <el-button @click="handleStop(2)"> 关闭第三行编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStart(2)"> 开启第三行编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStop(2)"> 关闭第三行编辑 </el-button>
 
-      <el-button @click="handleStart(1, 'status')"> 开启第二行第二列编辑 </el-button>
-      <el-button @click="handleStop(1, 'status')"> 关闭第二行第二列编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStart(1, 'status')"> 开启第二行第二列编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStop(1, 'status')"> 关闭第二行第二列编辑 </el-button>
     </el-row>
   </div>
 </template>
@@ -120,7 +120,7 @@ const tableConfig = ref<PlusColumn[]>([
     label: '日期',
     prop: 'time',
     valueType: 'date-picker',
-    width: 250,
+    minWidth: 150,
     fieldProps: {
       type: 'date',
       placeholder: '请选择日期',
@@ -173,3 +173,13 @@ const handleStop = (index: number, prop?: string) => {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.mgb-10 {
+  margin-bottom: 10px;
+}
+
+.mgt-10 {
+  margin-top: 10px;
+}
+</style>
