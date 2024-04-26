@@ -9,14 +9,13 @@
     <el-date-picker
       ref="startPickerInstance"
       v-model="state.start"
-      type="datetime"
-      :placeholder="t('plus.datepicker.startPlaceholder')"
-      :format="format"
+      :type="type"
       :value-format="valueFormat"
+      :placeholder="t('plus.datepicker.startPlaceholder')"
       :disabled-date="subStartDisabledDate"
       class="plus-date-picker__start"
       clearable
-      v-bind="startProps"
+      v-bind="computedStartProps"
       @change="handleChange"
       @focus="handleFocus"
     />
@@ -24,14 +23,13 @@
     <el-date-picker
       ref="endPickerInstance"
       v-model="state.end"
-      type="datetime"
-      :format="format"
       :value-format="valueFormat"
+      :type="type"
       :placeholder="t('plus.datepicker.endPlaceholder')"
       :disabled-date="subEndDisabledDate"
       class="plus-date-picker__end"
       clearable
-      v-bind="endProps"
+      v-bind="computedEndProps"
       @change="handleChange"
       @focus="handleFocus"
     />
@@ -39,19 +37,19 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, watch, ref } from 'vue'
+import { reactive, watch, ref, useAttrs, computed } from 'vue'
+import type { DatePickerProps } from 'element-plus'
 import { ElDatePicker, ClickOutside as vClickOutside } from 'element-plus'
 import { isFunction } from '@plus-pro-components/components/utils'
 import { useLocale } from '@plus-pro-components/hooks'
 
 export interface PlusDatePickerProps {
   modelValue?: string[]
-  format?: string
-  valueFormat?: string
   rangeSeparator?: string
+  valueFormat?: string
   type?: 'year' | 'month' | 'date' | 'dates' | 'datetime' | 'week'
-  startProps?: any
-  endProps?: any
+  startProps?: Partial<DatePickerProps>
+  endProps?: Partial<DatePickerProps>
   startDisabledDate?: (startTime: Date, endValue: string) => boolean
   endDisabledDate?: (endTime: Date, startValue: string) => boolean
 }
@@ -71,10 +69,9 @@ defineOptions({
 
 const props = withDefaults(defineProps<PlusDatePickerProps>(), {
   modelValue: () => [],
-  valueFormat: 'YYYY-MM-DD HH:mm:ss',
-  format: 'YYYY-MM-DD HH:mm:ss',
   rangeSeparator: '/',
   type: 'datetime',
+  valueFormat: 'YYYY-MM-DD HH:mm:ss',
   startProps: () => ({}),
   endProps: () => ({}),
   startDisabledDate: (startTime, endValue) => {
@@ -89,6 +86,9 @@ const props = withDefaults(defineProps<PlusDatePickerProps>(), {
 const emit = defineEmits<PlusRadioEmits>()
 
 const { t } = useLocale()
+const attrs = useAttrs()
+const computedStartProps = computed(() => ({ ...attrs, ...props.startProps }))
+const computedEndProps = computed(() => ({ ...attrs, ...props.endProps }))
 const startPickerInstance = ref<InstanceType<typeof ElDatePicker> | null>()
 const endPickerInstance = ref<InstanceType<typeof ElDatePicker> | null>()
 const state: DatePickerState = reactive({
