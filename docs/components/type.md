@@ -317,7 +317,11 @@ export type TableValueType =
   | 'progress'
   | 'copy'
   | 'code'
-  | undefined
+  // v0.1.0 新增
+  | 'divider'
+  // v0.1.0 新增
+  | 'avatar'
+  | ''
 ```
 
 ## FormItemValueType
@@ -348,6 +352,8 @@ export type FormItemValueType =
   | 'plus-radio'
   | 'plus-date-picker'
   | 'plus-input-tag'
+  // v0.1.0 新增
+  | 'transfer'
   | undefined
 ```
 

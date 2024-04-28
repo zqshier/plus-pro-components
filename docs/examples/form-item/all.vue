@@ -17,6 +17,12 @@ interface RestaurantItem {
   link: string
 }
 
+interface Option {
+  key: number
+  label: string
+  disabled: boolean
+}
+
 const restaurants = ref<RestaurantItem[]>([])
 
 const createFilter = (queryString: string) => {
@@ -34,6 +40,18 @@ const loadAll = () => {
     { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
     { value: 'babel', link: 'https://github.com/babel/babel' }
   ]
+}
+
+const generateData = () => {
+  const data: Option[] = []
+  for (let i = 1; i <= 15; i++) {
+    data.push({
+      key: i,
+      label: `Option ${i}`,
+      disabled: i % 4 === 0
+    })
+  }
+  return data
 }
 
 onMounted(() => {
@@ -241,6 +259,19 @@ const columns: PlusColumn[] = [
     label: 'text',
     prop: 'text',
     valueType: 'text'
+  },
+  {
+    label: 'transfer',
+    prop: 'transfer',
+    valueType: 'transfer',
+    fieldProps: {
+      data: generateData()
+    }
+  },
+  {
+    label: 'divider',
+    prop: 'divider',
+    valueType: 'divider'
   },
   {
     label: 'plus-radio',

@@ -114,6 +114,16 @@ const columns: PlusColumn[] = [
     label: 'copy',
     prop: 'copy',
     valueType: 'copy'
+  },
+  {
+    label: 'divider',
+    prop: 'divider',
+    valueType: 'divider'
+  },
+  {
+    label: 'avatar',
+    prop: 'avatar',
+    valueType: 'avatar'
   }
 ]
 const row = {
@@ -131,6 +141,8 @@ const row = {
   copy: 'copy',
   link: '',
   link1: '',
-  img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  avatar: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  divider: 'divider'
 }
 </script>

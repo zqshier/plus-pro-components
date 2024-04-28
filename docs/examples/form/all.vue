@@ -16,6 +16,17 @@
 import { ref } from 'vue'
 import type { PlusColumn, FieldValues } from 'plus-pro-components'
 
+interface RestaurantItem {
+  value: string
+  link: string
+}
+
+interface Option {
+  key: number
+  label: string
+  disabled: boolean
+}
+
 const state = ref<FieldValues>({
   autocomplete: 'vue',
   cascader: ['0', '0-0', '0-0-0'],
@@ -48,14 +59,22 @@ const state = ref<FieldValues>({
   'time-picker': '2024-03-18 09:55:31',
   'time-select': '09:55:31',
   text: '文本',
+  transfer: [1, 2, 3, 4, 5, 6],
   'plus-radio': 1,
   'plus-date-picker': ['2024-03-18 09:55:31', '2024-03-20 09:55:31'],
   'plus-input-tag': ['tag', 'tag1']
 })
 
-interface RestaurantItem {
-  value: string
-  link: string
+const generateData = () => {
+  const data: Option[] = []
+  for (let i = 1; i <= 15; i++) {
+    data.push({
+      key: i,
+      label: `Option ${i}`,
+      disabled: i % 4 === 0
+    })
+  }
+  return data
 }
 
 const restaurants = ref<RestaurantItem[]>([])
@@ -396,6 +415,19 @@ const columns: PlusColumn[] = [
     label: 'text',
     prop: 'text',
     valueType: 'text'
+  },
+  {
+    label: 'transfer',
+    prop: 'transfer',
+    valueType: 'transfer',
+    fieldProps: {
+      data: generateData()
+    }
+  },
+  {
+    label: 'divider',
+    prop: 'divider',
+    valueType: 'divider'
   },
   {
     label: 'plus-radio',
