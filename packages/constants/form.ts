@@ -28,4 +28,10 @@ export const ValueIsBooleanList = ['switch']
 /**
  *  表单组件值是数组的valueType列表
  */
-export const ValueIsArrayList = ['checkbox', 'cascader', 'plus-date-picker', 'plus-input-tag']
+export const ValueIsArrayList = [
+  'checkbox',
+  'cascader',
+  'plus-date-picker',
+  'plus-input-tag',
+  'transfer'
+]
