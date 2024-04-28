@@ -1,4 +1,4 @@
-import { ElImage, ElLink, ElTag, ElProgress } from 'element-plus'
+import { ElImage, ElLink, ElTag, ElProgress, ElAvatar } from 'element-plus'
 import { formatDate, formatMoney } from '@plus-pro-components/components/utils'
 import type { TableValueType } from '@plus-pro-components/types'
 import type { Component } from 'vue'
@@ -41,6 +41,10 @@ export const DisplayComponentMap: DisplayComponentMapType = {
   },
   progress: {
     component: ElProgress,
+    hasSlots: true
+  },
+  avatar: {
+    component: ElAvatar,
     hasSlots: true
   },
   'date-picker': {

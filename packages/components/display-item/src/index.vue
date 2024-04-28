@@ -114,6 +114,15 @@
     </component>
   </template>
 
+  <el-divider
+    v-else-if="column.valueType === 'divider'"
+    ref="fieldInstance"
+    class="plus-form-item-field"
+    v-bind="customFieldProps"
+  >
+    {{ displayValue }}
+  </el-divider>
+
   <!-- 没有format -->
   <span v-else class="plus-display-item" v-bind="customFieldProps">{{ displayValue }} </span>
 </template>
@@ -142,7 +151,7 @@ import type {
 } from '@plus-pro-components/types'
 import { useGetOptions } from '@plus-pro-components/hooks'
 import { PlusRender } from '@plus-pro-components/components/render'
-import { ElIcon } from 'element-plus'
+import { ElIcon, ElDivider } from 'element-plus'
 import { hasDisplayComponent, getDisplayComponent } from './display-item'
 
 export interface PlusDisplayItemProps {
@@ -256,6 +265,12 @@ const displayComponentProps = computed(() => {
     ...(props.column.valueType === 'link'
       ? {
           type: 'primary'
+        }
+      : null),
+    // avatar
+    ...(props.column.valueType === 'avatar'
+      ? {
+          src: displayValue.value
         }
       : null),
     ...customFieldProps.value
