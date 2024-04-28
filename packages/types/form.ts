@@ -195,6 +195,7 @@ export type FormItemValueType =
   | 'textarea'
   | 'input'
   | 'text'
+  | 'transfer'
   | 'plus-radio'
   | 'plus-date-picker'
   | 'plus-input-tag'

@@ -5,7 +5,17 @@ export {}
 /**
  * 所有表格的类型 默认是 ''
  */
-export type TableValueType = 'img' | 'link' | 'money' | 'tag' | 'progress' | 'copy' | 'code' | ''
+export type TableValueType =
+  | 'img'
+  | 'link'
+  | 'money'
+  | 'tag'
+  | 'progress'
+  | 'copy'
+  | 'code'
+  | 'divider'
+  | 'avatar'
+  | ''
 
 /**
  *  表格的类型
