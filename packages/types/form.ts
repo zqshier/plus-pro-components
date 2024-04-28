@@ -86,7 +86,7 @@ export type OmitTypes =
   | 'autosize'
 
 /**
- * 表单和现实组件所有字段类型
+ * 表单和显示组件所有字段类型
  */
 export type FieldProps = Partial<
   {
