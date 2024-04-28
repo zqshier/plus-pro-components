@@ -72,7 +72,6 @@ describe('input-tag/index.vue', () => {
       }
     })
     await nextTick()
-    console.log(wrapper.find('.plus-input-tag').text())
     expect(wrapper.find('.plus-input-tag').text()).includes('tag1' + 'test')
     expect(wrapper.find('.plus-input-tag').text()).includes('tag2' + 'test')
   })

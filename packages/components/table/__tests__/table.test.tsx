@@ -10,7 +10,7 @@ describe('table/index.vue', () => {
   test('render test', async () => {
     const columns: PlusColumn[] = [
       {
-        label: '评分',
+        label: '评分评分评分评分评分评分评分评分',
         width: 200,
         prop: 'rate',
         valueType: 'rate'
@@ -26,6 +26,23 @@ describe('table/index.vue', () => {
         width: 190,
         prop: 'time',
         valueType: 'date-picker'
+      },
+      {
+        width: 190,
+        prop: 'time',
+        valueType: 'date-picker'
+      }
+    ]
+    const { buttons } = useTable()
+
+    buttons.value = [
+      {
+        // 查看
+        text: '查看',
+        props: {
+          type: 'primary'
+        },
+        show: () => true
       }
     ]
     const tableData = Array.from({ length: 100 }).map((item, index) => {
@@ -37,11 +54,31 @@ describe('table/index.vue', () => {
         time: new Date()
       }
     })
-    const wrapper = mount(() => <PlusTable columns={columns} table-data={tableData}></PlusTable>, {
-      global: {
-        plugins: [ElementPlus]
+    const wrapper = mount(
+      () => (
+        <PlusTable
+          actionBar={{
+            fixed: 'left',
+            width: 200,
+            type: 'icon',
+            buttons: buttons.value
+          }}
+          titleBar={{
+            icon: {
+              size: '18',
+              color: 'red'
+            }
+          }}
+          columns={columns}
+          table-data={tableData}
+        />
+      ),
+      {
+        global: {
+          plugins: [ElementPlus]
+        }
       }
-    })
+    )
     await nextTick()
     expect(wrapper.find('.plus-table-title-bar').exists()).toBe(true)
   })
@@ -67,6 +104,17 @@ describe('table/index.vue', () => {
         valueType: 'date-picker'
       }
     ]
+    const { buttons } = useTable()
+
+    buttons.value = [
+      {
+        // 查看
+        text: '查看',
+        props: {
+          type: 'primary'
+        }
+      }
+    ]
     const tableData = Array.from({ length: 100 }).map((item, index) => {
       return {
         index,
@@ -76,8 +124,20 @@ describe('table/index.vue', () => {
         time: new Date()
       }
     })
+
     const wrapper = mount(
-      () => <PlusTable columns={tableConfig} table-data={tableData}></PlusTable>,
+      () => (
+        <PlusTable
+          actionBar={{
+            fixed: 'left',
+            width: 200,
+            type: 'button',
+            buttons: buttons.value
+          }}
+          columns={tableConfig}
+          table-data={tableData}
+        ></PlusTable>
+      ),
       {
         global: {
           plugins: [ElementPlus]
@@ -380,7 +440,7 @@ describe('table/index.vue', () => {
     buttons.value = [
       {
         // 查看
-        text: '查看',
+        text: ({ buttonRow }) => buttonRow?.text + '查看',
         props: {
           type: 'primary'
         }
