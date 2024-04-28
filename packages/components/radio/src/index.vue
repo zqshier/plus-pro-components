@@ -1,5 +1,5 @@
 <template>
-  <el-radio-group ref="radioGroupInstance" v-model="state.radio" v-bind="$attrs">
+  <el-radio-group ref="radioGroupInstance" v-model="state.radio" class="plus-radio" v-bind="$attrs">
     <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
       <component :is="fieldSlot" v-bind="data" />
     </template>
