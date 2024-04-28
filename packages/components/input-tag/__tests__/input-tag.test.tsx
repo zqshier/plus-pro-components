@@ -60,4 +60,20 @@ describe('input-tag/index.vue', () => {
     expect(wrapper.find('.plus-input-tag__is-focus').exists()).toBe(false)
     expect((wrapper.vm.tagInstance as any)[0]).toHaveProperty('closable')
   })
+
+  test('formatTag  test', async () => {
+    const wrapper = mount(InputTag, {
+      props: {
+        modelValue: ['tag1', 'tag2'],
+        formatTag: (tag: string) => tag + 'test'
+      },
+      global: {
+        plugins: [ElementPlus]
+      }
+    })
+    await nextTick()
+    console.log(wrapper.find('.plus-input-tag').text())
+    expect(wrapper.find('.plus-input-tag').text()).includes('tag1' + 'test')
+    expect(wrapper.find('.plus-input-tag').text()).includes('tag2' + 'test')
+  })
 })
