@@ -676,7 +676,9 @@ describe('form-item/index.vue', () => {
 
     const wrapper = mount(
       () => {
-        return columns.map(column => <FormItem modelValue={values.value} {...column} />)
+        return columns.map(column => (
+          <FormItem key={column.prop} modelValue={values.value} {...column} />
+        ))
       },
       {
         global: {

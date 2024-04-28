@@ -261,7 +261,7 @@ describe('display-item/index.vue', () => {
       return (
         <div class="plus-example-field-slots">
           {columns.map(item => (
-            <DisplayItem column={item} row={row} />
+            <DisplayItem key={item.prop} column={item} row={row} />
           ))}
         </div>
       )
