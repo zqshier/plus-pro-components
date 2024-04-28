@@ -197,7 +197,9 @@ import {
   ElTooltip as TooltipComponent,
   ElIcon as IconComponent,
   ElInput as InputComponent,
-  ElText
+  ElText,
+  ElSelect as SelectComponent,
+  ElOption as OptionComponent
 } from 'element-plus'
 import {
   DatePickerValueIsArrayList,
@@ -239,6 +241,8 @@ const ElFormItem: Component = FormItemComponent
 const ElTooltip: Component = TooltipComponent
 const ElIcon: Component = IconComponent
 const ElInput: Component = InputComponent
+const ElSelect: Component = SelectComponent
+const ElOption: Component = OptionComponent
 
 const props = withDefaults(defineProps<PlusFormItemProps>(), {
   label: '',
