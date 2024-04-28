@@ -13,6 +13,23 @@ describe('form-item/index.vue', () => {
       link: string
     }
 
+    interface Option {
+      key: number
+      label: string
+      disabled: boolean
+    }
+    const generateData = () => {
+      const data: Option[] = []
+      for (let i = 1; i <= 15; i++) {
+        data.push({
+          key: i,
+          label: `Option ${i}`,
+          disabled: i % 4 === 0
+        })
+      }
+      return data
+    }
+
     const restaurants = ref<RestaurantItem[]>([])
 
     const createFilter = (queryString: string) => {
@@ -217,6 +234,24 @@ describe('form-item/index.vue', () => {
         ]
       },
       {
+        label: 'text',
+        prop: 'text',
+        valueType: 'text'
+      },
+      {
+        label: 'transfer',
+        prop: 'transfer',
+        valueType: 'transfer',
+        fieldProps: {
+          data: generateData()
+        }
+      },
+      {
+        label: 'divider',
+        prop: 'divider',
+        valueType: 'divider'
+      },
+      {
         label: 'slider',
         prop: 'slider',
         valueType: 'slider'
@@ -280,6 +315,7 @@ describe('form-item/index.vue', () => {
               modelValue={values.value[item.prop]}
               label={item.label}
               prop={item.prop}
+              valueType={item.valueType}
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
               onChange={handleChange}
@@ -295,21 +331,24 @@ describe('form-item/index.vue', () => {
     )
 
     await nextTick()
-    expect(wrapper.find('.el-autocomplete')).toBeTruthy()
-    expect(wrapper.find('.el-cascader')).toBeTruthy()
-    expect(wrapper.find('.el-checkbox-group')).toBeTruthy()
-    expect(wrapper.find('.el-color-picker')).toBeTruthy()
-    expect(wrapper.find('.el-date-editor')).toBeTruthy()
-    expect(wrapper.find('.el-input')).toBeTruthy()
-    expect(wrapper.find('.el-input-number')).toBeTruthy()
-    expect(wrapper.find('.el-textarea')).toBeTruthy()
-    expect(wrapper.find('.el-rate')).toBeTruthy()
-    expect(wrapper.find('.el-switch')).toBeTruthy()
-    expect(wrapper.find('.el-radio-group')).toBeTruthy()
-    expect(wrapper.find('.el-date-editor--time')).toBeTruthy()
-    expect(wrapper.find('.plus-radio')).toBeTruthy()
-    expect(wrapper.find('.plus-date-picker')).toBeTruthy()
-    expect(wrapper.find('.plus-input-tag')).toBeTruthy()
+    expect(wrapper.find('.el-autocomplete').exists()).toBe(true)
+    expect(wrapper.find('.el-cascader').exists()).toBe(true)
+    expect(wrapper.find('.el-checkbox-group').exists()).toBe(true)
+    expect(wrapper.find('.el-color-picker').exists()).toBe(true)
+    expect(wrapper.find('.el-date-editor').exists()).toBe(true)
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(wrapper.find('.el-input-number').exists()).toBe(true)
+    expect(wrapper.find('.el-textarea').exists()).toBe(true)
+    expect(wrapper.find('.el-rate').exists()).toBe(true)
+    expect(wrapper.find('.el-switch').exists()).toBe(true)
+    expect(wrapper.find('.el-radio-group').exists()).toBe(true)
+    expect(wrapper.find('.el-date-editor--time').exists()).toBe(true)
+    expect(wrapper.find('.plus-radio').exists()).toBe(true)
+    expect(wrapper.find('.plus-date-picker').exists()).toBe(true)
+    expect(wrapper.find('.plus-input-tag').exists()).toBe(true)
+    expect(wrapper.find('.el-text').exists()).toBe(true)
+    expect(wrapper.find('.el-divider').exists()).toBe(true)
+    expect(wrapper.find('.el-transfer').exists()).toBe(true)
   })
 
   test('renderLabel and renderField test', async () => {

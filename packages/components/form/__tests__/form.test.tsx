@@ -8,103 +8,69 @@ import PlusForm from '../src/index.vue'
 
 describe('form/index.vue', () => {
   test('render test', async () => {
-    const state = ref<FieldValues>({
-      status: '0',
-      name: '',
-      rate: 4,
-      progress: 100,
-      switch: true,
-      time: new Date().toString(),
-      img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
-    })
+    interface RestaurantItem {
+      value: string
+      link: string
+    }
 
-    const rules = {
-      name: [
-        {
-          required: true,
-          message: '请输入名称'
-        }
-      ],
-      tag: [
-        {
-          required: true,
-          message: '请输入标签'
-        }
+    interface Option {
+      key: number
+      label: string
+      disabled: boolean
+    }
+    const generateData = () => {
+      const data: Option[] = []
+      for (let i = 1; i <= 15; i++) {
+        data.push({
+          key: i,
+          label: `Option ${i}`,
+          disabled: i % 4 === 0
+        })
+      }
+      return data
+    }
+
+    const restaurants = ref<RestaurantItem[]>([])
+
+    const createFilter = (queryString: string) => {
+      return (restaurant: RestaurantItem) => {
+        return restaurant.value.toLowerCase().indexOf(queryString.toLowerCase()) === 0
+      }
+    }
+    const loadAll = () => {
+      return [
+        { value: 'vue', link: 'https://github.com/vuejs/vue' },
+        { value: 'element', link: 'https://github.com/ElemeFE/element' },
+        { value: 'cooking', link: 'https://github.com/ElemeFE/cooking' },
+        { value: 'mint-ui', link: 'https://github.com/ElemeFE/mint-ui' },
+        { value: 'vuex', link: 'https://github.com/vuejs/vuex' },
+        { value: 'vue-router', link: 'https://github.com/vuejs/vue-router' },
+        { value: 'babel', link: 'https://github.com/babel/babel' }
       ]
     }
 
+    restaurants.value = loadAll()
+
     const columns: PlusColumn[] = [
       {
-        label: '名称',
+        label: 'autocomplete',
         width: 120,
-        prop: 'name',
-        valueType: 'copy',
-        tooltip: '名称最多显示6个字符'
-      },
-      {
-        label: '状态',
-        width: 120,
-        prop: 'status',
-        valueType: 'select',
-        options: [
-          {
-            label: '未解决',
-            value: '0',
-            color: 'red'
-          },
-          {
-            label: '已解决',
-            value: '1',
-            color: 'blue'
-          },
-          {
-            label: '解决中',
-            value: '2',
-            color: 'yellow'
-          },
-          {
-            label: '失败',
-            value: '3',
-            color: 'red'
+        prop: 'autocomplete',
+        valueType: 'autocomplete',
+        tooltip: '自动补全输入框',
+        fieldProps: {
+          fetchSuggestions: (queryString: string, cb: any) => {
+            const results = queryString
+              ? restaurants.value.filter(createFilter(queryString))
+              : restaurants.value
+            // call callback function to return suggestions
+            cb(results)
           }
-        ]
+        }
       },
       {
-        label: '标签',
-        width: 120,
-        prop: 'tag'
-      },
-      {
-        label: '执行进度',
-        width: 200,
-        prop: 'progress'
-      },
-      {
-        label: '评分',
-        width: 200,
-        prop: 'rate',
-        valueType: 'rate'
-      },
-      {
-        label: '是否显示',
-        width: 100,
-        prop: 'switch',
-        valueType: 'switch'
-      },
-      {
-        label: '时间',
-        prop: 'time',
-        valueType: 'date-picker'
-      },
-      {
-        label: '数量',
-        prop: 'number',
-        valueType: 'input-number',
-        fieldProps: { precision: 2, step: 2 }
-      },
-      {
-        label: '城市',
-        prop: 'city',
+        label: 'cascader',
+        prop: 'cascader',
         valueType: 'cascader',
         options: [
           {
@@ -158,26 +124,8 @@ describe('form/index.vue', () => {
         ]
       },
       {
-        label: '地区',
-        prop: 'place',
-        tooltip: '请精确到门牌号',
-        fieldProps: {
-          placeholder: '请精确到门牌号'
-        }
-      },
-      {
-        label: '经度',
-        prop: 'lng',
-        tooltip: '请保留两位小数'
-      },
-      {
-        label: '纬度',
-        prop: 'lat',
-        tooltip: '请保留两位小数'
-      },
-      {
-        label: '要求',
-        prop: 'demand',
+        label: 'checkbox',
+        prop: 'checkbox',
         valueType: 'checkbox',
         options: [
           {
@@ -195,8 +143,80 @@ describe('form/index.vue', () => {
         ]
       },
       {
-        label: '梦想',
-        prop: 'gift',
+        label: 'color-picker',
+        prop: 'color-picker',
+        valueType: 'color-picker'
+      },
+      {
+        label: 'time',
+        prop: 'time',
+        valueType: 'date-picker'
+      },
+      {
+        label: 'select',
+        width: 120,
+        prop: 'status',
+        valueType: 'select',
+        options: [
+          {
+            label: '未解决',
+            value: '0',
+            color: 'red'
+          },
+          {
+            label: '已解决',
+            value: '1',
+            color: 'blue'
+          },
+          {
+            label: '解决中',
+            value: '2',
+            color: 'yellow'
+          },
+          {
+            label: '失败',
+            value: '3',
+            color: 'red'
+          }
+        ]
+      },
+      {
+        label: 'input',
+        width: 120,
+        prop: 'input'
+      },
+      {
+        label: 'input-number',
+        prop: 'number',
+        valueType: 'input-number',
+        fieldProps: { precision: 2, step: 2 }
+      },
+      {
+        label: 'textarea',
+        prop: 'textarea',
+        valueType: 'textarea',
+        fieldProps: {
+          maxlength: 10,
+          showWordLimit: true,
+          autosize: { minRows: 2, maxRows: 4 }
+        }
+      },
+
+      {
+        label: 'rate',
+        width: 200,
+        prop: 'rate',
+        valueType: 'rate'
+      },
+      {
+        label: 'switch',
+        width: 100,
+        prop: 'switch',
+        valueType: 'switch'
+      },
+      {
+        label: 'radio',
+        prop: 'radio',
         valueType: 'radio',
         options: [
           {
@@ -214,34 +234,82 @@ describe('form/index.vue', () => {
         ]
       },
       {
-        label: '到期时间',
-        prop: 'endTime',
-        valueType: 'date-picker',
+        label: 'text',
+        prop: 'text',
+        valueType: 'text'
+      },
+      {
+        label: 'transfer',
+        prop: 'transfer',
+        valueType: 'transfer',
         fieldProps: {
-          type: 'datetimerange',
-          startPlaceholder: '请选择开始时间',
-          endPlaceholder: '请选择结束时间'
+          data: generateData()
         }
       },
       {
-        label: '奖励',
-        prop: 'price'
+        label: 'divider',
+        prop: 'divider',
+        valueType: 'divider'
       },
       {
-        label: '提成',
-        prop: 'percentage'
+        label: 'slider',
+        prop: 'slider',
+        valueType: 'slider'
       },
       {
-        label: '说明',
-        prop: 'desc',
-        valueType: 'textarea',
-        fieldProps: {
-          maxlength: 10,
-          showWordLimit: true,
-          autosize: { minRows: 2, maxRows: 4 }
-        }
+        label: 'time-picker',
+        prop: 'time-picker',
+        valueType: 'time-picker'
+      },
+      {
+        label: 'time-select',
+        prop: 'time-select',
+        valueType: 'time-select'
+      },
+      {
+        label: 'plus-radio',
+        prop: 'plus-radio',
+        valueType: 'plus-radio',
+        options: [
+          { label: '选项一', value: 1 },
+          { label: '选项二', value: 2 }
+        ]
+      },
+      {
+        label: 'plus-date-picker',
+        prop: 'plus-date-picker',
+        valueType: 'plus-date-picker'
+      },
+      {
+        label: 'plus-input-tag',
+        prop: 'plus-input-tag',
+        valueType: 'plus-input-tag'
       }
     ]
+    const state = ref<FieldValues>({
+      status: '0',
+      name: '',
+      rate: 4,
+      progress: 100,
+      switch: true,
+      time: new Date().toString(),
+      img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+    })
+
+    const rules = {
+      name: [
+        {
+          required: true,
+          message: '请输入名称'
+        }
+      ],
+      tag: [
+        {
+          required: true,
+          message: '请输入标签'
+        }
+      ]
+    }
 
     const wrapper = mount(
       () => <PlusForm modelValue={state.value} rules={rules} columns={columns} />,
@@ -253,14 +321,24 @@ describe('form/index.vue', () => {
     )
 
     await nextTick()
-    expect(wrapper.find('.el-autocomplete').exists()).toBe(false)
+    expect(wrapper.find('.el-autocomplete').exists()).toBe(true)
     expect(wrapper.find('.el-cascader').exists()).toBe(true)
     expect(wrapper.find('.el-checkbox-group').exists()).toBe(true)
-    expect(wrapper.find('.el-color-picker').exists()).toBe(false)
+    expect(wrapper.find('.el-color-picker').exists()).toBe(true)
+    expect(wrapper.find('.el-date-editor').exists()).toBe(true)
+    expect(wrapper.find('.el-input').exists()).toBe(true)
+    expect(wrapper.find('.el-input-number').exists()).toBe(true)
     expect(wrapper.find('.el-textarea').exists()).toBe(true)
     expect(wrapper.find('.el-rate').exists()).toBe(true)
     expect(wrapper.find('.el-switch').exists()).toBe(true)
     expect(wrapper.find('.el-radio-group').exists()).toBe(true)
+    expect(wrapper.find('.el-date-editor--time').exists()).toBe(true)
+    expect(wrapper.find('.plus-radio').exists()).toBe(true)
+    expect(wrapper.find('.plus-date-picker').exists()).toBe(true)
+    expect(wrapper.find('.plus-input-tag').exists()).toBe(true)
+    expect(wrapper.find('.el-text').exists()).toBe(true)
+    expect(wrapper.find('.el-divider').exists()).toBe(true)
+    expect(wrapper.find('.el-transfer').exists()).toBe(true)
   })
 
   test('slots test', async () => {

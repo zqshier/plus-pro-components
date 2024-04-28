@@ -100,6 +100,16 @@ const columns: PlusColumn[] = [
     label: 'copy',
     prop: 'copy',
     valueType: 'copy'
+  },
+  {
+    label: 'avatar',
+    prop: 'avatar',
+    valueType: 'avatar'
+  },
+  {
+    label: 'divider',
+    prop: 'divider',
+    valueType: 'divider'
   }
 ]
 const row = {
@@ -113,7 +123,8 @@ const row = {
   time: new Date(),
   code: `const data = 100`,
   copy: 'copy',
-  img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+  img: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg',
+  avatar: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
 }
 
 describe('display-item/index.vue', () => {
@@ -142,6 +153,8 @@ describe('display-item/index.vue', () => {
     expect(wrapper.find('.el-progress-bar__inner').attributes('style')).includes(row.progress + '%')
     expect(wrapper.find('.el-rate').attributes('aria-valuenow')).includes(row.rate)
     expect(wrapper.find('.el-link__inner').text()).includes('link')
+    expect(wrapper.find('.el-avatar').exists()).toBe(true)
+    expect(wrapper.find('.el-divider').exists()).toBe(true)
     setTimeout(() => {
       expect(wrapper.find('.el-switch__input').attributes('aria-checked')).includes(row.switch)
     })
