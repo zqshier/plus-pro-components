@@ -15,7 +15,8 @@ import {
   ElSwitch,
   ElTimePicker,
   ElTimeSelect,
-  ElInput
+  ElInput,
+  ElTransfer
 } from 'element-plus'
 import { PlusRadio } from '@plus-pro-components/components/radio'
 import { PlusDatePicker } from '@plus-pro-components/components/date-picker'
@@ -130,6 +131,9 @@ export const FieldComponentMap: FieldComponentMapType = {
   },
   'time-select': {
     component: ElTimeSelect
+  },
+  transfer: {
+    component: ElTransfer
   },
   input: {
     component: ElInput,

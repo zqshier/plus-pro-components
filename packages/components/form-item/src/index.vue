@@ -156,6 +156,15 @@
         {{ state }}
       </el-text>
 
+      <el-divider
+        v-else-if="valueType === 'divider'"
+        ref="fieldInstance"
+        class="plus-form-item-field"
+        v-bind="customFieldProps"
+      >
+        {{ state }}
+      </el-divider>
+
       <el-input
         v-else
         ref="fieldInstance"
@@ -198,6 +207,7 @@ import {
   ElIcon as IconComponent,
   ElInput as InputComponent,
   ElText,
+  ElDivider,
   ElSelect as SelectComponent,
   ElOption as OptionComponent
 } from 'element-plus'
