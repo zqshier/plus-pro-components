@@ -58,12 +58,10 @@ export interface PlusStepFrom {
   icon?: Mutable<StepProps>['icon']
   status?: Mutable<StepProps>['status']
 }
-
 export interface PlusStepsFormProps {
   modelValue: number
   data: PlusStepFrom[]
 }
-
 export interface PlusStepsFormEmits {
   (e: 'pre', modelValue: number): void
   (e: 'next', modelValue: number, values: any): void

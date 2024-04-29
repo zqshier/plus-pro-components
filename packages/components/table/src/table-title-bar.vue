@@ -208,12 +208,11 @@ const props = withDefaults(defineProps<PlusTableToolbarProps>(), {
   changeColumns: () => []
 })
 const emit = defineEmits<PlusTableToolbarEmits>()
+
 const checkboxGroupInstance = ref(null)
 const titleBarConfig = computed<TitleBar>(() => props.titleBar as any)
-
 const iconSize = computed(() => titleBarConfig.value.icon?.size || 18)
 const iconColor = computed(() => titleBarConfig.value.icon?.color)
-
 const { t } = useLocale()
 const buttonNameDensity: ButtonNameDensity[] = [
   {
@@ -229,7 +228,6 @@ const buttonNameDensity: ButtonNameDensity[] = [
     text: computed(() => t('plus.table.compact'))
   }
 ]
-
 const subColumns = computed(() => props.columns.filter(item => unref(item.hideInTable) !== true))
 
 const getCheckList = (hasDisabled = false) => {

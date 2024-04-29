@@ -96,12 +96,6 @@ import { ElAvatar } from 'element-plus'
 import type { RecordType } from '@plus-pro-components/types'
 import { isString, isFunction } from '@plus-pro-components/components/utils'
 
-const classDataEnum: Record<Exclude<ComponentSize, ''>, string> = {
-  large: 'plus-check-card--large',
-  default: 'plus-check-card--default',
-  small: 'plus-check-card--small'
-}
-
 export interface PlusCheckCardProps {
   modelValue?: boolean
   size?: ComponentSize
@@ -118,16 +112,21 @@ export interface PlusCheckCardProps {
   disabled?: boolean
   extra?: (data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => VNode | string
 }
-
 export interface PlusCheckCardEmits {
   (e: 'update:modelValue', checked: boolean): void
   (e: 'change', checked: boolean): void
   (e: 'extra'): void
 }
-
 export interface CheckCardState {
   checked: boolean
 }
+
+const classDataEnum: Record<Exclude<ComponentSize, ''>, string> = {
+  large: 'plus-check-card--large',
+  default: 'plus-check-card--default',
+  small: 'plus-check-card--small'
+}
+
 defineOptions({
   name: 'PlusCheckCard'
 })

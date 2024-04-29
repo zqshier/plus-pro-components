@@ -117,6 +117,7 @@ const emit = defineEmits<PlusTableTableColumnEmits>()
  */
 const plusDisplayItemInstance = shallowRef()
 const formRef = inject(TableFormRefInjectionKey) as Ref<any>
+
 watch(plusDisplayItemInstance, (event: PlusDisplayItemInstance[]) => {
   const data: any = {}
   const list: any[] = event?.map(item => ({ ...item, ...item?.getDisplayItemInstance() })) || []

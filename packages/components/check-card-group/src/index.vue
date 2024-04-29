@@ -50,7 +50,6 @@ import type { ComponentSize } from 'element-plus'
 export type ArrayValueType = (string | number)[]
 export type SingleValueType = string | number
 export type ValueType = ArrayValueType | SingleValueType
-
 export interface PlusCheckCardGroupProps {
   modelValue?: ValueType
   options?: (PlusCheckCardProps & { value: string | number })[]
@@ -58,17 +57,16 @@ export interface PlusCheckCardGroupProps {
   disabled?: boolean
   multiple?: boolean
 }
-
 export interface PlusCheckCardGroupEmits {
   (e: 'update:modelValue', checked: ValueType): void
   (e: 'change', checked: ValueType): void
   (e: 'extra', item: PlusCheckCardProps & { value: string | number }): void
 }
-
 export interface CheckCardState {
   checkList: ArrayValueType
   checked: SingleValueType
 }
+
 defineOptions({
   name: 'PlusCheckCardGroup'
 })
