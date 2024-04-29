@@ -27,7 +27,8 @@ import type { PaginationProps } from 'element-plus'
 import type { PageInfo } from '@plus-pro-components/types'
 
 export interface PlusPaginationProps extends /* @vue-ignore */ Partial<PaginationProps> {
-  modelValue: PageInfo
+  [index: string]: any
+  modelValue?: PageInfo
   total?: number
   pageSizeList?: number[]
   align?: 'left' | 'right'
