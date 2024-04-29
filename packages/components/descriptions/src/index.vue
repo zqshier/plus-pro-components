@@ -3,7 +3,7 @@
     <slot>
       <template v-for="item in subColumns" :key="item.prop">
         <el-descriptions-item
-          :label="item?.label"
+          :label="getLabel(item.label)"
           :class-name="(item.descriptionsItemProps?.className || '') + ' plus-description__name'"
           :label-class-name="
             (item.descriptionsItemProps?.labelClassName || '') + ' plus-description__label'
@@ -14,7 +14,7 @@
             <component
               :is="item.renderDescriptionsLabel"
               v-if="item.renderDescriptionsLabel && isFunction(item.renderDescriptionsLabel)"
-              :label="item.label || ''"
+              :label="getLabel(item.label)"
               :column="item"
               :row="data"
             />
@@ -25,12 +25,12 @@
                 :name="getDescLabelSlotName(item.prop)"
                 :column="item"
                 :row="data"
-                :label="item?.label"
+                :label="getLabel(item.label)"
               />
             </template>
 
             <!-- normal -->
-            <template v-else>{{ item?.label }}</template>
+            <template v-else>{{ getLabel(item.label) }}</template>
           </template>
 
           <!-- renderDescriptionsItem -->
@@ -81,7 +81,8 @@ import {
   isFunction,
   getDescSlotName,
   getDescLabelSlotName,
-  getValue
+  getValue,
+  getLabel
 } from '@plus-pro-components/components/utils'
 
 export type DescriptionProps = Partial<Mutable<ExtractPropTypes<typeof descriptionProps>>>

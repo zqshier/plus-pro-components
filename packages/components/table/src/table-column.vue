@@ -13,7 +13,7 @@
             v-if="item.renderHeader && isFunction(item.renderHeader)"
             :render="item.renderHeader"
             :params="item"
-            :callback-value="item.label"
+            :callback-value="getLabel(item.label)"
           />
 
           <!--表格单元格Header的插槽 -->
@@ -21,12 +21,12 @@
             v-else
             :name="getTableHeaderSlotName(item.prop)"
             :prop="item.prop"
-            :label="item.label"
+            :label="getLabel(item.label)"
             :field-props="item.fieldProps"
             :value-type="item.valueType"
             :column="item"
           >
-            {{ item.label }}
+            {{ getLabel(item.label) }}
           </slot>
 
           <el-tooltip v-if="item.tooltip" placement="top" v-bind="getTooltip(item.tooltip)">
@@ -87,7 +87,8 @@ import {
   getTableHeaderSlotName,
   getFieldSlotName,
   getExtraSlotName,
-  isFunction
+  isFunction,
+  getLabel
 } from '@plus-pro-components/components/utils'
 import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
 import { QuestionFilled } from '@element-plus/icons-vue'

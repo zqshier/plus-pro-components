@@ -2,7 +2,7 @@
   <template v-if="valueIsReady">
     <el-form-item
       ref="formItemInstance"
-      :label="hasLabel ? label : ''"
+      :label="hasLabel ? labelValue : ''"
       :prop="prop"
       class="plus-form-item"
       v-bind="customFormItemProps"
@@ -13,7 +13,7 @@
             <PlusRender
               v-if="valueIsReady"
               :render="renderLabel"
-              :params="props"
+              :params="params"
               :callback-value="currentLabel"
               :custom-field-props="customFieldProps"
             />
@@ -23,10 +23,10 @@
             v-else
             :name="getLabelSlotName(prop)"
             :prop="prop"
-            :label="label"
+            :label="labelValue"
             :field-props="customFieldProps"
             :value-type="valueType"
-            :column="props"
+            :column="params"
           >
             {{ currentLabel }}
           </slot>
@@ -45,7 +45,7 @@
         <PlusRender
           v-if="valueIsReady"
           :render="renderField"
-          :params="props"
+          :params="params"
           :callback-value="state"
           :custom-field-props="customFieldProps"
           render-type="form"
@@ -57,7 +57,7 @@
         v-else-if="$slots[getFieldSlotName(prop)]"
         :name="getFieldSlotName(prop)"
         :prop="prop"
-        :label="label"
+        :label="labelValue"
         :field-props="customFieldProps"
         :value-type="valueType"
         :column="props"
@@ -196,7 +196,8 @@ import {
   getCustomProps,
   getLabelSlotName,
   getFieldSlotName,
-  versionIsLessThan260
+  versionIsLessThan260,
+  getLabel
 } from '@plus-pro-components/components/utils'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import { useGetOptions, useLocale } from '@plus-pro-components/hooks'
@@ -280,6 +281,8 @@ const customFieldProps = ref<RecordType>({})
 const state = ref<FieldValueType>()
 const customFieldPropsIsReady = ref(false)
 const valueIsReady = ref(false)
+const labelValue = computed(() => getLabel(props.label))
+const params = computed(() => ({ ...props, label: labelValue.value }))
 
 /**
  * 默认值是数组的情况
@@ -369,7 +372,7 @@ const commonProps = computed(() => {
         }
       : null),
     ...componentProps,
-    placeholder: t(componentProps?.placeholder || 'plus.field.pleaseSelect') + props.label,
+    placeholder: t(componentProps?.placeholder || 'plus.field.pleaseSelect') + labelValue.value,
     ...(props.valueType === 'date-picker'
       ? {
           startPlaceholder: componentProps?.startPlaceholder

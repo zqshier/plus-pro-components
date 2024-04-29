@@ -106,13 +106,13 @@
                   class="plus-table-title-bar__toolbar__checkbox__item"
                 >
                   <el-tooltip
-                    v-if="item.label && item.label?.length > filterTableHeaderOverflowLabelLength"
-                    :content="item.label"
+                    v-if="getLabel(item.label).length > filterTableHeaderOverflowLabelLength"
+                    :content="getLabel(item.label)"
                     placement="right-start"
                   >
-                    {{ getLabel(item.label) }}
+                    {{ getLabelValue(item.label) }}
                   </el-tooltip>
-                  <span v-else> {{ item.label ? getLabel(item.label) : '' }}</span>
+                  <span v-else> {{ item.label ? getLabelValue(item.label) : '' }}</span>
                 </el-checkbox>
               </template>
               <!-- element-plus 版本号大于等于2.6.0 -->
@@ -123,13 +123,13 @@
                   class="plus-table-title-bar__toolbar__checkbox__item"
                 >
                   <el-tooltip
-                    v-if="item.label && item.label?.length > filterTableHeaderOverflowLabelLength"
-                    :content="item.label"
+                    v-if="getLabel(item.label).length > filterTableHeaderOverflowLabelLength"
+                    :content="getLabel(item.label)"
                     placement="right-start"
                   >
-                    {{ getLabel(item.label) }}
+                    {{ getLabelValue(item.label) }}
                   </el-tooltip>
-                  <span v-else> {{ item.label ? getLabel(item.label) : '' }}</span>
+                  <span v-else> {{ item.label ? getLabelValue(item.label) : '' }}</span>
                 </el-checkbox>
               </template>
             </div>
@@ -167,7 +167,8 @@ import { useLocale } from '@plus-pro-components/hooks'
 import {
   getTableKey,
   isPlainObject,
-  versionIsLessThan260
+  versionIsLessThan260,
+  getLabel
 } from '@plus-pro-components/components/utils'
 import { ElCheckbox, ElCheckboxGroup, ElTooltip, ElIcon, ElButton } from 'element-plus'
 import type { SortableEvent, Options as SortableOptions } from 'sortablejs'
@@ -276,11 +277,12 @@ const handleRefresh = () => {
   emit('refresh')
 }
 
-const getLabel = (label: string) => {
-  if (label?.length <= props.filterTableHeaderOverflowLabelLength) {
-    return label
+const getLabelValue = (label?: PlusColumn['label']) => {
+  const tempLabel = getLabel(label)
+  if (tempLabel && tempLabel?.length <= props.filterTableHeaderOverflowLabelLength) {
+    return tempLabel
   }
-  return label?.slice(0, props.filterTableHeaderOverflowLabelLength) + '...'
+  return tempLabel?.slice(0, props.filterTableHeaderOverflowLabelLength) + '...'
 }
 
 // checkbox列拖拽

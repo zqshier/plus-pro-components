@@ -2,7 +2,7 @@ import { version } from 'element-plus'
 import type { FieldValueType, RecordType, PlusColumn } from '@plus-pro-components/types'
 import { get, set } from 'lodash-es'
 import type { SetupContext } from 'vue'
-import { isRef } from 'vue'
+import { isRef, unref } from 'vue'
 import { isPromise, isFunction, isPlainObject, isEmptyObject, toRawType, isString } from './is'
 
 export * from './format'
@@ -219,3 +219,10 @@ export const compareVersion = (version1: string, version2: string) => {
  * element-plus版本号是否小于'2.6.0'
  */
 export const versionIsLessThan260 = compareVersion(version, '2.6.0') < 0
+
+/**
+ * 获取label
+ * @param label
+ * @returns
+ */
+export const getLabel = (label: PlusColumn['label']) => (label ? unref(label) : '')

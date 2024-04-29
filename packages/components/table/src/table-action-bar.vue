@@ -3,7 +3,7 @@
     key="actionBar"
     class-name="plus-table-action-bar"
     align="center"
-    :label="label || t('plus.table.action')"
+    :label="unref(label) || t('plus.table.action')"
     :fixed="fixed || 'right'"
     :width="width || 200"
     v-bind="props.actionBarTableColumnProps"
@@ -67,9 +67,9 @@ import type { ButtonsCallBackParams, ActionBarButtonsRow } from './type'
 export interface ActionBarProps {
   /**
    * 操作栏名称  默认值为 `'操作栏'`
-   *
+   * @version v0.1.0 类型新增ComputedRef<string>
    */
-  label?: string
+  label?: string | ComputedRef<string>
   /**
    * 操作栏固定   默认值为 `'right'`
    */
