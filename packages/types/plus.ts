@@ -1,10 +1,15 @@
 import type { ElTooltipProps, ButtonType } from 'element-plus'
-import type { VNode, Ref, ComputedRef } from 'vue'
+import type { VNode, Ref, ComputedRef, Component } from 'vue'
 import type { RecordType } from './global'
 import type { TableValueType, TableColumnProps } from './table'
 import type { FormItemValueType, FormColumnProps, FieldValueType } from './form'
 
 export {}
+
+/**
+ * 渲染函数的返回值的类型
+ */
+export type RenderTypes = string | VNode | JSX.Element | Component
 
 /**
  * 分页参数
@@ -64,7 +69,7 @@ export interface OptionsRow {
    * @see https://element-plus.org/zh-CN/component/checkbox.html#checkbox-slots
    * @see https://element-plus.org/zh-CN/component/radio.html#radio-slots
    */
-  fieldSlot?: (option?: OptionsRow) => VNode | string
+  fieldSlot?: (option?: OptionsRow) => RenderTypes
   /**
    * 子选项
    */
@@ -172,7 +177,7 @@ export interface CommonType {
   render?: (
     value: FieldValueType,
     data: { row: RecordType; column: PlusColumn; index: number }
-  ) => VNode | string
+  ) => RenderTypes
 
   /**
    * @desc  自定义渲染单行显示内容 需要返回一个 html字符串，`renderHTML`的优先级低于`render`，高于`valueType`。
@@ -218,7 +223,7 @@ export interface CommonType {
    *
    *```
    */
-  renderHeader?: (label: string, props: PlusColumn) => VNode | string
+  renderHeader?: (label: string, props: PlusColumn) => RenderTypes
   /**
    * 自定义el-descriptions-item 里的内容 优先级高于 render, renderHTML
    */
@@ -226,7 +231,7 @@ export interface CommonType {
     value: string
     column: PlusColumn
     row: RecordType
-  }) => VNode | string
+  }) => RenderTypes
   /**
    * 自定义el-descriptions-item 里的label
    */
@@ -234,7 +239,7 @@ export interface CommonType {
     label: string
     column: PlusColumn
     row: RecordType
-  }) => VNode | string
+  }) => RenderTypes
 }
 
 /**

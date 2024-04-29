@@ -1,4 +1,4 @@
-import type { VNode, Ref, ComputedRef, ExtractPropTypes, CSSProperties } from 'vue'
+import type { Ref, ComputedRef, ExtractPropTypes, CSSProperties } from 'vue'
 import type {
   FormItemProps,
   ColProps,
@@ -29,7 +29,7 @@ import type { PlusFormProps } from '@plus-pro-components/components/form'
 import type { PlusRadioProps } from '@plus-pro-components/components/radio'
 import type { PlusDatePickerProps } from '@plus-pro-components/components/date-picker'
 import type { PlusInputTagProps } from '@plus-pro-components/components/input-tag'
-import type { PropsItemType, PlusColumn, OptionsRow } from './plus'
+import type { PropsItemType, PlusColumn, OptionsRow, RenderTypes } from './plus'
 import type { Mutable } from './global'
 
 export {}
@@ -253,7 +253,7 @@ export interface FormColumnProps {
     value: FieldValueType,
     onChange: (value: FieldValueType) => void,
     props: PlusColumn
-  ) => VNode | string
+  ) => RenderTypes
 
   /**
    * @desc el-col 的 props
@@ -288,7 +288,7 @@ export interface FormColumnProps {
    *
    * ```
    */
-  renderLabel?: (label: string, props: PlusColumn) => VNode | string
+  renderLabel?: (label: string, props: PlusColumn) => RenderTypes
 
   /**
    * @desc  渲染el-form-item 下一行额外的内容
@@ -313,7 +313,7 @@ export interface FormColumnProps {
    *
    * ```
    */
-  renderExtra?: (column: PlusColumn) => VNode | string
+  renderExtra?: (column: PlusColumn) => RenderTypes
 
   /**
    * @desc 表单（表格）单个项目的插槽，支持类似el-input，el-select， el-image ，el-link等所有表单（表格）单项的插槽
@@ -348,7 +348,7 @@ export interface FormColumnProps {
    *
    * ```
    */
-  fieldSlots?: { [slotName: string]: (data?: any) => VNode | string }
+  fieldSlots?: { [slotName: string]: (data?: any) => RenderTypes }
 
   /**
    *
@@ -361,7 +361,7 @@ export interface FormColumnProps {
    * @see https://element-plus.org/zh-CN/component/radio.html#radio-slots
    * @see https://element-plus.gitee.io/zh-CN/component/select.html#option-slots
    */
-  fieldChildrenSlot?: (option?: OptionsRow) => VNode | string
+  fieldChildrenSlot?: (option?: OptionsRow) => RenderTypes
 }
 
 /**
