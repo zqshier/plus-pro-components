@@ -16,7 +16,7 @@
       </PlusSearch>
     </component>
 
-    <el-divider v-if="dividerProp.isShow" :style="dividerProp.style" />
+    <el-divider v-if="dividerProps" v-bind="dividerProps" />
 
     <component :is="renderWrapper().table" class="plus-page__table_wrapper">
       <PlusTable
@@ -26,12 +26,16 @@
         :table-data="tableData"
         :loading-status="loadingStatus"
         :columns="columns"
-        :pagination="{
-          ...pagination,
-          total,
-          modelValue: pageInfo,
-          pageSizeList: computedDefaultPageSizeList
-        }"
+        :pagination="
+          pagination === false
+            ? undefined
+            : {
+                ...pagination,
+                total,
+                modelValue: pageInfo,
+                pageSizeList: computedDefaultPageSizeList
+              }
+        "
         @paginationChange="handlePaginationChange"
         @refresh="handleRefresh"
       >
@@ -118,6 +122,7 @@ import type { PlusSearchProps, PlusSearchInstance } from '@plus-pro-components/c
 import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/components/search'
 import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
 import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
+import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
 import type { Component } from 'vue'
 import { h, ref, useSlots, computed } from 'vue'
 import type { CardProps } from 'element-plus'
@@ -187,7 +192,7 @@ export interface PlusPageProps {
   tableCardProps?: Partial<Mutable<CardProps>>
   defaultPageInfo?: PageInfo
   defaultPageSizeList?: number[]
-  pagination?: RecordType
+  pagination?: false | Omit<PlusPaginationProps, 'total' | 'modelValue' | 'pageSizeList'>
   /**
    * 组件渲染完成后是否立即调用getList
    */
@@ -195,10 +200,12 @@ export interface PlusPageProps {
   /**
    * 搜索与表格分割线
    */
-  dividerProp?: Partial<{
-    isShow: boolean
-    style: Record<string, string>
-  }>
+  dividerProps?: false | RecordType
+
+  /**
+   * 可以修改默认的分页参数
+   */
+  pageInfoMap?: { page?: string; pageSize?: string }
 }
 export interface PlusPageEmits {
   /**
@@ -209,6 +216,10 @@ export interface PlusPageEmits {
   (e: 'reset', data: FieldValues): void
   (e: 'paginationChange', pageInfo: PageInfo): void
 }
+
+defineOptions({
+  name: 'PlusPage'
+})
 
 const props = withDefaults(defineProps<PlusPageProps>(), {
   params: () => ({}),
@@ -228,15 +239,13 @@ const props = withDefaults(defineProps<PlusPageProps>(), {
    */
   pagination: () => ({}),
   immediate: true,
-  dividerProp: () => ({
-    isShow: false
+  dividerProps: false,
+  pageInfoMap: () => ({
+    page: 'page',
+    pageSize: 'pageSize'
   })
 })
 const emit = defineEmits<PlusPageEmits>()
-
-defineOptions({
-  name: 'PlusPage'
-})
 
 /**
  * FIXME: The inferred type of this node exceeds the maximum length the compiler will serialize. An explicit type annotation is needed.
@@ -280,11 +289,16 @@ const getList = async () => {
   if (!props.request) return
   try {
     loadingStatus.value = true
-    const { data, total: dataTotal } = await props.request({
+    const payload: any = {
       ...values.value,
-      ...pageInfo.value,
+      // eslint-disabled no-useless-spread
+      ...{
+        [props.pageInfoMap?.page || 'page']: pageInfo.value.page,
+        [props.pageInfoMap?.pageSize || 'pageSize']: pageInfo.value.pageSize
+      },
       ...props.params
-    })
+    }
+    const { data, total: dataTotal } = await props.request(payload)
     const list = (props.postData && props.postData(data)) || data
     tableData.value = list || []
     total.value = dataTotal || list.length
