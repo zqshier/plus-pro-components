@@ -200,9 +200,10 @@ import type { ActionBarButtonsRow } from 'plus-pro-components'
 export interface ActionBarProps {
   /**
    * 操作栏名称  默认值为 `'操作栏'`
-   *
+   * 
+   * @version v0.1.0 类型新增ComputedRef<string>
    */
-  label?: string
+  label?: string | ComputedRef<string>
   /**
    * 操作栏固定   默认值为 `'right'`
    */
