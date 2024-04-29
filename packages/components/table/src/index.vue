@@ -190,6 +190,7 @@ import type {
  * 表格数据
  */
 export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any>> {
+  [index: string]: any
   // 密度
   defaultSize?: ComponentSize
   /* 分页参数*/

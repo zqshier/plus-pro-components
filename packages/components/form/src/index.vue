@@ -137,8 +137,8 @@ export interface PlusFormGroupRow {
   icon?: Component
   columns: PlusColumn[]
 }
-
 export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
+  [index: string]: any
   modelValue?: FieldValues
   defaultValues?: FieldValues
   columns?: PlusColumn[]

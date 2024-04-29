@@ -76,6 +76,7 @@ import type { VNode } from 'vue'
 import { isFunction } from '@plus-pro-components/components/utils'
 
 export interface PlusHeaderProps {
+  [index: string]: any
   logo?: string
   fixed?: boolean
   title?: string

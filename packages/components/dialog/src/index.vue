@@ -42,6 +42,7 @@ import { useLocale } from '@plus-pro-components/hooks'
 
 export interface PlusDialogProps
   extends /* @vue-ignore */ Partial<Omit<DialogProps, 'modelValue' | 'title'>> {
+  [index: string]: any
   modelValue?: boolean
   confirmText?: string
   cancelText?: string

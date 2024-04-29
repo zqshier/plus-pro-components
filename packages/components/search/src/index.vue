@@ -83,6 +83,7 @@ import {
 } from '@plus-pro-components/components/utils'
 
 export interface PlusSearchProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
+  [index: string]: any
   modelValue?: FieldValues
   defaultValues?: FieldValues
   columns?: PlusColumn[]
