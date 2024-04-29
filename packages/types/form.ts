@@ -25,10 +25,12 @@ import type {
   ProgressProps
 } from 'element-plus'
 import type { TimeSelectProps } from 'element-plus/es/components/time-select/src/time-select'
-import type { PlusFormProps } from '@plus-pro-components/components/form'
-import type { PlusRadioProps } from '@plus-pro-components/components/radio'
-import type { PlusDatePickerProps } from '@plus-pro-components/components/date-picker'
-import type { PlusInputTagProps } from '@plus-pro-components/components/input-tag'
+import type {
+  PlusFormProps,
+  PlusRadioProps,
+  PlusDatePickerProps,
+  PlusInputTagProps
+} from '@plus-pro-components/components'
 import type { PropsItemType, PlusColumn, OptionsRow, RenderTypes } from './plus'
 import type { Mutable } from './global'
 
