@@ -90,8 +90,10 @@ export interface CommonType {
   [index: string]: any
   /**
    * 表格表头显示的标题 ；在form 中是 el-form-item的label；在descriptions 是 el-descriptions-item的label；
+   *  @version v0.0.10 修改为可选
+   *  @version v0.1.0 类型新增ComputedRef<string>
    */
-  label?: string
+  label?: string | ComputedRef<string>
   /**
    * 表格对应列内容的字段名 ；在form 中是 el-input等所有表单项的双向绑定的值；在descriptions 是 el-descriptions-item的值对应的字段；
    */
