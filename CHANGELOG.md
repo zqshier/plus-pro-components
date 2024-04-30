@@ -1,3 +1,35 @@
+## [v0.1.0](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.0-beta.1...v0.1.0) (2024-04-30)
+
+
+### ✨ Features
+
+* **components:** :sparkles: plusPage add pageInfoMap props,pagination support false([dbbb89a](https://github.com/plus-pro-components/plus-pro-components/commit/dbbb89a)) by@xiaofei
+* **components:** :sparkles: plusPaginationProps add ignature type([54cabde](https://github.com/plus-pro-components/plus-pro-components/commit/54cabde)) by@xiaofei
+* **components:** :sparkles: label add ComputedRef<string> support([fdf7218](https://github.com/plus-pro-components/plus-pro-components/commit/fdf7218)) by@xiaofei
+* **types:** :sparkles: plusColumn['label'] add ComputedRef<string> type([7b12602](https://github.com/plus-pro-components/plus-pro-components/commit/7b12602)) by@xiaofei
+* **components:** :sparkles: conponents add signature type([df5fd9b](https://github.com/plus-pro-components/plus-pro-components/commit/df5fd9b)) by@xiaofei
+* **types:** :sparkles: update render function types([7b4f17f](https://github.com/plus-pro-components/plus-pro-components/commit/7b4f17f)) by@xiaofei
+* **components:** :sparkles: display-item component add valueType= 'avatar' | 'divider' support([10f3a2e](https://github.com/plus-pro-components/plus-pro-components/commit/10f3a2e)) by@xiaofei
+* **components:** :sparkles: form-item component add valueType= 'transfer' | 'divider' support([34e5b7b](https://github.com/plus-pro-components/plus-pro-components/commit/34e5b7b)) by@xiaofei
+* **components:** :sparkles: radio component add class 'plus-radio'([1adb415](https://github.com/plus-pro-components/plus-pro-components/commit/1adb415)) by@xiaofei
+* **constants:** :sparkles: valueIsArrayList add 'transfer'([2176b89](https://github.com/plus-pro-components/plus-pro-components/commit/2176b89)) by@xiaofei
+* **types:** :sparkles: tableValueType add divider | avatar,FormItemValueType add transfer([3cff7a9](https://github.com/plus-pro-components/plus-pro-components/commit/3cff7a9)) by@xiaofei
+* **all:** Merge pull request [#136](https://github.com/plus-pro-components/plus-pro-components/pull/136) from plus-pro-components/gs([77456cc](https://github.com/plus-pro-components/plus-pro-components/commit/77456cc)) by@xiaofei
+
+
+
+
+### 🐛 Bug Fixes
+
+* **components:** :bug: fix display-item Failed to resolve component: el-option,el-select([0419425](https://github.com/plus-pro-components/plus-pro-components/commit/0419425)) by@xiaofei
+* **components:** :bug: fix: plus-date-picker is type attribute not effective([9cec4f2](https://github.com/plus-pro-components/plus-pro-components/commit/9cec4f2)) by@guosong
+
+
+### ♻️ Code Refactoring
+
+* **types:** :recycle: refactor form.ts([8488216](https://github.com/plus-pro-components/plus-pro-components/commit/8488216)) by@xiaofei
+
+
 ## [v0.1.0-beta.1](https://github.com/plus-pro-components/plus-pro-components/compare/v0.0.11...v0.1.0-beta.1) (2024-04-25)
 
 
