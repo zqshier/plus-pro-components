@@ -138,6 +138,7 @@
           v-model="state"
           class="plus-form-item-field"
           clearable
+          :field-children-slot="fieldChildrenSlot"
           v-bind="commonProps"
           @update:modelValue="handleChange"
         >
