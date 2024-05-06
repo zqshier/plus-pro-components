@@ -24,19 +24,18 @@
 </template>
 
 <script lang="ts" setup>
-import type { VNode } from 'vue'
 import { ref, getCurrentInstance, watchEffect, computed } from 'vue'
 import type { RouteLocationMatched, RouteLocationNormalizedLoaded } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { isFunction } from '@plus-pro-components/components/utils'
-import type { PlusRouteRecordRaw } from '@plus-pro-components/types'
+import type { PlusRouteRecordRaw, RenderTypes } from '@plus-pro-components/types'
 
 export interface PlusBreadcrumbProps {
   [index: string]: any
   routes?: PlusRouteRecordRaw[]
   replace?: boolean
   // eslint-disable-next-line vue/require-default-prop
-  renderTitle?: (route: PlusRouteRecordRaw) => VNode | string
+  renderTitle?: (route: PlusRouteRecordRaw) => RenderTypes
 }
 
 defineOptions({

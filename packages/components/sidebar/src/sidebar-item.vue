@@ -113,8 +113,7 @@
 
 <script lang="ts" setup>
 import { getCurrentInstance } from 'vue'
-import type { VNode } from 'vue'
-import type { PlusRouteRecordRaw } from '@plus-pro-components/types'
+import type { PlusRouteRecordRaw, RenderTypes } from '@plus-pro-components/types'
 import { ElSubMenu, ElMenuItem, ElIcon } from 'element-plus'
 import type { Router } from 'vue-router'
 import { isUrl, isFunction } from '@plus-pro-components/components/utils'
@@ -126,17 +125,17 @@ export interface PlusSidebarItemProps {
    * 自定义 菜单的  menuItem
    * @param route
    */
-  renderMenuItem?: (route: PlusRouteRecordRaw) => VNode | string
+  renderMenuItem?: (route: PlusRouteRecordRaw) => RenderTypes
   /**
    * 自定义 菜单的 subMenu
    * @param route
    */
-  renderSubMenuItem?: (route: PlusRouteRecordRaw) => VNode | string
+  renderSubMenuItem?: (route: PlusRouteRecordRaw) => RenderTypes
   /**
    * 自定义 菜单的标题显示
    * @param route
    */
-  renderTitle?: (route: PlusRouteRecordRaw) => VNode | string
+  renderTitle?: (route: PlusRouteRecordRaw) => RenderTypes
 }
 
 defineOptions({

@@ -60,14 +60,14 @@
 </template>
 
 <script lang="ts" setup>
-import type { VNode, Ref, ComputedRef } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import { ref, computed, watchEffect, getCurrentInstance, unref } from 'vue'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { ScrollbarProps } from 'element-plus'
 import { ElMenu, ElMenuItem, ElIcon, ElScrollbar } from 'element-plus'
 import { Expand, Fold } from '@element-plus/icons-vue'
 import { cloneDeep } from 'lodash-es'
-import type { PlusRouteRecordRaw, Mutable } from '@plus-pro-components/types'
+import type { PlusRouteRecordRaw, Mutable, RenderTypes } from '@plus-pro-components/types'
 import { isFunction, isString } from '@plus-pro-components/components/utils'
 import PlusSidebarItem from './sidebar-item.vue'
 
@@ -80,22 +80,22 @@ export interface PlusSidebarProps {
    * 自定义 菜单的  menuItem
    * @param route
    */
-  renderMenuItem?: (route: PlusRouteRecordRaw) => VNode | string
+  renderMenuItem?: (route: PlusRouteRecordRaw) => RenderTypes
   /**
    * 自定义 菜单的 subMenu
    * @param route
    */
-  renderSubMenuItem?: (route: PlusRouteRecordRaw) => VNode | string
+  renderSubMenuItem?: (route: PlusRouteRecordRaw) => RenderTypes
   /**
    * 自定义 菜单的标题显示
    * @param route
    */
-  renderTitle?: (route: PlusRouteRecordRaw) => VNode | string
+  renderTitle?: (route: PlusRouteRecordRaw) => RenderTypes
   /**
    * 可以为菜单增加一个额外内容，在菜单头和菜单之间
    * @param route
    */
-  renderMenuExtra?: (route: PlusRouteRecordRaw) => VNode | string
+  renderMenuExtra?: (route: PlusRouteRecordRaw) => RenderTypes
   scrollbarProps?: Partial<Mutable<ScrollbarProps>>
   width?: number | string
 }

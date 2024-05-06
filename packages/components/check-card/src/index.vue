@@ -89,11 +89,10 @@
 </template>
 
 <script lang="ts" setup>
-import type { VNode } from 'vue'
 import { reactive, watchEffect } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import { ElAvatar } from 'element-plus'
-import type { RecordType } from '@plus-pro-components/types'
+import type { RecordType, RenderTypes } from '@plus-pro-components/types'
 import { isString, isFunction } from '@plus-pro-components/components/utils'
 
 export interface PlusCheckCardProps {
@@ -101,16 +100,16 @@ export interface PlusCheckCardProps {
   size?: ComponentSize
   avatar?:
     | string
-    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => VNode | string)
+    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => RenderTypes)
   avatarProps?: RecordType
   title?:
     | string
-    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => VNode | string)
+    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => RenderTypes)
   description?:
     | string
-    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => VNode | string)
+    | ((data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => RenderTypes)
   disabled?: boolean
-  extra?: (data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => VNode | string
+  extra?: (data: Pick<PlusCheckCardProps, 'avatar' | 'title' | 'description'>) => RenderTypes
 }
 export interface PlusCheckCardEmits {
   (e: 'update:modelValue', checked: boolean): void

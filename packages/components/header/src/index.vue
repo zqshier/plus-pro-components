@@ -72,8 +72,8 @@
 import { ArrowDown, User } from '@element-plus/icons-vue'
 import { ElIcon, ElHeader, ElDropdown, ElDropdownItem, ElDropdownMenu } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { VNode } from 'vue'
 import { isFunction } from '@plus-pro-components/components/utils'
+import type { RenderTypes } from '@plus-pro-components/types'
 
 export interface PlusHeaderProps {
   [index: string]: any
@@ -93,12 +93,12 @@ export interface PlusHeaderProps {
     value: string
   }[]
   // eslint-disable-next-line vue/require-default-prop
-  renderHeaderLeft?: (info: { logo: string; title: string }) => VNode | string
+  renderHeaderLeft?: (info: { logo: string; title: string }) => RenderTypes
   // eslint-disable-next-line vue/require-default-prop
   renderHeaderRight?: (info: {
     userInfo: Record<string | number | symbol, unknown>
     title: string
-  }) => VNode | string
+  }) => RenderTypes
 }
 
 export interface PlusHeaderEmits {
