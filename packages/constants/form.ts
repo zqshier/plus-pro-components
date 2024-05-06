@@ -6,13 +6,7 @@ export const TableFormRefInjectionKey = Symbol('tableFormRefInjectionKey')
 /**
  *  表单ElDatePicker 组件 值是数组的type列表
  */
-export const DatePickerValueIsArrayList = [
-  'datetimerange',
-  'daterange',
-  'monthrange',
-  'years',
-  'dates'
-]
+export const DatePickerValueIsArrayList = ['datetimerange', 'daterange', 'monthrange']
 
 /**
  * 表单组件值是数字类型的valueType列表
