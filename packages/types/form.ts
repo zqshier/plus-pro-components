@@ -198,6 +198,7 @@ export type FormItemValueType =
   | 'input'
   | 'text'
   | 'transfer'
+  | 'tree-select'
   | 'plus-radio'
   | 'plus-date-picker'
   | 'plus-input-tag'
