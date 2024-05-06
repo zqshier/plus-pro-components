@@ -58,6 +58,57 @@ onMounted(() => {
   restaurants.value = loadAll()
 })
 
+const cascaderOptions = [
+  {
+    value: '0',
+    label: '陕西',
+    children: [
+      {
+        value: '0-0',
+        label: '西安',
+        children: [
+          {
+            value: '0-0-0',
+            label: '新城区'
+          },
+          {
+            value: '0-0-1',
+            label: '高新区'
+          },
+          {
+            value: '0-0-2',
+            label: '灞桥区'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    value: '1',
+    label: '山西',
+    children: [
+      {
+        value: '1-0',
+        label: '太原',
+        children: [
+          {
+            value: '1-0-0',
+            label: '小店区'
+          },
+          {
+            value: '1-0-1',
+            label: '古交市'
+          },
+          {
+            value: '1-0-2',
+            label: '万柏林区'
+          }
+        ]
+      }
+    ]
+  }
+]
+
 const columns: PlusColumn[] = [
   {
     label: 'autocomplete',
@@ -79,56 +130,7 @@ const columns: PlusColumn[] = [
     label: 'cascader',
     prop: 'cascader',
     valueType: 'cascader',
-    options: [
-      {
-        value: '0',
-        label: '陕西',
-        children: [
-          {
-            value: '0-0',
-            label: '西安',
-            children: [
-              {
-                value: '0-0-0',
-                label: '新城区'
-              },
-              {
-                value: '0-0-1',
-                label: '高新区'
-              },
-              {
-                value: '0-0-2',
-                label: '灞桥区'
-              }
-            ]
-          }
-        ]
-      },
-      {
-        value: '1',
-        label: '山西',
-        children: [
-          {
-            value: '1-0',
-            label: '太原',
-            children: [
-              {
-                value: '1-0-0',
-                label: '小店区'
-              },
-              {
-                value: '1-0-1',
-                label: '古交市'
-              },
-              {
-                value: '1-0-2',
-                label: '万柏林区'
-              }
-            ]
-          }
-        ]
-      }
-    ]
+    options: cascaderOptions
   },
   {
     label: 'checkbox',
@@ -272,6 +274,14 @@ const columns: PlusColumn[] = [
     label: 'divider',
     prop: 'divider',
     valueType: 'divider'
+  },
+  {
+    label: 'tree-select',
+    prop: 'tree-select',
+    valueType: 'tree-select',
+    fieldProps: {
+      data: cascaderOptions
+    }
   },
   {
     label: 'plus-radio',

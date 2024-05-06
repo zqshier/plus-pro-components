@@ -213,14 +213,14 @@ const columns: PlusColumn[] = [
       type: 'year'
     }
   },
-  // {
-  //   label: 'years',
-  //   prop: 'years',
-  //   valueType: 'date-picker',
-  //   fieldProps: {
-  //     type: 'years'
-  //   }
-  // },
+  {
+    label: 'years',
+    prop: 'years',
+    valueType: 'date-picker',
+    fieldProps: {
+      type: 'years'
+    }
+  },
   {
     label: 'month',
     prop: 'month',
@@ -428,6 +428,14 @@ const columns: PlusColumn[] = [
     label: 'divider',
     prop: 'divider',
     valueType: 'divider'
+  },
+  {
+    label: 'tree-select',
+    prop: 'tree-select',
+    valueType: 'tree-select',
+    fieldProps: {
+      data: cascaderOptions
+    }
   },
   {
     label: 'plus-radio',

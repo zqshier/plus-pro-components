@@ -200,7 +200,7 @@ import type { ActionBarButtonsRow } from 'plus-pro-components'
 export interface ActionBarProps {
   /**
    * 操作栏名称  默认值为 `'操作栏'`
-   * 
+   *
    * @version v0.1.0 类型新增ComputedRef<string>
    */
   label?: string | ComputedRef<string>
@@ -355,6 +355,8 @@ export type FormItemValueType =
   | 'plus-input-tag'
   // v0.1.0 新增
   | 'transfer'
+  // v0.1.1 新增
+  | 'tree-select'
   | undefined
 ```
 
