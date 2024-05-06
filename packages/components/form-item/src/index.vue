@@ -307,6 +307,9 @@ const isArrayValue = computed(() => {
   if (props.valueType === 'time-picker' && customFieldProps.value?.isRange === true) {
     return true
   }
+  if (props.valueType === 'tree-select' && customFieldProps.value?.multiple === true) {
+    return true
+  }
   return false
 })
 

@@ -16,7 +16,8 @@ import {
   ElTimePicker,
   ElTimeSelect,
   ElInput,
-  ElTransfer
+  ElTransfer,
+  ElTreeSelect
 } from 'element-plus'
 import { PlusRadio } from '@plus-pro-components/components/radio'
 import { PlusDatePicker } from '@plus-pro-components/components/date-picker'
@@ -142,6 +143,9 @@ export const FieldComponentMap: FieldComponentMapType = {
   textarea: {
     component: ElInput,
     props: { type: 'textarea', placeholder: 'plus.field.pleaseEnter' }
+  },
+  'tree-select': {
+    component: ElTreeSelect
   }
 }
 
