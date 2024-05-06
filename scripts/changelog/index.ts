@@ -4,6 +4,7 @@ import { exec } from 'child_process'
 import qs from 'qs'
 import days from 'dayjs'
 import { cloneDeep } from 'lodash'
+import { format } from 'prettier'
 
 type Tag = {
   tag: string
@@ -25,6 +26,10 @@ type Log = {
   type: string
   scoped: string
 }
+
+const formatConfigPath = path.resolve(__dirname, '../../.prettierrc.js')
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const formatConfig = require(formatConfigPath)
 
 const execPromise = (command: string): Promise<string> => {
   return new Promise((resolve, reject) => {
@@ -73,7 +78,10 @@ const handleLogData = async (): Promise<Log[]> => {
 }
 const handleTagData = async (): Promise<Tag[]> => {
   const tagStr = await execPromise('git tag')
-  const tags = [...tagStr.split('\n')].filter(item => item).map(item => ({ tag: item }))
+  const tags = tagStr
+    .split('\n')
+    .filter(item => item)
+    .map(item => ({ tag: item }))
   let tagData: Tag[] = []
   for (const item of tags) {
     const data = await execPromise(
@@ -168,7 +176,10 @@ const main = async () => {
 
     return content
   })
-  fs.writeFileSync(path.resolve(__dirname, '../../CHANGELOG.md'), mdContent.join(''))
+
+  const formatContent = format(mdContent.join(''), { ...formatConfig, parser: 'markdown' })
+
+  fs.writeFileSync(path.resolve(__dirname, '../../CHANGELOG.md'), formatContent)
 }
 
 main().catch(err => {
