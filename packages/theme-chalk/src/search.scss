@@ -2,10 +2,19 @@
 @use 'mixins/config' as *;
 
 @include b(search) {
+  .#{$plus-namespace + -form__row} {
+    row-gap: 18px;
+  }
+
   &.#{$el-namespace + -form--inline} {
     .#{$el-namespace + -form-item} {
       margin-right: 0;
+      margin-bottom: 0;
     }
+  }
+
+  @include e(unfold) {
+    margin-left: 12px;
   }
 
   @include e(button__wrapper) {
