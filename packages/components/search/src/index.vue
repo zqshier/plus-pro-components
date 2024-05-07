@@ -47,10 +47,11 @@
             {{ searchText || t('plus.search.searchText') }}
           </el-button>
 
-          <el-button
+          <el-link
             v-if="hasUnfold && originData.length > showNumber"
+            class="plus-search__unfold"
             type="primary"
-            link
+            :underline="false"
             @click="handleUnfold"
           >
             {{ isShowUnfold ? t('plus.search.retract') : t('plus.search.expand') }}
@@ -58,7 +59,7 @@
               <ArrowUp v-if="isShowUnfold" />
               <ArrowDown v-else />
             </el-icon>
-          </el-button>
+          </el-link>
         </slot>
       </el-form-item>
     </template>
