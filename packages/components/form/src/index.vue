@@ -14,7 +14,12 @@
     <slot>
       <!-- 分组表单 -->
       <template v-if="group">
-        <el-card v-for="groupItem in group" :key="groupItem.title" class="plus-form__group__item">
+        <el-card
+          v-for="groupItem in group"
+          :key="groupItem.title"
+          v-bind="groupItem.cardProps || cardProps"
+          class="plus-form__group__item"
+        >
           <template #header>
             <slot
               name="group-header"
@@ -117,7 +122,14 @@
 <script lang="ts" setup>
 import type { Component } from 'vue'
 import { ref, watch, computed, useSlots, unref } from 'vue'
-import type { FormInstance, FormRules, FormProps, RowProps, ColProps } from 'element-plus'
+import type {
+  FormInstance,
+  FormRules,
+  FormProps,
+  RowProps,
+  ColProps,
+  CardProps
+} from 'element-plus'
 import { ElMessage, ElForm, ElCard, ElButton, ElIcon } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
 import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
@@ -135,6 +147,11 @@ import PlusFormContent from './form-content.vue'
 export interface PlusFormGroupRow {
   title: string
   icon?: Component
+  /**
+   * @desc 分组表单el-card的props，优先级高于整体的cardProps
+   * @version v0.1.1
+   */
+  cardProps?: Partial<Mutable<CardProps>>
   columns: PlusColumn[]
 }
 export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
@@ -157,6 +174,7 @@ export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormPro
   footerAlign?: 'left' | 'right' | 'center'
   rules?: FormRules
   group?: false | PlusFormGroupRow[]
+  cardProps?: Partial<Mutable<CardProps>>
 }
 export interface PlusFormState {
   values: FieldValues
@@ -192,7 +210,8 @@ const props = withDefaults(defineProps<PlusFormProps>(), {
   footerAlign: 'left',
   rules: () => ({}),
   columns: () => [],
-  group: false
+  group: false,
+  cardProps: () => ({})
 })
 const emit = defineEmits<PlusFormEmits>()
 
