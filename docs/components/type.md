@@ -492,6 +492,11 @@ import type { PlusColumn } from 'plus-pro-components'
 export interface PlusFormGroupRow {
   title: string
   icon?: Component
+  /**
+   * @desc 分组表单el-card的props，优先级高于整体的cardProps
+   * @version v0.1.1
+   */
+  cardProps?: Partial<Mutable<CardProps>>
   columns: PlusColumn[]
 }
 ```
