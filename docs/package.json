@@ -32,6 +32,7 @@
     "element-plus": "2.6.3",
     "highlight.js": "^11.9.0",
     "js-cookie": "^3.0.5",
-    "plus-pro-components": "npm:plus-pro-components@latest"
+    "plus-pro-components": "npm:plus-pro-components@latest",
+    "vue": "3.4.21"
   }
 }
