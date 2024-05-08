@@ -18,10 +18,11 @@
       {{ formatTag && isFunction(formatTag) ? formatTag(tag) : tag }}
     </el-tag>
     <el-input
+      v-if="state.tags.length < limit"
       ref="inputInstance"
       v-model="state.inputValue"
       class="plus-input-tag__input"
-      :placeholder="t('plus.inputTag.placeholder')"
+      :placeholder="state.tags.length ? '' : t('plus.inputTag.placeholder')"
       :disabled="state.tags.length >= limit"
       v-bind="inputProps"
       clearable
@@ -110,6 +111,8 @@ const handleClick = () => {
 const handleClose = (tag: string) => {
   state.tags = state.tags.filter(item => item !== tag)
   emit('remove', tag)
+  emit('update:modelValue', state.tags)
+  emit('change', state.tags)
 }
 
 const handleValue = () => {
