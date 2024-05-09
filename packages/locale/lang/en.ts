@@ -24,8 +24,8 @@ export default {
       errorTip: 'Please complete the form and submit again!'
     },
     field: {
-      pleaseEnter: 'Please enter',
-      pleaseSelect: 'Please select'
+      pleaseEnter: 'Please enter ',
+      pleaseSelect: 'Please select '
     },
     popover: {
       confirmText: 'Yes',
