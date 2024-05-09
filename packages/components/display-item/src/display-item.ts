@@ -74,4 +74,4 @@ export const hasDisplayComponent = (valueType?: string) =>
  * @returns
  */
 export const getDisplayComponent = (valueType?: string): DisplayComponentType =>
-  Reflect.get(DisplayComponentMap, valueType as string)
+  Reflect.get(DisplayComponentMap, valueType as string) || {}
