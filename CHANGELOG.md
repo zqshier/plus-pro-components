@@ -1,3 +1,15 @@
+## [v0.1.2](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.1...v0.1.2) (2024-05-09)
+
+### ✨ Features
+
+- **components:** :sparkles: display-item getDisplayComponent method add default value([d0c4330](https://github.com/plus-pro-components/plus-pro-components/commit/d0c4330)) by@xiaofei
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: form-item label display error([b9e4db1](https://github.com/plus-pro-components/plus-pro-components/commit/b9e4db1)) by@xiaofei
+- **locale:** :bug: lang/en.ts pleaseEnter and pleaseSelect add space([c2bc02b](https://github.com/plus-pro-components/plus-pro-components/commit/c2bc02b)) by@xiaofei
+- **components:** :bug: fixed failed to resolve component: el-link <PlusSearch([4c14acd](https://github.com/plus-pro-components/plus-pro-components/commit/4c14acd)) by@xiaofei
+
 ## [v0.1.1](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.0...v0.1.1) (2024-05-08)
 
 ### ✨ Features
