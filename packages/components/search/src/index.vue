@@ -75,7 +75,7 @@ import type { FormProps, RowProps, ColProps } from 'element-plus'
 import { ArrowDown, ArrowUp, Search, RefreshRight } from '@element-plus/icons-vue'
 import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
 import { useLocale } from '@plus-pro-components/hooks'
-import { ElFormItem, ElButton, ElIcon } from 'element-plus'
+import { ElFormItem, ElButton, ElIcon, ElLink } from 'element-plus'
 import {
   getFieldSlotName,
   getLabelSlotName,
