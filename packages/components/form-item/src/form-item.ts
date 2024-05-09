@@ -164,4 +164,4 @@ export const hasFieldComponent = (valueType?: string) =>
  * @returns
  */
 export const getFieldComponent = (valueType?: string): FieldComponentType =>
-  Reflect.get(FieldComponentMap, valueType as string)
+  Reflect.get(FieldComponentMap, valueType as string) || {}

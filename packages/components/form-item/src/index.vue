@@ -67,7 +67,7 @@
         v-else-if="valueType === 'select' && customFieldProps.multiple === true"
         ref="fieldInstance"
         v-model="state"
-        :placeholder="t('plus.field.pleaseSelect') + label"
+        :placeholder="t('plus.field.pleaseSelect') + labelValue"
         class="plus-form-item-field"
         clearable
         v-bind="customFieldProps"
@@ -171,7 +171,7 @@
         ref="fieldInstance"
         v-model="state"
         class="plus-form-item-field"
-        :placeholder="t('plus.field.pleaseEnter') + label"
+        :placeholder="t('plus.field.pleaseEnter') + labelValue"
         autocomplete="off"
         clearable
         v-bind="customFieldProps"
@@ -376,7 +376,9 @@ const commonProps = computed(() => {
         }
       : null),
     ...componentProps,
-    placeholder: t(componentProps?.placeholder || 'plus.field.pleaseSelect') + labelValue.value,
+    placeholder: componentProps?.placeholder
+      ? t(componentProps?.placeholder) + labelValue.value
+      : t('plus.field.pleaseSelect') + labelValue.value,
     ...(props.valueType === 'date-picker'
       ? {
           startPlaceholder: componentProps?.startPlaceholder
