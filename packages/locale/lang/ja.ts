@@ -1,9 +1,9 @@
 export default {
-  name: 'zh-cn',
+  name: 'ja',
   plus: {
     dialog: {
       confirmText: '確定',
-      cancelText: '取消',
+      cancelText: 'キャンセル',
       title: 'ポップアップ'
     },
     datepicker: {
@@ -16,7 +16,7 @@ export default {
     drawerForm: {
       title: 'ドゥロワーフォーム',
       confirmText: '確定',
-      cancelText: '取消'
+      cancelText: 'キャンセル'
     },
     form: {
       submitText: '送信',
@@ -29,7 +29,7 @@ export default {
     },
     popover: {
       confirmText: '確定',
-      cancelText: '取消'
+      cancelText: 'キャンセル'
     },
     search: {
       searchText: '検索',
