@@ -10,7 +10,7 @@ import PlusProComponents from '../../plus-pro-components/index'
 import '../../theme-chalk/src/index.scss'
 import App from './App.vue'
 import './index.css'
-import 'element-plus/theme-chalk/src/index.scss'
+import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 
 const app = createApp(App)

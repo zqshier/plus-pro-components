@@ -1,9 +1,21 @@
 <template>
   <el-config-provider :locale="locales" namespace="el">
     <AppNav>
-      <el-button size="small" class="switch-language" type="primary" @click="toggle">
-        {{ language }}
-      </el-button>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          {{ language }}
+          <el-icon class="el-icon--right">
+            <arrow-down />
+          </el-icon>
+        </span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item v-for="(item, key) in langs" :key="key" @click="handleLang(key)">
+              {{ item.langName }}
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
 
       <el-switch
         v-model="dark"
@@ -18,32 +30,42 @@
 
 <script setup lang="ts">
 /* eslint-disable @typescript-eslint/ban-ts-comment*/
-import { ref, computed } from 'vue'
-import { Moon, Sunny } from '@element-plus/icons-vue'
+import { ref } from 'vue'
+import { Moon, Sunny, ArrowDown } from '@element-plus/icons-vue'
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
+import en from 'element-plus/es/locale/lang/en'
+import ja from 'element-plus/es/locale/lang/ja'
 // @ts-ignore
-import zhCn from 'element-plus/dist/locale/zh-cn'
-// @ts-ignore
-import en from 'element-plus/dist/locale/en'
-// @ts-ignore
-import { zhCn as plusZhCn, en as plusEn } from '../../locale'
+import type { Language } from '../../locale'
+import { zhCn as plusZhCn, en as plusEn, ja as plusJa } from '../../locale'
 import AppNav from './views/layout.vue'
 // import AppNav from './__nav.vue' <el-icon><Sunny /></el-icon>
 
-const zhCnLocales = {
-  ...zhCn,
-  ...plusZhCn
-}
-const enLocales = {
-  ...en,
-  ...plusEn
+const langs = {
+  zhCn: {
+    langName: '中文',
+    ...zhCn,
+    ...plusZhCn
+  },
+  en: {
+    langName: 'English',
+    ...en,
+    ...plusEn
+  },
+  ja: {
+    langName: 'Japanese',
+    ...ja,
+    ...plusJa
+  }
 }
 
 const dark = ref(false)
-const language = ref('zh-cn')
-const locales = computed(() => (language.value === 'zh-cn' ? zhCnLocales : enLocales))
+const language = ref('中文')
+const locales = ref<Language & { langName: string }>(langs.zhCn)
 
-const toggle = () => {
-  language.value = language.value === 'zh-cn' ? 'en' : 'zh-cn'
+const handleLang = (key: keyof typeof langs) => {
+  locales.value = langs[key]
+  language.value = locales.value.langName
 }
 
 const handleChange = (val: any) => {
@@ -66,5 +88,14 @@ const handleChange = (val: any) => {
 
 .switch-language {
   margin-right: 10px;
+}
+
+.el-dropdown-link {
+  cursor: pointer;
+  display: inline-block;
+  margin-right: 10px;
+  &:focus-visible {
+    outline: none;
+  }
 }
 </style>
