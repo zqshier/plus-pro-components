@@ -1,4 +1,5 @@
 <template>
+  <!-- @vue-ignore -->
   <el-config-provider :locale="locales" namespace="el">
     <AppNav>
       <el-dropdown>
