@@ -50,6 +50,18 @@ page/search-footer
 
 :::
 
+## 搜索和表格展示顺序控制
+
+<el-tag>v0.1.4</el-tag>
+
+默认情况下搜索和表格会按`columns`的顺序展示，搜索可以使用[order](/components/config.html) 参数控制展示顺序(默认值为`0`)，[order](/components/config.html) 越大越靠前。
+
+:::demo
+
+page/order
+
+:::
+
 ## 增删改查 (CRUD)
 
 典型的增删改查。

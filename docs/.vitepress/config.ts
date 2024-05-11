@@ -191,6 +191,14 @@ export default defineConfig({
             {
               text: '高级组件通用配置',
               link: '/components/config'
+            },
+            {
+              text: '配置事件透传',
+              link: '/components/attrs'
+            },
+            {
+              text: '组件自定义总则',
+              link: '/components/rule'
             }
           ]
         },
