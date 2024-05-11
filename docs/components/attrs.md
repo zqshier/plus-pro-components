@@ -33,20 +33,19 @@ const columns = [
     valueType: 'select',
     options: [],
     fieldProps: {
-       // https://element-plus.org/zh-CN/component/select.html#select-events
-       // el-select 的事件 `change`，对应的配置就是 `onChange`
+      // https://element-plus.org/zh-CN/component/select.html#select-events
+      // el-select 的事件 `change`，对应的配置就是 `onChange`
       onChange: () => {
         console.log('onChange')
-      }
+      },
       // el-select 的事件 `visible-change`，对应的配置就是 `onVisibleChange`
       onVisibleChange: () => {
         console.log('visibleChange')
-      }
+      },
       // el-select 的事件 `remove-tag`，对应的配置就是 `onRemoveTag`
       onRemoveTag: () => {
         console.log('onRemoveTag')
       }
-
     }
   },
   {
@@ -55,28 +54,27 @@ const columns = [
     // 对应的element-plus 的组件el-input
     valueType: 'input',
     fieldProps: {
-       // https://element-plus.org/zh-CN/component/input.html#input-events
-       // el-input 的事件 `blur`，对应的配置就是 `onBlur`
+      // https://element-plus.org/zh-CN/component/input.html#input-events
+      // el-input 的事件 `blur`，对应的配置就是 `onBlur`
       onBlur: () => {
         console.log('onBlur')
-      }
-       // el-input 的事件 `focus`，对应的配置就是 `onFocus`
+      },
+      // el-input 的事件 `focus`，对应的配置就是 `onFocus`
       onFocus: () => {
         console.log('onFocus')
-      }
-       // el-input 的事件 `change`，对应的配置就是 `onChange`
+      },
+      // el-input 的事件 `change`，对应的配置就是 `onChange`
       onChange: () => {
         console.log('onChange')
-      }
+      },
       // el-input 的事件 `input`，对应的配置就是 `onInput`
       onInput: () => {
         console.log('onInput')
-      }
+      },
       // el-input 的事件 `clear`，对应的配置就是 `onClear`
       onClear: () => {
         console.log('onClear')
       }
-
     }
   }
 ]
