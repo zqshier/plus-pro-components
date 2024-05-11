@@ -242,6 +242,11 @@ export interface CommonType {
     column: PlusColumn
     row: RecordType
   }) => RenderTypes
+
+  /**
+   * PlusSearch 查询表单中的权重，权重大排序靠前，在PlusPage组件中非常有用
+   */
+  order?: number | ComputedRef<number>
 }
 
 /**
