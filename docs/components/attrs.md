@@ -29,11 +29,11 @@ const columns = [
   {
     label: '状态',
     prop: 'status',
-    // 对应的element-plus 的组件时el-select
+    // 对应的element-plus 的组件el-select
     valueType: 'select',
     options: [],
     fieldProps: {
-      // https://element-plus.org/zh-CN/component/select.html#select-events
+       // https://element-plus.org/zh-CN/component/select.html#select-events
        // el-select 的事件 `change`，对应的配置就是 `onChange`
       onChange: () => {
         console.log('onChange')
@@ -52,10 +52,10 @@ const columns = [
   {
     label: '名称',
     prop: 'name',
-    // 对应的element-plus 的组件时el-input
-    valueType: 'input', 
+    // 对应的element-plus 的组件el-input
+    valueType: 'input',
     fieldProps: {
-      // https://element-plus.org/zh-CN/component/input.html#input-events
+       // https://element-plus.org/zh-CN/component/input.html#input-events
        // el-input 的事件 `blur`，对应的配置就是 `onBlur`
       onBlur: () => {
         console.log('onBlur')

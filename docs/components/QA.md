@@ -19,3 +19,7 @@
 ## Search 组件不支持控制重置、搜索按钮顺序
 
 [详见 issues/54](https://github.com/plus-pro-components/plus-pro-components/issues/54)
+
+## 单个组件的事件在哪里配置?
+
+[参考](/components/attrs.html)
