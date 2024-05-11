@@ -52,6 +52,7 @@
             class="plus-search__unfold"
             type="primary"
             :underline="false"
+            href="javaScript:;"
             @click="handleUnfold"
           >
             {{ isShowUnfold ? t('plus.search.retract') : t('plus.search.expand') }}
@@ -69,13 +70,13 @@
 <script lang="ts" setup>
 import type { PlusFormInstance } from '@plus-pro-components/components/form'
 import { PlusForm } from '@plus-pro-components/components/form'
-import type { Ref } from 'vue'
 import { ref, computed, watch, unref, useSlots } from 'vue'
 import type { FormProps, RowProps, ColProps } from 'element-plus'
 import { ArrowDown, ArrowUp, Search, RefreshRight } from '@element-plus/icons-vue'
 import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
 import { useLocale } from '@plus-pro-components/hooks'
 import { ElFormItem, ElButton, ElIcon, ElLink } from 'element-plus'
+import { orderBy } from 'lodash-es'
 import {
   getFieldSlotName,
   getLabelSlotName,
@@ -138,8 +139,7 @@ const props = withDefaults(defineProps<PlusSearchProps>(), {
 const emit = defineEmits<PlusSearchEmits>()
 
 const { t } = useLocale()
-const plusFormInstance = ref<any>()
-
+const plusFormInstance = ref<PlusFormInstance | null>()
 const isShowUnfold = ref<boolean>(false)
 const values = ref<FieldValues>({})
 const slots = useSlots()
@@ -158,16 +158,19 @@ const fieldSlots = filterSlots(slots, getFieldSlotName())
  */
 const extraSlots = filterSlots(slots, getExtraSlotName())
 
-const originData = computed<any[]>(() => {
-  return (
-    props.columns
-      .filter(item => unref(item.hideInSearch) !== true)
-      // FIXME:  hideInForm 不应该传递
-      .map(item => ({ ...item, hideInForm: false }))
-  )
+const originData = computed<PlusColumn[]>(() => {
+  const filterData = props.columns
+    .filter(item => unref(item.hideInSearch) !== true)
+    // FIXME:  hideInForm 不应该传递
+    .map(item => ({ ...item, hideInForm: false }))
+    // set order default value
+    .map(item => ({ ...item, order: item?.order ? unref(item.order) : 0 }))
+  return orderBy(filterData, ['order'], ['desc'])
 })
 
-const subColumns = computed<any[]>(() => {
+console.log(originData, 'originData')
+
+const subColumns = computed<PlusColumn[]>(() => {
   if (props.hasUnfold && !isShowUnfold.value) {
     return originData.value.slice(0, props.showNumber)
   } else {
@@ -200,13 +203,14 @@ const handleReset = (): void => {
   emit('reset', values.value)
 }
 
-const handleUnfold = () => {
+const handleUnfold = (e: MouseEvent) => {
+  e.preventDefault()
   isShowUnfold.value = !isShowUnfold.value
   emit('collapse', isShowUnfold.value)
 }
 
 defineExpose({
-  plusFormInstance: plusFormInstance as Ref<PlusFormInstance>,
+  plusFormInstance,
   handleReset,
   handleSearch,
   handleUnfold
