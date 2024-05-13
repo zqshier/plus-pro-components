@@ -130,7 +130,9 @@ async function commit(version?: string) {
     }
 
     // 更新导出 版本号
-    await genVersion(version)
+    if (version) {
+      await genVersion(version)
+    }
 
     await run('git', ['add', '-A'])
     await run('npm', ['run', '--name', 'gitcz'])
