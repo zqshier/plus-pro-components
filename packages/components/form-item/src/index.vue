@@ -186,8 +186,8 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component } from 'vue'
-import { ref, watch, computed } from 'vue'
+import type { Component, Ref } from 'vue'
+import { ref, watch, computed, inject } from 'vue'
 import type { PlusColumn, FieldValueType, OptionsRow, RecordType } from '@plus-pro-components/types'
 import {
   isFunction,
@@ -217,7 +217,8 @@ import {
   DatePickerValueIsArrayList,
   ValueIsArrayList,
   ValueIsNumberList,
-  ValueIsBooleanList
+  ValueIsBooleanList,
+  TableFormFieldRefInjectionKey
 } from '@plus-pro-components/constants'
 import { hasFieldComponent, getFieldComponent } from './form-item'
 
@@ -284,6 +285,7 @@ const customFieldPropsIsReady = ref(false)
 const valueIsReady = ref(false)
 const labelValue = computed(() => getLabel(props.label))
 const params = computed(() => ({ ...props, label: labelValue.value }))
+const formFieldRefs = inject(TableFormFieldRefInjectionKey, {}) as unknown as Ref<any>
 
 /**
  * 默认值是数组的情况
@@ -481,6 +483,13 @@ const handleChange = (val: any) => {
 const handleSelect = ({ value }: any) => {
   handleChange(value)
 }
+
+watch(fieldInstance, () => {
+  formFieldRefs.value = {
+    fieldInstance: fieldInstance.value,
+    valueIsReady: valueIsReady
+  }
+})
 
 defineExpose({
   formItemInstance,
