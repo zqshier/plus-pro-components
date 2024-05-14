@@ -73,6 +73,16 @@ form/group
 
 :::
 
+## 动态分组表单
+
+配置 `hideInGroup` 字段，则显示分组。配置 `hideInGroup` 字段为`true`，隐藏当前分组。
+
+:::demo
+
+form/group-hide
+
+:::
+
 ## 分组表单自定义头部
 
 添加 `group-header` 插槽即可实现。

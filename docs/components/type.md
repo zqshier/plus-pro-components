@@ -483,7 +483,7 @@ export type OptionsType =
 分步表单配置项
 
 ```ts
-import type { Component } from 'vue'
+import type { Component, ComputedRef } from 'vue'
 import type { PlusColumn } from 'plus-pro-components'
 
 /**
@@ -497,6 +497,11 @@ export interface PlusFormGroupRow {
    * @version v0.1.1
    */
   cardProps?: Partial<Mutable<CardProps>>
+  /**
+   * @desc 分组表单隐藏显示Group, 默认值 false(显示状态)
+   * @version v0.1.4
+   */
+  hideInGroup?: boolean | ComputedRef<boolean>
   columns: PlusColumn[]
 }
 ```
