@@ -50,6 +50,8 @@ TS 类型 `PlusColumn`
 | `hideInTable`                                                                                | 在 [PlusPage](/components/page.html) 组件中 隐藏                                                                                                                                                              | `boolean` <docs-tip content='boolean \|  Ref<boolean> \| ComputedRef<boolean>'></docs-tip>                                              | `false`     | 否                                       |
 | `hideInSearch`                                                                               | 在 [PlusSearch](/components/search.html) 组件中 隐藏                                                                                                                                                          | `boolean` <docs-tip content='boolean \|  Ref<boolean> \| ComputedRef<boolean>'></docs-tip>                                              | `false`     | 否                                       |
 
+|
+
 ## valueType 可选的表单值
 
 | valueType 表单值                      | 对应 element-plus 的表单组件                                                             | 对应 plus-pro-components 的组件                  | 对应的表格显示                          |
