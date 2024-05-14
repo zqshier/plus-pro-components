@@ -105,6 +105,11 @@
         <template v-if="$slots['action-bar-more-icon']" #action-bar-more-icon>
           <slot name="action-bar-more-icon" />
         </template>
+
+        <!--表格单元格编辑的插槽 -->
+        <template v-if="$slots['edit-icon']" #edit-icon>
+          <slot name="edit-icon" />
+        </template>
       </PlusTable>
     </component>
   </div>
