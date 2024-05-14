@@ -110,9 +110,10 @@ export interface CommonType {
 
   /**
    * @desc 当开启时  valueType 为 `FormItemValueType` 其中之一时 表格中显示的是对应的可编辑的表单
+   * @desc 当 editable 为true 时，默认就是编辑状态；当 editable 为对象'click' | 'dblclick'时， 默认非编辑状态。
    * @default false
    */
-  editable?: boolean
+  editable?: boolean | 'click' | 'dblclick'
 
   /**
    * @desc 值的类型
