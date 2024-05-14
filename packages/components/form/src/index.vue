@@ -13,9 +13,9 @@
   >
     <slot>
       <!-- 分组表单 -->
-      <template v-if="group">
+      <template v-if="subGroup">
         <el-card
-          v-for="groupItem in group"
+          v-for="groupItem in subGroup"
           :key="groupItem.title"
           v-bind="groupItem.cardProps || cardProps"
           class="plus-form__group__item"
@@ -120,7 +120,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component } from 'vue'
+import type { Component, ComputedRef } from 'vue'
 import { ref, watch, computed, useSlots, unref } from 'vue'
 import type {
   FormInstance,
@@ -137,7 +137,8 @@ import {
   getLabelSlotName,
   getFieldSlotName,
   getExtraSlotName,
-  filterSlots
+  filterSlots,
+  isArray
 } from '@plus-pro-components/components/utils'
 import PlusFormContent from './form-content.vue'
 
@@ -152,6 +153,7 @@ export interface PlusFormGroupRow {
    * @version v0.1.1
    */
   cardProps?: Partial<Mutable<CardProps>>
+  hideInGroup?: boolean | ComputedRef<boolean>
   columns: PlusColumn[]
 }
 export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
@@ -232,6 +234,9 @@ const style = computed(() => ({
       : 'flex-end'
 }))
 const subColumns = computed<any>(() => filterHide(props.columns))
+const subGroup = computed<any>(() =>
+  isArray(props.group) ? props.group?.filter(item => unref(item.hideInGroup) !== true) : props.group
+)
 const slots = useSlots()
 /**
  * 表单label的插槽
