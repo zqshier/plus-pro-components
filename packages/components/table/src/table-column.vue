@@ -1,11 +1,15 @@
 <template>
-  <template v-for="item in columns" :key="getKey(item)">
+  <template v-for="(item, index) in columns" :key="getKey(item)">
     <el-table-column
-      class-name="plus-table-column"
+      :class-name="
+        'plus-table-column ' +
+        (hasEditIcon(item) || hasPropsEditIcon ? 'plus-table-column__edit' : '')
+      "
       v-bind="item.tableColumnProps"
       :prop="item.prop"
       :width="item.width"
       :min-width="item.minWidth"
+      :index="index"
     >
       <template #header>
         <span class="plus-table-column__header">
@@ -45,6 +49,7 @@
           :column="item"
           :row="row"
           :index="$index"
+          :editable="editable"
           @change="data => handleChange(data, $index, column, item)"
         >
           <!--表单单项的插槽 -->
@@ -70,6 +75,11 @@
           >
             <slot :name="getTableCellSlotName(item.prop)" v-bind="data" />
           </template>
+
+          <!--表格单元格编辑的插槽 -->
+          <template v-if="$slots['edit-icon']" #edit-icon>
+            <slot name="edit-icon" />
+          </template>
         </PlusDisplayItem>
       </template>
     </el-table-column>
@@ -93,12 +103,13 @@ import {
 import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import type { Ref } from 'vue'
-import { shallowRef, inject, watch } from 'vue'
+import { shallowRef, inject, watch, computed } from 'vue'
 import { PlusRender } from '@plus-pro-components/components/render'
 import { ElTableColumn, ElTooltip, ElIcon } from 'element-plus'
 
 export interface PlusTableTableColumnProps {
   columns?: PlusColumn[]
+  editable?: PlusColumn['editable']
 }
 export interface PlusTableTableColumnEmits {
   (e: 'formChange', data: { value: any; prop: string; row: any; index: number; column: any }): void
@@ -108,8 +119,9 @@ defineOptions({
   name: 'PlusTableTableColumn'
 })
 
-withDefaults(defineProps<PlusTableTableColumnProps>(), {
-  columns: () => []
+const props = withDefaults(defineProps<PlusTableTableColumnProps>(), {
+  columns: () => [],
+  editable: false
 })
 const emit = defineEmits<PlusTableTableColumnEmits>()
 
@@ -131,6 +143,13 @@ watch(plusDisplayItemInstance, (event: PlusDisplayItemInstance[]) => {
 
   formRef.value = data
 })
+
+// 是否需要editIcon
+const hasEditIcon = (item: PlusColumn) => {
+  return item.editable === 'click' || item.editable === 'dblclick'
+}
+// 是否需要editIcon
+const hasPropsEditIcon = computed(() => props.editable === 'click' || props.editable === 'dblclick')
 
 /**
  * 获取key

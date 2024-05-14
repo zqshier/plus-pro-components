@@ -1,7 +1,7 @@
 <template>
   <!-- 表单第一优先级 -->
   <PlusForm
-    v-if="isForm"
+    v-if="isEdit"
     ref="formInstance"
     v-model="modelValues"
     :model="modelValues"
@@ -125,6 +125,17 @@
 
   <!-- 没有format -->
   <span v-else class="plus-display-item" v-bind="customFieldProps">{{ displayValue }} </span>
+
+  <slot name="edit-icon">
+    <el-icon v-if="hasEditIcon && !isEdit" :size="16" class="plus-display-item__edit-icon">
+      <svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-edit-1">
+        <path
+          fill="currentColor"
+          d="M16.83 1.42l5.75 5.75L7.75 22H2v-5.75L16.83 1.42zm0 8.68l2.92-2.93-2.92-2.93-2.93 2.93 2.93 2.93zm-4.34-1.51L4 17.07V20h2.93l8.48-8.49L12.5 8.6z"
+        />
+      </svg>
+    </el-icon>
+  </slot>
 </template>
 
 <script lang="ts" setup>
@@ -158,6 +169,7 @@ export interface PlusDisplayItemProps {
   column: PlusColumn
   row: RecordType
   index?: number
+  editable?: PlusColumn['editable']
 }
 export interface PlusTableTableColumnEmits {
   (e: 'change', data: { value: FieldValueType; prop: string; row: RecordType }): void
@@ -170,18 +182,52 @@ defineOptions({
 const props = withDefaults(defineProps<PlusDisplayItemProps>(), {
   column: () => ({ prop: '', label: '' }),
   row: () => ({}),
-  index: 0
+  index: 0,
+  editable: false
 })
 const emit = defineEmits<PlusTableTableColumnEmits>()
 
-const isCellEdit = ref(false)
-const isForm = computed(() => props.column.editable === true || isCellEdit.value === true)
 const customFieldProps = ref<RecordType>({})
 const formInstance = ref()
 const { customOptions: options } = useGetOptions(props.column)
 const columns: Ref<PlusColumn[]> = ref([])
 const subRow = ref(props.row)
 const customFieldPropsIsReady = ref(false)
+const isEdit = ref(false)
+
+watch(
+  () => [props.editable, props.column.editable],
+  () => {
+    if (props.column.editable === true) {
+      isEdit.value = true
+      return
+    }
+    if (props.column.editable === false) {
+      isEdit.value = false
+      return
+    }
+
+    if (props.editable === true) {
+      isEdit.value = true
+      return
+    }
+    if (props.editable === false) {
+      isEdit.value = false
+      return
+    }
+  },
+  {
+    immediate: true
+  }
+)
+
+const hasEditIcon = computed(
+  () =>
+    props.column.editable === 'click' ||
+    props.column.editable === 'dblclick' ||
+    props.editable === 'click' ||
+    props.editable === 'dblclick'
+)
 
 /** 多层值支持 */
 const displayValue = computed({
@@ -344,11 +390,20 @@ const handleChange = (values: FieldValues) => {
 }
 
 const startCellEdit = () => {
-  isCellEdit.value = true
+  if (props.column.editable === false) {
+    isEdit.value = false
+    return
+  }
+  isEdit.value = true
 }
 
 const stopCellEdit = () => {
-  isCellEdit.value = false
+  if (props.column.editable === true) {
+    isEdit.value = true
+    return
+  }
+
+  isEdit.value = false
 }
 
 const getDisplayItemInstance = () => {

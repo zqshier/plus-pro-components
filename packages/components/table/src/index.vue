@@ -1,5 +1,5 @@
 <template>
-  <div class="plus-table">
+  <div ref="tableWrapperInstance" class="plus-table">
     <PlusTableTitleBar
       v-if="titleBar"
       :columns="columns"
@@ -47,6 +47,8 @@
       highlight-current-row
       scrollbar-always-on
       v-bind="$attrs"
+      @cell-click="handleClickCell"
+      @cell-dblclick="handleDoubleClickCell"
     >
       <!-- 选择栏 -->
       <el-table-column
@@ -87,7 +89,11 @@
       </el-table-column>
 
       <!--配置渲染栏  -->
-      <PlusTableColumn :columns="(subColumns as any)" @formChange="handleFormChange">
+      <PlusTableColumn
+        :columns="(subColumns as any)"
+        :editable="editable"
+        @formChange="handleFormChange"
+      >
         <!--表格单元格表头的插槽 -->
         <template v-for="(_, key) in headerSlots" :key="key" #[key]="data">
           <slot :name="key" v-bind="data" />
@@ -111,6 +117,11 @@
         <!-- tooltip-icon  插槽 -->
         <template v-if="$slots['tooltip-icon']" #tooltip-icon>
           <slot name="tooltip-icon" />
+        </template>
+
+        <!--表格单元格编辑的插槽 -->
+        <template v-if="$slots['edit-icon']" #edit-icon>
+          <slot name="edit-icon" />
         </template>
       </PlusTableColumn>
 
@@ -156,10 +167,25 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, watch, ref, provide, shallowRef, useSlots, unref } from 'vue'
+import {
+  reactive,
+  toRefs,
+  watch,
+  ref,
+  provide,
+  shallowRef,
+  useSlots,
+  unref,
+  onMounted,
+  onBeforeUnmount
+} from 'vue'
 import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
 import { PlusPagination } from '@plus-pro-components/components/pagination'
-import { DefaultPageInfo, TableFormRefInjectionKey } from '@plus-pro-components/constants'
+import {
+  DefaultPageInfo,
+  TableFormRefInjectionKey,
+  TableFormFieldRefInjectionKey
+} from '@plus-pro-components/constants'
 import type { CSSProperties, Ref, Component } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { TableInstance, TableProps } from 'element-plus'
@@ -225,6 +251,7 @@ export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any
   selectionTableColumnProps?: RecordType
   expandTableColumnProps?: RecordType
   indexContentStyle?: Partial<CSSProperties> | ((row: any, index: number) => Partial<CSSProperties>)
+  editable?: PlusColumn['editable']
 }
 export interface PlusTableEmits {
   (e: 'paginationChange', pageInfo: PageInfo): void
@@ -233,6 +260,9 @@ export interface PlusTableEmits {
   (e: 'dragSortEnd', newIndex: number, oldIndex: number): void
   (e: 'formChange', data: { value: any; prop: string; row: any; index: number; column: any }): void
   (e: 'refresh'): void
+  (e: 'cell-click', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
+  (e: 'cell-dblclick', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
+  (e: 'edited', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
 }
 
 defineOptions({
@@ -268,12 +298,14 @@ const props = withDefaults(defineProps<PlusTableProps>(), {
   selectionTableColumnProps: () => ({
     width: 40
   }),
-  expandTableColumnProps: () => ({})
+  expandTableColumnProps: () => ({}),
+  editable: false
 })
 const emit = defineEmits<PlusTableEmits>()
 
-const subColumns = ref([])
+const subColumns: Ref<PlusColumn[]> = ref([])
 const tableInstance = shallowRef<any>(null)
+const tableWrapperInstance = ref<any>(null)
 const state = reactive<TableState>({
   subPageInfo: {
     ...(((props.pagination as PlusPaginationProps)?.modelValue || DefaultPageInfo) as PageInfo)
@@ -307,6 +339,11 @@ const extraSlots = filterSlots(slots, getExtraSlotName())
  */
 const formRefs = shallowRef<Record<string | number, TableFormRefRow[]>>({})
 provide(TableFormRefInjectionKey, formRefs)
+/**
+ * 表单Field的ref
+ */
+const formFieldRefs = shallowRef<any>({})
+provide(TableFormFieldRefInjectionKey, formFieldRefs)
 
 // 监听配置更改
 watch(
@@ -368,6 +405,77 @@ const handleFormChange = (data: {
 }) => {
   emit('formChange', data)
 }
+
+// 保存活动的表单
+const currentForm = ref()
+
+const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
+  const rowIndex = props.tableData.indexOf(row)
+  const columnIndex = column.index
+  const columnConfig = subColumns.value[column.index]
+
+  if (columnConfig.editable === type || props.editable === type) {
+    const currentCellForm = formRefs.value[rowIndex][columnIndex]
+
+    // 停止上一个表单的编辑状态
+    if (currentForm.value) {
+      currentForm.value?.stopCellEdit()
+    }
+    currentForm.value = currentCellForm
+
+    // 开启编辑
+    currentCellForm.startCellEdit()
+
+    // 当表单初始化完成
+    watch(
+      () => formFieldRefs.value.valueIsReady,
+      val => {
+        if (val.value && formFieldRefs.value?.fieldInstance?.focus) {
+          formFieldRefs.value.fieldInstance.focus()
+        }
+      },
+      {
+        once: true
+      }
+    )
+  }
+}
+
+const handleClickCell = (row: any, column: any, cell: HTMLTableCellElement, event: Event) => {
+  handleCellEdit(row, column, 'click')
+  emit('cell-click', row, column, cell, event)
+}
+
+const handleDoubleClickCell = (row: any, column: any, cell: HTMLTableCellElement, event: Event) => {
+  handleCellEdit(row, column, 'dblclick')
+  emit('cell-dblclick', row, column, cell, event)
+}
+
+// 退出编辑状态
+const handleStopEditClick = (e: MouseEvent) => {
+  if (tableWrapperInstance.value) {
+    const tbody = tableWrapperInstance.value.querySelector('.el-table__body-wrapper')
+    const header = tableWrapperInstance.value.querySelector('.el-table__header-wrapper')
+    const footer = tableWrapperInstance.value.querySelector('.el-table__footer-wrapper')
+    const title = tableWrapperInstance.value.querySelector('.plus-table-title-bar')
+    const target = e?.target as any
+    const has =
+      target?.contains(tbody) ||
+      header?.contains(target) ||
+      footer?.contains(target) ||
+      title?.contains(target)
+    if (has) {
+      currentForm.value?.stopCellEdit()
+    }
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleStopEditClick)
+})
+onBeforeUnmount(() => {
+  document.removeEventListener('click', handleStopEditClick)
+})
 
 const { subPageInfo, size } = toRefs(state)
 
