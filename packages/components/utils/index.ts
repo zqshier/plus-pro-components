@@ -3,7 +3,15 @@ import type { FieldValueType, RecordType, PlusColumn } from '@plus-pro-component
 import { get, set } from 'lodash-es'
 import type { SetupContext } from 'vue'
 import { isRef, unref } from 'vue'
-import { isPromise, isFunction, isPlainObject, isEmptyObject, toRawType, isString } from './is'
+import {
+  isPromise,
+  isFunction,
+  isPlainObject,
+  isEmptyObject,
+  toRawType,
+  isString,
+  isBoolean
+} from './is'
 
 export * from './format'
 export * from './is'
@@ -14,7 +22,9 @@ export * from './is'
  * @returns
  */
 export const getTableKey = (item: PlusColumn, hasEditable = false) =>
-  hasEditable ? item.label + item.prop + item.editable : item.label + item.prop
+  hasEditable && isBoolean(item.editable)
+    ? item.label + item.prop + item.editable
+    : item.label + item.prop
 
 /**
  *  获取tooltip
