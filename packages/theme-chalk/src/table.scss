@@ -143,3 +143,7 @@
   border: 1px dashed getCssVar('color-primary');
   background-color: #fff;
 }
+
+@include b(table-column__edit) {
+  cursor: pointer;
+}

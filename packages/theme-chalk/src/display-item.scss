@@ -3,6 +3,9 @@
 @use 'mixins/config' as *;
 
 @include b(display-item) {
+  @include e(edit-icon, true) {
+    margin-left: 8px;
+  }
   @include e(image, true) {
     cursor: pointer;
     object-fit: cover;
