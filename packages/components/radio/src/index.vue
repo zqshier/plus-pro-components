@@ -16,10 +16,18 @@
         @change="change(item.value)"
       >
         <template #default>
-          <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+          <component
+            :is="item.fieldSlot"
+            v-if="isFunction(item.fieldSlot)"
+            :model-value="state.radio"
+            :column="props"
+            v-bind="item"
+          />
           <component
             :is="fieldChildrenSlot"
             v-else-if="isFunction(fieldChildrenSlot)"
+            :model-value="state.radio"
+            :column="props"
             v-bind="item"
           />
           <template v-else> {{ item?.label }} </template>
@@ -38,10 +46,18 @@
         @change="change(item.value)"
       >
         <template #default>
-          <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+          <component
+            :is="item.fieldSlot"
+            v-if="isFunction(item.fieldSlot)"
+            :model-value="state.radio"
+            :column="props"
+            v-bind="item"
+          />
           <component
             :is="fieldChildrenSlot"
             v-else-if="isFunction(fieldChildrenSlot)"
+            :model-value="state.radio"
+            :column="props"
             v-bind="item"
           />
           <template v-else> {{ item?.label }} </template>

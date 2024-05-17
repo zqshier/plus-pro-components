@@ -110,7 +110,7 @@
           @update:modelValue="handleChange"
         >
           <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
-            <component :is="fieldSlot" v-bind="data" />
+            <component :is="fieldSlot" :value="state" :column="params" v-bind="data" />
           </template>
 
           <component
@@ -120,10 +120,18 @@
             v-bind="getChildrenProps(item)"
           >
             <template #default>
-              <component :is="item.fieldSlot" v-if="isFunction(item.fieldSlot)" v-bind="item" />
+              <component
+                :is="item.fieldSlot"
+                v-if="isFunction(item.fieldSlot)"
+                :model-value="state"
+                :column="params"
+                v-bind="item"
+              />
               <component
                 :is="fieldChildrenSlot"
                 v-else-if="isFunction(fieldChildrenSlot)"
+                :model-value="state"
+                :column="params"
                 v-bind="item"
               />
               <template v-else> {{ item.label }} </template>
@@ -143,7 +151,7 @@
           @update:modelValue="handleChange"
         >
           <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
-            <component :is="fieldSlot" v-bind="data" />
+            <component :is="fieldSlot" :model-value="state" :column="params" v-bind="data" />
           </template>
         </component>
       </template>
@@ -178,7 +186,7 @@
         @update:modelValue="handleChange"
       >
         <template v-for="(fieldSlot, key) in fieldSlots" :key="key" #[key]="data">
-          <component :is="fieldSlot" v-bind="data" />
+          <component :is="fieldSlot" :model-value="state" :column="params" v-bind="data" />
         </template>
       </el-input>
     </el-form-item>
