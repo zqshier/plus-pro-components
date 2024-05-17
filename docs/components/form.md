@@ -75,7 +75,9 @@ form/group
 
 ## 动态分组表单
 
-配置 `hideInGroup` 字段，则显示分组。配置 `hideInGroup` 字段为`true`，隐藏当前分组。
+<el-tag>v0.1.4</el-tag>
+
+配置 [PlusFormGroupRow](/components/type.html#plusformgrouprow)[`hideInGroup`] 字段为`true`，隐藏当前分组，支持计算属性。
 
 :::demo
 

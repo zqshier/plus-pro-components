@@ -1,6 +1,11 @@
 <template>
   <div>
-    <PlusTable :columns="tableConfig" :table-data="tableData" @formChange="formChange">
+    <PlusTable
+      :columns="tableConfig"
+      :editable="editable"
+      :table-data="tableData"
+      @formChange="formChange"
+    >
       <template #plus-field-name="{ row }">
         <el-input v-model="row.name" placeholder="自定义表单" @change="handleChange" />
       </template>
@@ -44,18 +49,17 @@ const TestServe = {
 }
 const { tableData } = useTable<TableRow[]>()
 
+const editable = ref(true)
 const tableConfig = ref<PlusColumn[]>([
   {
     label: '名称',
     prop: 'name',
-    editable: true,
     width: 200
   },
   {
     label: '状态',
     prop: 'status',
     valueType: 'select',
-    editable: true,
     options: [
       {
         label: '未解决',
@@ -104,8 +108,7 @@ const tableConfig = ref<PlusColumn[]>([
     label: '时间',
     prop: 'time',
     valueType: 'date-picker',
-    width: 250,
-    editable: true
+    width: 250
   }
 ])
 
@@ -126,18 +129,6 @@ const handleChange = (data: string) => {
 }
 
 const editTable = (isEdit: boolean) => {
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  tableConfig.value = tableConfig.value.map(item => {
-    if (item.valueType === 'rate' || item.valueType === 'switch') {
-      return {
-        ...item,
-        editable: true,
-        fieldProps: { ...item.fieldProps, disabled: !isEdit }
-      }
-    } else {
-      return { ...item, editable: isEdit }
-    }
-  })
+  editable.value = isEdit
 }
 </script>

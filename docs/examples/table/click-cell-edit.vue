@@ -1,21 +1,37 @@
 <template>
   <div>
+    <el-row style="margin-bottom: 10px">
+      <el-button plain @click="handleEditable(true)">开启编辑</el-button>
+      <el-button plain @click="handleEditable(false)">关闭编辑</el-button>
+      <el-button type="primary" @click="handleEditable('click')">
+        切换点击（click）单元格开启编辑
+      </el-button>
+      <el-button type="primary" @click="handleEditable('dblclick')">
+        切换双击（dblclick）单元格开启编辑
+      </el-button>
+    </el-row>
+
+    <el-row style="margin-bottom: 10px">
+      <el-alert type="warning" :closable="false">
+        表格第一列和第二列有自己的 <code> editable</code>配置，优先级高于整体的
+        <code> editable</code>，表格整体的配置改变后对于单个的配置无效。
+      </el-alert>
+    </el-row>
+
     <PlusTable
       ref="plusTableInstance"
       :columns="tableConfig"
       :table-data="tableData"
       :editable="editable"
-      :title-bar="{
-        columnSetting: {
-          dragSort: false
-        }
-      }"
+      :title-bar="false"
       @formChange="formChange"
+      @edited="handleEdited"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ElMessage } from 'element-plus'
 import type { PlusColumn, PlusTableInstance } from 'plus-pro-components'
 import { useTable } from 'plus-pro-components'
 import { ref } from 'vue'
@@ -50,7 +66,9 @@ const TestServe = {
 const { tableData } = useTable<TableRow[]>()
 
 const plusTableInstance = ref<PlusTableInstance | null>(null)
-const editable = ref<string | boolean>('dblclick')
+
+const editable = ref<string | boolean>(false)
+
 const tableConfig = ref<PlusColumn[]>([
   {
     label: '名称',
@@ -69,7 +87,9 @@ const tableConfig = ref<PlusColumn[]>([
           }
         ]
       }
-    }
+    },
+    // 优先级高于表格整体配置
+    editable: false
   },
   {
     label: '状态',
@@ -97,18 +117,8 @@ const tableConfig = ref<PlusColumn[]>([
         color: 'red'
       }
     ],
-    formProps: {
-      // 添加校验
-      rules: {
-        status: [
-          {
-            required: true,
-            trigger: 'change',
-            message: '请选择状态'
-          }
-        ]
-      }
-    }
+    // 优先级高于表格整体配置
+    editable: true
   },
   {
     label: '评分',
@@ -138,17 +148,6 @@ const tableConfig = ref<PlusColumn[]>([
       placeholder: '请选择日期',
       format: 'YYYY-MM-DD',
       valueFormat: 'YYYY-MM-DD'
-    },
-    formProps: {
-      // 添加校验
-      rules: {
-        time: [
-          {
-            required: true,
-            message: '请选择日期'
-          }
-        ]
-      }
     }
   }
 ])
@@ -162,6 +161,14 @@ const getList = async () => {
 getList()
 
 const formChange = (e: any) => {
-  console.log(e, 'e')
+  console.log(e, 'formChange')
+}
+const handleEditable = (_editable: boolean | 'click' | 'dblclick') => {
+  editable.value = _editable
+}
+
+// 当表格的editable值为'click'或'dblclick'退出编辑状态时触发
+const handleEdited = () => {
+  ElMessage.success('退出编辑了')
 }
 </script>

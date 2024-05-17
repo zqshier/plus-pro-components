@@ -3,7 +3,7 @@
     <PlusTable ref="plusTableInstance" :columns="tableConfig" :table-data="tableData" />
 
     <el-row class="mgt-10">
-      <el-button class="mgb-10" click="handleStart(0)"> 开启第一行编辑 </el-button>
+      <el-button class="mgb-10" @click="handleStart(0)"> 开启第一行编辑 </el-button>
       <el-button class="mgb-10" @click="handleStop(0)"> 关闭第一行编辑 </el-button>
 
       <el-button class="mgb-10" @click="handleStart(2)"> 开启第三行编辑 </el-button>
