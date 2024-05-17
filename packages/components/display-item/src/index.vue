@@ -5,7 +5,7 @@
     ref="formInstance"
     v-model="modelValues"
     :model="modelValues"
-    :columns="columns as  PlusColumn[]"
+    :columns="columns"
     :has-footer="false"
     :has-label="false"
     v-bind="column.formProps"
@@ -94,12 +94,17 @@
     <component
       :is="isTagAndNoValue ? 'span' : displayComponent.component"
       v-if="displayComponent.hasSlots"
-      class="plus-display-item"
-      :class="displayComponent.class"
+      :class="['plus-display-item', displayComponent.class]"
       v-bind="displayComponentProps"
     >
       <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-        <component :is="fieldSlot" v-bind="data" />
+        <component
+          :is="fieldSlot"
+          :value="displayValue"
+          :column="column"
+          :row="subRow"
+          v-bind="data"
+        />
       </template>
       {{ column.valueType === 'link' ? column.linkText || displayValue : displayValue }}
     </component>
@@ -107,7 +112,7 @@
     <component
       :is="displayComponent.component"
       v-else
-      :class="displayComponent.class"
+      :class="['plus-display-item', displayComponent.class]"
       v-bind="displayComponentProps"
     >
       {{ displayComponent.format ? displayComponent.format(displayValue) : displayValue }}
@@ -127,8 +132,20 @@
   <span v-else class="plus-display-item" v-bind="customFieldProps">{{ displayValue }} </span>
 
   <slot name="edit-icon">
-    <el-icon v-if="hasEditIcon && !isEdit" :size="16" class="plus-display-item__edit-icon">
-      <svg fill="none" viewBox="0 0 24 24" width="1em" height="1em" class="t-icon t-icon-edit-1">
+    <el-icon
+      v-if="hasEditIcon && !isEdit"
+      :size="16"
+      class="plus-display-item__edit-icon"
+      pointer-events="none"
+    >
+      <svg
+        fill="none"
+        viewBox="0 0 24 24"
+        width="1em"
+        height="1em"
+        class="t-icon t-icon-edit-1"
+        pointer-events="none"
+      >
         <path
           fill="currentColor"
           d="M16.83 1.42l5.75 5.75L7.75 22H2v-5.75L16.83 1.42zm0 8.68l2.92-2.93-2.92-2.93-2.93 2.93 2.93 2.93zm-4.34-1.51L4 17.07V20h2.93l8.48-8.49L12.5 8.6z"
@@ -169,7 +186,7 @@ export interface PlusDisplayItemProps {
   column: PlusColumn
   row: RecordType
   index?: number
-  editable?: PlusColumn['editable']
+  editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableTableColumnEmits {
   (e: 'change', data: { value: FieldValueType; prop: string; row: RecordType }): void
@@ -194,6 +211,7 @@ const columns: Ref<PlusColumn[]> = ref([])
 const subRow = ref(props.row)
 const customFieldPropsIsReady = ref(false)
 const isEdit = ref(false)
+const falseArray = [false, 'click', 'dblclick']
 
 watch(
   () => [props.editable, props.column.editable],
@@ -211,7 +229,7 @@ watch(
       isEdit.value = true
       return
     }
-    if (props.editable === false) {
+    if (falseArray.includes(props.editable)) {
       isEdit.value = false
       return
     }
@@ -223,10 +241,7 @@ watch(
 
 const hasEditIcon = computed(
   () =>
-    props.column.editable === 'click' ||
-    props.column.editable === 'dblclick' ||
-    props.editable === 'click' ||
-    props.editable === 'dblclick'
+    (props.editable === 'click' || props.editable === 'dblclick') && props.column.editable !== false
 )
 
 /** 多层值支持 */
@@ -402,7 +417,6 @@ const stopCellEdit = () => {
     isEdit.value = true
     return
   }
-
   isEdit.value = false
 }
 
