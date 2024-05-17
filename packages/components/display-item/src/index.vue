@@ -269,7 +269,11 @@ const modelValues = computed({
 /**
  * tag 没有值的时候不渲染
  */
-const isTagAndNoValue = computed(() => props.column.valueType === 'tag' && !displayValue.value)
+const isTagAndNoValue = computed(
+  () =>
+    props.column.valueType === 'tag' &&
+    (displayValue.value === undefined || displayValue.value === null || displayValue.value === '')
+)
 
 const params = computed(() => ({
   row: subRow.value,
