@@ -1,10 +1,7 @@
 <template>
   <template v-for="(item, index) in columns" :key="getKey(item)">
     <el-table-column
-      :class-name="
-        'plus-table-column ' +
-        (hasEditIcon(item) || hasPropsEditIcon ? 'plus-table-column__edit' : '')
-      "
+      :class-name="'plus-table-column ' + (hasPropsEditIcon ? 'plus-table-column__edit' : '')"
       v-bind="item.tableColumnProps"
       :prop="item.prop"
       :width="item.width"
@@ -109,7 +106,7 @@ import { ElTableColumn, ElTooltip, ElIcon } from 'element-plus'
 
 export interface PlusTableTableColumnProps {
   columns?: PlusColumn[]
-  editable?: PlusColumn['editable']
+  editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableTableColumnEmits {
   (e: 'formChange', data: { value: any; prop: string; row: any; index: number; column: any }): void
@@ -144,10 +141,6 @@ watch(plusDisplayItemInstance, (event: PlusDisplayItemInstance[]) => {
   formRef.value = data
 })
 
-// 是否需要editIcon
-const hasEditIcon = (item: PlusColumn) => {
-  return item.editable === 'click' || item.editable === 'dblclick'
-}
 // 是否需要editIcon
 const hasPropsEditIcon = computed(() => props.editable === 'click' || props.editable === 'dblclick')
 

@@ -167,18 +167,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  reactive,
-  toRefs,
-  watch,
-  ref,
-  provide,
-  shallowRef,
-  useSlots,
-  unref,
-  onMounted,
-  onBeforeUnmount
-} from 'vue'
+import { reactive, toRefs, watch, ref, provide, shallowRef, useSlots, unref } from 'vue'
 import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
 import { PlusPagination } from '@plus-pro-components/components/pagination'
 import {
@@ -197,7 +186,8 @@ import {
   getTableHeaderSlotName,
   getFieldSlotName,
   getExtraSlotName,
-  filterSlots
+  filterSlots,
+  isSVGElement
 } from '@plus-pro-components/components/utils'
 import { default as PlusTableActionBarComponent } from './table-action-bar.vue'
 import { default as PlusTableColumnComponent } from './table-column.vue'
@@ -217,6 +207,10 @@ import type {
  */
 export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any>> {
   [index: string]: any
+  /* 表格数据*/
+  tableData: RecordType[]
+  /* 表格配置信息*/
+  columns: PlusColumn[]
   // 密度
   defaultSize?: ComponentSize
   /* 分页参数*/
@@ -236,10 +230,6 @@ export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any
   /* 表格高度*/
   // eslint-disable-next-line vue/require-default-prop
   height?: string
-  /* 表格数据*/
-  tableData: any[]
-  /* 表格配置信息*/
-  columns: PlusColumn[]
   /* 表格头样式*/
   headerCellStyle?: Partial<CSSProperties>
   /** rowKey */
@@ -251,7 +241,7 @@ export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any
   selectionTableColumnProps?: RecordType
   expandTableColumnProps?: RecordType
   indexContentStyle?: Partial<CSSProperties> | ((row: any, index: number) => Partial<CSSProperties>)
-  editable?: PlusColumn['editable']
+  editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableEmits {
   (e: 'paginationChange', pageInfo: PageInfo): void
@@ -262,7 +252,7 @@ export interface PlusTableEmits {
   (e: 'refresh'): void
   (e: 'cell-click', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
   (e: 'cell-dblclick', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
-  (e: 'edited', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
+  (e: 'edited'): void
 }
 
 defineOptions({
@@ -414,7 +404,12 @@ const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
   const columnIndex = column.index
   const columnConfig = subColumns.value[column.index]
 
-  if (columnConfig.editable === type || props.editable === type) {
+  // 不是可编辑行，如操作栏
+  if (!columnConfig) return
+
+  if (props.editable === type) {
+    document.addEventListener('click', handleStopEditClick)
+
     const currentCellForm = formRefs.value[rowIndex][columnIndex]
 
     // 停止上一个表单的编辑状态
@@ -423,19 +418,22 @@ const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
     }
     currentForm.value = currentCellForm
 
-    // 开启编辑
+    // 开启当前点击的单元格的编辑
     currentCellForm.startCellEdit()
 
     // 当表单初始化完成
-    watch(
+    const unwatch = watch(
       () => formFieldRefs.value.valueIsReady,
       val => {
-        if (val.value && formFieldRefs.value?.fieldInstance?.focus) {
+        if (
+          val.value &&
+          formFieldRefs.value?.fieldInstance?.focus &&
+          (props.editable === 'click' || props.editable === 'dblclick')
+        ) {
           formFieldRefs.value.fieldInstance.focus()
+          // 销毁监听
+          unwatch()
         }
-      },
-      {
-        once: true
       }
     )
   }
@@ -453,29 +451,20 @@ const handleDoubleClickCell = (row: any, column: any, cell: HTMLTableCellElement
 
 // 退出编辑状态
 const handleStopEditClick = (e: MouseEvent) => {
-  if (tableWrapperInstance.value) {
-    const tbody = tableWrapperInstance.value.querySelector('.el-table__body-wrapper')
-    const header = tableWrapperInstance.value.querySelector('.el-table__header-wrapper')
-    const footer = tableWrapperInstance.value.querySelector('.el-table__footer-wrapper')
-    const title = tableWrapperInstance.value.querySelector('.plus-table-title-bar')
+  if (tableWrapperInstance.value && currentForm.value) {
+    const wrapperClass = '.el-table__body-wrapper'
+    const tbody = tableWrapperInstance.value.querySelector(wrapperClass)
     const target = e?.target as any
-    const has =
-      target?.contains(tbody) ||
-      header?.contains(target) ||
-      footer?.contains(target) ||
-      title?.contains(target)
-    if (has) {
+    const cls = Array.from(target.classList).join('.')
+    const tempCls = cls ? `.${cls}` : ''
+    const contains = tempCls && tbody.querySelector(tempCls)
+    if (!contains && !isSVGElement(target)) {
       currentForm.value?.stopCellEdit()
+      emit('edited')
+      document.removeEventListener('click', handleStopEditClick)
     }
   }
 }
-
-onMounted(() => {
-  document.addEventListener('click', handleStopEditClick)
-})
-onBeforeUnmount(() => {
-  document.removeEventListener('click', handleStopEditClick)
-})
 
 const { subPageInfo, size } = toRefs(state)
 
