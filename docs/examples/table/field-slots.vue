@@ -79,7 +79,7 @@ const columns: PlusColumn[] = [
     prop: 'progress',
     valueType: 'progress',
     fieldProps: value => ({
-      status: value === 30 ? 'success' : 'info'
+      status: value === 30 ? 'success' : 'warning'
     }),
     fieldSlots: {
       default: ({ value }) => (value > 30 ? '高' : '低')
