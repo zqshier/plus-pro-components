@@ -28,7 +28,8 @@ const TestServe = {
             ? 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
             : '',
         link: String(index % 3),
-        progress: (index + 1) * 30
+        progress: (index + 1) * 30,
+        tag: index
       }
     })
     return {
@@ -50,7 +51,7 @@ const columns: PlusColumn[] = [
       }
     },
     fieldSlots: {
-      error: () => h(ElEmpty, { width: '100%', description: '图片坏了' })
+      error: () => h(ElEmpty, { description: '图片坏了' })
     }
   },
   {
@@ -58,16 +59,30 @@ const columns: PlusColumn[] = [
     prop: 'link',
     valueType: 'link',
     fieldSlots: {
-      default: () => h('div', null, '按钮'),
+      default: () => '按钮',
       icon: () => h(ElIcon, null, () => h(Link))
+    }
+  },
+  {
+    label: 'tag',
+    prop: 'tag',
+    valueType: 'tag',
+    fieldProps: value => ({
+      type: value === 0 ? 'success' : 'info'
+    }),
+    fieldSlots: {
+      default: ({ value }) => (value === 0 ? '开启' : '关闭')
     }
   },
   {
     label: 'progress',
     prop: 'progress',
     valueType: 'progress',
+    fieldProps: value => ({
+      status: value === 30 ? 'success' : 'info'
+    }),
     fieldSlots: {
-      default: () => h('div', null, '默认')
+      default: ({ value }) => (value > 30 ? '高' : '低')
     }
   }
 ]

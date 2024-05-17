@@ -145,6 +145,29 @@ table/expand
 
 :::
 
+## 表格显示单项插槽配置
+
+组件提供 `fieldSlots` 对象可以简易配置表格显示单项插槽， `fieldSlots` 的插槽配置是根据表格的 [valueType](/components/config.html#valuetype-可选的显示值) 自动进行匹配的，
+如：
+
+- `valueType` 是 `img` ，`fieldSlots`的插槽就是给 [ElImage](https://element-plus.org/zh-CN/component/image.html#image-slots)的。
+- `valueType` 是 `link`时，`fieldSlots`的插槽就是给 [ElLink](https://element-plus.org/zh-CN/component/link.html#slots)的。
+- `valueType` 是 `tag`时，`fieldSlots`的插槽就是给 [ElTag](https://element-plus.org/zh-CN/component/tag.html#slots)的。
+- 其他以此类推
+
+要实现更强大的自定义，请使用[自定义表格项](/components/table.html#自定义表格项和表单项-插槽)。
+
+::: warning 注意
+
+valueType 的值对应的组件不是 element-plus 组件时，`fieldSlots`不生效，或者组件本身没有插槽时也不生效。
+:::
+
+:::demo
+
+table/field-slots
+
+:::
+
 ## 可编辑表格 (整体)
 
 <el-tag>v0.1.4</el-tag> 更新
@@ -202,28 +225,6 @@ table/hand-edit
 :::demo
 
 table/click-cell-edit
-
-:::
-
-## 表格显示单项插槽配置
-
-组件提供 `fieldSlots` 对象可以简易配置表格显示单项插槽， `fieldSlots` 的插槽配置是根据表格的 [valueType](/components/config.html#valuetype-可选的显示值) 自动进行匹配的，
-如：
-
-- `valueType` 是 `img` ，`fieldSlots`的插槽就是给 [ElImage](https://element-plus.org/zh-CN/component/image.html#image-slots)的。
-- `valueType` 是 `link`时，`fieldSlots`的插槽就是给 [ElLink](https://element-plus.org/zh-CN/component/link.html#slots)的。
-- 其他以此类推
-
-要实现更强大的自定义，请使用[自定义表格项](/components/table.html#自定义表格项和表单项-插槽)。
-
-::: warning 注意
-
-valueType 的值对应的组件不是 element-plus 组件时，`fieldSlots`不生效，或者组件本身没有插槽时也不生效。
-:::
-
-:::demo
-
-table/field-slots
 
 :::
 
