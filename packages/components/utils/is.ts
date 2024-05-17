@@ -127,3 +127,11 @@ export function isUrl(url: string) {
   )
   return regex.test(url)
 }
+
+/**
+ * 是否是SVGElement
+ * @param tag
+ * @returns
+ */
+export const isSVGElement = (tag: any) =>
+  typeof SVGElement !== 'undefined' && tag instanceof SVGElement
