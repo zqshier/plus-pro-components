@@ -1,3 +1,32 @@
+## [v0.1.4](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.3...v0.1.4) (2024-05-17)
+
+### ✨ Features
+
+- **components:** :sparkles: update edit-icon show method([bf32bfd](https://github.com/plus-pro-components/plus-pro-components/commit/bf32bfd)) by@xiaofei
+- **components:** :sparkles: fieldSlots and fieldSlot,fieldChildrenSlot add params support([407b5bd](https://github.com/plus-pro-components/plus-pro-components/commit/407b5bd)) by@xiaofei
+- **components:** :sparkles: update table editable([cb89776](https://github.com/plus-pro-components/plus-pro-components/commit/cb89776)) by@xiaofei
+- **components:** :sparkles: utils add isSVGElement method([426ebfb](https://github.com/plus-pro-components/plus-pro-components/commit/426ebfb)) by@xiaofei
+- **types:** :sparkles: update PlusColumn['editable'] type([34de7fc](https://github.com/plus-pro-components/plus-pro-components/commit/34de7fc)) by@xiaofei
+- **all:** Merge branch 'dev' of https://github.com/plus-pro-components/plus-pro-components into dev([98b721a](https://github.com/plus-pro-components/plus-pro-components/commit/98b721a)) by@xiaofei
+- **constants:** :sparkles: constants add TableFormFieldRefInjectionKey([13885e0](https://github.com/plus-pro-components/plus-pro-components/commit/13885e0)) by@xiaofei
+- **components:** :sparkles: update getTableKey method([f1ee4ce](https://github.com/plus-pro-components/plus-pro-components/commit/f1ee4ce)) by@xiaofei
+- **components:** :sparkles: page component add edit-icon slot([2408b6d](https://github.com/plus-pro-components/plus-pro-components/commit/2408b6d)) by@xiaofei
+- **components:** :sparkles: add formFieldRefs inject([8385020](https://github.com/plus-pro-components/plus-pro-components/commit/8385020)) by@xiaofei
+- **components:** :sparkles: add table cell click edit([52e202c](https://github.com/plus-pro-components/plus-pro-components/commit/52e202c)) by@xiaofei
+- **theme-chalk:** :sparkles: table.scss and display-item.scss add edit,eidt-icon style([9be1779](https://github.com/plus-pro-components/plus-pro-components/commit/9be1779)) by@xiaofei
+- **types:** :sparkles: plusColumn['editable'] add 'click' | 'dblclick' types([8fca69b](https://github.com/plus-pro-components/plus-pro-components/commit/8fca69b)) by@xiaofei
+- **all:** Merge pull request [#148](https://github.com/plus-pro-components/plus-pro-components/pull/148) from plus-pro-components/zpp([242fc7c](https://github.com/plus-pro-components/plus-pro-components/commit/242fc7c)) by@xiaofei
+- **components:** :sparkles: form add hideInGroup([a08a725](https://github.com/plus-pro-components/plus-pro-components/commit/a08a725)) by@zpx
+- **components:** :sparkles: plusSearch add order support([e5546a6](https://github.com/plus-pro-components/plus-pro-components/commit/e5546a6)) by@xiaofei
+- **types:** :sparkles: PlusColumn add order support([e0ed672](https://github.com/plus-pro-components/plus-pro-components/commit/e0ed672)) by@xiaofei
+- **locale:** :sparkles: update japanese language pack([e375891](https://github.com/plus-pro-components/plus-pro-components/commit/e375891)) by@xiaofei
+- **all:** Merge pull request [#145](https://github.com/plus-pro-components/plus-pro-components/pull/145) from yymjku18/add-lang-ja([bb59bfe](https://github.com/plus-pro-components/plus-pro-components/commit/bb59bfe)) by@xiaofei
+- **all:** [国际化]添加日语语言包([8888ce5](https://github.com/plus-pro-components/plus-pro-components/commit/8888ce5)) by@maojunkun
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: fix isTagAndNoValue not value status([f985503](https://github.com/plus-pro-components/plus-pro-components/commit/f985503)) by@xiaofei
+
 ## [v0.1.3](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.2...v0.1.3) (2024-05-09)
 
 ## [v0.1.2](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.1...v0.1.2) (2024-05-09)
