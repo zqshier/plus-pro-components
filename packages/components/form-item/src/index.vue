@@ -225,7 +225,6 @@ import {
   DatePickerValueIsArrayList,
   ValueIsArrayList,
   ValueIsNumberList,
-  ValueIsBooleanList,
   TableFormFieldRefInjectionKey
 } from '@plus-pro-components/constants'
 import { hasFieldComponent, getFieldComponent } from './form-item'
@@ -335,16 +334,6 @@ const isNumberValue = computed(() => {
 })
 
 /**
- * 默认值是布尔的情况
- */
-const isBooleanValue = computed(() => {
-  if (ValueIsBooleanList.includes(props.valueType as string)) {
-    return true
-  }
-  return false
-})
-
-/**
  * 设置表单值（默认值）
  * @param val
  */
@@ -362,8 +351,6 @@ const setValue = (val: any) => {
     }
   } else if (isNumberValue.value) {
     state.value = Number(val)
-  } else if (isBooleanValue.value) {
-    state.value = Boolean(val)
   } else if (isDate(val)) {
     state.value = String(val)
   } else {
