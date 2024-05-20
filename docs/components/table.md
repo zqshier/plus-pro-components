@@ -127,7 +127,12 @@ table/multiple
 ## 树形结构
 
 配置`tree-props`树形为`children: 'children'`，数据结构中有 children 即可。
-树形懒加载表格还需设置`lazy`，`load`。注意：`children`中的`id`和表格`id`不能重复。`row-key`默认值`id`。
+树形懒加载表格还需设置`lazy`，`load`。
+
+::: warning 注意
+
+数据中 `children`中的`id`和表格`id`不能重复。`row-key`默认为`id`。
+:::
 
 :::demo
 

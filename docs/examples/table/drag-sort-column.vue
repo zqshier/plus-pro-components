@@ -1,4 +1,5 @@
 <template>
+  <el-divider style="margin-top: 10px"> 可通过列设置拖拽排序列</el-divider>
   <PlusTable
     :columns="tableConfig"
     :table-data="tableData"
@@ -11,6 +12,8 @@
       }
     }"
   />
+
+  <el-divider style="margin: 24px 0 10px"> 去除了列设置拖拽排序列</el-divider>
   <PlusTable
     :columns="tableConfig"
     :table-data="tableData"
