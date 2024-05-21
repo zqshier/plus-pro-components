@@ -168,8 +168,6 @@ const originData = computed<PlusColumn[]>(() => {
   return orderBy(filterData, ['order'], ['desc'])
 })
 
-console.log(originData, 'originData')
-
 const subColumns = computed<PlusColumn[]>(() => {
   if (props.hasUnfold && !isShowUnfold.value) {
     return originData.value.slice(0, props.showNumber)
