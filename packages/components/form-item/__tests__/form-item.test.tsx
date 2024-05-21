@@ -1,4 +1,4 @@
-import { nextTick, ref, h } from 'vue'
+import { nextTick, ref, h, unref } from 'vue'
 import ElementPlus, { ElButton, ElIcon, ElSelect, ElOption } from 'element-plus'
 import { Search } from '@element-plus/icons-vue'
 import { mount } from '@vue/test-utils'
@@ -311,7 +311,7 @@ describe('form-item/index.vue', () => {
         <div class="container">
           {columns.map(item => (
             <FormItem
-              key={item.label}
+              key={unref(item.label)}
               modelValue={values.value[item.prop]}
               label={item.label}
               prop={item.prop}
@@ -508,7 +508,7 @@ describe('form-item/index.vue', () => {
       link: string
     }
 
-    const values = ref<FieldValueType>('')
+    const values = ref<any>({ switch: false })
     const restaurants = ref<RestaurantItem[]>([])
     const querySearch = (queryString: string, cb: any) => {
       const results = queryString
@@ -677,7 +677,7 @@ describe('form-item/index.vue', () => {
     const wrapper = mount(
       () => {
         return columns.map(column => (
-          <FormItem key={column.prop} modelValue={values.value} {...column} />
+          <FormItem key={column.prop} modelValue={values.value[column.prop]} {...column} />
         ))
       },
       {
