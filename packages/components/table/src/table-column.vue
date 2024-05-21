@@ -100,7 +100,7 @@ import {
 import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import type { Ref } from 'vue'
-import { shallowRef, inject, watch, computed } from 'vue'
+import { ref, inject, watch, computed } from 'vue'
 import { PlusRender } from '@plus-pro-components/components/render'
 import { ElTableColumn, ElTooltip, ElIcon } from 'element-plus'
 
@@ -125,12 +125,18 @@ const emit = defineEmits<PlusTableTableColumnEmits>()
 /**
  *  表单ref处理
  */
-const plusDisplayItemInstance = shallowRef()
+const plusDisplayItemInstance = ref<PlusDisplayItemInstance[] | null>()
 const formRef = inject(TableFormRefInjectionKey) as Ref<any>
 
-watch(plusDisplayItemInstance, (event: PlusDisplayItemInstance[]) => {
+/**
+ *  设置表单ref
+ */
+const setFormRef = () => {
+  if (!plusDisplayItemInstance.value?.length) return
   const data: any = {}
-  const list: any[] = event?.map(item => ({ ...item, ...item?.getDisplayItemInstance() })) || []
+  const list: any[] =
+    plusDisplayItemInstance.value?.map(item => ({ ...item, ...item?.getDisplayItemInstance() })) ||
+    []
   list.forEach(item => {
     if (!data[item.index]) {
       data[item.index] = []
@@ -139,7 +145,17 @@ watch(plusDisplayItemInstance, (event: PlusDisplayItemInstance[]) => {
   })
 
   formRef.value = data
-})
+}
+
+watch(
+  plusDisplayItemInstance,
+  () => {
+    setFormRef()
+  },
+  {
+    deep: true
+  }
+)
 
 // 是否需要editIcon
 const hasPropsEditIcon = computed(() => props.editable === 'click' || props.editable === 'dblclick')
