@@ -1,5 +1,9 @@
 <template>
   <div>
+    <el-button type="primary" @click="handleAdd">新增数据</el-button>
+
+    <el-button type="danger" @click="handleDelete">移除数据</el-button>
+
     <PlusTable
       :columns="tableConfig"
       :table-data="tableData"
@@ -24,7 +28,7 @@ interface TableRow {
   status: string
   rate: number
   switch: boolean
-  time: string
+  time: string | Date
 }
 
 const TestServe = {
@@ -173,6 +177,23 @@ const getList = async () => {
 }
 getList()
 
+const handleAdd = () => {
+  const index = ((tableData.value.at(-1)?.id as number) || 0) + 1
+  tableData.value.push({
+    id: index,
+    name: {
+      name: index < 2 ? '' : index + 'name'
+    },
+    status: String(index % 3),
+    rate: index > 3 ? 2 : 3.5,
+    switch: index % 2 === 0 ? true : false,
+    time: index < 2 ? '' : new Date()
+  })
+}
+
+const handleDelete = () => {
+  tableData.value.pop()
+}
 const formChange = (data: { value: any; prop: string; row: any; index: number; column: any }) => {
   console.log(data)
 }

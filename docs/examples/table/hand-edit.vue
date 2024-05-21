@@ -3,6 +3,9 @@
     <PlusTable ref="plusTableInstance" :columns="tableConfig" :table-data="tableData" />
 
     <el-row class="mgt-10">
+      <el-button type="primary" @click="handleAdd">新增数据</el-button>
+      <el-button type="danger" @click="handleDelete">移除数据</el-button>
+
       <el-button class="mgb-10" @click="handleStart(0)"> 开启第一行编辑 </el-button>
       <el-button class="mgb-10" @click="handleStop(0)"> 关闭第一行编辑 </el-button>
 
@@ -26,7 +29,7 @@ interface TableRow {
   status: string
   rate: number
   switch: boolean
-  time: string
+  time: string | Date
 }
 
 const TestServe = {
@@ -149,13 +152,29 @@ const getList = async () => {
 }
 getList()
 
+const handleAdd = () => {
+  const index = ((tableData.value.at(-1)?.id as number) || 0) + 1
+  tableData.value.push({
+    id: index,
+    name: index < 2 ? '' : index + 'name',
+    status: String(index % 3),
+    rate: index > 3 ? 2 : 3.5,
+    switch: index % 2 === 0 ? true : false,
+    time: index < 2 ? '' : new Date()
+  })
+}
+
+const handleDelete = () => {
+  tableData.value.pop()
+}
+
 const handleStart = (index: number, prop?: string) => {
   if (plusTableInstance.value?.formRefs) {
     let cell = Reflect.get(plusTableInstance.value?.formRefs, index) as TableFormRefRow[]
     if (prop) {
       cell = cell.filter(item => item.prop === prop)
     }
-    cell.forEach(item => {
+    cell?.forEach(item => {
       item.startCellEdit()
     })
   }
@@ -167,7 +186,7 @@ const handleStop = (index: number, prop?: string) => {
     if (prop) {
       cell = cell.filter(item => item.prop === prop)
     }
-    cell.forEach(item => {
+    cell?.forEach(item => {
       item.stopCellEdit()
     })
   }
