@@ -124,11 +124,10 @@ import type {
   FieldValues
 } from '@plus-pro-components/types'
 import type { PlusSearchProps, PlusSearchInstance } from '@plus-pro-components/components/search'
-import { PlusSearch as PlusSearchComponent } from '@plus-pro-components/components/search'
+import { PlusSearch } from '@plus-pro-components/components/search'
 import type { PlusTableProps, PlusTableInstance } from '@plus-pro-components/components/table'
-import { PlusTable as PlusTableComponent } from '@plus-pro-components/components/table'
+import { PlusTable } from '@plus-pro-components/components/table'
 import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
-import type { Component } from 'vue'
 import { h, ref, useSlots, computed } from 'vue'
 import type { CardProps } from 'element-plus'
 import { ElCard } from 'element-plus'
@@ -205,7 +204,7 @@ export interface PlusPageProps {
   /**
    * 搜索与表格分割线
    */
-  dividerProps?: false | RecordType
+  dividerProps?: false | Partial<RecordType>
 
   /**
    * 可以修改默认的分页参数
@@ -213,13 +212,17 @@ export interface PlusPageProps {
   pageInfoMap?: { page?: string; pageSize?: string }
 }
 export interface PlusPageEmits {
+  (e: 'search', data: FieldValues): void
+  (e: 'reset', data: FieldValues): void
+  (e: 'paginationChange', pageInfo: PageInfo): void
   /**
    * 数据加载失败时触发
    */
   (e: 'requestError', error: any): void
-  (e: 'search', data: FieldValues): void
-  (e: 'reset', data: FieldValues): void
-  (e: 'paginationChange', pageInfo: PageInfo): void
+  /**
+   * 数据加载完成时触发
+   */
+  (e: 'requestComplete', tableData: any[]): void
 }
 
 defineOptions({
@@ -251,12 +254,7 @@ const props = withDefaults(defineProps<PlusPageProps>(), {
   })
 })
 const emit = defineEmits<PlusPageEmits>()
-
-/**
- * FIXME: The inferred type of this node exceeds the maximum length the compiler will serialize. An explicit type annotation is needed.
- */
-const PlusSearch: Component = PlusSearchComponent
-const PlusTable: Component = PlusTableComponent
+const slots = useSlots()
 
 const computedDefaultPageInfo = computed(() => props.defaultPageInfo)
 const computedDefaultPageSizeList = computed(() => props.defaultPageSizeList)
@@ -265,7 +263,7 @@ const { tableData, pageInfo, total, loadingStatus } = useTable(computedDefaultPa
 const plusSearchInstance = ref<PlusSearchInstance | null>(null)
 const plusTableInstance = ref<PlusTableInstance | null>(null)
 const values = ref<FieldValues>({ ...(props.search as Partial<PlusSearchProps>)?.defaultValues })
-const slots = useSlots()
+
 /**
  * 表格单元格的插槽
  */
@@ -307,6 +305,7 @@ const getList = async () => {
     const list = (props.postData && props.postData(data)) || data
     tableData.value = list || []
     total.value = dataTotal || list.length
+    emit('requestComplete', tableData.value)
   } catch (error: any) {
     emit('requestError', error)
   }
@@ -320,7 +319,6 @@ if (props.immediate) {
 const handlePaginationChange = (_pageInfo: PageInfo): void => {
   pageInfo.value = _pageInfo
   getList()
-
   emit('paginationChange', _pageInfo)
 }
 
