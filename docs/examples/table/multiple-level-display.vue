@@ -7,6 +7,7 @@
 <script lang="ts" setup>
 import { useTable } from 'plus-pro-components'
 import type { PlusColumn } from 'plus-pro-components'
+import { set } from 'lodash-es'
 
 const TestServe = {
   getList: async () => {
@@ -69,7 +70,8 @@ const getList = async () => {
 }
 getList()
 
-const handleChange = (values: any) => {
-  console.log(values)
+const handleChange = ({ index, prop, value }: any) => {
+  set(tableData.value[index], prop, value)
+  console.log(tableData.value)
 }
 </script>
