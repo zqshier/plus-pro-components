@@ -156,6 +156,7 @@
 </template>
 
 <script lang="ts" setup>
+import { cloneDeep } from 'lodash-es'
 import { DocumentCopy, Select } from '@element-plus/icons-vue'
 import { PlusForm } from '@plus-pro-components/components/form'
 import {
@@ -208,7 +209,7 @@ const customFieldProps = ref<RecordType>({})
 const formInstance = ref()
 const { customOptions: options } = useGetOptions(props.column)
 const columns: Ref<PlusColumn[]> = ref([])
-const subRow = ref(props.row)
+const subRow = ref(cloneDeep(props.row))
 const customFieldPropsIsReady = ref(false)
 const isEdit = ref(false)
 const falseArray = [false, 'click', 'dblclick']
@@ -405,7 +406,12 @@ const handelClickCopy = (item: PlusColumn, row: RecordType) => {
 }
 
 const handleChange = (values: FieldValues) => {
-  emit('change', { value: values[props.column.prop], prop: props.column.prop, row: subRow })
+  emit('change', {
+    value: values[props.column.prop],
+    prop: props.column.prop,
+    // 兼容 value 代码
+    row: { value: subRow.value, ...subRow.value }
+  })
 }
 
 const startCellEdit = () => {
