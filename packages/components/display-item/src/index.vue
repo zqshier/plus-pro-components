@@ -115,7 +115,14 @@
       :class="['plus-display-item', displayComponent.class]"
       v-bind="displayComponentProps"
     >
-      {{ displayComponent.format ? displayComponent.format(displayValue) : displayValue }}
+      {{
+        displayComponent.format
+          ? displayComponent.format(
+              displayValue,
+              displayComponentProps?.format || displayComponentProps?.valueFormat
+            )
+          : displayValue
+      }}
     </component>
   </template>
 
@@ -310,7 +317,7 @@ const getStatus = computed(() => {
 
 const displayComponent = computed(() => getDisplayComponent(props.column.valueType))
 
-const displayComponentProps = computed(() => {
+const displayComponentProps = computed<any>(() => {
   return {
     // img
     ...(props.column.valueType === 'img'
