@@ -18,6 +18,8 @@
 
     <el-divider v-if="dividerProps" v-bind="dividerProps" />
 
+    <slot name="extra" />
+
     <component :is="renderWrapper().table" class="plus-page__table_wrapper">
       <PlusTable
         ref="plusTableInstance"
