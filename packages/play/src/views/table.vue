@@ -2,6 +2,7 @@
   <div>
     <PlusTable
       ref="plusTableInstance"
+      editable
       :columns="tableConfig"
       :table-data="tableData"
       :title-bar="{
@@ -9,6 +10,7 @@
           dragSort: false
         }
       }"
+      @form-change="formChange"
     />
 
     <el-row style="margin-top: 10px">
@@ -29,6 +31,7 @@ import type { PlusColumn } from '@plus-pro-components/types'
 import type { PlusTableInstance, TableFormRefRow } from '@plus-pro-components/components'
 import { useTable } from '@plus-pro-components/hooks'
 import { ref } from 'vue'
+import { set } from 'lodash-es'
 
 interface TableRow {
   id: number
@@ -190,5 +193,11 @@ const handleStop = (index: number, prop?: string) => {
       item.stopCellEdit()
     })
   }
+}
+
+const formChange = ({ index, prop, value }: any) => {
+  set(tableData.value[index], prop, value)
+
+  console.log(tableData.value, 'tableData.value')
 }
 </script>
