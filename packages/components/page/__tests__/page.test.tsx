@@ -361,7 +361,8 @@ describe('page/index.vue', () => {
             'drag-sort-icon': () => 'drag-sort-icon',
             'column-settings-icon': () => 'column-settings-icon',
             'density-icon': () => 'density-icon',
-            'pagination-left': () => 'pagination-left'
+            'pagination-left': () => 'pagination-left',
+            extra: () => 'extra'
           }}
         />
       ),
@@ -375,5 +376,6 @@ describe('page/index.vue', () => {
     expect(wrapper.find('.plus-pagination').text()).includes('pagination-left')
     expect(wrapper.find('.plus-table').text()).includes('column-settings-icon')
     expect(wrapper.find('.plus-table').text()).includes('density-icon')
+    expect(wrapper.find('.plus-page').text()).includes('extra')
   })
 })
