@@ -134,6 +134,7 @@ page/crud
 | `column-settings-icon`<el-tag>v0.0.3</el-tag> | [PlusTable](/components/table.html)表格表头 列设置 icon                                    |                |
 | `density-icon`<el-tag>v0.0.3</el-tag>         | [PlusTable](/components/table.html)表格表头 密度 icon                                      |                |
 | `edit-icon`<el-tag>v0.1.4</el-tag>            | [PlusTable](/components/table.html) 表格处于编辑状态时的 icon                              |                |
+| `extra`<el-tag>v0.1.5</el-tag>                | 表格和搜索中间位置的插槽                                                                   |                |
 
 ## Page Exposes
 
