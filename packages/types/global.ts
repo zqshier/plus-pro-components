@@ -18,7 +18,7 @@ export type Interval = ReturnType<typeof setInterval>
  * 普通的对象的泛型
  */
 export type RecordType = {
-  [index: string]: any
+  [index: keyof any]: any
 }
 
 /**

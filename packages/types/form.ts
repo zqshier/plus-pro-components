@@ -391,3 +391,11 @@ export type FieldValueType =
  * 通用的整体表单值的类型
  */
 export type FieldValues = Record<keyof any, FieldValueType>
+
+/**
+ * FieldRefs 的类型
+ */
+export type FormFieldRefsType = {
+  fieldInstance?: any
+  valueIsReady?: Ref<boolean>
+}
