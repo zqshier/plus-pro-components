@@ -1,3 +1,12 @@
+## 捐赠者权益
+
+- 你的名称会出现在下面的捐赠名单中 （定期更新）
+- 你的 issue/PR 将会被优先处理
+- 你的 非[PlusProComponents](/)相关问题 将会被处理
+- 可添加作者微信
+
+  微信号: `fei1446628111`，添加微信需备注来意 🌹
+
 ## 捐赠
 
 如果你觉得这个项目帮助到了你，你可以帮作者买一杯果汁表示鼓励 🍹
@@ -10,8 +19,19 @@
 
 或者你可以用微信，打赏作者一杯可乐
 
-<img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx-z.jpg" height="188" width="188">
+<img src="https://plus-pro-components-1252186245.cos.ap-chengdu.myqcloud.com/wx-z.jpg" height="288" width="288">
 
 ## 其他
 
 [open-collective](https://opencollective.com/plus-pro-components)
+
+## 捐赠者名单
+
+非常感谢您们的赞助！
+
+| 赞助人 | 金额    | 赞助人备注           | 作者的回复  |
+| ------ | ------- | -------------------- | ----------- |
+| \*伞   | ￥ 50   | -                    | 感谢支持    |
+| \*儿   | ￥ 20   | -                    | 感谢支持    |
+| \*蒙   | ￥ 18.8 | 感谢\*\*\*\*无私开源 | 感谢支持 ❤️ |
+| \*z6   | ￥ 100  | 感谢 \*\*\*\*指导    | 感谢支持 ❤️ |
