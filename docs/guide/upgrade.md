@@ -2,6 +2,14 @@
 
 本记录只记录影响较大变更，对于一般[新功能、性能提升和问题修复](/guide/changelog.html)不在此记录。
 
+## v0.1.5
+
+### [PlusDrawerForm](/components/drawer-form.html)
+
+- 废弃了 `drawer` props，el-drawer 的 props 直接在 [PlusDrawerForm](/components/drawer-form.html) 上写。
+
+<el-divider />
+
 ## v0.1.0
 
 ### 更加友好
