@@ -62,14 +62,15 @@ import type { PlusFormProps, PlusFormInstance } from '@plus-pro-components/compo
 import { PlusForm } from '@plus-pro-components/components/form'
 import type { PlusDialogProps } from '@plus-pro-components/components/dialog'
 import { PlusDialog } from '@plus-pro-components/components/dialog'
-import type { FieldValues, PlusColumn } from '@plus-pro-components/types'
+import type { FieldValues, PlusColumn, RecordType } from '@plus-pro-components/types'
 import type { FormInstance } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import {
   getFieldSlotName,
   getLabelSlotName,
   getExtraSlotName,
-  filterSlots
+  filterSlots,
+  isPlainObject
 } from '@plus-pro-components/components/utils'
 
 export interface PlusDialogFormProps {
@@ -85,7 +86,7 @@ export interface PlusDialogFormEmits {
   (e: 'confirm', values: FieldValues): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
   (e: 'cancel'): void
-  (e: 'confirmError', errors: any): void
+  (e: 'confirmError', errors: unknown): void
 }
 
 defineOptions({
@@ -155,11 +156,13 @@ const handleConfirm = async () => {
     if (valid) {
       emit('confirm', state.value)
     }
-  } catch (errors: any) {
+  } catch (errors: unknown) {
     if (props.hasErrorTip) {
       ElMessage.closeAll()
-      const values: any[] = Object.values(errors)
-      ElMessage.warning(values[0]?.[0]?.message || t('plus.form.errorTip'))
+      const values: RecordType[] | false =
+        isPlainObject(errors) && Object.values(errors as RecordType)
+      const message = values ? values[0]?.[0]?.message : undefined
+      ElMessage.warning(message || t('plus.form.errorTip'))
     }
     emit('confirmError', errors)
   }

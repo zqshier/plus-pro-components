@@ -38,7 +38,9 @@ export interface PlusTableTableColumnIndexProps {
   pageInfo?: PageInfo
   indexTableColumnProps?: RecordType
   max?: number
-  indexContentStyle?: Partial<CSSProperties> | ((row: any, index: number) => Partial<CSSProperties>)
+  indexContentStyle?:
+    | Partial<CSSProperties>
+    | ((row: RecordType, index: number) => Partial<CSSProperties>)
 }
 
 defineOptions({
@@ -64,9 +66,12 @@ const getTableIndex = (index: number) => {
 }
 
 // index样式
-const indexContentStyle = (row: any, index: number): CSSProperties => {
+const indexContentStyle = (row: RecordType, index: number): CSSProperties => {
   if (isFunction(props.indexContentStyle)) {
-    return (props.indexContentStyle as (row: any, index: number) => CSSProperties)(row, index)
+    return (props.indexContentStyle as (row: RecordType, index: number) => CSSProperties)(
+      row,
+      index
+    )
   } else if (isPlainObject(props.indexContentStyle)) {
     return props.indexContentStyle as CSSProperties
   } else {

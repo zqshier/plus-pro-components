@@ -152,9 +152,9 @@ export interface PlusPageProps {
    * params参数中一定会有 pageSize 和  page ，这两个参数是 plus-pro-components 的规范
    * @param params
    */
-  request: (params: PageInfo & { [index: string]: any }) => Promise<{
+  request: (params: Partial<PageInfo> & RecordType) => Promise<{
     /** 数据 */
-    data: any
+    data: RecordType[]
     /** 不传会使用 data 的长度，如果是分页一定要传*/
     total: number
   }>
@@ -177,12 +177,12 @@ export interface PlusPageProps {
    * 对通过 request 获取的数据进行处理
    * @param data
    */
-  postData?: <T = any>(data: T[]) => T[]
+  postData?: <T = RecordType[]>(data: T[]) => T[]
   /**
    * 搜索之前进行一些修改
    * @param params
    */
-  beforeSearchSubmit?: <T = any>(params: T) => T
+  beforeSearchSubmit?: <T = RecordType>(params: T) => T
 
   /**
    *  表格和搜索是否需要el-card 包裹 默认true
@@ -220,11 +220,11 @@ export interface PlusPageEmits {
   /**
    * 数据加载失败时触发
    */
-  (e: 'requestError', error: any): void
+  (e: 'requestError', error: unknown): void
   /**
    * 数据加载完成时触发
    */
-  (e: 'requestComplete', tableData: any[]): void
+  (e: 'requestComplete', tableData: RecordType[]): void
 }
 
 defineOptions({
@@ -294,7 +294,7 @@ const getList = async () => {
   if (!props.request) return
   try {
     loadingStatus.value = true
-    const payload: any = {
+    const payload: RecordType = {
       ...values.value,
       // eslint-disabled no-useless-spread
       ...{
@@ -308,7 +308,7 @@ const getList = async () => {
     tableData.value = list || []
     total.value = dataTotal || list.length
     emit('requestComplete', tableData.value)
-  } catch (error: any) {
+  } catch (error: unknown) {
     emit('requestError', error)
   }
   loadingStatus.value = false
@@ -324,14 +324,14 @@ const handlePaginationChange = (_pageInfo: PageInfo): void => {
   emit('paginationChange', _pageInfo)
 }
 
-const handleSearch = (val: any) => {
+const handleSearch = (val: FieldValues) => {
   const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(val)) || val
   values.value = data
   getList()
   emit('search', values.value)
 }
 
-const handleRest = (val: any) => {
+const handleRest = (val: FieldValues) => {
   values.value = { ...val }
   pageInfo.value.page = 1
   getList()

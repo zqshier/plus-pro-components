@@ -196,7 +196,13 @@
 <script lang="ts" setup>
 import type { Component, Ref } from 'vue'
 import { ref, watch, computed, inject } from 'vue'
-import type { PlusColumn, FieldValueType, OptionsRow, RecordType } from '@plus-pro-components/types'
+import type {
+  PlusColumn,
+  FieldValueType,
+  OptionsRow,
+  RecordType,
+  FormFieldRefsType
+} from '@plus-pro-components/types'
 import {
   isFunction,
   isDate,
@@ -292,7 +298,7 @@ const customFieldPropsIsReady = ref(false)
 const valueIsReady = ref(false)
 const labelValue = computed(() => getLabel(props.label))
 const params = computed(() => ({ ...props, label: labelValue.value }))
-const formFieldRefs = inject(TableFormFieldRefInjectionKey, {}) as unknown as Ref<any>
+const formFieldRefs = inject(TableFormFieldRefInjectionKey, {}) as unknown as Ref<FormFieldRefsType>
 
 /**
  * 默认值是数组的情况
@@ -337,7 +343,7 @@ const isNumberValue = computed(() => {
  * 设置表单值（默认值）
  * @param val
  */
-const setValue = (val: any) => {
+const setValue = (val: FieldValueType) => {
   if (isArrayValue.value) {
     if (isArray(val)) {
       const [start, end] = val
@@ -466,7 +472,7 @@ watch(
   }
 )
 
-const handleChange = (val: any) => {
+const handleChange = (val: FieldValueType) => {
   emit('update:modelValue', val)
   emit('change', val)
 }
@@ -475,7 +481,7 @@ const handleChange = (val: any) => {
  * el-autocomplete 特殊处理
  * @param param0
  */
-const handleSelect = ({ value }: any) => {
+const handleSelect = ({ value }: { value: FieldValueType }) => {
   handleChange(value)
 }
 

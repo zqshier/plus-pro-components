@@ -12,7 +12,7 @@ export type DisplayComponentType = {
    *  parent Props
    */
 
-  format?: (...arg: any[]) => any
+  format?: (...arg: any[]) => string
 
   class?: string
 

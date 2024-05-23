@@ -209,6 +209,11 @@ export interface TableState {
 }
 
 /**
+ * 列设置类型
+ */
+export type ColumnSetting = { dragSort?: boolean | Partial<SortableOptions> }
+
+/**
  * 标题栏
  */
 export type TitleBar = Partial<{
@@ -229,7 +234,7 @@ export type TitleBar = Partial<{
   /**
    * 是否需要列设置 默认true
    */
-  columnSetting?: boolean | { dragSort?: boolean | Partial<SortableOptions> }
+  columnSetting?: boolean | ColumnSetting
 
   /**
    * 工具栏 icon 的大小和颜色配置

@@ -89,11 +89,7 @@
       </el-table-column>
 
       <!--配置渲染栏  -->
-      <PlusTableColumn
-        :columns="(subColumns as any)"
-        :editable="editable"
-        @formChange="handleFormChange"
-      >
+      <PlusTableColumn :columns="subColumns" :editable="editable" @formChange="handleFormChange">
         <!--表格单元格表头的插槽 -->
         <template v-for="(_, key) in headerSlots" :key="key" #[key]="data">
           <slot :name="key" v-bind="data" />
@@ -179,7 +175,13 @@ import type { CSSProperties, Ref, Component } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { TableInstance, TableProps } from 'element-plus'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
-import type { PageInfo, PlusColumn, RecordType } from '@plus-pro-components/types'
+import type {
+  PageInfo,
+  PlusColumn,
+  RecordType,
+  FormFieldRefsType,
+  FieldValueType
+} from '@plus-pro-components/types'
 import type { Options as SortableOptions } from 'sortablejs'
 import {
   getTableCellSlotName,
@@ -205,7 +207,7 @@ import type {
 /**
  * 表格数据
  */
-export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any>> {
+export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<RecordType>> {
   [index: string]: any
   /* 表格数据*/
   tableData: RecordType[]
@@ -240,7 +242,9 @@ export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<any
   indexTableColumnProps?: RecordType
   selectionTableColumnProps?: RecordType
   expandTableColumnProps?: RecordType
-  indexContentStyle?: Partial<CSSProperties> | ((row: any, index: number) => Partial<CSSProperties>)
+  indexContentStyle?:
+    | Partial<CSSProperties>
+    | ((row: RecordType, index: number) => Partial<CSSProperties>)
   editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableEmits {
@@ -248,10 +252,31 @@ export interface PlusTableEmits {
   (e: 'clickAction', data: ButtonsCallBackParams): void
   (e: 'clickActionConfirmCancel', data: ButtonsCallBackParams): void
   (e: 'dragSortEnd', newIndex: number, oldIndex: number): void
-  (e: 'formChange', data: { value: any; prop: string; row: any; index: number; column: any }): void
+  (
+    e: 'formChange',
+    data: {
+      value: FieldValueType
+      prop: string
+      row: RecordType
+      index: number
+      column: PlusColumn
+    }
+  ): void
   (e: 'refresh'): void
-  (e: 'cell-click', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
-  (e: 'cell-dblclick', row: any, column: any, cell: HTMLTableCellElement, event: Event): void
+  (
+    e: 'cell-click',
+    row: RecordType,
+    column: PlusColumn,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
+  (
+    e: 'cell-dblclick',
+    row: RecordType,
+    column: PlusColumn,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
   (e: 'edited'): void
 }
 
@@ -294,8 +319,8 @@ const props = withDefaults(defineProps<PlusTableProps>(), {
 const emit = defineEmits<PlusTableEmits>()
 
 const subColumns: Ref<PlusColumn[]> = ref([])
-const tableInstance = shallowRef<any>(null)
-const tableWrapperInstance = ref<any>(null)
+const tableInstance = shallowRef<TableInstance | null>(null)
+const tableWrapperInstance = ref<HTMLDivElement | null>(null)
 const state = reactive<TableState>({
   subPageInfo: {
     ...(((props.pagination as PlusPaginationProps)?.modelValue || DefaultPageInfo) as PageInfo)
@@ -332,14 +357,14 @@ provide(TableFormRefInjectionKey, formRefs)
 /**
  * 表单Field的ref
  */
-const formFieldRefs = shallowRef<any>({})
+const formFieldRefs = shallowRef<FormFieldRefsType>({})
 provide(TableFormFieldRefInjectionKey, formFieldRefs)
 
 // 监听配置更改
 watch(
   () => props.columns,
   val => {
-    subColumns.value = val.filter(item => unref(item.hideInTable) !== true) as any
+    subColumns.value = val.filter(item => unref(item.hideInTable) !== true)
   },
   {
     deep: true,
@@ -354,7 +379,7 @@ const handlePaginationChange = () => {
 
 const handleAction = (res: ButtonsCallBackParams) => {
   const { row, buttonRow, index, e } = res
-  emit('clickAction', { row, buttonRow, index, e, formRefs: (formRefs.value as any)[index] })
+  emit('clickAction', { row, buttonRow, index, e, formRefs: formRefs.value[index] })
 }
 
 const handleClickActionConfirmCancel = (res: ButtonsCallBackParams) => {
@@ -364,12 +389,12 @@ const handleClickActionConfirmCancel = (res: ButtonsCallBackParams) => {
     buttonRow,
     index,
     e,
-    formRefs: (formRefs.value as any)[index]
+    formRefs: formRefs.value[index]
   })
 }
 
 const handleFilterTableConfirm = (data: PlusColumn[]) => {
-  subColumns.value = data.filter(item => unref(item.hideInTable) !== true) as any
+  subColumns.value = data.filter(item => unref(item.hideInTable) !== true)
 }
 
 // 密度
@@ -387,11 +412,11 @@ const handleRefresh = () => {
 }
 
 const handleFormChange = (data: {
-  value: any
+  value: FieldValueType
   prop: string
-  row: any
+  row: RecordType
   index: number
-  column: any
+  column: PlusColumn
 }) => {
   emit('formChange', data)
 }
@@ -399,7 +424,7 @@ const handleFormChange = (data: {
 // 保存活动的表单
 const currentForm = ref()
 
-const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
+const handleCellEdit = (row: RecordType, column: PlusColumn, type: 'click' | 'dblclick') => {
   const rowIndex = props.tableData.indexOf(row)
   const columnIndex = column.index
   const columnConfig = subColumns.value[column.index]
@@ -426,7 +451,7 @@ const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
       () => formFieldRefs.value.valueIsReady,
       val => {
         if (
-          val.value &&
+          val?.value &&
           formFieldRefs.value?.fieldInstance?.focus &&
           (props.editable === 'click' || props.editable === 'dblclick')
         ) {
@@ -439,12 +464,22 @@ const handleCellEdit = (row: any, column: any, type: 'click' | 'dblclick') => {
   }
 }
 
-const handleClickCell = (row: any, column: any, cell: HTMLTableCellElement, event: Event) => {
+const handleClickCell = (
+  row: RecordType,
+  column: PlusColumn,
+  cell: HTMLTableCellElement,
+  event: Event
+) => {
   handleCellEdit(row, column, 'click')
   emit('cell-click', row, column, cell, event)
 }
 
-const handleDoubleClickCell = (row: any, column: any, cell: HTMLTableCellElement, event: Event) => {
+const handleDoubleClickCell = (
+  row: RecordType,
+  column: PlusColumn,
+  cell: HTMLTableCellElement,
+  event: Event
+) => {
   handleCellEdit(row, column, 'dblclick')
   emit('cell-dblclick', row, column, cell, event)
 }
@@ -453,8 +488,9 @@ const handleDoubleClickCell = (row: any, column: any, cell: HTMLTableCellElement
 const handleStopEditClick = (e: MouseEvent) => {
   if (tableWrapperInstance.value && currentForm.value) {
     const wrapperClass = '.el-table__body-wrapper'
-    const tbody = tableWrapperInstance.value.querySelector(wrapperClass)
-    const target = e?.target as any
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    const tbody = tableWrapperInstance.value.querySelector(wrapperClass)!
+    const target = e?.target as HTMLElement
     const cls = Array.from(target.classList).join('.')
     const tempCls = cls ? `.${cls}` : ''
     const contains = tempCls && tbody.querySelector(tempCls)
@@ -470,6 +506,6 @@ const { subPageInfo, size } = toRefs(state)
 
 defineExpose({
   formRefs,
-  tableInstance: tableInstance as Ref<TableInstance>
+  tableInstance
 })
 </script>

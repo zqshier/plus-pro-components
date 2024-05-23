@@ -86,7 +86,7 @@
 <script lang="ts" setup>
 import { PlusDisplayItem } from '@plus-pro-components/components/display-item'
 import type { PlusDisplayItemInstance } from '@plus-pro-components/components/display-item'
-import type { PlusColumn } from '@plus-pro-components/types'
+import type { PlusColumn, FieldValueType, RecordType } from '@plus-pro-components/types'
 import {
   getTooltip,
   getTableKey,
@@ -99,17 +99,28 @@ import {
 } from '@plus-pro-components/components/utils'
 import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
 import { QuestionFilled } from '@element-plus/icons-vue'
-import type { Ref } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import { ref, inject, watch, computed } from 'vue'
 import { PlusRender } from '@plus-pro-components/components/render'
+import type { TableColumnCtx } from 'element-plus'
 import { ElTableColumn, ElTooltip, ElIcon } from 'element-plus'
+import type { TableFormRefRow } from './type'
 
 export interface PlusTableTableColumnProps {
   columns?: PlusColumn[]
   editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableTableColumnEmits {
-  (e: 'formChange', data: { value: any; prop: string; row: any; index: number; column: any }): void
+  (
+    e: 'formChange',
+    data: {
+      value: FieldValueType
+      prop: string
+      row: RecordType
+      index: number
+      column: PlusColumn
+    }
+  ): void
 }
 
 defineOptions({
@@ -126,15 +137,15 @@ const emit = defineEmits<PlusTableTableColumnEmits>()
  *  表单ref处理
  */
 const plusDisplayItemInstance = ref<PlusDisplayItemInstance[] | null>()
-const formRef = inject(TableFormRefInjectionKey) as Ref<any>
+const formRef = inject(TableFormRefInjectionKey) as Ref<Record<string | number, TableFormRefRow[]>>
 
 /**
  *  设置表单ref
  */
 const setFormRef = () => {
   if (!plusDisplayItemInstance.value?.length) return
-  const data: any = {}
-  const list: any[] =
+  const data: RecordType = {}
+  const list: { index: number; prop: string; formInstance: ComputedRef<any> }[] =
     plusDisplayItemInstance.value?.map(item => ({ ...item, ...item?.getDisplayItemInstance() })) ||
     []
   list.forEach(item => {
@@ -176,12 +187,12 @@ const getKey = (item: PlusColumn) => getTableKey(item, true)
  * @param item
  */
 const handleChange = (
-  data: { value: any; prop: string; row: any },
+  data: { value: any; prop: string; row: RecordType },
   index: number,
-  column: any,
-  item: any
+  column: TableColumnCtx<RecordType>,
+  item: PlusColumn
 ) => {
-  emit('formChange', { ...data, index, column: { ...column, ...item } })
+  emit('formChange', { ...data, index, column: { ...column, ...item } as PlusColumn })
 }
 
 defineExpose({

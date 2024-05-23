@@ -73,7 +73,7 @@ const renderComponent = () => {
           props.handleChange!,
           params as PlusColumn
         )
-      : (props.render as any)(state.value, params)
+      : (props.render as (...arg: any[]) => any)(state.value, params)
 
   /** VNode / J(T)SX  虚拟dom或者jsx */
   if (isVNode(dynamicComponent)) {

@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { VNode, AppContext, Ref, ComputedRef } from 'vue'
+import type { VNode, AppContext, Ref, ComputedRef, Component } from 'vue'
 import { h, unref } from 'vue'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 import type { TableColumnCtx, ElMessageBoxOptions } from 'element-plus'
@@ -93,7 +93,7 @@ export interface ActionBarProps {
   /**
    * 表格操作栏 el-table-column 的其他props   默认值为 `{}`
    */
-  actionBarTableColumnProps?: Partial<TableColumnCtx<any>>
+  actionBarTableColumnProps?: Partial<TableColumnCtx<RecordType>>
 }
 export interface PlusTableActionBarEmits {
   (e: 'clickAction', data: ButtonsCallBackParams): void
@@ -117,11 +117,11 @@ const emit = defineEmits<PlusTableActionBarEmits>()
 
 const { t } = useLocale()
 
-const getSubButtons = (row: any, index: number) => {
+const getSubButtons = (row: RecordType, index: number) => {
   const data = props.buttons.filter(item => {
     if (isFunction(item.show)) {
       const tempFunction = item.show as (
-        row: any,
+        row: RecordType,
         index: number,
         button: ActionBarButtonsRow
       ) => boolean | Ref<boolean> | ComputedRef<boolean>
@@ -144,7 +144,7 @@ const getSubButtons = (row: any, index: number) => {
 }
 
 // 渲染
-const render = (row: any, buttonRow: ActionBarButtonsRow, index: number): VNode => {
+const render = (row: RecordType, buttonRow: ActionBarButtonsRow, index: number): VNode => {
   if (props.type === 'icon') {
     return h(
       ElTooltip,
@@ -166,7 +166,7 @@ const render = (row: any, buttonRow: ActionBarButtonsRow, index: number): VNode 
     // FIXME: fix SSR click it auto scrollTo page top
     const defaultProps = props.type === 'link' ? { href: 'javaScript:;' } : {}
     return h(
-      Tag as any,
+      Tag as Component,
       {
         size: 'small',
         ...defaultProps,
@@ -176,7 +176,7 @@ const render = (row: any, buttonRow: ActionBarButtonsRow, index: number): VNode 
       () => {
         if (isFunction(buttonRow.text)) {
           const tempFunction = buttonRow.text as (
-            row: any,
+            row: RecordType,
             index: number,
             button: ActionBarButtonsRow
           ) => string | Ref<string> | ComputedRef<string>
@@ -206,16 +206,16 @@ const handleClickAction = (
 
     if (isPlainObject(buttonRow.confirm) && typeof buttonRow.confirm !== 'boolean') {
       const tempTitle = isFunction(buttonRow.confirm.title)
-        ? (buttonRow.confirm.title as any)(data)
-        : buttonRow.confirm.title
+        ? (buttonRow.confirm.title as (data: ButtonsCallBackParams) => string)(data)
+        : (buttonRow.confirm.title as string)
 
       if (tempTitle) {
         title = tempTitle
       }
 
       const tempMessage = isFunction(buttonRow.confirm.message)
-        ? (buttonRow.confirm.message as any)(data)
-        : buttonRow.confirm.message
+        ? (buttonRow.confirm.message as (data: ButtonsCallBackParams) => string)(data)
+        : (buttonRow.confirm.message as string)
 
       if (tempMessage) {
         message = tempMessage

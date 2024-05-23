@@ -132,13 +132,14 @@ import type {
 } from 'element-plus'
 import { ElMessage, ElForm, ElCard, ElButton, ElIcon } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
+import type { PlusColumn, FieldValues, Mutable, RecordType } from '@plus-pro-components/types'
 import {
   getLabelSlotName,
   getFieldSlotName,
   getExtraSlotName,
   filterSlots,
-  isArray
+  isArray,
+  isPlainObject
 } from '@plus-pro-components/components/utils'
 import PlusFormContent from './form-content.vue'
 
@@ -180,14 +181,14 @@ export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormPro
 }
 export interface PlusFormState {
   values: FieldValues
-  subColumns: any
+  subColumns: PlusColumn[]
 }
 export interface PlusFormEmits {
   (e: 'update:modelValue', values: FieldValues): void
   (e: 'submit', values: FieldValues): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
   (e: 'reset', values: FieldValues): void
-  (e: 'submitError', errors: any): void
+  (e: 'submitError', errors: unknown): void
 }
 
 defineOptions({
@@ -233,8 +234,8 @@ const style = computed(() => ({
       ? 'center'
       : 'flex-end'
 }))
-const subColumns = computed<any>(() => filterHide(props.columns))
-const subGroup = computed<any>(() =>
+const subColumns = computed(() => filterHide(props.columns))
+const subGroup = computed(() =>
   isArray(props.group) ? props.group?.filter(item => unref(item.hideInGroup) !== true) : props.group
 )
 const slots = useSlots()
@@ -279,11 +280,13 @@ const handleSubmit = async () => {
       emit('submit', values.value)
       return true
     }
-  } catch (errors: any) {
+  } catch (errors: unknown) {
     if (props.hasErrorTip) {
       ElMessage.closeAll()
-      const values: any[] = Object.values(errors)
-      ElMessage.warning(values[0]?.[0]?.message || t('plus.form.errorTip'))
+      const values: RecordType[] | false =
+        isPlainObject(errors) && Object.values(errors as RecordType)
+      const message = values ? values[0]?.[0]?.message : undefined
+      ElMessage.warning(message || t('plus.form.errorTip'))
     }
     emit('submitError', errors)
   }

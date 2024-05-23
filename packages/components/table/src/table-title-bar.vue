@@ -91,10 +91,7 @@
         <el-checkbox-group v-model="state.checkList" @change="handleCheckGroupChange">
           <div ref="checkboxGroupInstance" class="plus-table-checkbox-sortable-list">
             <div v-for="item in subColumns" :key="item.prop" class="plus-table-checkbox-item">
-              <div
-                v-if="(titleBarConfig?.columnSetting as any)?.dragSort !== false"
-                class="plus-table-checkbox-handle"
-              >
+              <div v-if="columnSetting?.dragSort !== false" class="plus-table-checkbox-handle">
                 <slot name="drag-sort-icon">☷</slot>
               </div>
 
@@ -173,7 +170,7 @@ import {
 import { ElCheckbox, ElCheckboxGroup, ElTooltip, ElIcon, ElButton } from 'element-plus'
 import type { SortableEvent, Options as SortableOptions } from 'sortablejs'
 import Sortable from 'sortablejs'
-import type { TitleBar } from './type'
+import type { TitleBar, ColumnSetting } from './type'
 
 export interface PlusTableToolbarProps {
   columns?: PlusColumn[]
@@ -210,11 +207,14 @@ const props = withDefaults(defineProps<PlusTableToolbarProps>(), {
 })
 const emit = defineEmits<PlusTableToolbarEmits>()
 
-const checkboxGroupInstance = ref(null)
-const titleBarConfig = computed<TitleBar>(() => props.titleBar as any)
-const iconSize = computed(() => titleBarConfig.value.icon?.size || 18)
-const iconColor = computed(() => titleBarConfig.value.icon?.color)
 const { t } = useLocale()
+
+const checkboxGroupInstance = ref<HTMLElement | null>(null)
+const titleBarConfig = computed(() => props.titleBar as TitleBar)
+const iconSize = computed(() => titleBarConfig.value?.icon?.size || 18)
+const iconColor = computed(() => titleBarConfig.value?.icon?.color || '')
+const columnSetting = computed(() => titleBarConfig.value?.columnSetting as ColumnSetting)
+
 const buttonNameDensity: ButtonNameDensity[] = [
   {
     size: 'default',
@@ -237,7 +237,6 @@ const getCheckList = (hasDisabled = false) => {
       .filter(item => item.disabledHeaderFilter === true)
       .map(item => getTableKey(item))
   }
-
   return cloneDeep(subColumns.value).map(item => getTableKey(item))
 }
 
@@ -287,19 +286,16 @@ const getLabelValue = (label?: PlusColumn['label']) => {
 
 // checkbox列拖拽
 const handleDrop = () => {
-  const checkbox = checkboxGroupInstance.value // 获取容器元素
-  if (!checkbox) return
+  if (!checkboxGroupInstance.value) return
   let config: SortableOptions = {
     onEnd: handleDragEnd,
     ghostClass: 'plus-table-ghost-class'
   }
-  const dragSort = (
-    (props.titleBar as any)?.columnSetting as { dragSort?: boolean | Partial<SortableOptions> }
-  )?.dragSort
+  const dragSort = columnSetting.value?.dragSort
   if (isPlainObject(dragSort)) {
     config = { ...config, ...(dragSort as SortableOptions), handle: '.plus-table-checkbox-handle' }
   }
-  new Sortable(checkbox as HTMLElement, config)
+  new Sortable(checkboxGroupInstance.value as HTMLElement, config)
 }
 const handleDragEnd = (event: SortableEvent) => {
   const subDragCheckboxList = cloneDeep(props.changeColumns)
@@ -310,9 +306,7 @@ const handleDragEnd = (event: SortableEvent) => {
 }
 
 onMounted(() => {
-  const dragSort = (
-    (props.titleBar as any)?.columnSetting as { dragSort?: boolean | Partial<SortableOptions> }
-  )?.dragSort
+  const dragSort = columnSetting.value?.dragSort
   if (dragSort !== false) {
     if (checkboxGroupInstance.value) {
       handleDrop()

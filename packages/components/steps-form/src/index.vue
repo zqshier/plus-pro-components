@@ -64,7 +64,7 @@ export interface PlusStepsFormProps {
 }
 export interface PlusStepsFormEmits {
   (e: 'pre', modelValue: number): void
-  (e: 'next', modelValue: number, values: any): void
+  (e: 'next', modelValue: number, values: FieldValues): void
   (e: 'update:modelValue', active: number): void
   (e: 'change', values: FieldValues, column: PlusColumn): void
 }
