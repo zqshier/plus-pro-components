@@ -5,7 +5,7 @@
 - 你的 非[PlusProComponents](/)相关问题 将会被处理
 - 可添加作者微信
 
-  微信号: <a href="javascript:void(0)" ref="nofollow" style="text-decoration: none" >fei1446628111 </a> ，添加微信需备注来意 🌹
+  微信号: <a href="javascript:void(0)" rel="nofollow" style="text-decoration: none" >fei1446628111 </a> ，添加微信需备注来意 🌹
 
 ## 捐赠
 
