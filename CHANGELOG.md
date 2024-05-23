@@ -1,3 +1,24 @@
+## [v0.1.5](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.4...v0.1.5) (2024-05-23)
+
+### ✨ Features
+
+- **types:** :sparkles: add FormFieldRefsType([ef08391](https://github.com/plus-pro-components/plus-pro-components/commit/ef08391)) by@xiaofei
+- **components:** :sparkles: drawer-form add $attrs support, remove drawer props([7f05865](https://github.com/plus-pro-components/plus-pro-components/commit/7f05865)) by@xiaofei
+- **components:** :sparkles: display-item add format and valueFormat support([37b2f2c](https://github.com/plus-pro-components/plus-pro-components/commit/37b2f2c)) by@xiaofei
+- **components:** :sparkles: page component add extra slot([4ffdddf](https://github.com/plus-pro-components/plus-pro-components/commit/4ffdddf)) by@xiaofei
+- **components:** :sparkles: page component add requestComplete event([fdd8e10](https://github.com/plus-pro-components/plus-pro-components/commit/fdd8e10)) by@xiaofei
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: fix table multiple-level-display can modify source data([0d94301](https://github.com/plus-pro-components/plus-pro-components/commit/0d94301)) by@xiaofei
+- **components:** :bug: fix tabelData update,new data not edit([5ebbdcb](https://github.com/plus-pro-components/plus-pro-components/commit/5ebbdcb)) by@xiaofei
+- **components:** :bug: fix valueType switch fieldPropsset active-value ,inactive-value error([b38d419](https://github.com/plus-pro-components/plus-pro-components/commit/b38d419)) by@xiaofei
+
+### ♻️ Code Refactoring
+
+- **components:** :recycle: improved types([4d6e9a0](https://github.com/plus-pro-components/plus-pro-components/commit/4d6e9a0)) by@xiaofei
+- **components:** :recycle: props.actionBarTableColumnProps =>actionBarTableColumnProps([6975340](https://github.com/plus-pro-components/plus-pro-components/commit/6975340)) by@xiaofei
+
 ## [v0.1.4](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.3...v0.1.4) (2024-05-17)
 
 ### ✨ Features
