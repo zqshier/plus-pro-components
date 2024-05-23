@@ -6,7 +6,7 @@
     :label="unref(label) || t('plus.table.action')"
     :fixed="fixed || 'right'"
     :width="width || 200"
-    v-bind="props.actionBarTableColumnProps"
+    v-bind="actionBarTableColumnProps"
   >
     <template #default="{ row, $index }">
       <!-- 显示出来的按钮 -->
