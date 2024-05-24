@@ -196,7 +196,7 @@ app.mount('#app')
 示例
 
 <div class="glitch-embed-wrap" style="height: 420px; width: 100%;">
-  <iframe src="https://codepen.io/l-x-f/embed/KKrbRxW?height=469&theme-id=light&default%20-tab=html,result"   style="height: 100%; width: 100%; border: 0;"></iframe>
+  <iframe src="https://codepen.io/l-x-f/embed/KKrbRxW?height=469&theme-id=light&default-tab=html%2Cresult"   style="height: 100%; width: 100%; border: 0;"></iframe>
 </div>
 
 ::: warning 注意
