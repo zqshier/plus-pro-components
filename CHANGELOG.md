@@ -1,3 +1,9 @@
+## [v0.1.6](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.5...v0.1.6) (2024-05-24)
+
+### 🐛 Bug Fixes
+
+- **scripts:** :bug: fix dts error([7b59c91](https://github.com/plus-pro-components/plus-pro-components/commit/7b59c91)) by@xiaofei
+
 ## [v0.1.5](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.4...v0.1.5) (2024-05-23)
 
 ### ✨ Features
