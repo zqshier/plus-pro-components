@@ -72,7 +72,7 @@ const columns: PlusColumn[] = [
     prop: 'name1',
     valueType: 'copy',
     tooltip: '名称最多显示6个字符',
-    fieldProps: { disabled: computed(() => state.value.status === '1') }
+    fieldProps: computed(() => ({ disabled: state.value.status === '1' }))
   },
   {
     label: '标签1',
