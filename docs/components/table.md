@@ -178,7 +178,7 @@ table/field-slots
 <el-tag>v0.1.4 更新</el-tag> 更新整体可编辑
 
 <div style="margin: 10px 0">
-  <el-tag>v0.1.5 更新</el-tag>表格数据变更后新数据也可编辑
+  <el-tag>v0.1.6 更新</el-tag>表格数据变更后新数据也可编辑
 </div>
 
 表格配置`editable`为`true`即可实现整体可编辑， [columns](/components/config.html)中的 `editable` 优先级会更高。
@@ -191,7 +191,7 @@ table/all-cell-edit
 
 ## 可编辑表格 (单行)
 
-<el-tag>v0.1.5 更新</el-tag>表格数据变更后新数据也可编辑
+<el-tag>v0.1.6 更新</el-tag>表格数据变更后新数据也可编辑
 
 可编辑和校验单行，也可以控制单行的每一个单元格的编辑状态和校验。核心方法是 调用 `formRefs` 里的`startCellEdit()`方法。
 :::demo
@@ -202,7 +202,7 @@ table/row-edit
 
 ## 可编辑表格 (单元格)
 
-<el-tag>v0.1.5 更新</el-tag>表格数据变更后新数据也可编辑
+<el-tag>v0.1.6 更新</el-tag>表格数据变更后新数据也可编辑
 
 可编辑和校验单元格。核心方法是 调用 `formRefs` 里的`startCellEdit()`方法。
 :::demo
@@ -213,7 +213,7 @@ table/cell-edit
 
 ## 可编辑表格 (手动控制)
 
-<el-tag>v0.1.5 更新</el-tag>表格数据变更后新数据也可编辑
+<el-tag>v0.1.6 更新</el-tag>表格数据变更后新数据也可编辑
 
 手动控制表格编辑
 
@@ -228,7 +228,7 @@ table/hand-edit
 <el-tag>v0.1.4 </el-tag>
 
 <div style="margin: 10px 0">
-   <el-tag>v0.1.5 更新</el-tag>表格数据变更后新数据也可编辑
+   <el-tag>v0.1.6 更新</el-tag>表格数据变更后新数据也可编辑
 </div>
 
 表格属性`editable`支持 `boolean`，`'click'` ， `'dblclick'`：
