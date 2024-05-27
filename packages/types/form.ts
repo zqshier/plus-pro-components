@@ -32,7 +32,7 @@ import type {
   PlusInputTagProps
 } from '@plus-pro-components/components'
 import type { PropsItemType, PlusColumn, OptionsRow, RenderTypes } from './plus'
-import type { Mutable } from './global'
+import type { Mutable, RecordType } from './global'
 
 export {}
 
@@ -368,7 +368,7 @@ export interface FormColumnProps {
 }
 
 /**
- * 通用的单个表单值的类型
+ * 通用的单个表单值的类型，适用于大多数通用场景
  */
 export type FieldValueType =
   | string
@@ -386,6 +386,7 @@ export type FieldValueType =
   | [string, string]
   | string[][]
   | number[][]
+  | RecordType
 
 /**
  * 通用的整体表单值的类型
