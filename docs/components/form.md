@@ -63,6 +63,18 @@ form/data-attribute-linkage
 
 :::
 
+## 多级数据表单
+
+<el-tag>v0.1.7</el-tag>
+
+[columns](/components/config.html)中的 `prop`支持 `x.y.z`形式的 多（无限）级数据形式。
+
+:::demo
+
+form/multiple-level-form
+
+:::
+
 ## 分组表单
 
 配置 `group` 字段，则显示分组。配置 `group` 字段后，`columns` 则不在生效。
