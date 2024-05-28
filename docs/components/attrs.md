@@ -185,6 +185,8 @@ const handleToggleCollapse = (collapse: boolean) => {
 </script>
 ```
 
+[vue 官方建议使用 withModifiers，为什么使用 withKeys？](https://github.com/vuejs/babel-plugin-jsx/issues/269)
+
 ### 其他\*Props 和高级组件事件写法参考上面示例
 
 ## 样式透传
