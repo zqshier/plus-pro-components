@@ -31,6 +31,8 @@ dialog/slot
 | `width`                 | 弹窗宽             | `string`                                                              | `460px` | 否       |
 | `title`                 | 弹窗标题           | `string`                                                              | `弹窗`  | 否       |
 | `footerAlign`           | 弹窗底部对齐方式   | `string` <docs-tip content="'left' / 'right' / 'center' "></docs-tip> | `right` | 否       |
+| `closeOnClickModal`                                                                    | [el-dialog](https://element-plus.org/zh-CN/component/dialog.html#attributes) 的 `closeOnClickModal`                              | `boolean`                                                                                       | `false`                                                                | 否       |
+| `closeOnPressEscape`                                                                   | [el-dialog](https://element-plus.org/zh-CN/component/dialog.html#attributes) 的 `closeOnPressEscape`                             | `boolean`                                                                                       | `false`                                                                | 否       |
 | ...                     | ...                | ...                                                                   | ...     | ...      |
 
 :::tip 提示
