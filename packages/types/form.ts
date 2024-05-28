@@ -386,6 +386,7 @@ export type FieldValueType =
   | [string, string]
   | string[][]
   | number[][]
+  // v0.1.7 新增
   | RecordType
 
 /**
