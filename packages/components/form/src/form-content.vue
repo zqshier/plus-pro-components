@@ -2,11 +2,11 @@
   <el-row v-bind="rowProps" class="plus-form__row">
     <el-col v-for="item in columns" :key="item.prop" v-bind="item.colProps || colProps">
       <PlusFormItem
-        v-model="values[item.prop]"
+        :model-value="getModelValue(item.prop)"
         v-bind="item"
         :has-label="getHasLabel(item.hasLabel)"
         :label-width="getHasLabel(item.hasLabel) ? item.labelWidth : '0px'"
-        @change="(value: any) => handleChange(value, item)"
+        @change="value => handleChange(value, item)"
       >
         <!--表单项label插槽 -->
         <template v-if="$slots[getLabelSlotName(item.prop)]" #[getLabelSlotName(item.prop)]="data">
@@ -59,7 +59,10 @@ import {
   getLabelSlotName,
   getFieldSlotName,
   getExtraSlotName,
-  isFunction
+  isFunction,
+  getValue,
+  setValue,
+  isBoolean
 } from '@plus-pro-components/components/utils'
 
 export interface PlusFormContentProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
@@ -92,7 +95,7 @@ const values = ref<FieldValues>({})
 
 const getHasLabel = (hasLabel?: boolean | Ref<boolean> | ComputedRef<boolean>) => {
   const has = unref(hasLabel) as boolean
-  if (typeof has === 'boolean') {
+  if (isBoolean(has)) {
     return has
   }
   return props.hasLabel
@@ -108,7 +111,10 @@ watch(
   }
 )
 
+const getModelValue = (prop: string) => getValue(values.value, prop)
+
 const handleChange = (value: FieldValueType, column: PlusColumn) => {
+  setValue(values.value, column.prop, value)
   emit('update:modelValue', values.value)
   emit('change', values.value, column)
 }

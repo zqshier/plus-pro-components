@@ -252,8 +252,8 @@ export interface PlusFormItemProps {
   index?: number
 }
 export interface PlusFormItemEmits {
-  (e: 'update:modelValue', data: FieldValueType): void
-  (e: 'change', data: FieldValueType): void
+  (e: 'update:modelValue', value: FieldValueType): void
+  (e: 'change', value: FieldValueType): void
 }
 
 defineOptions({
