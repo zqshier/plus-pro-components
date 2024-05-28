@@ -43,9 +43,9 @@ export type PropsItemType<T extends Record<string, any> = any> =
 /**
  * 选择框类型
  */
-export interface OptionsRow {
+export interface OptionsRow<T = undefined> {
   label: number | string
-  value: number | string
+  value: Exclude<number | string | boolean | RecordType, T>
   /**
    * 小圆点背景色，
    * color 优先级 高于 type
