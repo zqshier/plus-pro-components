@@ -193,7 +193,7 @@ export default defineConfig({
               link: '/components/config'
             },
             {
-              text: '配置事件透传',
+              text: '透传',
               link: '/components/attrs'
             },
             {
@@ -219,6 +219,7 @@ export default defineConfig({
             },
             {
               text: '表单',
+              link: '/components/form',
               items: [
                 {
                   text: '基础表单',

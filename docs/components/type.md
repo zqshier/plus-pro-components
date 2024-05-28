@@ -45,7 +45,7 @@ export type Interval = ReturnType<typeof setInterval>
 
 ```ts
 /**
- * 普通的对象的泛型
+ * 普通的对象的类型
  */
 export type RecordType = {
   [index: string]: any
@@ -382,6 +382,8 @@ export type FieldValueType =
   | [Date, Date]
   | [number, number]
   | [string, string]
+  // v0.1.7 新增
+  | RecordType
 ```
 
 ## FieldValues
@@ -430,7 +432,10 @@ import type { PropsItemType, RecordType } from 'plus-pro-components'
  */
 export interface OptionsRow {
   label: number | string
-  value: number | string
+  /**
+   * @version v0.1.7 新增 RecordType 类型
+   */
+  value: number | string | RecordType
   /**
    * 小圆点背景色，
    * color 优先级 高于 type
@@ -484,7 +489,7 @@ export type OptionsType =
 
 ```ts
 import type { Component, ComputedRef } from 'vue'
-import type { PlusColumn } from 'plus-pro-components'
+import type { PlusColumn, Mutable } from 'plus-pro-components'
 
 /**
  * 分组表单配置项

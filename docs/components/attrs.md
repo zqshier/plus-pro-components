@@ -1,6 +1,8 @@
-# 事件透传
+# 透传
 
-## vue3 的事件透传原则如下
+## 事件透传
+
+### vue3 的事件透传原则如下
 
 **`以 on 开头，并跟着大写字母的 props 会被当作事件监听器。`**
 
@@ -10,7 +12,7 @@
 
 参考 vue 官方文档 **[渲染函数 & JSX](https://cn.vuejs.org/guide/extras/render-function.html)**
 
-## `PlusProComponents` 组件的事件透传
+### `PlusProComponents` 组件的事件透传
 
 具备以下条件的都支持事件透传
 
@@ -20,7 +22,7 @@
 
 - **文档中说明这个字段是组件的 props 的字段**
 
-## `fieldProps` 事件示例
+### `fieldProps` 事件示例
 
 [columns](/components/config.html) 配置中的`fieldProps`字段表示的是 传递给具体表单项和表格显示的配置，如 el-input，el-select，el-tag，el-image 的 props ，同时还支持事件透传
 
@@ -80,7 +82,7 @@ const columns = [
 ]
 ```
 
-## PlusLayout 子组件事件写法示例
+### PlusLayout 子组件事件写法示例
 
 [PlusLayout](/components/layout.html) 的 `sidebarProps` 和`headerProps`表示的就是子组件的 props。
 
@@ -109,4 +111,121 @@ const handleToggleCollapse = (collapse: boolean) => {
 }
 ```
 
-## 其他\*Props 和高级组件事件写法参考上面示例
+### 需要 `事件修饰符` 和 `按键修饰符`的事件写法示例
+
+::: tip 提示
+
+[W3C](https://www.w3.org/MarkUp/html-spec/html-spec_8.html#SEC8.2) 标准定义：
+
+当一个表单中只有一个单行文本输入字段时， 浏览器应当将在此字段中按下 Enter （回车键）的行为视为提交表单的请求。  
+:::
+
+以`fieldProps`为例，支持点击阻止事件冒泡, 按下 Enter 键提交搜索等。
+
+```html
+<template>
+  <div @click="handleClickWrapper">
+    <PlusSearch v-model="state" :columns="columns" :has-unfold="false" @search="handleSearch" />
+  </div>
+</template>
+
+<script lang="ts" setup>
+  import { ref, withKeys, withModifiers } from 'vue'
+  import type { PlusColumn } from 'plus-pro-components'
+
+  const state = ref({
+    text: '我是一段有想法的文本',
+    name: '名字',
+    time: new Date().toString()
+  })
+
+  const columns: PlusColumn[] = [
+    {
+      label: '文本',
+      prop: 'text',
+      valueType: 'text',
+      fieldProps: {
+        style: {
+          cursor: 'pointer',
+          userSelect: 'none'
+        },
+        // 阻止事件冒泡，只有点击自己时触发
+        onClick: withModifiers(() => {
+          console.log('点击文本了')
+        }, ['stop', 'self'])
+      }
+    },
+    // valueType 没有的情况下，默认为'input'，对应el-input组件
+    {
+      label: '名称1',
+      prop: 'name',
+      fieldProps: {
+        // 当前输入框聚焦状态，按下Enter 键提交搜索
+        onKeyup: withKeys(() => {
+          handleSearch()
+        }, ['enter'])
+      }
+    },
+    /**
+     * 凑数的
+     * 当一个表单中只有一个单行文本输入字段时， 浏览器应当将在此字段中按下 Enter （回车键）的行为视为提交表单的请求。
+     */
+    {
+      label: '时间',
+      prop: 'time',
+      valueType: 'date-picker'
+    }
+  ]
+  const handleSearch = () => {
+    console.log('Enter 键触发了')
+  }
+  const handleClickWrapper = () => {
+    console.log('点击第一个文本时，不会被事件冒泡机制触发，点击其他地方正常触发')
+  }
+</script>
+```
+
+### 其他\*Props 和高级组件事件写法参考上面示例
+
+## 样式透传
+
+支持事件透传的都支持样式透传
+
+### `fieldProps` 样式透传示例
+
+```js
+const columns = [
+  {
+    label: '状态',
+    prop: 'status',
+    // 对应的element-plus 的组件el-select
+    valueType: 'select',
+    options: [],
+    fieldProps: {
+      // 对应的 el-select 的样式
+      style: {
+        width: '100%'
+      }
+    }
+  }
+]
+```
+
+### `colProps` 样式透传示例
+
+```js
+const columns = [
+  {
+    label: '名称',
+    prop: 'name',
+    colProps: {
+      // 对应的 el-col 的样式
+      style: {
+        marginLeft: '10px'
+      }
+    }
+  }
+]
+```
+
+### 其他参考上面示例
