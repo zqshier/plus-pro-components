@@ -50,89 +50,98 @@
       @cell-click="handleClickCell"
       @cell-dblclick="handleDoubleClickCell"
     >
-      <!-- 选择栏 -->
-      <el-table-column
-        v-if="isSelection"
-        key="selection"
-        type="selection"
-        v-bind="selectionTableColumnProps"
-      />
+      <!-- 默认插槽 -->
+      <template #default>
+        <slot name="default">
+          <!-- 选择栏 -->
+          <el-table-column
+            v-if="isSelection"
+            key="selection"
+            type="selection"
+            v-bind="selectionTableColumnProps"
+          />
 
-      <!-- 序号栏 -->
-      <PlusTableTableColumnIndex
-        v-if="hasIndexColumn"
-        :index-content-style="indexContentStyle"
-        :index-table-column-props="indexTableColumnProps"
-        :page-info="(pagination as PlusPaginationProps)?.modelValue"
-      />
+          <!-- 序号栏 -->
+          <PlusTableTableColumnIndex
+            v-if="hasIndexColumn"
+            :index-content-style="indexContentStyle"
+            :index-table-column-props="indexTableColumnProps"
+            :page-info="(pagination as PlusPaginationProps)?.modelValue"
+          />
 
-      <!-- 拖拽行 -->
-      <PlusTableColumnDragSort
-        v-if="dragSortable"
-        :sortable="dragSortable"
-        :drag-sortable-table-column-props="dragSortableTableColumnProps"
-        :table-instance="tableInstance"
-        @dragSortEnd="handleDragSortEnd"
-      >
-        <template v-if="$slots['drag-sort-icon']" #drag-sort-icon>
-          <slot name="drag-sort-icon" />
-        </template>
-      </PlusTableColumnDragSort>
+          <!-- 拖拽行 -->
+          <PlusTableColumnDragSort
+            v-if="dragSortable"
+            :sortable="dragSortable"
+            :drag-sortable-table-column-props="dragSortableTableColumnProps"
+            :table-instance="tableInstance"
+            @dragSortEnd="handleDragSortEnd"
+          >
+            <template v-if="$slots['drag-sort-icon']" #drag-sort-icon>
+              <slot name="drag-sort-icon" />
+            </template>
+          </PlusTableColumnDragSort>
 
-      <!-- 展开行 -->
-      <el-table-column v-if="hasExpand" type="expand" v-bind="expandTableColumnProps">
-        <template #default="{ row, $index }">
-          <div class="plus-table-expand-col">
-            <slot name="expand" :row="row" :index="$index" />
-          </div>
-        </template>
-      </el-table-column>
+          <!-- 展开行 -->
+          <el-table-column v-if="hasExpand" type="expand" v-bind="expandTableColumnProps">
+            <template #default="{ row, $index }">
+              <div class="plus-table-expand-col">
+                <slot name="expand" :row="row" :index="$index" />
+              </div>
+            </template>
+          </el-table-column>
 
-      <!--配置渲染栏  -->
-      <PlusTableColumn :columns="subColumns" :editable="editable" @formChange="handleFormChange">
-        <!--表格单元格表头的插槽 -->
-        <template v-for="(_, key) in headerSlots" :key="key" #[key]="data">
-          <slot :name="key" v-bind="data" />
-        </template>
+          <!--配置渲染栏  -->
+          <PlusTableColumn
+            :columns="subColumns"
+            :editable="editable"
+            @formChange="handleFormChange"
+          >
+            <!--表格单元格表头的插槽 -->
+            <template v-for="(_, key) in headerSlots" :key="key" #[key]="data">
+              <slot :name="key" v-bind="data" />
+            </template>
 
-        <!--表格单元格的插槽 -->
-        <template v-for="(_, key) in cellSlots" :key="key" #[key]="data">
-          <slot :name="key" v-bind="data" />
-        </template>
+            <!--表格单元格的插槽 -->
+            <template v-for="(_, key) in cellSlots" :key="key" #[key]="data">
+              <slot :name="key" v-bind="data" />
+            </template>
 
-        <!--表单单项的插槽 -->
-        <template v-for="(_, key) in fieldSlots" :key="key" #[key]="data">
-          <slot :name="key" v-bind="data" />
-        </template>
+            <!--表单单项的插槽 -->
+            <template v-for="(_, key) in fieldSlots" :key="key" #[key]="data">
+              <slot :name="key" v-bind="data" />
+            </template>
 
-        <!-- 表单el-form-item 下一行额外的内容 的插槽 -->
-        <template v-for="(_, key) in extraSlots" :key="key" #[key]="data">
-          <slot :name="key" v-bind="data" />
-        </template>
+            <!-- 表单el-form-item 下一行额外的内容 的插槽 -->
+            <template v-for="(_, key) in extraSlots" :key="key" #[key]="data">
+              <slot :name="key" v-bind="data" />
+            </template>
 
-        <!-- tooltip-icon  插槽 -->
-        <template v-if="$slots['tooltip-icon']" #tooltip-icon>
-          <slot name="tooltip-icon" />
-        </template>
+            <!-- tooltip-icon  插槽 -->
+            <template v-if="$slots['tooltip-icon']" #tooltip-icon>
+              <slot name="tooltip-icon" />
+            </template>
 
-        <!--表格单元格编辑的插槽 -->
-        <template v-if="$slots['edit-icon']" #edit-icon>
-          <slot name="edit-icon" />
-        </template>
-      </PlusTableColumn>
+            <!--表格单元格编辑的插槽 -->
+            <template v-if="$slots['edit-icon']" #edit-icon>
+              <slot name="edit-icon" />
+            </template>
+          </PlusTableColumn>
 
-      <!-- 操作栏 -->
-      <PlusTableActionBar
-        v-if="actionBar"
-        v-bind="actionBar"
-        @clickAction="handleAction"
-        @clickActionConfirmCancel="handleClickActionConfirmCancel"
-      >
-        <!-- 操作栏更多icon插槽 -->
-        <template v-if="$slots['action-bar-more-icon']" #action-bar-more-icon>
-          <slot name="action-bar-more-icon" />
-        </template>
-      </PlusTableActionBar>
+          <!-- 操作栏 -->
+          <PlusTableActionBar
+            v-if="actionBar"
+            v-bind="actionBar"
+            @clickAction="handleAction"
+            @clickActionConfirmCancel="handleClickActionConfirmCancel"
+          >
+            <!-- 操作栏更多icon插槽 -->
+            <template v-if="$slots['action-bar-more-icon']" #action-bar-more-icon>
+              <slot name="action-bar-more-icon" />
+            </template>
+          </PlusTableActionBar>
+        </slot>
+      </template>
 
       <!-- 插入至表格最后一行之后的内容 -->
       <template #append>

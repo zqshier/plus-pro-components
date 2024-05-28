@@ -150,6 +150,20 @@ table/expand
 
 :::
 
+## 多级表头
+
+<el-tag>v0.1.7</el-tag>
+
+数据结构比较复杂的时候，可使用多级表头来展现数据的层次关系。
+
+只需要将 el-table-column 放置于 el-table-column 中，就可以实现组头。
+
+:::demo
+
+table/multiple-table-header
+
+:::
+
 ## 表格显示单项插槽配置
 
 组件提供 `fieldSlots` 对象可以简易配置表格显示单项插槽， `fieldSlots` 的插槽配置是根据表格的 [valueType](/components/config.html#valuetype-可选的显示值) 自动进行匹配的，
@@ -538,7 +552,8 @@ const handleSelectAll = (selection: any[]) => {
 **`...`表示同时支持所有[ElTable 插槽](https://element-plus.org/zh-CN/component/table.html#table-%E6%8F%92%E6%A7%BD)**
 
 ::: tip 提示
-el-table 的其他插槽 如 `append`,`empty`等
+el-table 的其他插槽 如 `append`,`empty`。 **<el-tag>v0.1.7</el-tag> 开始支持 `default` 插槽。**
+
 :::
 
 ## Table Exposes
