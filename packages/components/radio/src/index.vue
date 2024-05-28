@@ -8,7 +8,7 @@
     <template v-if="versionIsLessThan260">
       <el-radio
         v-for="item in options"
-        :key="item.value"
+        :key="`${item.label}${item.value}`"
         ref="radioInstance"
         :label="item.value"
         v-bind="item.fieldItemProps"
@@ -38,7 +38,7 @@
     <template v-else>
       <el-radio
         v-for="item in options"
-        :key="item.value"
+        :key="`${item.label}${item.value}`"
         ref="radioInstance"
         :value="item.value"
         v-bind="item.fieldItemProps"
@@ -70,13 +70,13 @@
 <script setup lang="ts">
 import { reactive, watch, ref, useAttrs } from 'vue'
 import { ElRadio, ElRadioGroup } from 'element-plus'
-import type { OptionsRow, PlusColumn } from '@plus-pro-components/types'
+import type { OptionsRow, PlusColumn, RecordType } from '@plus-pro-components/types'
 import { versionIsLessThan260, isFunction } from '@plus-pro-components/components/utils'
 
 type ValueType = string | number | boolean
 export interface PlusRadioProps {
   modelValue?: ValueType
-  options: OptionsRow[]
+  options: OptionsRow<RecordType>[]
   isCancel?: boolean
   fieldSlots?: PlusColumn['fieldSlots']
   fieldChildrenSlot?: PlusColumn['fieldChildrenSlot']
