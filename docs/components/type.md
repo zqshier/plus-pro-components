@@ -102,7 +102,7 @@ export interface PageInfo {
 
 ```ts
 import type { ElMessageBoxOptions } from 'element-plus'
-import type { Component, Ref, ComputedRef, AppContext } from 'vue'
+import type { Component, Ref, ComputedRef, AppContext, DirectiveArguments } from 'vue'
 import type { RecordType, ButtonsCallBackParams } from 'plus-pro-components'
 /**
  * 表格操作栏按钮配置项的值的类型
@@ -184,6 +184,12 @@ export interface ActionBarButtonsRow {
          */
         appContext?: AppContext | null
       }
+  /**
+   * 指令，可以用来控制权限，数据类型是二维数组
+   * @version v0.1.7
+   * @see https://cn.vuejs.org/guide/extras/render-function.html#custom-directives
+   */
+  directives?: DirectiveArguments
 }
 ```
 

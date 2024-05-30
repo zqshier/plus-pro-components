@@ -62,6 +62,22 @@ table/action-bar
 
 :::
 
+## 操作栏权限控制
+
+小于<el-tag>v0.1.7</el-tag>
+
+可使用 [ActionBarButtonsRow](/components/type.html#actionbarbuttonsrow) 中的 `show` 字段控制。
+
+大于等于<el-tag>v0.1.7</el-tag>
+
+可使用 [ActionBarButtonsRow](/components/type.html#actionbarbuttonsrow) 中的 `show` 和 `directives`指令字段控制。[参考 vue 渲染函数自定义指令 ](https://cn.vuejs.org/guide/extras/render-function.html#custom-directives)
+
+:::demo
+
+table/action-bar-directives
+
+:::
+
 ## 标题栏
 
 标题栏默认显示右侧工具栏， 可以使用`title`，`toolbar`插槽定制。不需要的的话配置
