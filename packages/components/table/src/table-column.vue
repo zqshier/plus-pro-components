@@ -192,8 +192,6 @@ const handleChange = (
     ...rest
   } as unknown as FormChangeCallBackParams
 
-  console.log(formChangeCallBackParams, 'formChangeCallBackParams')
-
   emit('formChange', formChangeCallBackParams)
 }
 

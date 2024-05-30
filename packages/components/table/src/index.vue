@@ -180,7 +180,7 @@ import {
   TableFormRefInjectionKey,
   TableFormFieldRefInjectionKey
 } from '@plus-pro-components/constants'
-import type { CSSProperties, Ref, Component } from 'vue'
+import type { CSSProperties, Ref } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { TableInstance, TableProps } from 'element-plus'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
@@ -188,8 +188,7 @@ import type {
   PageInfo,
   PlusColumn,
   RecordType,
-  FormFieldRefsType,
-  FieldValueType
+  FormFieldRefsType
 } from '@plus-pro-components/types'
 import type { Options as SortableOptions } from 'sortablejs'
 import {
@@ -200,8 +199,8 @@ import {
   filterSlots,
   isSVGElement
 } from '@plus-pro-components/components/utils'
-import { default as PlusTableActionBarComponent } from './table-action-bar.vue'
-import { default as PlusTableColumnComponent } from './table-column.vue'
+import PlusTableActionBar from './table-action-bar.vue'
+import PlusTableColumn from './table-column.vue'
 import PlusTableTableColumnIndex from './table-column-index.vue'
 import PlusTableColumnDragSort from './table-column-drag-sort.vue'
 import PlusTableTitleBar from './table-title-bar.vue'
@@ -210,7 +209,8 @@ import type {
   TableState,
   ActionBarProps,
   TitleBar,
-  TableFormRefRow
+  TableFormRefRow,
+  FormChangeCallBackParams
 } from './type'
 
 /**
@@ -261,16 +261,7 @@ export interface PlusTableEmits {
   (e: 'clickAction', data: ButtonsCallBackParams): void
   (e: 'clickActionConfirmCancel', data: ButtonsCallBackParams): void
   (e: 'dragSortEnd', newIndex: number, oldIndex: number): void
-  (
-    e: 'formChange',
-    data: {
-      value: FieldValueType
-      prop: string
-      row: RecordType
-      index: number
-      column: PlusColumn
-    }
-  ): void
+  (e: 'formChange', data: FormChangeCallBackParams): void
   (e: 'refresh'): void
   (
     e: 'cell-click',
@@ -293,12 +284,6 @@ defineOptions({
   name: 'PlusTable',
   inheritAttrs: false
 })
-
-/**
- * FIXME: The inferred type of this node exceeds the maximum length the compiler will serialize. An explicit type annotation is needed.
- */
-const PlusTableActionBar: Component = PlusTableActionBarComponent
-const PlusTableColumn: Component = PlusTableColumnComponent
 
 const props = withDefaults(defineProps<PlusTableProps>(), {
   defaultSize: 'default',
@@ -415,13 +400,7 @@ const handleRefresh = () => {
   emit('refresh')
 }
 
-const handleFormChange = (data: {
-  value: FieldValueType
-  prop: string
-  row: RecordType
-  index: number
-  column: PlusColumn
-}) => {
+const handleFormChange = (data: FormChangeCallBackParams) => {
   emit('formChange', data)
 }
 
