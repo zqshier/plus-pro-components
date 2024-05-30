@@ -1,3 +1,21 @@
+## [v0.1.7](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.6...v0.1.7) (2024-05-30)
+
+### ✨ Features
+
+- **components:** :sparkles: table ActionBarButtonsRow add directives field([e4d6dbc](https://github.com/plus-pro-components/plus-pro-components/commit/e4d6dbc)) by@xiaofei
+- **components:** :sparkles: display-item extend render and slot params([6fa947b](https://github.com/plus-pro-components/plus-pro-components/commit/6fa947b)) by@xiaofei
+- **components:** :sparkles: update table event formChange type([18655e1](https://github.com/plus-pro-components/plus-pro-components/commit/18655e1)) by@xiaofei
+- **components:** :sparkles: table event clickAction and formChange extend el-table params([f17708d](https://github.com/plus-pro-components/plus-pro-components/commit/f17708d)) by@xiaofei
+- **components:** :sparkles: table component add defalut slot.([ce54763](https://github.com/plus-pro-components/plus-pro-components/commit/ce54763)) by@xiaofei
+- **components:** :sparkles: form component add multiple level data support([c085e82](https://github.com/plus-pro-components/plus-pro-components/commit/c085e82)) by@xiaofei
+- **components:** :sparkles: radio update OptionsRow type([44dd115](https://github.com/plus-pro-components/plus-pro-components/commit/44dd115)) by@xiaofei
+- **types:** :sparkles: optionsRow value add RecordType support([7b4a379](https://github.com/plus-pro-components/plus-pro-components/commit/7b4a379)) by@xiaofei
+- **types:** :sparkles: fieldValueType add RecordType([1688475](https://github.com/plus-pro-components/plus-pro-components/commit/1688475)) by@xiaofei
+
+### 🐛 Bug Fixes
+
+- **theme-chalk:** :bug: fix actionBarTableColumnProps['align'] invalid([1c867d8](https://github.com/plus-pro-components/plus-pro-components/commit/1c867d8)) by@xiaofei
+
 ## [v0.1.6](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.5...v0.1.6) (2024-05-24)
 
 ### 🐛 Bug Fixes
