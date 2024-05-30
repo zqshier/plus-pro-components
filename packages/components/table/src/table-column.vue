@@ -8,12 +8,12 @@
       :min-width="item.minWidth"
       :index="index"
     >
-      <template #header>
+      <template #header="scoped">
         <span class="plus-table-column__header">
           <PlusRender
             v-if="item.renderHeader && isFunction(item.renderHeader)"
             :render="item.renderHeader"
-            :params="item"
+            :params="{ ...scoped, ...item, cellIndex: index }"
             :callback-value="getLabel(item.label)"
           />
 
@@ -25,7 +25,9 @@
             :label="getLabel(item.label)"
             :field-props="item.fieldProps"
             :value-type="item.valueType"
-            :column="item"
+            :cell-index="index"
+            v-bind="scoped"
+            :column="{ ...scoped, ...item }"
           >
             {{ getLabel(item.label) }}
           </slot>
@@ -47,6 +49,7 @@
           :row="row"
           :index="$index"
           :editable="editable"
+          :rest="{ column, ...rest }"
           @change="data => handleChange(data, $index, column, item, rest)"
         >
           <!--表单单项的插槽 -->

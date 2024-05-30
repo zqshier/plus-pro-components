@@ -28,7 +28,7 @@
     <PlusRender
       v-if="customFieldPropsIsReady"
       :render="column.render"
-      :params="params"
+      :params="renderParams"
       :callback-value="displayValue"
       :custom-field-props="customFieldProps"
     />
@@ -38,19 +38,15 @@
   <slot
     v-else-if="$slots[getTableCellSlotName(column.prop)]"
     :name="getTableCellSlotName(column.prop)"
-    :prop="column.prop"
-    :value-type="column.valueType"
-    :row="subRow"
     :value="displayValue"
-    :field-props="customFieldProps"
-    :column="column"
+    v-bind="renderParams"
   />
 
   <!--显示HTML -->
   <span
     v-else-if="column.renderHTML && isFunction(column.renderHTML)"
     class="plus-display-item"
-    v-html="column.renderHTML(displayValue, { row: subRow, column, index })"
+    v-html="column.renderHTML(displayValue, renderParams)"
   />
 
   <!-- 状态显示 -->
@@ -95,16 +91,10 @@
       :is="isTagAndNoValue ? 'span' : displayComponent.component"
       v-if="displayComponent.hasSlots"
       :class="['plus-display-item', displayComponent.class]"
-      v-bind="displayComponentProps"
+      v-bind="{ ...renderParams, ...displayComponentProps }"
     >
       <template v-for="(fieldSlot, key) in column.fieldSlots" :key="key" #[key]="data">
-        <component
-          :is="fieldSlot"
-          :value="displayValue"
-          :column="column"
-          :row="subRow"
-          v-bind="data"
-        />
+        <component :is="fieldSlot" :value="displayValue" v-bind="{ ...renderParams, ...data }" />
       </template>
       {{ column.valueType === 'link' ? column.linkText || displayValue : displayValue }}
     </component>
@@ -113,7 +103,7 @@
       :is="displayComponent.component"
       v-else
       :class="['plus-display-item', displayComponent.class]"
-      v-bind="displayComponentProps"
+      v-bind="{ ...renderParams, ...displayComponentProps }"
     >
       {{
         displayComponent.format
@@ -195,6 +185,7 @@ export interface PlusDisplayItemProps {
   row: RecordType
   index?: number
   editable?: boolean | 'click' | 'dblclick'
+  rest?: RecordType
 }
 export interface PlusTableTableColumnEmits {
   (e: 'change', data: { value: FieldValueType; prop: string; row: RecordType }): void
@@ -208,7 +199,8 @@ const props = withDefaults(defineProps<PlusDisplayItemProps>(), {
   column: () => ({ prop: '', label: '' }),
   row: () => ({}),
   index: 0,
-  editable: false
+  editable: false,
+  rest: () => ({})
 })
 const emit = defineEmits<PlusTableTableColumnEmits>()
 
@@ -283,10 +275,15 @@ const isTagAndNoValue = computed(
     (displayValue.value === undefined || displayValue.value === null || displayValue.value === '')
 )
 
-const params = computed(() => ({
+const renderParams = computed(() => ({
+  prop: props.column.prop,
+  valueType: props.column.valueType,
   row: subRow.value,
-  column: props.column,
-  index: props.index
+  index: props.index,
+  rowIndex: props.index,
+  fieldProps: customFieldProps.value,
+  ...props.rest,
+  column: { ...props.rest.column, ...props.column }
 }))
 
 const imageUrl = computed(() => {
