@@ -2,7 +2,6 @@
   <el-table-column
     key="actionBar"
     class-name="plus-table-action-bar"
-    align="center"
     :label="unref(label) || t('plus.table.action')"
     :fixed="fixed || 'right'"
     :width="width || 200"
