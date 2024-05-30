@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import type { VNode, AppContext, Ref, ComputedRef, Component } from 'vue'
-import { h, unref } from 'vue'
+import { h, unref, withDirectives } from 'vue'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 import type { TableColumnCtx, ElMessageBoxOptions } from 'element-plus'
 import {
@@ -154,14 +154,17 @@ const render = (
       ElTooltip,
       { placement: 'top', content: unref(buttonRow.text) as string, ...buttonRow.tooltipProps },
       () =>
-        h(
-          ElIcon,
-          {
-            size: 16,
-            ...buttonRow.props,
-            onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
-          },
-          () => (buttonRow.icon ? h(buttonRow.icon) : '')
+        withDirectives(
+          h(
+            ElIcon,
+            {
+              size: 16,
+              ...buttonRow.props,
+              onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
+            },
+            () => (buttonRow.icon ? h(buttonRow.icon) : '')
+          ),
+          buttonRow.directives || []
         )
     )
   } else {
@@ -169,27 +172,30 @@ const render = (
 
     // FIXME: fix SSR click it auto scrollTo page top
     const defaultProps = props.type === 'link' ? { href: 'javaScript:;' } : {}
-    return h(
-      Tag as Component,
-      {
-        size: 'small',
-        ...defaultProps,
-        ...buttonRow.props,
-        onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
-      },
-      () => {
-        if (isFunction(buttonRow.text)) {
-          const tempFunction = buttonRow.text as (
-            row: RecordType,
-            index: number,
-            button: ActionBarButtonsRow
-          ) => string | Ref<string> | ComputedRef<string>
-          const text = tempFunction(row, index, buttonRow)
-          return unref(text)
-        } else {
-          return unref(buttonRow.text)
+    return withDirectives(
+      h(
+        Tag as Component,
+        {
+          size: 'small',
+          ...defaultProps,
+          ...buttonRow.props,
+          onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
+        },
+        () => {
+          if (isFunction(buttonRow.text)) {
+            const tempFunction = buttonRow.text as (
+              row: RecordType,
+              index: number,
+              button: ActionBarButtonsRow
+            ) => string | Ref<string> | ComputedRef<string>
+            const text = tempFunction(row, index, buttonRow)
+            return unref(text)
+          } else {
+            return unref(buttonRow.text)
+          }
         }
-      }
+      ),
+      buttonRow.directives || []
     )
   }
 }

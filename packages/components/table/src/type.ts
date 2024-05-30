@@ -10,7 +10,7 @@ import type {
   ElTooltipProps,
   TableColumnCtx
 } from 'element-plus'
-import type { Component, Ref, ComputedRef, AppContext } from 'vue'
+import type { Component, Ref, ComputedRef, AppContext, DirectiveArguments } from 'vue'
 import type { Options as SortableOptions } from 'sortablejs'
 import type { Mutable } from 'element-plus/es/utils'
 
@@ -43,7 +43,7 @@ export interface ActionBarButtonsRow {
   /**
    * ElButton,ElLink和ElIcon 组件对应的props
    */
-  props?: Partial<Mutable<ButtonProps & LinkProps & IconProps>>
+  props?: Partial<Mutable<ButtonProps & LinkProps & IconProps & { [index: string]: any }>>
   /**
    * ElTooltip组件的props， type 为icon 时生效
    */
@@ -88,6 +88,19 @@ export interface ActionBarButtonsRow {
          */
         appContext?: AppContext | null
       }
+
+  /**
+   * 指令，可以用来控制权限，数据类型是二维数组
+   * @version v0.1.7
+   * @see https://cn.vuejs.org/guide/extras/render-function.html#custom-directives
+   *
+   *
+   * ```html
+   *  directives
+   *
+   * ```
+   */
+  directives?: DirectiveArguments
 }
 
 /**
