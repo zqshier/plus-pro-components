@@ -130,12 +130,12 @@ search/async
 
 ## Exposes
 
-| 名称               | 说明             | 类型                                                      |
-| ------------------ | ---------------- | --------------------------------------------------------- |
-| `plusFormInstance` | `PlusFrom` 实例  | `object` <docs-tip content="PlusFormInstance"></docs-tip> |
-| `handleReset`      | 执行重置按钮方法 | `function` <docs-tip content="()=> void"></docs-tip>      |
-| `handleSearch`     | 执行搜索按钮方法 | `function` <docs-tip content="()=> void"></docs-tip>      |
-| `handleUnfold`     | 执行展开按钮方法 | `function` <docs-tip content="()=> void"></docs-tip>      |
+| 名称               | 说明                                   | 类型                                                      |
+| ------------------ | -------------------------------------- | --------------------------------------------------------- |
+| `plusFormInstance` | [PlusForm](/components/form.html) 实例 | `object` <docs-tip content="PlusFormInstance"></docs-tip> |
+| `handleReset`      | 执行重置按钮方法                       | `function` <docs-tip content="()=> void"></docs-tip>      |
+| `handleSearch`     | 执行搜索按钮方法                       | `function` <docs-tip content="()=> void"></docs-tip>      |
+| `handleUnfold`     | 执行展开按钮方法                       | `function` <docs-tip content="()=> void"></docs-tip>      |
 
 ::: tip 提示
 拿到 plusFormInstance 中的 formInstance 可以支持所有[PlusFrom 方法](/components/form.html)，

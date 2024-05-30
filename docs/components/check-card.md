@@ -80,16 +80,16 @@ check-card/slot
 
 ## CheckCard Attributes
 
-| 名称                    | 说明               | 类型                                                                          | 默认值 | 是否必须 |
-| ----------------------- | ------------------ | ----------------------------------------------------------------------------- | ------ | -------- |
-| `model-value / v-model` | 绑定值             | `boolean`                                                                     |        | 否       |
-| `avatar`                | 头像               | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip> |        | 否       |
-| `avatarProps`           | el-avatar 的 props | `object`                                                                      |        | 否       |
-| `title`                 | 标题               | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip> |        | 否       |
-| `description`           | 描述               | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip> |        | 否       |
-| `extra`                 | 操作栏             | `function` <docs-tip content="(data) => VNode / string"></docs-tip>           |        | 否       |
-| `size`                  | 尺寸               | `string` <docs-tip content='"default" / "small" / "large"'></docs-tip>        |        | 否       |
-| `disabled`              | 禁用               | `boolean`                                                                     |        | 否       |
+| 名称                    | 说明                                                                       | 类型                                                                                       | 默认值 | 是否必须 |
+| ----------------------- | -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ | ------ | -------- |
+| `model-value / v-model` | 绑定值                                                                     | `boolean`                                                                                  |        | 否       |
+| `avatar`                | 头像                                                                       | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip>              |        | 否       |
+| `avatarProps`           | [el-avatar](https://element-plus.org/zh-CN/component/avatar.html) 的 props | `object` [ ElAvatarProps](https://element-plus.org/zh-CN/component/avatar.html#attributes) |        | 否       |
+| `title`                 | 标题                                                                       | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip>              |        | 否       |
+| `description`           | 描述                                                                       | `string`/ `function` <docs-tip content="(data) => VNode / string"></docs-tip>              |        | 否       |
+| `extra`                 | 操作栏                                                                     | `function` <docs-tip content="(data) => VNode / string"></docs-tip>                        |        | 否       |
+| `size`                  | 尺寸                                                                       | `string` <docs-tip content='"default" / "small" / "large"'></docs-tip>                     |        | 否       |
+| `disabled`              | 禁用                                                                       | `boolean`                                                                                  |        | 否       |
 
 ## CheckCard Events
 
