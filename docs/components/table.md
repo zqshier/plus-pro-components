@@ -493,15 +493,15 @@ el-table 的其他属性写法示例 如 `stripe`,`border`,`fit`等
 
 ## Table Events
 
-| 名称                            | 说明                                             | 类型                                                                                                                    |
-| ------------------------------- | ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `paginationChange`              | 分页改变触发                                     | `function` <docs-tip content='(pageInfo: PageInfo) => void'></docs-tip>                                                 |
-| `clickAction`                   | 点击操作栏触发（需要二次确认的，点击确认时触发） | `function` [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)                                         |
-| `clickActionConfirmCancel`      | 点击操作栏需要二次确认的取消时触发               | `function` [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)                                         |
-| `dragSortEnd`                   | 拖拽排序行触发                                   | `function` <docs-tip content='({newIndex: number, oldIndex: number}) => void'></docs-tip>                               |
-| `formChange`                    | 表格中有可以编辑的表单项目改变时触发             | `function` <docs-tip content='({ value: any; prop: string; row: any; index: number; column: any }) => void'></docs-tip> |
-| `edited`<el-tag>v0.1.4</el-tag> | 表格中点击编辑单元格退出时触发                   | `function` <docs-tip content='() => void'></docs-tip>                                                                   |
-| ...                             | ...                                              | ...                                                                                                                     |
+| 名称                            | 说明                                             | 类型                                                                                                                                                          |
+| ------------------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `paginationChange`              | 分页改变触发                                     | `function` <docs-tip content='(pageInfo: PageInfo) => void'></docs-tip>                                                                                       |
+| `clickAction`                   | 点击操作栏触发（需要二次确认的，点击确认时触发） | `function` <docs-tip content='(data:ButtonsCallBackParams) => void'></docs-tip> [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)          |
+| `clickActionConfirmCancel`      | 点击操作栏需要二次确认的取消时触发               | `function` <docs-tip content='(data:ButtonsCallBackParams) => void'></docs-tip> [ButtonsCallBackParams](/components/type.html#buttonscallbackparams)          |
+| `dragSortEnd`                   | 拖拽排序行触发                                   | `function` <docs-tip content='({newIndex: number, oldIndex: number}) => void'></docs-tip>                                                                     |
+| `formChange`                    | 表格中有可以编辑的表单项目改变时触发             | `function` <docs-tip content='(data:FormChangeCallBackParams) => void'></docs-tip> [FormChangeCallBackParams](/components/type.html#formchangecallbackparams) |
+| `edited`<el-tag>v0.1.4</el-tag> | 表格中点击编辑单元格退出时触发                   | `function` <docs-tip content='() => void'></docs-tip>                                                                                                         |
+| ...                             | ...                                              | ...                                                                                                                                                           |
 
 **`...`表示同时支持所有[ElTable 事件](https://element-plus.org/zh-CN/component/table.html#table-%E4%BA%8B%E4%BB%B6)**
 

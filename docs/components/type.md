@@ -268,29 +268,78 @@ export interface TableFormRefRow {
 }
 ```
 
+## TableCellParams
+
+表格单元格回调参数
+
+```ts
+/**
+ * 表格单元格回调参数
+ */
+export type TableCellParams = {
+  /**
+   * 表格行数据
+   */
+  row: RecordType
+
+  /**
+   * 表格行索引
+   */
+  index: number
+
+  /**
+   * 表格列数据
+   */
+  column?: RecordType
+  /**
+   * 表格行索引 同 index
+   * @version v0.1.7
+   */
+  rowIndex: number
+  /**
+   * 表格列索引
+   * @version v0.1.7
+   */
+  cellIndex: number
+  /**
+   * 表格store
+   * @version v0.1.7
+   */
+  store: RecordType
+  /**
+   * 表格 expanded
+   * @version v0.1.7
+   */
+  expanded: boolean
+  /**
+   * 表格  _self
+   * @version v0.1.7
+   */
+  _self: RecordType
+}
+```
+
 ## ButtonsCallBackParams
 
 表格点击按钮回调的参数的类型
 
 ```ts
-import type { RecordType, buttonsKeyRow, TableFormRefRow } from 'plus-pro-components'
+import type {
+  RecordType,
+  buttonsKeyRow,
+  TableFormRefRow,
+  TableCellParams
+} from 'plus-pro-components'
 
 /**
- * 表格点击按钮回调的参数的类型
+ * 点击按钮回调的参数的类型
  */
-export interface ButtonsCallBackParams {
-  /**
-   * 表格行数据
-   */
-  row: RecordType
+export interface ButtonsCallBackParams extends TableCellParams {
   /**
    * 点击按钮数据
    */
-  buttonRow: buttonsKeyRow
-  /**
-   * 表格索引
-   */
-  index: number
+  buttonRow: ActionBarButtonsRow
+
   /**
    * 按钮点击事件数据
    */
@@ -299,6 +348,28 @@ export interface ButtonsCallBackParams {
    * 可编辑表单的行form
    */
   formRefs?: TableFormRefRow[]
+}
+```
+
+## FormChangeCallBackParams
+
+表格表单回调参数
+
+```ts
+import type { FieldValueType, TableCellParams } from 'plus-pro-components'
+
+/**
+ * formChange回调的参数的类型
+ */
+export interface FormChangeCallBackParams extends TableCellParams {
+  /**
+   * 表单的值
+   */
+  value: FieldValueType
+  /**
+   * 当前单元格的prop
+   */
+  prop: string
 }
 ```
 
