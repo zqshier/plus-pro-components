@@ -40,14 +40,14 @@
         </span>
       </template>
 
-      <template #default="{ row, column, $index }">
+      <template #default="{ row, column, $index, ...rest }">
         <PlusDisplayItem
           ref="plusDisplayItemInstance"
           :column="item"
           :row="row"
           :index="$index"
           :editable="editable"
-          @change="data => handleChange(data, $index, column, item)"
+          @change="data => handleChange(data, $index, column, item, rest)"
         >
           <!--表单单项的插槽 -->
           <template
@@ -86,7 +86,7 @@
 <script lang="ts" setup>
 import { PlusDisplayItem } from '@plus-pro-components/components/display-item'
 import type { PlusDisplayItemInstance } from '@plus-pro-components/components/display-item'
-import type { PlusColumn, FieldValueType, RecordType } from '@plus-pro-components/types'
+import type { PlusColumn, RecordType } from '@plus-pro-components/types'
 import {
   getTooltip,
   getTableKey,
@@ -104,23 +104,14 @@ import { ref, inject, watch, computed } from 'vue'
 import { PlusRender } from '@plus-pro-components/components/render'
 import type { TableColumnCtx } from 'element-plus'
 import { ElTableColumn, ElTooltip, ElIcon } from 'element-plus'
-import type { TableFormRefRow } from './type'
+import type { TableFormRefRow, FormChangeCallBackParams } from './type'
 
 export interface PlusTableTableColumnProps {
   columns?: PlusColumn[]
   editable?: boolean | 'click' | 'dblclick'
 }
 export interface PlusTableTableColumnEmits {
-  (
-    e: 'formChange',
-    data: {
-      value: FieldValueType
-      prop: string
-      row: RecordType
-      index: number
-      column: PlusColumn
-    }
-  ): void
+  (e: 'formChange', data: FormChangeCallBackParams): void
 }
 
 defineOptions({
@@ -190,9 +181,20 @@ const handleChange = (
   data: { value: any; prop: string; row: RecordType },
   index: number,
   column: TableColumnCtx<RecordType>,
-  item: PlusColumn
+  item: PlusColumn,
+  rest: RecordType
 ) => {
-  emit('formChange', { ...data, index, column: { ...column, ...item } as PlusColumn })
+  const formChangeCallBackParams = {
+    ...data,
+    index,
+    column: { ...column, ...item },
+    rowIndex: index,
+    ...rest
+  } as unknown as FormChangeCallBackParams
+
+  console.log(formChangeCallBackParams, 'formChangeCallBackParams')
+
+  emit('formChange', formChangeCallBackParams)
 }
 
 defineExpose({

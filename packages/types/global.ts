@@ -1,3 +1,5 @@
+import type { Mutable } from 'element-plus/es/utils'
+
 export {}
 /**
  * ref 绑定的元素类型
@@ -29,6 +31,4 @@ export type Nullable<T> = T | null
 /**
  * 去除只读状态
  */
-export type Mutable<T extends Record<string, any>> = {
-  -readonly [K in keyof T]: T[K]
-}
+export { Mutable }

@@ -1,4 +1,4 @@
-import type { RecordType, PageInfo, Mutable } from '@plus-pro-components/types'
+import type { RecordType, PageInfo, FieldValueType } from '@plus-pro-components/types'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type {
   ElForm,
@@ -12,6 +12,7 @@ import type {
 } from 'element-plus'
 import type { Component, Ref, ComputedRef, AppContext } from 'vue'
 import type { Options as SortableOptions } from 'sortablejs'
+import type { Mutable } from 'element-plus/es/utils'
 
 /**
  * 表格操作栏按钮配置项的值的类型
@@ -136,21 +137,60 @@ export interface TableFormRefRow {
 }
 
 /**
- * 点击按钮回调的参数的类型
+ * 表格单元格回调参数
  */
-export interface ButtonsCallBackParams {
+export type TableCellParams = {
   /**
    * 表格行数据
    */
   row: RecordType
+
+  /**
+   * 表格行索引
+   */
+  index: number
+
+  /**
+   * 表格列数据
+   * @version v0.1.7
+   */
+  column: RecordType
+  /**
+   * 表格行索引 同 index
+   * @version v0.1.7
+   */
+  rowIndex: number
+  /**
+   * 表格列索引
+   * @version v0.1.7
+   */
+  cellIndex: number
+  /**
+   * 表格store
+   * @version v0.1.7
+   */
+  store: RecordType
+  /**
+   * 表格 expanded
+   * @version v0.1.7
+   */
+  expanded: boolean
+  /**
+   * 表格  _self
+   * @version v0.1.7
+   */
+  _self: RecordType
+}
+
+/**
+ * 点击按钮回调的参数的类型
+ */
+export interface ButtonsCallBackParams extends TableCellParams {
   /**
    * 点击按钮数据
    */
   buttonRow: ActionBarButtonsRow
-  /**
-   * 表格索引
-   */
-  index: number
+
   /**
    * 按钮点击事件数据
    */
@@ -159,6 +199,20 @@ export interface ButtonsCallBackParams {
    * 可编辑表单的行form
    */
   formRefs?: TableFormRefRow[]
+}
+
+/**
+ * formChange回调的参数的类型
+ */
+export interface FormChangeCallBackParams extends TableCellParams {
+  /**
+   * 表单的值
+   */
+  value: FieldValueType
+  /**
+   * 当前单元格的prop
+   */
+  prop: string
 }
 
 /**

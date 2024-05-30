@@ -84,9 +84,9 @@
 
           <!-- 展开行 -->
           <el-table-column v-if="hasExpand" type="expand" v-bind="expandTableColumnProps">
-            <template #default="{ row, $index }">
+            <template #default="scoped">
               <div class="plus-table-expand-col">
-                <slot name="expand" :row="row" :index="$index" />
+                <slot name="expand" :index="scoped.$index" v-bind="scoped" />
               </div>
             </template>
           </el-table-column>
@@ -219,9 +219,9 @@ import type {
 export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<RecordType>> {
   [index: string]: any
   /* 表格数据*/
-  tableData: RecordType[]
+  tableData?: RecordType[]
   /* 表格配置信息*/
-  columns: PlusColumn[]
+  columns?: PlusColumn[]
   // 密度
   defaultSize?: ComponentSize
   /* 分页参数*/
@@ -386,29 +386,24 @@ const handlePaginationChange = () => {
   emit('paginationChange', { ...state.subPageInfo })
 }
 
-const handleAction = (res: ButtonsCallBackParams) => {
-  const { row, buttonRow, index, e } = res
-  emit('clickAction', { row, buttonRow, index, e, formRefs: formRefs.value[index] })
+const handleAction = (callbackParams: ButtonsCallBackParams) => {
+  emit('clickAction', { ...callbackParams, formRefs: formRefs.value[callbackParams.index] })
 }
 
-const handleClickActionConfirmCancel = (res: ButtonsCallBackParams) => {
-  const { row, buttonRow, index, e } = res
+const handleClickActionConfirmCancel = (callbackParams: ButtonsCallBackParams) => {
   emit('clickActionConfirmCancel', {
-    row,
-    buttonRow,
-    index,
-    e,
-    formRefs: formRefs.value[index]
+    ...callbackParams,
+    formRefs: formRefs.value[callbackParams.index]
   })
 }
 
-const handleFilterTableConfirm = (data: PlusColumn[]) => {
-  subColumns.value = data.filter(item => unref(item.hideInTable) !== true)
+const handleFilterTableConfirm = (_columns: PlusColumn[]) => {
+  subColumns.value = _columns.filter(item => unref(item.hideInTable) !== true)
 }
 
 // 密度
-const handleClickDensity = (data: ComponentSize) => {
-  state.size = data
+const handleClickDensity = (size: ComponentSize) => {
+  state.size = size
 }
 
 const handleDragSortEnd = (newIndex: number, oldIndex: number) => {

@@ -8,10 +8,10 @@
     :width="width || 200"
     v-bind="actionBarTableColumnProps"
   >
-    <template #default="{ row, $index }">
+    <template #default="{ row, $index, ...rest }">
       <!-- 显示出来的按钮 -->
       <template v-for="buttonRow in getSubButtons(row, $index).preButtons" :key="buttonRow.text">
-        <component :is="() => render(row, buttonRow, $index)" />
+        <component :is="() => render(row, buttonRow, $index, rest)" />
       </template>
 
       <!-- 隐藏的按钮 -->
@@ -34,7 +34,7 @@
               v-for="buttonRow in getSubButtons(row, $index).nextButtons"
               :key="(unref(buttonRow.text) as string)"
             >
-              <component :is="() => render(row, buttonRow, $index)" />
+              <component :is="() => render(row, buttonRow, $index, rest)" />
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -144,7 +144,12 @@ const getSubButtons = (row: RecordType, index: number) => {
 }
 
 // 渲染
-const render = (row: RecordType, buttonRow: ActionBarButtonsRow, index: number): VNode => {
+const render = (
+  row: RecordType,
+  buttonRow: ActionBarButtonsRow,
+  index: number,
+  rest: RecordType
+): VNode => {
   if (props.type === 'icon') {
     return h(
       ElTooltip,
@@ -155,7 +160,7 @@ const render = (row: RecordType, buttonRow: ActionBarButtonsRow, index: number):
           {
             size: 16,
             ...buttonRow.props,
-            onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event)
+            onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
           },
           () => (buttonRow.icon ? h(buttonRow.icon) : '')
         )
@@ -171,7 +176,7 @@ const render = (row: RecordType, buttonRow: ActionBarButtonsRow, index: number):
         size: 'small',
         ...defaultProps,
         ...buttonRow.props,
-        onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event)
+        onClick: (event: MouseEvent) => handleClickAction(row, buttonRow, index, event, rest)
       },
       () => {
         if (isFunction(buttonRow.text)) {
@@ -195,9 +200,18 @@ const handleClickAction = (
   row: RecordType,
   buttonRow: ActionBarButtonsRow,
   index: number,
-  e: MouseEvent
+  e: MouseEvent,
+  rest: RecordType
 ) => {
-  const data: ButtonsCallBackParams = { row, buttonRow, index, e }
+  const callbackParams = {
+    row,
+    buttonRow,
+    index,
+    rowIndex: index,
+    e,
+    ...rest
+  } as ButtonsCallBackParams
+
   if (buttonRow.confirm) {
     let message = t('plus.table.confirmToPerformThisOperation')
     let title = t('plus.table.prompt')
@@ -206,7 +220,7 @@ const handleClickAction = (
 
     if (isPlainObject(buttonRow.confirm) && typeof buttonRow.confirm !== 'boolean') {
       const tempTitle = isFunction(buttonRow.confirm.title)
-        ? (buttonRow.confirm.title as (data: ButtonsCallBackParams) => string)(data)
+        ? (buttonRow.confirm.title as (data: ButtonsCallBackParams) => string)(callbackParams)
         : (buttonRow.confirm.title as string)
 
       if (tempTitle) {
@@ -214,7 +228,7 @@ const handleClickAction = (
       }
 
       const tempMessage = isFunction(buttonRow.confirm.message)
-        ? (buttonRow.confirm.message as (data: ButtonsCallBackParams) => string)(data)
+        ? (buttonRow.confirm.message as (data: ButtonsCallBackParams) => string)(callbackParams)
         : (buttonRow.confirm.message as string)
 
       if (tempMessage) {
@@ -227,13 +241,13 @@ const handleClickAction = (
 
     ElMessageBox.confirm(message, title, options, appContext)
       .then(() => {
-        emit('clickAction', data)
+        emit('clickAction', callbackParams)
       })
       .catch(() => {
-        emit('clickActionConfirmCancel', data)
+        emit('clickActionConfirmCancel', callbackParams)
       })
   } else {
-    emit('clickAction', data)
+    emit('clickAction', callbackParams)
   }
 }
 </script>
