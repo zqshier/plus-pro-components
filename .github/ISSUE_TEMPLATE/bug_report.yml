@@ -38,7 +38,7 @@ body:
     id: reproduction-link
     attributes:
       label: 最小复现环境的链接
-      description: 请提供有效的地址链接。如：github仓库地址、[gitee](https://gitee.com/) 仓库地址、[JSFiddle](https://jsfiddle.net/) 地址 、[CodePen](https://codepen.io/) 地址、[CodeSandbox](https://codesandbox.io/) 地址等。如果暂时没有可填写无。
+      description: 请提供有效的地址链接。如：[playground](https://playground.plus-pro-components.com/)、github仓库地址、[gitee](https://gitee.com/) 仓库地址、[JSFiddle](https://jsfiddle.net/) 地址 、[CodePen](https://codepen.io/) 地址、[CodeSandbox](https://codesandbox.io/) 地址等。如没有提供最小复现环境的链接，且根据其他信息无法复现问题，此issure将会被关闭。
       placeholder: 链接地址
     validations:
       required: true
