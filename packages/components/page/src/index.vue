@@ -327,6 +327,7 @@ const handlePaginationChange = (_pageInfo: PageInfo): void => {
 const handleSearch = (val: FieldValues) => {
   const data = (props.beforeSearchSubmit && props.beforeSearchSubmit(val)) || val
   values.value = data
+  pageInfo.value.page = 1
   getList()
   emit('search', values.value)
 }
