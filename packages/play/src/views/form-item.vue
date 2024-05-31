@@ -1,7 +1,7 @@
 <template>
   <PlusFormItem
     v-for="item in columns"
-    :key="item.label"
+    :key="unref(item.label)"
     ref="fieldInstance"
     v-model="values[item.prop]"
     v-bind="item"
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, unref } from 'vue'
 import type { PlusColumn, FieldValues } from '@plus-pro-components/types'
 
 interface RestaurantItem {

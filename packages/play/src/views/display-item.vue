@@ -1,8 +1,9 @@
 <template>
-  <PlusDisplayItem v-for="item in columns" :key="item.label" :column="item" :row="row" />
+  <PlusDisplayItem v-for="item in columns" :key="unref(item.label)" :column="item" :row="row" />
 </template>
 
 <script lang="ts" setup>
+import { unref } from 'vue'
 import type { PlusColumn } from '@plus-pro-components/types'
 
 const columns: PlusColumn[] = [

@@ -12,7 +12,7 @@ import { ElUpload, ElButton, ElImage } from 'element-plus'
 import { h, Fragment } from 'vue'
 
 const getList = async (
-  query: PageInfo & {
+  query: Partial<PageInfo> & {
     status?: string
     name?: string
   }

@@ -4,10 +4,10 @@
 
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
-import type { OptionsRow } from 'plus-pro-components'
+import type { OptionsRow, RecordType } from 'plus-pro-components'
 
 type State = {
-  options: OptionsRow[]
+  options: OptionsRow<RecordType>[]
   value: number
 }
 
@@ -26,7 +26,7 @@ watch(
   },
   { immediate: true }
 )
-const change = (val: number) => {
+const change = (val: string | number | boolean) => {
   console.log(val)
 }
 </script>

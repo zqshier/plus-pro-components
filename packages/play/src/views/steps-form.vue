@@ -1,10 +1,12 @@
 <template>
+  <!-- @vue-ignore -->
   <PlusStepsForm v-model="active" direction="vertical" :space="120" :data="stepForm" @next="next">
     <template #title="{ title }">{{ title }}</template>
   </PlusStepsForm>
 </template>
 <script lang="ts" setup>
 import { ref } from 'vue'
+
 const stepForm = ref([
   {
     title: '第一步',
