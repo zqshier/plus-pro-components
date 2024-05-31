@@ -44,23 +44,15 @@
 
 <script lang="ts" setup>
 import { ref, watchEffect } from 'vue'
-import type { StepProps } from 'element-plus'
 import { ElSteps, ElStep } from 'element-plus'
-import type { FieldValues, Mutable, PlusColumn } from '@plus-pro-components/types'
-import type { PlusFormProps } from '@plus-pro-components/components/form'
+import type { FieldValues, PlusColumn } from '@plus-pro-components/types'
 import { useLocale } from '@plus-pro-components/hooks'
 import { PlusForm } from '@plus-pro-components/components/form'
+import type { PlusStepFromRow } from './type'
 
-export interface PlusStepFrom {
-  title: Mutable<StepProps>['title']
-  form: PlusFormProps
-  description?: Mutable<StepProps>['description']
-  icon?: Mutable<StepProps>['icon']
-  status?: Mutable<StepProps>['status']
-}
 export interface PlusStepsFormProps {
   modelValue: number
-  data: PlusStepFrom[]
+  data: PlusStepFromRow[]
 }
 export interface PlusStepsFormEmits {
   (e: 'pre', modelValue: number): void
