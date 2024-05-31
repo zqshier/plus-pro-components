@@ -588,7 +588,9 @@ export interface PlusFormGroupRow {
 }
 ```
 
-## PlusStepFrom
+## PlusStepFromRow
+
+<el-tag>v0.1.8</el-tag>
 
 分步表单配置项
 
@@ -599,7 +601,7 @@ import type { PlusFormProps } from 'plus-pro-components'
 /**
  * 分步表单配置项
  */
-export interface PlusStepFrom {
+export interface PlusStepFromRow {
   title: string
   description?: string
   icon?: string | Component
