@@ -6,6 +6,7 @@
       :prop="prop"
       class="plus-form-item"
       v-bind="customFormItemProps"
+      :label-width="hasLabel ? customFormItemProps?.labelWidth : '0px'"
     >
       <template v-if="hasLabel" #label="{ label: currentLabel }">
         <span class="plus-form-item__label">

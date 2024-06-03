@@ -192,7 +192,8 @@ export interface PlusFormEmits {
 }
 
 defineOptions({
-  name: 'PlusForm'
+  name: 'PlusForm',
+  inheritAttrs: false
 })
 
 const props = withDefaults(defineProps<PlusFormProps>(), {

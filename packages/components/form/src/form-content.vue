@@ -5,7 +5,6 @@
         :model-value="getModelValue(item.prop)"
         v-bind="item"
         :has-label="getHasLabel(item.hasLabel)"
-        :label-width="getHasLabel(item.hasLabel) ? item.labelWidth : '0px'"
         @change="value => handleChange(value, item)"
       >
         <!--表单项label插槽 -->
