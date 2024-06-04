@@ -168,7 +168,7 @@ export interface TableFormRefRow {
   stopCellEdit: () => void
 
   /**
-   *  当前单元格的否可编辑
+   *  当前单元格是否可编辑
    * @version v0.1.8
    */
   isEdit: Ref<boolean>
