@@ -98,7 +98,7 @@ export interface ActionBarButtonsRow {
   directives?: DirectiveArguments
 
   /**
-   * 当前按钮操作的点击事件
+   * 当前按钮的点击事件，可与PlusTable的事件 `clickAction`  同时触发
    * @version v0.1.8
    * @param params
    * @returns
