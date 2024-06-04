@@ -50,7 +50,7 @@ table/cell-style
 
 :::
 
-## 自定义操作栏
+## 操作栏
 
 默认不显示。配置`actionBar`即可。 `actionBar` 中的`type` 支持 `button`，`icon`和 `link`，对应`element plus` 的 [ElButton](https://element-plus.org/zh-CN/component/button.html)，[ElIcon](https://element-plus.org/zh-CN/component/icon.html) 和 [ElLink ](https://element-plus.org/zh-CN/component/link.html)组件。
 
@@ -62,13 +62,33 @@ table/action-bar
 
 :::
 
+## 操作栏事件
+
+<el-tag>v0.1.8</el-tag>
+
+操作栏除了支持[PlusTable Event](/components/table.html#table-events)中的`clickAction`和`clickActionConfirmCancel`外，还支持自身的事件。
+
+[ActionBarButtonsRow](/components/type.html#actionbarbuttonsrow)支持以下事件。
+
+| 事件名      | 类型                                                                          | 触发说明                                                                                                                                                                |
+| ----------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `onClick`   | [ActionBarButtonsRow['onClick']](/components/type.html#actionbarbuttonsrow)   | 点击当前按钮的时触发，可与 PlusTable 的事件 `clickAction` 同时触发；操作需要二次确认时：PlusTable 的事件 `clickAction`会在确认时触发，而当前的 onClick 是在点击时触发； |
+| `onConfirm` | [ActionBarButtonsRow['onConfirm']](/components/type.html#actionbarbuttonsrow) | 操作需要二次确认时，点击确认时触发                                                                                                                                      |
+| `onCancel`  | [ActionBarButtonsRow['onCancel'] ](/components/type.html#actionbarbuttonsrow) | 操作需要二次确认时，点击取消时触发， 可与 PlusTable 的事件 `clickActionConfirmCancel` 同时触发                                                                          |
+
+:::demo
+
+table/action-bar-event
+
+:::
+
 ## 操作栏权限控制
 
-小于<el-tag>v0.1.7</el-tag>
+小于<el-tag>v0.1.7</el-tag>版本
 
 可使用 [ActionBarButtonsRow](/components/type.html#actionbarbuttonsrow) 中的 `show` 字段控制。
 
-大于等于<el-tag>v0.1.7</el-tag>
+大于等于<el-tag>v0.1.7</el-tag>版本
 
 可使用 [ActionBarButtonsRow](/components/type.html#actionbarbuttonsrow) 中的 `show` 和 `directives`指令字段控制。[参考 vue 渲染函数自定义指令 ](https://cn.vuejs.org/guide/extras/render-function.html#custom-directives)
 

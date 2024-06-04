@@ -1,11 +1,11 @@
 <template>
   <div>
     <PlusTable
-      key="1"
       :columns="tableConfig"
       :table-data="tableData"
-      :action-bar="{ buttons, showNumber: 4 }"
+      :action-bar="{ buttons, width: '100px' }"
       @clickAction="handleClickButton"
+      @clickActionConfirmCancel="handleClickCancel"
     />
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script lang="ts" setup>
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
-import { resolveDirective } from 'vue'
+import { computed } from 'vue'
 import { useTable } from 'plus-pro-components'
 import type { PlusColumn, ButtonsCallBackParams } from 'plus-pro-components'
 
@@ -44,38 +44,7 @@ const TestServe = {
 
 const { tableData, buttons } = useTable<TableRow[]>()
 
-const permissionList = ['sys.view', 'sys.edit', 'sys.copy']
-
-/**
- * 正常可引用（导入）写法
- */
-const permission = {
-  mounted(el: HTMLElement, binding) {
-    const { value } = binding
-
-    const hasButtonPermission = permissionList.includes(value)
-    !hasButtonPermission && el.parentElement?.removeChild(el)
-  }
-}
-
-/**
- * 如果 指令已经在全局注册，app.directive('copy',.....)，则需要使用resolveDirective解析出指令
- *
- * copy  指令已经在全局注册
- */
-const copy = resolveDirective('copy')
-
 buttons.value = [
-  {
-    // 查看
-    text: '查看',
-    code: 'view',
-    props: {
-      type: 'info'
-    },
-    //  show 字段控制权限
-    show: () => permissionList.includes('sys.view')
-  },
   {
     // 修改
     text: '修改',
@@ -83,10 +52,14 @@ buttons.value = [
     props: {
       type: 'primary'
     },
-    directives: [
-      // 相当于 v-permission="'sys.edit'"
-      [permission, 'sys.edit']
-    ]
+    show: computed(() => true),
+    onClick(params: ButtonsCallBackParams) {
+      if (params?.formRefs) {
+        // isEdit v0.1.8 新增
+        const isEdit = params.formRefs[0].isEdit.value
+        isEdit ? params.formRefs[0]?.stopCellEdit() : params.formRefs[0]?.startCellEdit()
+      }
+    }
   },
   {
     // 删除
@@ -98,23 +71,15 @@ buttons.value = [
     confirm: {
       options: { draggable: true }
     },
-    directives: [
-      // 相当于 v-permission="'sys.del'"
-      [permission, 'sys.del']
-    ]
-  },
-  {
-    text: '复制',
-    code: 'copy',
-    props: {
-      type: 'success'
+    onClick(params: ButtonsCallBackParams) {
+      console.log(params, 'onClick')
     },
-    directives: [
-      // 相当于 v-permission="'sys.del'"
-      [permission, 'sys.copy'],
-      // 相当于 v-copy="'v-copy 复制的值'"
-      [copy, 'v-copy 复制的值']
-    ]
+    onConfirm(params: ButtonsCallBackParams) {
+      console.log(params, 'onConfirm')
+    },
+    onCancel(params: ButtonsCallBackParams) {
+      console.log(params, 'onCancel')
+    }
   }
 ]
 
@@ -173,7 +138,10 @@ const getList = async () => {
 }
 getList()
 
-const handleClickButton = (data: ButtonsCallBackParams) => {
-  console.log(data.buttonRow.text)
+const handleClickButton = (params: ButtonsCallBackParams) => {
+  console.log(params, 'handleClickButton')
+}
+const handleClickCancel = (params: ButtonsCallBackParams) => {
+  console.log(params, 'handleClickCancel')
 }
 </script>

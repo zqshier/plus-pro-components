@@ -122,7 +122,7 @@ export interface ActionBarButtonsRow {
         button: ActionBarButtonsRow
       ) => string | Ref<string> | ComputedRef<string>)
   /**
-   * 操作唯一code
+   * 操作唯一code，可以用来判断是哪个按钮触发的PlusTable的`clickAction` 事件
    *
    */
   code?: string | number
@@ -190,6 +190,29 @@ export interface ActionBarButtonsRow {
    * @see https://cn.vuejs.org/guide/extras/render-function.html#custom-directives
    */
   directives?: DirectiveArguments
+
+  /**
+   * 点击当前按钮的时触发，可与PlusTable的事件 `clickAction`  同时触发；
+   * 操作需要二次确认时：PlusTable的事件 `clickAction`会在确认时触发，而当前的onClick是在点击时触发；
+   * @version v0.1.8
+   * @param params
+   * @returns
+   */
+  onClick?: (params: ButtonsCallBackParams) => void
+  /**
+   * 操作需要二次确认时，点击确认时触发
+   * @version v0.1.8
+   * @param params
+   * @returns
+   */
+  onConfirm?: (params: ButtonsCallBackParams) => void
+  /**
+   * 操作需要二次确认时，点击取消时触发， 可与PlusTable的事件 `clickActionConfirmCancel`  同时触发
+   * @version v0.1.8
+   * @param params
+   * @returns
+   */
+  onCancel?: (params: ButtonsCallBackParams) => void
 }
 ```
 
@@ -271,6 +294,12 @@ export interface TableFormRefRow {
    * @returns
    */
   stopCellEdit: () => void
+
+  /**
+   *  当前单元格是否可编辑
+   * @version v0.1.8
+   */
+  isEdit: Ref<boolean>
 }
 ```
 

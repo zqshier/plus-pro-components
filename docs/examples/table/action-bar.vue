@@ -23,13 +23,12 @@
       :action-bar="{ buttons: buttons2, type: 'icon', showNumber: 2 }"
       @clickAction="handleClickButton"
     />
-    <div style="height: 40px" />
-    <el-divider><el-tag>v0.0.8</el-tag> text支持函数类型 ↓↓↓</el-divider>
+
     <PlusTable
       key="4"
       :columns="tableConfig"
       :table-data="tableData"
-      :action-bar="{ buttons: buttons3, showNumber: 2 }"
+      :action-bar="{ buttons: buttons3, width: '60px' }"
       @clickAction="handleClickButton"
     />
   </div>
@@ -75,6 +74,7 @@ buttons.value = [
   {
     // 查看
     text: '查看',
+    code: 'view',
     props: {
       type: 'info'
     },
@@ -83,6 +83,7 @@ buttons.value = [
   {
     // 修改
     text: '修改',
+    code: 'edit',
     props: {
       type: 'primary'
     },
@@ -91,6 +92,7 @@ buttons.value = [
   {
     // 删除
     text: '删除',
+    code: 'delete',
     props: {
       type: 'danger'
     },
@@ -100,6 +102,7 @@ buttons.value = [
   },
   {
     text: '复制',
+    code: 'copy',
     props: {
       type: 'success'
     }
@@ -110,6 +113,7 @@ buttons1.value = [
   {
     // 查看
     text: '查看',
+    code: 'view',
     icon: View,
     props: {
       type: 'info'
@@ -119,6 +123,7 @@ buttons1.value = [
   {
     // 修改
     text: '修改',
+    code: 'edit',
     icon: Edit,
     props: {
       type: 'primary'
@@ -128,6 +133,7 @@ buttons1.value = [
   {
     // 删除
     text: '删除',
+    code: 'delete',
     icon: Delete,
     props: {
       type: 'danger'
@@ -139,6 +145,7 @@ buttons1.value = [
   },
   {
     text: '复制',
+    code: 'copy',
     icon: DocumentCopy,
     props: {
       type: 'success'
@@ -149,6 +156,7 @@ buttons2.value = [
   {
     // 查看
     text: '查看',
+    code: 'view',
     icon: View,
     props: {
       type: 'info'
@@ -158,6 +166,7 @@ buttons2.value = [
   {
     // 修改
     text: '修改',
+    code: 'edit',
     icon: Edit,
     props: {
       type: 'primary'
@@ -167,6 +176,7 @@ buttons2.value = [
   {
     // 删除
     text: '删除',
+    code: 'delete',
     icon: Delete,
     props: {
       type: 'danger'
@@ -177,6 +187,7 @@ buttons2.value = [
   },
   {
     text: '复制',
+    code: 'copy',
     icon: DocumentCopy,
     props: {
       type: 'success'
@@ -185,8 +196,9 @@ buttons2.value = [
 ]
 buttons3.value = [
   {
-    // 查看 v0.0.8开始支持
+    // v0.0.8开始支持 text支持函数类型
     text: row => (row.status === '1' ? '开启' : '关闭'),
+    code: 'status',
     icon: View,
     props: {
       type: 'primary'
