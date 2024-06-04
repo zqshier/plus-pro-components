@@ -97,13 +97,13 @@ page/crud
 
 ## Page Events
 
-| 名称                                     | 说明               | 类型                                                                    |
-| ---------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
-| `requestError`                           | 数据加载失败时触发 | `function` <docs-tip content='(error: any) => void'></docs-tip>         |
-| `requestComplete`<el-tag>v0.1.5</el-tag> | 数据加载完成时触发 | `function` <docs-tip content='(tableData: any[]) => void'></docs-tip>   |
-| `search`                                 | 点击搜索按钮时触发 | `function` <docs-tip content='(data: FieldValues) => void'></docs-tip>  |
-| `reset`                                  | 点击重置按钮时触发 | `function` <docs-tip content='(data: FieldValues) => void'></docs-tip>  |
-| `paginationChange`                       | 分页改变时触发     | `function` <docs-tip content='(pageInfo: PageInfo) => void'></docs-tip> |
+| 名称                                     | 说明                                                                            | 类型                                                                    |
+| ---------------------------------------- | ------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `requestError`                           | 数据加载失败时触发                                                              | `function` <docs-tip content='(error: any) => void'></docs-tip>         |
+| `requestComplete`<el-tag>v0.1.5</el-tag> | 数据加载完成时触发                                                              | `function` <docs-tip content='(tableData: any[]) => void'></docs-tip>   |
+| `search`                                 | 点击搜索按钮时触发，（并将 page 置为 1 ，然后重新加载<el-tag>v0.1.8</el-tag> ） | `function` <docs-tip content='(data: FieldValues) => void'></docs-tip>  |
+| `reset`                                  | 点击重置按钮时触发，并将 page 置为 1 ，然后重新加载                             | `function` <docs-tip content='(data: FieldValues) => void'></docs-tip>  |
+| `paginationChange`                       | 分页改变时触发                                                                  | `function` <docs-tip content='(pageInfo: PageInfo) => void'></docs-tip> |
 
 ::: tip 提示
 支持 [PlusSearch](/components/search.html) 和
