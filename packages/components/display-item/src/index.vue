@@ -436,6 +436,7 @@ const stopCellEdit = () => {
 
 const getDisplayItemInstance = () => {
   return {
+    isEdit: isEdit,
     index: props.index,
     prop: props.column.prop,
     formInstance: computed(() => formInstance.value?.formInstance)
