@@ -94,13 +94,16 @@ export interface ActionBarButtonsRow {
    * @version v0.1.7
    * @see https://cn.vuejs.org/guide/extras/render-function.html#custom-directives
    *
-   *
-   * ```html
-   *  directives
-   *
-   * ```
    */
   directives?: DirectiveArguments
+
+  /**
+   * 当前按钮操作的点击事件
+   * @version v0.1.8
+   * @param params
+   * @returns
+   */
+  onClick?: (params: ButtonsCallBackParams) => void
 }
 
 /**

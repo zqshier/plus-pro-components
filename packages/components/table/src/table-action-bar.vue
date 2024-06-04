@@ -217,6 +217,14 @@ const handleClickAction = (
     ...rest
   } as ButtonsCallBackParams
 
+  /**
+   * add self onClick event support
+   * @version v0.1.8
+   */
+  if (buttonRow.onClick && isFunction(buttonRow.onClick)) {
+    buttonRow.onClick(callbackParams)
+  }
+
   if (buttonRow.confirm) {
     let message = t('plus.table.confirmToPerformThisOperation')
     let title = t('plus.table.prompt')
