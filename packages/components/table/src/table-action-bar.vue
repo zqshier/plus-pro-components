@@ -44,7 +44,7 @@
 
 <script lang="ts" setup>
 import type { VNode, AppContext, Ref, ComputedRef, Component } from 'vue'
-import { h, unref, withDirectives } from 'vue'
+import { h, unref, withDirectives, inject } from 'vue'
 import { ArrowDownBold } from '@element-plus/icons-vue'
 import type { TableColumnCtx, ElMessageBoxOptions } from 'element-plus'
 import {
@@ -61,7 +61,8 @@ import {
 import type { RecordType } from '@plus-pro-components/types'
 import { isFunction, isPlainObject } from '@plus-pro-components/components/utils'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { ButtonsCallBackParams, ActionBarButtonsRow } from './type'
+import { TableFormRefInjectionKey } from '@plus-pro-components/constants'
+import type { ButtonsCallBackParams, ActionBarButtonsRow, TableFormRefRow } from './type'
 
 export interface ActionBarProps {
   /**
@@ -115,6 +116,8 @@ const props = withDefaults(defineProps<ActionBarProps>(), {
 const emit = defineEmits<PlusTableActionBarEmits>()
 
 const { t } = useLocale()
+
+const formRefs = inject(TableFormRefInjectionKey) as Ref<Record<string | number, TableFormRefRow[]>>
 
 const getSubButtons = (row: RecordType, index: number) => {
   const data = props.buttons.filter(item => {
@@ -214,6 +217,7 @@ const handleClickAction = (
     index,
     rowIndex: index,
     e,
+    formRefs: formRefs.value[index],
     ...rest
   } as ButtonsCallBackParams
 
@@ -254,9 +258,25 @@ const handleClickAction = (
 
     ElMessageBox.confirm(message, title, options, appContext)
       .then(() => {
+        /**
+         * add self onConfirm event support
+         * @version v0.1.8
+         */
+        if (buttonRow.onConfirm && isFunction(buttonRow.onConfirm)) {
+          buttonRow.onConfirm(callbackParams)
+        }
+
         emit('clickAction', callbackParams)
       })
       .catch(() => {
+        /**
+         * add self onCancel event support
+         * @version v0.1.8
+         */
+        if (buttonRow.onCancel && isFunction(buttonRow.onCancel)) {
+          buttonRow.onCancel(callbackParams)
+        }
+
         emit('clickActionConfirmCancel', callbackParams)
       })
   } else {

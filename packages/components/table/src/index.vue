@@ -372,14 +372,11 @@ const handlePaginationChange = () => {
 }
 
 const handleAction = (callbackParams: ButtonsCallBackParams) => {
-  emit('clickAction', { ...callbackParams, formRefs: formRefs.value[callbackParams.index] })
+  emit('clickAction', callbackParams)
 }
 
 const handleClickActionConfirmCancel = (callbackParams: ButtonsCallBackParams) => {
-  emit('clickActionConfirmCancel', {
-    ...callbackParams,
-    formRefs: formRefs.value[callbackParams.index]
-  })
+  emit('clickActionConfirmCancel', callbackParams)
 }
 
 const handleFilterTableConfirm = (_columns: PlusColumn[]) => {
