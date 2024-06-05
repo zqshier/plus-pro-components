@@ -52,7 +52,7 @@ export interface OptionsRow<T = undefined> {
    */
   color?: string
   /**
-   * 小圆点背景色，
+   * 类型
    * type 优先级 低于 color，
    * 只支持 'success' | 'warning' | 'info' | 'primary' | 'danger'
    */
