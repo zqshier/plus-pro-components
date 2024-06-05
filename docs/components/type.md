@@ -221,6 +221,7 @@ export interface ActionBarButtonsRow {
 表格操作栏数据类型
 
 ```ts
+import type { ComputedRef } from 'vue'
 import type { ActionBarButtonsRow } from 'plus-pro-components'
 
 /**
@@ -308,6 +309,8 @@ export interface TableFormRefRow {
 表格单元格回调参数
 
 ```ts
+import type { RecordType } from 'plus-pro-components'
+
 /**
  * 表格单元格回调参数
  */
@@ -359,12 +362,7 @@ export type TableCellParams = {
 表格点击按钮回调的参数的类型
 
 ```ts
-import type {
-  RecordType,
-  buttonsKeyRow,
-  TableFormRefRow,
-  TableCellParams
-} from 'plus-pro-components'
+import type { TableFormRefRow, TableCellParams, ActionBarButtonsRow } from 'plus-pro-components'
 
 /**
  * 点击按钮回调的参数的类型
@@ -471,6 +469,8 @@ export type FormItemValueType =
 单个表单值的类型
 
 ```ts
+import type { RecordType } from 'plus-pro-components'
+
 /**
  * 单个表单值的类型
  */
@@ -510,6 +510,7 @@ export type FieldValues = Record<string, FieldValueType>
 自定义 props 类型
 
 ```ts
+import type { ComputedRef } from 'vue'
 import type { FieldValueType } from 'plus-pro-components'
 /**
  *  自定义props类型  值支持对象 object，computed，函数和 Promise。
@@ -533,6 +534,8 @@ export type PropsItemType<T extends Record<string, any> = any> =
 
 ```ts
 import type { PropsItemType, RecordType } from 'plus-pro-components'
+import type { ButtonType } from 'element-plus'
+import type { VNode } from 'vue'
 /**
  * 选择框类型
  */
@@ -548,7 +551,7 @@ export interface OptionsRow {
    */
   color?: string
   /**
-   * 小圆点背景色，
+   *  类型
    * type 优先级 低于 color，
    * 只支持 'success' | 'warning' | 'info' | 'primary' | 'danger'
    */
@@ -596,6 +599,7 @@ export type OptionsType =
 ```ts
 import type { Component, ComputedRef } from 'vue'
 import type { PlusColumn, Mutable } from 'plus-pro-components'
+import type { CardProps } from  from 'element-plus'
 
 /**
  * 分组表单配置项
