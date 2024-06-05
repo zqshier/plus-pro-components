@@ -1,5 +1,29 @@
 # 常见问题
 
+## 组件 TypeScript 类型不兼容或错误 ？
+
+借用[Ant Design Pro](https://pro.ant.design/zh-CN/docs/type-script/#ts-ignore)官网的一句话:
+
+`TypeScript 毕竟是一个标注语言，在需要使用 any 的时候不必吝于使用 any，在遇到【动态性比较强的代码】时，不妨使用 as unknown as XXX, 可以节省很多时间。`
+
+`@ts-ignore` `@vue-ignore`
+
+有些时候类型错误是组件的，但是看起来非常难受。会一直编译报错，这里就可以使用 `@ts-ignore` 来暂时忽略它，在模板中还可以使用`@vue-ignore`
+
+> \*.vue
+
+```html
+<template>
+  <!-- @vue-ignore -->
+  <!-- 报错的组件 -->
+</template>
+
+<script setup>
+  // @ts-ignore
+  // 报错的行
+</script>
+```
+
 ## 是否兼容element-plus@2.6.0 ？
 
 是， [详见 issues/79](https://github.com/plus-pro-components/plus-pro-components/issues/79)，[详见 issues/105](https://github.com/plus-pro-components/plus-pro-components/issues/105)
