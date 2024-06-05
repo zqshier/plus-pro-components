@@ -91,3 +91,21 @@
   order: 3;
 }
 ```
+
+## PlusForm 里面的表单元素，想单独占一行，但是宽度是`{colProps: {span: 8}}` 怎么配置？
+
+```ts
+import type { PlusColumn } from 'plus-pro-components'
+
+const columns: PlusColumn[] = [
+  {
+    label: 'test',
+    prop: 'test',
+    colProps: {
+      span: 8, // 实际宽度是 33.3%
+      // @ts-ignore
+      style: { marginRight: '67%' }
+    }
+  }
+]
+```

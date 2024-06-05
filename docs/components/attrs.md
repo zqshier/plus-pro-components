@@ -82,35 +82,6 @@ const columns = [
 ]
 ```
 
-### PlusLayout 子组件事件写法示例
-
-[PlusLayout](/components/layout.html) 的 `sidebarProps` 和`headerProps`表示的就是子组件的 props。
-
-如 [PlusSidebar ](/components/sidebar.html) 的事件 `toggleCollapse`和 [PlusHeader ](/components/header.html)的事件`clickDropdownItem`。
-
-示例：
-
-> 模板中
-
-```html
-<PlusLayout
-  :sidebarProps="{ onToggleCollapse: handleToggleCollapse }"
-  :headerProps="{ onClickDropdownItem: handleClickDropdownItem}"
-/>
-```
-
-> setup 中
-
-```ts
-const handleClickDropdownItem = (dropdownItem: { label: string; value: string }) => {
-  console.log(dropdownItem)
-}
-
-const handleToggleCollapse = (collapse: boolean) => {
-  console.log(collapse)
-}
-```
-
 ### 需要 `事件修饰符` 和 `按键修饰符`的事件写法示例
 
 ::: tip 提示
@@ -185,13 +156,42 @@ const handleToggleCollapse = (collapse: boolean) => {
 </script>
 ```
 
+### PlusLayout 子组件事件写法示例
+
+[PlusLayout](/components/layout.html) 的 `sidebarProps` 和`headerProps`表示的就是子组件的 props。
+
+如 [PlusSidebar ](/components/sidebar.html) 的事件 `toggleCollapse`和 [PlusHeader ](/components/header.html)的事件`clickDropdownItem`。
+
+示例：
+
+> 模板中
+
+```html
+<PlusLayout
+  :sidebarProps="{ onToggleCollapse: handleToggleCollapse }"
+  :headerProps="{ onClickDropdownItem: handleClickDropdownItem}"
+/>
+```
+
+> setup 中
+
+```ts
+const handleClickDropdownItem = (dropdownItem: { label: string; value: string }) => {
+  console.log(dropdownItem)
+}
+
+const handleToggleCollapse = (collapse: boolean) => {
+  console.log(collapse)
+}
+```
+
 [vue 官方建议使用 withModifiers，为什么使用 withKeys？](https://github.com/vuejs/babel-plugin-jsx/issues/269)
 
 ### 其他\*Props 和高级组件事件写法参考上面示例
 
 ## 样式透传
 
-支持事件透传的都支持样式透传
+支持事件透传的一般都支持样式透传
 
 ### `fieldProps` 样式透传示例
 
