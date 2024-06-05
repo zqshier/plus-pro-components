@@ -261,7 +261,7 @@ export interface FormColumnProps {
   /**
    * @desc el-col 的 props
    */
-  colProps?: Partial<Mutable<ColProps>>
+  colProps?: Partial<Mutable<ColProps> & { [key: string]: any; style?: CSSProperties }>
 
   /**
    * 表单中单个项目是否需要 label，默认undefined，优先级高于表单的整体 hasLabel
