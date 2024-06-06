@@ -2,6 +2,26 @@
 
 本记录只记录影响较大变更，对于一般[新功能、性能提升和问题修复](/guide/changelog.html)不在此记录。
 
+## 从 v0.1.7 迁移到 v0.1.8
+
+- [PlusColumn](/components/config.html) 中的 `formItemProps` 中的 `labelWidth` 开始生效，原来[PlusColumn](/components/config.html) 中的配置 `labelWidth` 不再生效。
+
+```ts
+import type { PlusColumn } from 'plus-pro-components'
+
+const columns: PlusColumn[] = [
+  {
+    label: 'test',
+    prop: 'test',
+    labelWidth: '100px', // [!code --]
+    formItemProps: {
+      labelWidth: '100px' // [!code ++]
+    }
+  }
+]
+```
+
+<el-divider />
 ## v0.1.6
 
 ### [PlusDrawerForm](/components/drawer-form.html)
