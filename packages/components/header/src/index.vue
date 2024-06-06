@@ -76,7 +76,6 @@ import { isFunction } from '@plus-pro-components/components/utils'
 import type { RenderTypes } from '@plus-pro-components/types'
 
 export interface PlusHeaderProps {
-  [index: string]: any
   logo?: string
   fixed?: boolean
   title?: string

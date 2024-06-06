@@ -36,13 +36,10 @@
 
 <script lang="ts" setup>
 import { ref, watchEffect, computed } from 'vue'
-import type { DialogProps } from 'element-plus'
 import { ElDialog, ElButton } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
 
-export interface PlusDialogProps
-  extends /* @vue-ignore */ Partial<Omit<DialogProps, 'modelValue' | 'title'>> {
-  [index: string]: any
+export interface PlusDialogProps {
   modelValue?: boolean
   confirmText?: string
   cancelText?: string

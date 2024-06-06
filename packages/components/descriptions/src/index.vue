@@ -86,7 +86,7 @@ import {
 } from '@plus-pro-components/components/utils'
 
 export type DescriptionProps = Partial<Mutable<ExtractPropTypes<typeof descriptionProps>>>
-export interface PlusDescriptionsProps extends /* @vue-ignore */ Partial<DescriptionProps> {
+export interface PlusDescriptionsProps {
   data: RecordType
   columns?: PlusColumn[]
   column?: number

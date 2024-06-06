@@ -71,7 +71,7 @@
 import type { PlusFormInstance } from '@plus-pro-components/components/form'
 import { PlusForm } from '@plus-pro-components/components/form'
 import { ref, computed, watch, unref, useSlots } from 'vue'
-import type { FormProps, RowProps, ColProps } from 'element-plus'
+import type { RowProps, ColProps } from 'element-plus'
 import { ArrowDown, ArrowUp, Search, RefreshRight } from '@element-plus/icons-vue'
 import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
 import { useLocale } from '@plus-pro-components/hooks'
@@ -84,8 +84,7 @@ import {
   filterSlots
 } from '@plus-pro-components/components/utils'
 
-export interface PlusSearchProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
-  [index: string]: any
+export interface PlusSearchProps {
   modelValue?: FieldValues
   defaultValues?: FieldValues
   columns?: PlusColumn[]

@@ -72,7 +72,6 @@ import { isFunction, isString } from '@plus-pro-components/components/utils'
 import PlusSidebarItem from './sidebar-item.vue'
 
 export interface PlusSidebarProps {
-  [index: string]: any
   routes?: PlusRouteRecordRaw[]
   collapse?: boolean
   defaultActive?: string | ComputedRef<string> | Ref<string>

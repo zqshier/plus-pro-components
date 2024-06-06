@@ -122,14 +122,7 @@
 <script lang="ts" setup>
 import type { Component, ComputedRef } from 'vue'
 import { ref, watch, computed, useSlots, unref } from 'vue'
-import type {
-  FormInstance,
-  FormRules,
-  FormProps,
-  RowProps,
-  ColProps,
-  CardProps
-} from 'element-plus'
+import type { FormInstance, FormRules, RowProps, ColProps, CardProps } from 'element-plus'
 import { ElMessage, ElForm, ElCard, ElButton, ElIcon } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
 import type { PlusColumn, FieldValues, Mutable, RecordType } from '@plus-pro-components/types'
@@ -157,8 +150,7 @@ export interface PlusFormGroupRow {
   hideInGroup?: boolean | ComputedRef<boolean>
   columns: PlusColumn[]
 }
-export interface PlusFormProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
-  [index: string]: any
+export interface PlusFormProps {
   modelValue?: FieldValues
   defaultValues?: FieldValues
   columns?: PlusColumn[]

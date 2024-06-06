@@ -50,7 +50,7 @@
 <script lang="ts" setup>
 import type { Ref, ComputedRef } from 'vue'
 import { ref, watch, unref } from 'vue'
-import type { FormProps, RowProps, ColProps } from 'element-plus'
+import type { RowProps, ColProps } from 'element-plus'
 import { ElRow, ElCol } from 'element-plus'
 import { PlusFormItem } from '@plus-pro-components/components/form-item'
 import type { PlusColumn, FieldValues, FieldValueType, Mutable } from '@plus-pro-components/types'
@@ -64,7 +64,7 @@ import {
   isBoolean
 } from '@plus-pro-components/components/utils'
 
-export interface PlusFormContentProps extends /* @vue-ignore */ Partial<Mutable<FormProps>> {
+export interface PlusFormContentProps {
   modelValue?: FieldValues
   hasLabel?: boolean
   columns?: PlusColumn[]

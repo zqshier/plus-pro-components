@@ -182,7 +182,7 @@ import {
 } from '@plus-pro-components/constants'
 import type { CSSProperties, Ref } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
-import type { TableInstance, TableProps } from 'element-plus'
+import type { TableInstance } from 'element-plus'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
 import type {
   PageInfo,
@@ -216,8 +216,7 @@ import type {
 /**
  * 表格数据
  */
-export interface PlusTableProps extends /* @vue-ignore */ Partial<TableProps<RecordType>> {
-  [index: string]: any
+export interface PlusTableProps {
   /* 表格数据*/
   tableData?: RecordType[]
   /* 表格配置信息*/
