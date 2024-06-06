@@ -1,3 +1,22 @@
+## [v0.1.8](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.7...v0.1.8) (2024-06-06)
+
+### ✨ Features
+
+- **types:** :sparkles: colProps add {style: CSSProperties} type([e299555](https://github.com/plus-pro-components/plus-pro-components/commit/e299555)) by@xiaofei
+- **components:** :sparkles: actionBarButtonsRow add onConfirm and onCancel event([493eafd](https://github.com/plus-pro-components/plus-pro-components/commit/493eafd)) by@xiaofei
+- **components:** :sparkles: tableFormRefRow add isEdit([06abc98](https://github.com/plus-pro-components/plus-pro-components/commit/06abc98)) by@xiaofei
+- **components:** :sparkles: table ActionBarButtonsRow add self onClick event suport.([3a1d0bc](https://github.com/plus-pro-components/plus-pro-components/commit/3a1d0bc)) by@xiaofei
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: fix formItemProps.labelWidth invalid([929feb2](https://github.com/plus-pro-components/plus-pro-components/commit/929feb2)) by@xiaofei
+- **components:** :bug: fix page components reset page to 1 during search execution([4880059](https://github.com/plus-pro-components/plus-pro-components/commit/4880059)) by@xiaofei
+
+### ♻️ Code Refactoring
+
+- **components:** :recycle: refactor components props type([4233245](https://github.com/plus-pro-components/plus-pro-components/commit/4233245)) by@xiaofei
+- **components:** :recycle: steps-form components PlusStepFrom =>PlusStepFromRow([8727ab1](https://github.com/plus-pro-components/plus-pro-components/commit/8727ab1)) by@xiaofei
+
 ## [v0.1.7](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.6...v0.1.7) (2024-05-30)
 
 ### ✨ Features
