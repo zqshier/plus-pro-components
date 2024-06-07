@@ -98,7 +98,7 @@ export interface ActionBarButtonsRow {
   directives?: DirectiveArguments
 
   /**
-   * 点击当前按钮的时触发，可与PlusTable的事件 `clickAction`  同时触发；
+   * 点击当前按钮时触发，可与PlusTable的事件 `clickAction`  同时触发；
    * 操作需要二次确认时：PlusTable的事件 `clickAction`会在确认时触发，而当前的onClick是在点击时触发；
    * @version v0.1.8
    * @param params
