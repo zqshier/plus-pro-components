@@ -28,7 +28,15 @@
 
 是， [详见 issues/79](https://github.com/plus-pro-components/plus-pro-components/issues/79)，[详见 issues/105](https://github.com/plus-pro-components/plus-pro-components/issues/105)
 
-## 国际化不起效果？
+## 按钮，placeholder，标题文本显示异常？
+
+![详见](/i18n-error.png)
+
+问题原因：未配置 `plus-pro-components` 的国际化。
+
+解决方案：[配置国际化](/guide/i18n.html)
+
+## 国际化配置了不起效果？
 
 [详见](/guide/i18n.html#国际化不起效果)
 
