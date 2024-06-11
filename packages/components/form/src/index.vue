@@ -120,12 +120,11 @@
 </template>
 
 <script lang="ts" setup>
-import type { Component, ComputedRef } from 'vue'
 import { ref, watch, computed, useSlots, unref } from 'vue'
-import type { FormInstance, FormRules, RowProps, ColProps, CardProps } from 'element-plus'
+import type { FormInstance } from 'element-plus'
 import { ElMessage, ElForm, ElCard, ElButton, ElIcon } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-import type { PlusColumn, FieldValues, Mutable, RecordType } from '@plus-pro-components/types'
+import type { PlusColumn, FieldValues, RecordType } from '@plus-pro-components/types'
 import {
   getLabelSlotName,
   getFieldSlotName,
@@ -135,53 +134,7 @@ import {
   isPlainObject
 } from '@plus-pro-components/components/utils'
 import PlusFormContent from './form-content.vue'
-
-/**
- * 分组表单配置项
- */
-export interface PlusFormGroupRow {
-  title: string
-  icon?: Component
-  /**
-   * @desc 分组表单el-card的props，优先级高于整体的cardProps
-   * @version v0.1.1
-   */
-  cardProps?: Partial<Mutable<CardProps>>
-  hideInGroup?: boolean | ComputedRef<boolean>
-  columns: PlusColumn[]
-}
-export interface PlusFormProps {
-  modelValue?: FieldValues
-  defaultValues?: FieldValues
-  columns?: PlusColumn[]
-  labelWidth?: string
-  labelPosition?: 'left' | 'right' | 'top'
-  rowProps?: Partial<Mutable<RowProps>>
-  colProps?: Partial<Mutable<ColProps>>
-  labelSuffix?: string
-  hasErrorTip?: boolean
-  hasFooter?: boolean
-  hasReset?: boolean
-  hasLabel?: boolean
-  submitText?: string
-  resetText?: string
-  submitLoading?: boolean
-  footerAlign?: 'left' | 'right' | 'center'
-  rules?: FormRules
-  group?: false | PlusFormGroupRow[]
-  cardProps?: Partial<Mutable<CardProps>>
-}
-export interface PlusFormState {
-  values: FieldValues
-  subColumns: PlusColumn[]
-}
-export interface PlusFormEmits {
-  (e: 'update:modelValue', values: FieldValues): void
-  (e: 'submit', values: FieldValues): void
-  (e: 'change', values: FieldValues, column: PlusColumn): void
-  (e: 'reset', values: FieldValues): void
-  (e: 'submitError', errors: unknown): void
-}
+import type { PlusFormSelfProps as PlusFormProps, PlusFormEmits } from './type'
 
 defineOptions({
   name: 'PlusForm',

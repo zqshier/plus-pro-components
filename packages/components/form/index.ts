@@ -1,6 +1,6 @@
 import Form from './src/index.vue'
 
 export type PlusFormInstance = InstanceType<typeof Form>
-export type { PlusFormProps, PlusFormGroupRow } from './src/index.vue'
+export * from './src/type'
 
 export const PlusForm = Form
