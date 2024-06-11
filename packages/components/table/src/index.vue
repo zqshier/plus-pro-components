@@ -180,7 +180,7 @@ import {
   TableFormRefInjectionKey,
   TableFormFieldRefInjectionKey
 } from '@plus-pro-components/constants'
-import type { Ref } from 'vue'
+import type { Ref, ComputedRef } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { TableInstance } from 'element-plus'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
@@ -254,7 +254,9 @@ const state = reactive<PlusTableState>({
   },
   size: props.defaultSize
 })
-const __tableData = computed(() => props.tableData || props.data)
+const __tableData: ComputedRef<RecordType[]> = computed(() =>
+  props.tableData?.length ? props.tableData : props.data
+)
 
 const slots = useSlots()
 /**
