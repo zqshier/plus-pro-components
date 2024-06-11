@@ -1,3 +1,10 @@
+## [v0.1.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.8...v0.1.9) (2024-06-11)
+
+### ✨ Features
+
+- **components:** :sparkles: add external type support([f3ecdb1](https://github.com/plus-pro-components/plus-pro-components/commit/f3ecdb1)) by@xiaofei
+- **components:** :sparkles: form component add external type support([b8aefc2](https://github.com/plus-pro-components/plus-pro-components/commit/b8aefc2)) by@xiaofei
+
 ## [v0.1.8](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.7...v0.1.8) (2024-06-06)
 
 ### ✨ Features
