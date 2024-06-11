@@ -71,9 +71,8 @@
 import type { PlusFormInstance } from '@plus-pro-components/components/form'
 import { PlusForm } from '@plus-pro-components/components/form'
 import { ref, computed, watch, unref, useSlots } from 'vue'
-import type { RowProps, ColProps } from 'element-plus'
 import { ArrowDown, ArrowUp, Search, RefreshRight } from '@element-plus/icons-vue'
-import type { PlusColumn, FieldValues, Mutable } from '@plus-pro-components/types'
+import type { PlusColumn, FieldValues } from '@plus-pro-components/types'
 import { useLocale } from '@plus-pro-components/hooks'
 import { ElFormItem, ElButton, ElIcon, ElLink } from 'element-plus'
 import { orderBy } from 'lodash-es'
@@ -83,30 +82,7 @@ import {
   getExtraSlotName,
   filterSlots
 } from '@plus-pro-components/components/utils'
-
-export interface PlusSearchProps {
-  modelValue?: FieldValues
-  defaultValues?: FieldValues
-  columns?: PlusColumn[]
-  hasFooter?: boolean
-  hasReset?: boolean
-  hasUnfold?: boolean
-  searchText?: string
-  resetText?: string
-  searchLoading?: boolean
-  inline?: boolean
-  showNumber?: number
-  rowProps?: Partial<Mutable<RowProps>>
-  colProps?: Partial<Mutable<ColProps>>
-}
-
-export interface PlusSearchEmits {
-  (e: 'update:modelValue', values: FieldValues): void
-  (e: 'search', values: FieldValues): void
-  (e: 'change', values: FieldValues, column: PlusColumn): void
-  (e: 'reset', values: FieldValues): void
-  (e: 'collapse', isShowUnfold: boolean): void
-}
+import type { PlusSearchSelfProps as PlusSearchProps, PlusSearchEmits } from './type'
 
 defineOptions({
   name: 'PlusSearch'

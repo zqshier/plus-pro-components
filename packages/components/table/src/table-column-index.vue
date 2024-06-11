@@ -12,7 +12,7 @@
   >
     <template #default="{ row, $index }">
       <el-tooltip
-        v-if="getTableIndex($index) > 999"
+        v-if="getTableIndex($index) > max"
         :content="String(getTableIndex($index))"
         placement="top-start"
       >

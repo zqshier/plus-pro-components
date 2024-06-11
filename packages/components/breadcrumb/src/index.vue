@@ -28,14 +28,7 @@ import { ref, getCurrentInstance, watchEffect, computed } from 'vue'
 import type { RouteLocationMatched, RouteLocationNormalizedLoaded } from 'vue-router'
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus'
 import { isFunction } from '@plus-pro-components/components/utils'
-import type { PlusRouteRecordRaw, RenderTypes } from '@plus-pro-components/types'
-
-export interface PlusBreadcrumbProps {
-  routes?: PlusRouteRecordRaw[]
-  replace?: boolean
-  // eslint-disable-next-line vue/require-default-prop
-  renderTitle?: (route: PlusRouteRecordRaw) => RenderTypes
-}
+import type { PlusBreadcrumbSelfProps as PlusBreadcrumbProps } from './type'
 
 defineOptions({
   name: 'PlusBreadcrumb'

@@ -38,26 +38,11 @@
 import { ref, watchEffect, computed } from 'vue'
 import { ElDialog, ElButton } from 'element-plus'
 import { useLocale } from '@plus-pro-components/hooks'
-
-export interface PlusDialogProps {
-  modelValue?: boolean
-  confirmText?: string
-  cancelText?: string
-  confirmLoading?: boolean
-  hasFooter?: boolean
-  footerAlign?: 'left' | 'right' | 'center'
-  top?: string
-  width?: string
-  title?: string
-}
-export interface PlusDialogEmits {
-  (e: 'update:modelValue', visible: boolean): void
-  (e: 'cancel'): void
-  (e: 'confirm'): void
-}
+import type { PlusDialogSelfProps as PlusDialogProps, PlusDialogEmits } from './type'
 
 defineOptions({
-  name: 'PlusDialog'
+  name: 'PlusDialog',
+  inheritAttrs: false
 })
 
 const props = withDefaults(defineProps<PlusDialogProps>(), {

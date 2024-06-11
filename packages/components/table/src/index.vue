@@ -38,7 +38,7 @@
       ref="tableInstance"
       v-loading="loadingStatus"
       :reserve-selection="true"
-      :data="tableData"
+      :data="__tableData"
       :border="true"
       :height="height"
       :header-cell-style="headerCellStyle"
@@ -172,7 +172,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, watch, ref, provide, shallowRef, useSlots, unref } from 'vue'
+import { reactive, toRefs, watch, ref, provide, shallowRef, useSlots, unref, computed } from 'vue'
 import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
 import { PlusPagination } from '@plus-pro-components/components/pagination'
 import {
@@ -180,7 +180,7 @@ import {
   TableFormRefInjectionKey,
   TableFormFieldRefInjectionKey
 } from '@plus-pro-components/constants'
-import type { CSSProperties, Ref } from 'vue'
+import type { Ref } from 'vue'
 import type { ComponentSize } from 'element-plus/es/constants'
 import type { TableInstance } from 'element-plus'
 import { ElTable, ElTableColumn, vLoading } from 'element-plus'
@@ -190,7 +190,6 @@ import type {
   RecordType,
   FormFieldRefsType
 } from '@plus-pro-components/types'
-import type { Options as SortableOptions } from 'sortablejs'
 import {
   getTableCellSlotName,
   getTableHeaderSlotName,
@@ -206,78 +205,12 @@ import PlusTableColumnDragSort from './table-column-drag-sort.vue'
 import PlusTableTitleBar from './table-title-bar.vue'
 import type {
   ButtonsCallBackParams,
-  TableState,
-  ActionBarProps,
-  TitleBar,
+  PlusTableState,
+  PlusTableSelfProps as PlusTableProps,
+  PlusTableEmits,
   TableFormRefRow,
   FormChangeCallBackParams
 } from './type'
-
-/**
- * 表格数据
- */
-export interface PlusTableProps {
-  /* 表格数据*/
-  tableData?: RecordType[]
-  /* 表格配置信息*/
-  columns?: PlusColumn[]
-  // 密度
-  defaultSize?: ComponentSize
-  /* 分页参数*/
-  pagination?: false | Partial<PlusPaginationProps>
-  /* 操作栏参数*/
-  actionBar?: false | Partial<ActionBarProps>
-  /* 是否需要序号*/
-  hasIndexColumn?: boolean
-  /* 是否工具栏*/
-  titleBar?: boolean | Partial<TitleBar>
-  /* 是否是多选表格*/
-  isSelection?: boolean
-  /* 是否需要展开行*/
-  hasExpand?: boolean
-  /* loading状态*/
-  loadingStatus?: boolean
-  /* 表格高度*/
-  // eslint-disable-next-line vue/require-default-prop
-  height?: string
-  /* 表格头样式*/
-  headerCellStyle?: Partial<CSSProperties>
-  /** rowKey */
-  rowKey?: string
-  /** sortablejs配置 */
-  dragSortable?: false | Partial<SortableOptions>
-  dragSortableTableColumnProps?: RecordType
-  indexTableColumnProps?: RecordType
-  selectionTableColumnProps?: RecordType
-  expandTableColumnProps?: RecordType
-  indexContentStyle?:
-    | Partial<CSSProperties>
-    | ((row: RecordType, index: number) => Partial<CSSProperties>)
-  editable?: boolean | 'click' | 'dblclick'
-}
-export interface PlusTableEmits {
-  (e: 'paginationChange', pageInfo: PageInfo): void
-  (e: 'clickAction', data: ButtonsCallBackParams): void
-  (e: 'clickActionConfirmCancel', data: ButtonsCallBackParams): void
-  (e: 'dragSortEnd', newIndex: number, oldIndex: number): void
-  (e: 'formChange', data: FormChangeCallBackParams): void
-  (e: 'refresh'): void
-  (
-    e: 'cell-click',
-    row: RecordType,
-    column: PlusColumn,
-    cell: HTMLTableCellElement,
-    event: Event
-  ): void
-  (
-    e: 'cell-dblclick',
-    row: RecordType,
-    column: PlusColumn,
-    cell: HTMLTableCellElement,
-    event: Event
-  ): void
-  (e: 'edited'): void
-}
 
 defineOptions({
   name: 'PlusTable',
@@ -294,6 +227,7 @@ const props = withDefaults(defineProps<PlusTableProps>(), {
   hasExpand: false,
   loadingStatus: false,
   tableData: () => [],
+  data: () => [],
   columns: () => [],
   headerCellStyle: () => ({
     'background-color': 'var(--el-fill-color-light)'
@@ -314,12 +248,13 @@ const emit = defineEmits<PlusTableEmits>()
 const subColumns: Ref<PlusColumn[]> = ref([])
 const tableInstance = shallowRef<TableInstance | null>(null)
 const tableWrapperInstance = ref<HTMLDivElement | null>(null)
-const state = reactive<TableState>({
+const state = reactive<PlusTableState>({
   subPageInfo: {
     ...(((props.pagination as PlusPaginationProps)?.modelValue || DefaultPageInfo) as PageInfo)
   },
   size: props.defaultSize
 })
+const __tableData = computed(() => props.tableData || props.data)
 
 const slots = useSlots()
 /**
@@ -404,7 +339,7 @@ const handleFormChange = (data: FormChangeCallBackParams) => {
 const currentForm = ref()
 
 const handleCellEdit = (row: RecordType, column: PlusColumn, type: 'click' | 'dblclick') => {
-  const rowIndex = props.tableData.indexOf(row)
+  const rowIndex = __tableData.value.indexOf(row)
   const columnIndex = column.index
   const columnConfig = subColumns.value[column.index]
 

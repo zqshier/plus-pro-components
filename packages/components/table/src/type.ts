@@ -1,5 +1,3 @@
-import type { RecordType, PageInfo, FieldValueType } from '@plus-pro-components/types'
-import type { ComponentSize } from 'element-plus/es/constants'
 import type {
   ElForm,
   ElFormItem,
@@ -8,11 +6,22 @@ import type {
   LinkProps,
   IconProps,
   ElTooltipProps,
-  TableColumnCtx
+  TableColumnCtx,
+  TableProps
 } from 'element-plus'
-import type { Component, Ref, ComputedRef, AppContext, DirectiveArguments } from 'vue'
+import type {
+  Component,
+  Ref,
+  ComputedRef,
+  AppContext,
+  DirectiveArguments,
+  CSSProperties
+} from 'vue'
 import type { Options as SortableOptions } from 'sortablejs'
 import type { Mutable } from 'element-plus/es/utils'
+import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
+import type { RecordType, PageInfo, FieldValueType, PlusColumn } from '@plus-pro-components/types'
+import type { ComponentSize } from 'element-plus/es/constants'
 
 /**
  * 表格操作栏按钮配置项的值的类型
@@ -291,7 +300,7 @@ export interface ActionBarProps {
 /**
  * 表格自身状态
  */
-export interface TableState {
+export interface PlusTableState {
   size?: ComponentSize
 
   /**
@@ -342,3 +351,115 @@ export type TitleBar = Partial<{
     color?: string
   }
 }>
+
+/**
+ * 表格props
+ */
+export type PlusTableSelfProps = {
+  /** 表格数据 同data*/
+  tableData?: RecordType[]
+  /** 表格配置信息*/
+  columns?: PlusColumn[]
+  // 密度
+  defaultSize?: ComponentSize
+  /** 分页参数*/
+  pagination?: false | Partial<PlusPaginationProps>
+  /** 操作栏参数*/
+  actionBar?: false | Partial<ActionBarProps>
+  /** 是否需要序号*/
+  hasIndexColumn?: boolean
+  /** 是否工具栏*/
+  titleBar?: boolean | Partial<TitleBar>
+  /** 是否是多选表格*/
+  isSelection?: boolean
+  /** 是否需要展开行*/
+  hasExpand?: boolean
+  /** loading状态*/
+  loadingStatus?: boolean
+  /** 表格头样式*/
+  headerCellStyle?: Partial<TableProps<any[]>['headerCellStyle']>
+  /** sortablejs配置 */
+  dragSortable?: false | Partial<SortableOptions>
+  dragSortableTableColumnProps?: RecordType
+  indexTableColumnProps?: RecordType
+  selectionTableColumnProps?: RecordType
+  expandTableColumnProps?: RecordType
+  indexContentStyle?:
+    | Partial<CSSProperties>
+    | ((row: RecordType, index: number) => Partial<CSSProperties>)
+  editable?: boolean | 'click' | 'dblclick'
+} & Partial<TableProps<any[]>>
+
+export type PlusTableProps = PlusTableSelfProps & RecordType
+
+/**
+ * fork  https://github.com/element-plus/element-plus/blob/dev/packages/components/table/src/table.vue#L203-L222
+ *
+ */
+export type ElementPlusTableEmits = {
+  (e: 'select', selection: RecordType[], row: RecordType): void
+  (e: 'select-all', selection: RecordType[]): void
+  (e: 'selection-change', newSelection: any[]): void
+  (
+    e: 'cell-mouse-enter',
+    row: RecordType,
+    column: RecordType,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
+  (
+    e: 'cell-mouse-leave',
+    row: RecordType,
+    column: RecordType,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): any
+  (
+    e: 'cell-contextmenu',
+    row: RecordType,
+    column: RecordType,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
+  // (e: 'cell-click', ...args: any[]): any
+  // (e: 'cell-dblclick', ...args: any[]): any
+  (e: 'row-click', row: RecordType, column: RecordType, event: Event): void
+  (e: 'row-contextmenu', row: RecordType, column: RecordType, event: Event): void
+  (e: 'row-dblclick', row: RecordType, column: RecordType, event: Event): void
+  (e: 'header-click', column: RecordType, event: Event): void
+  (e: 'header-contextmenu', column: RecordType, event: Event): void
+  (e: 'sort-change', data: { column: any; prop: string; order: any }): void
+  (e: 'filter-change', newFilters: any): void
+  (e: 'current-change', currentRow: RecordType, oldCurrentRow: RecordType): void
+  (
+    e: 'header-dragend',
+    newWidth: number,
+    oldWidth: number,
+    column: RecordType,
+    event: MouseEvent
+  ): void
+  (e: 'expand-change', row: RecordType, expandedRows: RecordType[], expanded: boolean): void
+}
+export type PlusTableEmits = {
+  (e: 'paginationChange', pageInfo: PageInfo): void
+  (e: 'clickAction', data: ButtonsCallBackParams): void
+  (e: 'clickActionConfirmCancel', data: ButtonsCallBackParams): void
+  (e: 'dragSortEnd', newIndex: number, oldIndex: number): void
+  (e: 'formChange', data: FormChangeCallBackParams): void
+  (e: 'refresh'): void
+  (e: 'edited'): void
+  (
+    e: 'cell-click',
+    row: RecordType,
+    column: PlusColumn,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
+  (
+    e: 'cell-dblclick',
+    row: RecordType,
+    column: PlusColumn,
+    cell: HTMLTableCellElement,
+    event: Event
+  ): void
+} & ElementPlusTableEmits

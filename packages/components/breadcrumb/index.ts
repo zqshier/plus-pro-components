@@ -1,5 +1,5 @@
 import Breadcrumb from './src/index.vue'
 
-export type { PlusBreadcrumbProps } from './src/index.vue'
+export * from './src/type'
 
 export const PlusBreadcrumb = Breadcrumb
