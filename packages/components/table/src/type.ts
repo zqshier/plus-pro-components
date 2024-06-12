@@ -358,6 +358,11 @@ export type TitleBar = Partial<{
 export type PlusTableSelfProps = {
   /** 表格数据 同data*/
   tableData?: RecordType[]
+  /**
+   * 表格数据  同tableData
+   * @version 0.1.10
+   */
+  data?: RecordType[]
   /** 表格配置信息*/
   columns?: PlusColumn[]
   // 密度

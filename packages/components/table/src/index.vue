@@ -172,18 +172,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  reactive,
-  toRefs,
-  watch,
-  ref,
-  provide,
-  shallowRef,
-  useSlots,
-  useAttrs,
-  unref,
-  computed
-} from 'vue'
+import { reactive, toRefs, watch, ref, provide, shallowRef, useSlots, unref, computed } from 'vue'
 import type { PlusPaginationProps } from '@plus-pro-components/components/pagination'
 import { PlusPagination } from '@plus-pro-components/components/pagination'
 import {
@@ -270,8 +259,6 @@ const __tableData: ComputedRef<RecordType[]> = computed(() =>
 )
 
 const slots = useSlots()
-
-console.log(useAttrs(), 'useAttrs')
 
 /**
  * 表格单元格的插槽
