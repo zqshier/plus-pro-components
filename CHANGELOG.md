@@ -1,3 +1,15 @@
+## [v0.1.10](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.9...v0.1.10) (2024-06-12)
+
+### ✨ Features
+
+- **components:** :sparkles: table add data props,equivalent to tableData([561c4c5](https://github.com/plus-pro-components/plus-pro-components/commit/561c4c5)) by@xiaofei
+- **components:** :sparkles: \_\_tableData add ComputedRef<RecordType[]> type([cefe478](https://github.com/plus-pro-components/plus-pro-components/commit/cefe478)) by@xiaofei
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: fix table attrs invalid([8e1c86c](https://github.com/plus-pro-components/plus-pro-components/commit/8e1c86c)) by@xiaofei
+- **components:** :bug: fix form attrs invalid([9da4ca6](https://github.com/plus-pro-components/plus-pro-components/commit/9da4ca6)) by@xiaofei
+
 ## [v0.1.9](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.8...v0.1.9) (2024-06-11)
 
 ### ✨ Features
