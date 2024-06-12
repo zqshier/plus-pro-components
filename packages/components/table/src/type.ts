@@ -376,8 +376,10 @@ export type PlusTableSelfProps = {
   hasExpand?: boolean
   /** loading状态*/
   loadingStatus?: boolean
+  height?: TableProps<any[]>['height']
   /** 表格头样式*/
   headerCellStyle?: Partial<TableProps<any[]>['headerCellStyle']>
+  rowKey?: TableProps<any[]>['rowKey']
   /** sortablejs配置 */
   dragSortable?: false | Partial<SortableOptions>
   dragSortableTableColumnProps?: RecordType
@@ -388,9 +390,9 @@ export type PlusTableSelfProps = {
     | Partial<CSSProperties>
     | ((row: RecordType, index: number) => Partial<CSSProperties>)
   editable?: boolean | 'click' | 'dblclick'
-} & Partial<TableProps<any[]>>
+}
 
-export type PlusTableProps = PlusTableSelfProps & RecordType
+export type PlusTableProps = PlusTableSelfProps & Partial<TableProps<any[]>> & RecordType
 
 /**
  * fork  https://github.com/element-plus/element-plus/blob/dev/packages/components/table/src/table.vue#L203-L222
