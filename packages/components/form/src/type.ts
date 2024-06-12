@@ -92,8 +92,11 @@ export type PlusFormSelfProps = {
   modelValue?: FieldValues
   defaultValues?: FieldValues
   columns?: PlusColumn[]
+  labelWidth?: ElementPlusFormProps['labelWidth']
+  labelPosition?: ElementPlusFormProps['labelPosition']
   rowProps?: Partial<Mutable<RowProps>>
   colProps?: Partial<Mutable<ColProps>>
+  labelSuffix?: ElementPlusFormProps['labelSuffix']
   hasErrorTip?: boolean
   hasFooter?: boolean
   hasReset?: boolean
@@ -102,11 +105,12 @@ export type PlusFormSelfProps = {
   resetText?: string
   submitLoading?: boolean
   footerAlign?: 'left' | 'right' | 'center'
+  rules?: ElementPlusFormProps['rules']
   group?: false | PlusFormGroupRow[]
   cardProps?: Partial<Mutable<CardProps>>
-} & Partial<ElementPlusFormProps>
+}
 
-export type PlusFormProps = PlusFormSelfProps & RecordType
+export type PlusFormProps = PlusFormSelfProps & Partial<ElementPlusFormProps> & RecordType
 
 export interface PlusFormState {
   values: FieldValues
