@@ -5,6 +5,8 @@
  * @param timeout 默认`1000`ms，没响应则认为打开失败
  */
 export const openExe = (protocol: string, event: Event, timeout = 1000): Promise<FocusEvent> => {
+  event.stopPropagation()
+  event.preventDefault()
   window.location.href = protocol
   const target = event.target as EventTarget & {
     localName: string
