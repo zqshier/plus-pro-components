@@ -469,4 +469,4 @@ export type PlusTableEmits = {
     cell: HTMLTableCellElement,
     event: Event
   ): void
-} & ElementPlusTableEmits
+}
