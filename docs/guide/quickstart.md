@@ -12,6 +12,8 @@
 
 在开始使用` PlusProComponents` 之前，有必要先了解以下基础知识，我们假设您已经写过 `Vue 3`，并掌握了下面的内容。
 
+- [ES6+](https://es6.ruanyifeng.com/)
+
 - [Vue 组件](https://cn.vuejs.org/guide/essentials/component-basics.html)
 
 - [单文件组件](https://cn.vuejs.org/guide/scaling-up/sfc.html)
