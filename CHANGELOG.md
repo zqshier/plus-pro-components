@@ -1,3 +1,11 @@
+## [v0.1.11](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.10...v0.1.11) (2024-06-13)
+
+### 🐛 Bug Fixes
+
+- **components:** :bug: fix form validate event invalid([c858ad0](https://github.com/plus-pro-components/plus-pro-components/commit/c858ad0)) by@xiaofei
+- **components:** :bug: fix PlusTable @selection-change event invalid([808e6ca](https://github.com/plus-pro-components/plus-pro-components/commit/808e6ca)) by@xiaofei
+- **utils:** :bug: fix openExe cancelBubble([1cb9bca](https://github.com/plus-pro-components/plus-pro-components/commit/1cb9bca)) by@xiaofei
+
 ## [v0.1.10](https://github.com/plus-pro-components/plus-pro-components/compare/v0.1.9...v0.1.10) (2024-06-12)
 
 ### ✨ Features
