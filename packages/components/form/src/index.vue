@@ -10,6 +10,7 @@
     :label-suffix="hasLabel ? labelSuffix : ''"
     v-bind="$attrs"
     :model="model"
+    @validate="handleValidate"
   >
     <slot>
       <!-- 分组表单 -->
@@ -244,6 +245,10 @@ const handleReset = (): void => {
   values.value = { ...props.defaultValues }
   emit('update:modelValue', values.value)
   emit('reset', values.value)
+}
+
+const handleValidate = (...args: any[]): void => {
+  emit('validate', ...args)
 }
 
 defineExpose({
