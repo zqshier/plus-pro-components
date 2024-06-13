@@ -39,7 +39,14 @@ const rules = {
       required: true,
       message: '请输入标签'
     }
-  ]
+  ],
+  status: [
+    {
+      required: true,
+      message: 'Please select Activity zone',
+      trigger: 'change',
+    },
+  ],
 }
 
 const columns: PlusColumn[] = [
