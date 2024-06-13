@@ -99,6 +99,10 @@ export default defineConfig({
             link: '/guide/upgrade'
           },
           {
+            text: '推荐版本',
+            link: '/guide/changelog.html#推荐版本'
+          },
+          {
             text: '历史版本',
             link: 'https://github.com/plus-pro-components/plus-pro-components/releases'
           },
